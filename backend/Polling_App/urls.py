@@ -8,4 +8,5 @@ urlpatterns = [
     path('questions/', include('questions.api.urls')),
     path('answers/', include('questions.api.urls')),
     path('triggers/', include('questions.api.urls')),
+    path('results/', include('results_exporter.api.urls')),
 ]

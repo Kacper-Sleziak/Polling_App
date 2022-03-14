@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'polls',
     'questions',
     'answers',
-    'triggers'
+    'triggers',
+    'results_exporter'
 ]
 
 MIDDLEWARE = [
