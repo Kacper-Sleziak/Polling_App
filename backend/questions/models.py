@@ -1,3 +1,10 @@
 from django.db import models
 
-# Create your models here.
+class Question(models.Model):
+    pass
+
+class QuestionType(models.Model):
+    pass
+
+class Option(models.Model):
+    pass
