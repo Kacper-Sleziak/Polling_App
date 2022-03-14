@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     'corsheaders',
     
     #Project Apps 
-    'Account',
-    'Polls'
+    'account',
+    'polls',
+    'questions',
+    'answers',
+    'triggers'
 ]
 
 MIDDLEWARE = [
