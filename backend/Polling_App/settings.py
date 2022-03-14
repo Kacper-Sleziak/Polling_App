@@ -88,6 +88,8 @@ WSGI_APPLICATION = 'Polling_App.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+AUTH_USER_MODEL = "account.Account"
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
