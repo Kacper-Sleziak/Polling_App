@@ -1,5 +1,5 @@
 from django.db import models
-from polls import models as polls_models
+from polls.models import Poll as PollModel
 
 
 class QuestionType(models.Model):
@@ -9,7 +9,7 @@ class QuestionType(models.Model):
 class Question(models.Model):
     content = models.TextField(default="Content", max_length=2000)
     poll_ID = models.ForeignKey(
-        polls_models.Poll, on_delete=models.CASCADE, verbose_name="poll ID")
+        PollModel, on_delete=models.CASCADE, verbose_name="poll ID")
     question_ID = models.ForeignKey(
         QuestionType, on_delete=models.CASCADE, verbose_name="question ID")
 

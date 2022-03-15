@@ -1,5 +1,5 @@
 from django.db import models
-from account import models as account_models
+from account.models import Account as AccountModel
 
 
 class Poll(models.Model):
@@ -16,4 +16,4 @@ class Poll(models.Model):
     filling = models.IntegerField(default=0)
     sent = models.IntegerField(default=0)
     author_ID = models.ForeignKey(
-        account_models.Account, on_delete=models.CASCADE, verbose_name="author ID")
+        AccountModel, on_delete=models.CASCADE, verbose_name="author ID")
