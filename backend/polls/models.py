@@ -15,5 +15,5 @@ class Poll(models.Model):
         auto_now=True, verbose_name="create date")
     filling = models.IntegerField(default=0)
     sent = models.IntegerField(default=0)
-    author_ID = models.ForeignKey(
+    author = models.ForeignKey(
         AccountModel, on_delete=models.CASCADE, verbose_name="author ID")
