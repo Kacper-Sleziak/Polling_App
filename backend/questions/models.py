@@ -1,10 +1,20 @@
 from django.db import models
+from polls.models import Poll as PollModel
 
-class Question(models.Model):
-    pass
 
 class QuestionType(models.Model):
-    pass
+    type_name = models.TextField(max_length=2000, default="New question type")
+
+
+class Question(models.Model):
+    content = models.TextField(default="Content", max_length=2000)
+    poll = models.ForeignKey(
+        PollModel, on_delete=models.CASCADE, verbose_name="poll ID")
+    question_type = models.ForeignKey(
+        QuestionType, on_delete=models.CASCADE, verbose_name="question ID")
+
 
 class Option(models.Model):
-    pass
+    content = models.TextField(default="Option", max_length=2000)
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, verbose_name="question ID")
