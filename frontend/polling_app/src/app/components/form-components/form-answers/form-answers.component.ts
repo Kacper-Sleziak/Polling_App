@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Answer} from 'src/app/models/answer';
-import { QuestionType } from 'src/app/models/question';
+import { Answer} from 'src/app/models/form-models/answer';
+import { QuestionType } from 'src/app/models/form-models/question';
 
 @Component({
   selector: 'app-form-answers',

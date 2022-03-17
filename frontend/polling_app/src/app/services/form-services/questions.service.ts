@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { Answer } from '../models/answer';
-import { Question, QuestionType } from '../models/question';
+import { Answer } from '../../models/form-models/answer';
+import { Question, QuestionType } from '../../models/form-models/question';
 
 @Injectable({
   providedIn: 'root'

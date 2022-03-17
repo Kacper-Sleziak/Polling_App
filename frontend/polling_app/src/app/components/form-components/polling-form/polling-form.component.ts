@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { Question } from 'src/app/models/question';
-import { QuestionsService } from 'src/app/services/questions.service';
+import { Question } from 'src/app/models/form-models/question';
+import { QuestionsService } from 'src/app/services/form-services/questions.service';
 
 @Component({
   selector: 'app-polling-form',
