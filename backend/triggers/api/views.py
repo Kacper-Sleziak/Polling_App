@@ -26,7 +26,53 @@ class CreateTriggerView(APIView):
             return Response({'error': "Questions come from different polls!"}, 
                             status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+# [GET, DELETE] Trigger View
+class TriggerView(APIView):
+    serializer_class = TriggerSerializer
+    
+    def get_trigger(self, pk):
+        queryset = Trigger.objects.filter(id=pk)
         
+        if queryset.exists():
+            trigger = queryset[0]
+            return trigger
+        else:
+            return 0
+    
+    def get(self, request, pk, format=None):
+        serializer = self.serializer_class
+        trigger = self.get_trigger(pk)
+        
+        if trigger !=0:
+            return Response(serializer(trigger).data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+            
+    
+    def delete(self, request, pk, format=None):
+        trigger = self.get_trigger(pk)
+        
+        if trigger !=0:
+            trigger.delete()
+            trigger.save()
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    def put(self, request, pk, format=None):
+        serializer = self.serializer_class(data=request.data)
+        trigger = self.get_trigger(pk)
+        
+        if trigger !=0:
+            if serializer.is_valid():
+                serializer.update(trigger, serializer.validated_data)
+                return Response(self.serializer_class(trigger).data, status.HTTP_200_OK)
+            return Response(staus=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+        
+
+
+
         
         
 
