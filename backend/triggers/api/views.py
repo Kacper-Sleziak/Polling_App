@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status, generics
 
 from triggers.models import Trigger
+from questions.models import Question
 from triggers.api.serializers import TriggerSerializer
 
 # [POST] Creating Trigger 
@@ -68,6 +69,31 @@ class TriggerView(APIView):
                 return Response(self.serializer_class(trigger).data, status.HTTP_200_OK)
             return Response(staus=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# [GET] Get all triggers for given question view
+class GetTriggersForQuestion(APIView):
+    serializer_class = TriggerSerializer
+    
+    def get_question(self, pk):
+        queryset = Question.objects.filter(id=pk)
+        
+        if queryset.exists():
+            question = queryset[0]
+            return question
+        else:
+            return 0
+        
+    def get(self, request, pk, format=None):
+        serializer = self.serializer_class
+        
+        if self.get_question(pk) !=0:
+            triggers = Trigger.objects.filter(triggered_question=pk)
+            if triggers.exists():
+                response_data = serializer(triggers, many=True).data
+                return Response(response_data, status=status.HTTP_200_OK)
+            return Response({'triggers': 'no triggers for this question'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'email': 'there is no email with given id'}, status=status.HTTP_204_NO_CONTENT)
+        
 
         
 
