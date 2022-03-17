@@ -39,6 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    
+    #Project Apps 
+    'account',
+    'polls',
+    'questions',
+    'answers',
+    'triggers',
+    'results_exporter'
 ]
 
 MIDDLEWARE = [
@@ -80,6 +88,8 @@ WSGI_APPLICATION = 'Polling_App.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+AUTH_USER_MODEL = "account.Account"
 
 DATABASES = {
     'default': {
