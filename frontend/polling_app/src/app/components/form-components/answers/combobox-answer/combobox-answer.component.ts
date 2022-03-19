@@ -8,6 +8,5 @@ import { AnswerComponent } from '../answer/answer.component';
   styleUrls: ['./combobox-answer.component.css']
 })
 export class ComboboxAnswerComponent extends AnswerComponent {
-  @Input() answers: Answer[] = [];
 
 }
