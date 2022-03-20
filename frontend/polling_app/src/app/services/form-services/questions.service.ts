@@ -11,10 +11,9 @@ export class QuestionsService {
   questions: Question[] = [];
 
   constructor() {
-    for(let i: number = 0; i < 5; i++){
       this.questions.push(
         new Question(
-          "Pytanie " + i, 
+          "Pytanie wielokrotnego wyboru", 
           [new Answer("Odpowiedź 1"), 
           new Answer("Odpowiedź 2"), 
           new Answer("Odpowiedź 3"), 
@@ -24,7 +23,7 @@ export class QuestionsService {
 
       this.questions.push(
         new Question(
-          "Pytanie " + i + " combo", 
+          "Pytanie jednokrotnego wyboru combo", 
           [new Answer("Odpowiedź 1"), 
           new Answer("Odpowiedź 2"), 
           new Answer("Odpowiedź 3"), 
@@ -32,7 +31,51 @@ export class QuestionsService {
           QuestionType.Combobox
         )
       )
-    }
+
+      this.questions.push(
+        new Question(
+          "Pytanie jednokrotnego wyboru radio", 
+          [new Answer("Odpowiedź 1"), 
+          new Answer("Odpowiedź 2"), 
+          new Answer("Odpowiedź 3"), 
+          new Answer("Odpowiedź 4")],
+          QuestionType.Radio
+        )
+      )
+
+      this.questions.push(
+        new Question(
+          "Pytanie prawda/fałsz", 
+          [new Answer("Odpowiedź 1"), 
+          new Answer("Odpowiedź 2"), 
+          new Answer("Odpowiedź 3"), 
+          new Answer("Odpowiedź 4")],
+          QuestionType.TrueFalse
+        )
+      )
+
+      this.questions.push(
+        new Question(
+          "Pytanie odpowiedź długa", 
+          [new Answer("Odpowiedź 1"), 
+          new Answer("Odpowiedź 2"), 
+          new Answer("Odpowiedź 3"), 
+          new Answer("Odpowiedź 4")],
+          QuestionType.LongText
+        )
+      )
+
+      this.questions.push(
+        new Question(
+          "Pytanie odpowiedź krótka", 
+          [new Answer("Odpowiedź 1"), 
+          new Answer("Odpowiedź 2"), 
+          new Answer("Odpowiedź 3"), 
+          new Answer("Odpowiedź 4")],
+          QuestionType.ShortText
+        )
+      )
+    
   }
 
   getQuestions(): Observable<Question[]>{
