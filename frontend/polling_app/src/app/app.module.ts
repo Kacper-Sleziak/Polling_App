@@ -22,7 +22,8 @@ import { ComboboxAnswerComponent } from './components/form-components/answers/co
 import { FormAnswersComponent } from './components/form-components/form-answers/form-answers.component';
 import { TextAnswerComponent } from './components/form-components/answers/text-answer/text-answer.component';
 import { TrueOrFalseAnswerComponent } from './components/form-components/answers/true-or-false-answer/true-or-false-answer.component';
-import { RadioAnswerComponent } from './components/form-components/answers/radio-answer/radio-answer.component'
+import { RadioAnswerComponent } from './components/form-components/answers/radio-answer/radio-answer.component';
+import { ShortTextAnswerComponent } from './components/form-components/answers/short-text-answer/short-text-answer.component'
 
 
 const appRoutes: Routes = [{
@@ -42,7 +43,8 @@ const appRoutes: Routes = [{
     FormAnswersComponent,
     TextAnswerComponent,
     TrueOrFalseAnswerComponent,
-    RadioAnswerComponent
+    RadioAnswerComponent,
+    ShortTextAnswerComponent
   ],
   imports: [
     BrowserModule,
