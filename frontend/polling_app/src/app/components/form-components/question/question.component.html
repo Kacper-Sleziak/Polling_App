@@ -1,4 +1,10 @@
-<div id="question">
-<h3>{{question.question}}</h3>
+
+<div class="question">
+<mat-card>
+
+<mat-card-content>
+    <h3>{{question.question}}</h3>
 <app-form-answers [answers] = "question.answers" [type] = "question.type"></app-form-answers>
+</mat-card-content>
+</mat-card>
 </div>

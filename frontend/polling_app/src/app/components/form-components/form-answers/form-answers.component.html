@@ -1,4 +1,3 @@
-
 <div class="answers" [ngSwitch]="type">
     <app-checkbox-answer *ngSwitchCase="questionType.Checkbox" [answers]="answers" ></app-checkbox-answer>
     <app-combobox-answer *ngSwitchCase="questionType.Combobox" [answers]="answers"></app-combobox-answer>
