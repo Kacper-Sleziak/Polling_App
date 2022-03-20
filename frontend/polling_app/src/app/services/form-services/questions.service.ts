@@ -35,10 +35,10 @@ export class QuestionsService {
       this.questions.push(
         new Question(
           "Pytanie jednokrotnego wyboru radio", 
-          [new Answer("Odpowiedź 1"), 
-          new Answer("Odpowiedź 2"), 
-          new Answer("Odpowiedź 3"), 
-          new Answer("Odpowiedź 4")],
+          [new Answer("Odpowiedź 1", QuestionType.Radio), 
+          new Answer("Odpowiedź 2", QuestionType.Radio), 
+          new Answer("Odpowiedź 3", QuestionType.Radio), 
+          new Answer("Odpowiedź 4", QuestionType.Radio)],
           QuestionType.Radio
         )
       )
