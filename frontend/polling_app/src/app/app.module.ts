@@ -14,6 +14,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio'
+import {MatSlideToggleModule} from '@angular/material/slide-toggle'
 import { CheckboxAnswerComponent } from './components/form-components/answers/checkbox-answer/checkbox-answer.component';
 import { ComboboxAnswerComponent } from './components/form-components/answers/combobox-answer/combobox-answer.component';
 import { FormAnswersComponent } from './components/form-components/form-answers/form-answers.component';
@@ -50,7 +51,8 @@ const appRoutes: Routes = [{
     MatCheckboxModule,
     MatButtonModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
