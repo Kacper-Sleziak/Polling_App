@@ -1,6 +1,9 @@
-from django.forms import CharField
-from rest_framework.serializers import Serializer, ListField
+from email import message
+from rest_framework import serializers
 
-class EmailSerializer(Serializer):
-    emails = ListField()
-    message = CharField(min_length=1)
+class EmailSerializer(serializers.Serializer):
+    message = serializers.CharField()
+    slug = serializers.CharField(max_length=50)
+    emails = serializers.ListField(
+        child=serializers.EmailField()
+    )

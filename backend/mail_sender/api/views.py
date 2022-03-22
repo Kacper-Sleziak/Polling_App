@@ -9,10 +9,15 @@ from mail_sender.api.serializer import EmailSerializer
 
 class PostEmailAdressAndSendMail(APIView):
 
-    def post(self):
-        serializer = EmailSerializer(data=request.data, many=True)
+    def post(self, request):
+        serializer = EmailSerializer(data=request.data)
+
         if serializer.is_valid():
             emails = serializer.data['emails']
             message = serializer.data['message']
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            slug = serializer.data['slug']
+                
+            #send_mass_mail()
+            
+            return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
