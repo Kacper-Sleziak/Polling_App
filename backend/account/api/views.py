@@ -25,7 +25,8 @@ class LoginView(APIView):
                 if user.check_password(password):
                     serializer = AccountSerializer(user)
                     return Response(serializer.data, status=status.HTTP_200_OK)
-            return Response({'error': "Email or password is not correct!"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': "Email or password is not correct!"}, 
+                            status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # [GET] Get all accounts .
@@ -41,12 +42,12 @@ class AccountsView(generics.ListAPIView):
 
 class CreateAccountView(APIView):
     serializer_class = CreateAccountSerializer
-    
+
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
-        
+
         if serializer.is_valid():
             account = serializer.save()
 
-            return Response(AccountSerializer(account).data , status=status.HTTP_200_OK)
+            return Response(AccountSerializer(account).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
