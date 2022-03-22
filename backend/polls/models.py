@@ -6,7 +6,7 @@ class Poll(models.Model):
     title = models.TextField(default="New poll", max_length=50)
     description = models.TextField(max_length=250, blank=True, null=True)
     is_active = models.BooleanField(default=False, verbose_name="is active")
-    slug = models.TextField(max_length=50, null=True)
+    slug = models.TextField(max_length=50, null=True, editable=False)
     start_date = models.DateTimeField(
         blank=True, null=True, verbose_name="start date")
     end_date = models.DateTimeField(
