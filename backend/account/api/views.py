@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
 
-from account.api.serializers import LoginSerializer, AccountSerializer
-from account.models import Account
+from account.api.serializers import LoginSerializer, AccountSerializer, CreateAccountSerializer
+from account.models import Account as AccountModel
 
 # [POST] Login API View
 
@@ -17,7 +17,7 @@ class LoginView(APIView):
         if serializer.is_valid():
             email = serializer.validated_data['email']
             password = serializer.validated_data['password']
-            queryset = Account.objects.all().filter(email=email)
+            queryset = AccountModel.objects.all().filter(email=email)
 
             # Check if user with given email exists
             if queryset.exists():
@@ -32,5 +32,21 @@ class LoginView(APIView):
 
 
 class AccountsView(generics.ListAPIView):
-    queryset = Account.objects.all()
+    queryset = AccountModel.objects.all()
     serializer_class = AccountSerializer
+
+
+# [POST] View Creating Account by post request
+
+
+class CreateAccountView(APIView):
+    serializer_class = CreateAccountSerializer
+    
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        
+        if serializer.is_valid():
+            account = serializer.save()
+
+            return Response(AccountSerializer(account).data , status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
