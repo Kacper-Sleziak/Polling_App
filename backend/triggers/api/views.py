@@ -40,7 +40,10 @@ class TriggerView(APIView):
         trigger = self.get_trigger(pk)
 
         if trigger != 0:
-            return Response(serializer(trigger).data, status=status.HTTP_200_OK)
+            return Response(
+                serializer(trigger).data,
+                status=status.HTTP_200_OK)
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk, format=None):
@@ -59,8 +62,11 @@ class TriggerView(APIView):
         if trigger != 0:
             if serializer.is_valid():
                 serializer.update(trigger, serializer.validated_data)
-                return Response(self.serializer_class(trigger).data, status.HTTP_200_OK)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    self.serializer_class(trigger).data,
+                    status.HTTP_200_OK)
+            return Response(staus=status.HTTP_400_BAD_REQUEST)
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # [GET] Get all triggers for given question view
@@ -86,5 +92,7 @@ class GetTriggersForQuestion(APIView):
             if triggers.exists():
                 response_data = serializer(triggers, many=True).data
                 return Response(response_data, status=status.HTTP_200_OK)
-            return Response({'triggers': 'no triggers for this question'}, status=status.HTTP_204_NO_CONTENT)
-        return Response({'email': 'there is no email with given id'}, status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                {'triggers': 'no triggers for this question'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'email': 'there is no email with given id'},
+                        status=status.HTTP_204_NO_CONTENT)

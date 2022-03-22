@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'questions',
     'answers',
     'triggers',
-    'results_exporter'
+    'results_exporter',
+    'mail_sender'
 ]
 
 MIDDLEWARE = [
