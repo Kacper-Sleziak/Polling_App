@@ -1,3 +1,18 @@
-from django.shortcuts import render
+from urllib import request
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.core.mail import send_mass_mail
+from mail_sender.api.serializer import EmailSerializer
 
-# Create your views here.
+# [POST] 
+
+class PostEmailAdressAndSendMail(APIView):
+
+    def post(self):
+        serializer = EmailSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            emails = serializer.data['emails']
+            message = serializer.data['message']
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
