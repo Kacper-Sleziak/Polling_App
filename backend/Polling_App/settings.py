@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    
-    #Project Apps 
+
+    #Project Apps
     'account',
     'polls',
     'questions',
@@ -63,7 +63,7 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER' : 'Polling_App.utils.exception_handler',
+    'EXCEPTION_HANDLER': 'Polling_App.utils.exception_handler',
 }
 
 CORS_ALLOWED_ORIGINS = [
