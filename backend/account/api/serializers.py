@@ -2,13 +2,15 @@ from rest_framework.serializers import ModelSerializer
 from django.core.validators import EmailValidator
 from account.models import Account
 
+
 class LoginSerializer(ModelSerializer):
     class Meta:
         model = Account
-        fields = ('email' ,'password')
+        fields = ('email', 'password')
         extra_kwargs = {
-            'email': {'validators': [EmailValidator,]},
+            'email': {'validators': [EmailValidator, ]},
         }
+
 
 class AccountSerializer(ModelSerializer):
     class Meta:

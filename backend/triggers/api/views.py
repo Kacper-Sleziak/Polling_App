@@ -43,6 +43,7 @@ class TriggerView(APIView):
             return Response(
                 serializer(trigger).data,
                 status=status.HTTP_200_OK)
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk, format=None):
@@ -65,6 +66,7 @@ class TriggerView(APIView):
                     self.serializer_class(trigger).data,
                     status.HTTP_200_OK)
             return Response(staus=status.HTTP_400_BAD_REQUEST)
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # [GET] Get all triggers for given question view

@@ -23,8 +23,7 @@ class Trigger(models.Model):
                 {'triggering_question': 'Triggers must be related with same poll!'})
 
         # Checking if 2 questions are triggering each other
-        # For example question1 is triggeringg question2 and question2 is
-        # triggering question2
+        # For example question1 is triggering question2 and question2 is triggering question2
         queryset = Trigger.objects.filter(
             triggering_question=self.triggered_question)
         if queryset.exists():
