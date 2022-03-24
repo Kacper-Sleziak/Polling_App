@@ -34,3 +34,6 @@ class Poll(models.Model):
 
     author = models.ForeignKey(
         AccountModel, on_delete=models.CASCADE, verbose_name="author ID")
+
+    def __str__(self):
+        return self.title
