@@ -1,0 +1,152 @@
+mat-tab-group{
+    padding-top: 2rem;
+    margin: auto;
+    width: 34.375rem;
+}
+
+
+::ng-deep .mat-tab-label-container{
+    justify-content: center;
+    height: 1.875rem;
+}
+
+
+::ng-deep .mat-tab-label{
+    padding: 0px !important;
+    height: 1.875rem !important;
+    min-width: 6.25rem !important; 
+    font-size: 0.875rem;
+}
+
+::ng-deep .mat-tab-label-active{
+    font-size: 1rem;
+}
+
+
+.table{
+    width: 68.75rem;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+.dot {
+    height: 0.625rem;
+    width: 0.625rem;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
+.red{
+    background-color: rgb(251, 96, 40);
+}
+
+.blue{
+    background-color: rgb(0, 157, 255);
+
+}
+.yellow{
+    background-color: rgb(255, 217, 0);
+}
+.green{
+    background-color: rgb(23, 240, 23);
+}
+
+.status{
+    display:flex;
+    align-items: center;
+}
+
+
+.icons-cell{
+    display: flex;
+    /* padding-left: 2rem;
+    padding-right: 1rem; */
+}
+
+.icons-cell a{
+    display:flex;
+    text-decoration: none;
+    align-items: center;
+}
+
+.icon:hover{
+    color: grey;
+}
+
+.mat-cell{
+    font-size: 0.75rem;
+}
+
+table{
+    width: 100%;
+    text-align: center !important;
+}
+
+
+::ng-deep .mat-sort-header-container{
+    justify-content: center;
+    padding-left: 1.25rem;
+    font-size: 0.875rem;
+}
+
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+    padding-left: 1rem;
+}
+
+.mat-column-name{
+    width:  15.625rem;
+    padding-left: 1rem;
+}
+
+.mat-column-startDate{
+    max-width: 5.25rem;
+    padding-left: 1rem;
+}
+
+.mat-column-endDate{
+    max-width: 5.25rem;
+    padding-left: 1rem;
+}
+
+.mat-column-status{
+    padding-left: 1.5rem;
+}
+
+.mat-column-filled{
+    padding-left: 1rem;
+}
+
+.mat-column-sent{
+    padding-left: 1rem;
+}
+
+.mat-column-buttons{
+    padding-left: 2rem;
+}
+
+.mat-column-actions{
+    padding-left: 1rem;
+}
+
+
+::ng-deep .mat-tooltip{
+    margin: 0px !important;
+    padding: 0px;
+}
+
+.mat-icon-button{
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 0px;
+}
+
+.material-icons{
+    font-size: 1.5rem;
+}
+
+.mat-row{
+    height: 3rem;
+}
