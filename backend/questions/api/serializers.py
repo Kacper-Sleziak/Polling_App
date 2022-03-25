@@ -6,7 +6,7 @@ from questions.models import QuestionType, Question, Option
 class QuestionTypeSerializer(ModelSerializer):
     class Meta:
         model = QuestionType
-        fields = ('type_name')
+        fields = ('type_name', )
 
 
 class QuestionSerializer(ModelSerializer):
