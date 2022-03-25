@@ -1,0 +1,33 @@
+mat-sidenav-container {
+    display: flex;
+    height: calc(100% - 64px - 64px);
+    width: 100%;
+    background-color: white;
+}
+
+/* Area with bookmars*/
+mat-sidenav{
+    text-align: center;
+    width: 250px;
+    background:white;
+    padding-top: 3rem;
+}
+
+/* Content area */
+mat-sidenav-content{
+    width: 100%;
+}
+
+mat-nav-list{
+    padding-top: 0px;
+}
+
+/* Place content of the bookmarks a little to the right */
+::ng-deep .mat-list-item-content{
+    padding-left: 2rem !important;
+    font-size: 1rem;
+}
+
+.bookmark-icon{
+    margin-right: 5px;
+}
