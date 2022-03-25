@@ -1,4 +1,4 @@
-// Modules
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -6,10 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
 
-// App component
 import { AppComponent } from './app.component';
-//
-// Form components
 import { FormAnswersComponent } from './components/form-components/form-answers/form-answers.component';
 import { TextAnswerComponent } from './components/form-components/answers/text-answer/text-answer.component';
 import { TrueOrFalseAnswerComponent } from './components/form-components/answers/true-or-false-answer/true-or-false-answer.component';
@@ -21,12 +18,13 @@ import { QuestionComponent } from './components/form-components/question/questio
 import { AnswerComponent } from './components/form-components/answers/answer/answer.component';
 import { CheckboxAnswerComponent } from './components/form-components/answers/checkbox-answer/checkbox-answer.component';
 import { ComboboxAnswerComponent } from './components/form-components/answers/combobox-answer/combobox-answer.component';
-//
-//Shared components
 import { FooterComponent } from './components/shared-components/footer/footer.component';
 import { ToolbarComponent } from './components/shared-components/toolbar/toolbar.component';
-import { SideNavigatorComponent } from './components/shared-components/side-navigator/side-navigator.component'
-//
+import { SideNavigatorComponent } from './components/shared-components/side-navigator/side-navigator.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PollsComponent } from './pages/polls/polls.component';
+import { CreatePollComponent } from './pages/create-poll/create-poll.component'
+
 
 
 @NgModule({
@@ -45,7 +43,10 @@ import { SideNavigatorComponent } from './components/shared-components/side-navi
     ShortTextAnswerComponent,
     FooterComponent,
     ToolbarComponent,
-    SideNavigatorComponent
+    SideNavigatorComponent,
+    DashboardComponent,
+    PollsComponent,
+    CreatePollComponent
   ],
   imports: [
     BrowserModule,
