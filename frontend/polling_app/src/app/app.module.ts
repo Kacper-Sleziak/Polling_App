@@ -26,10 +26,6 @@ import { RadioAnswerComponent } from './components/form-components/answers/radio
 import { ShortTextAnswerComponent } from './components/form-components/answers/short-text-answer/short-text-answer.component'
 
 
-const appRoutes: Routes = [{
-  path: 'form', component: PollingFormComponent
-  },
-]
 
 @NgModule({
   declarations: [
@@ -49,7 +45,6 @@ const appRoutes: Routes = [{
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes, {enableTracing: true}),
     BrowserAnimationsModule,
     MatCardModule,
     MatCheckboxModule,
