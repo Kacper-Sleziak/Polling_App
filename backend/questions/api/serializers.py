@@ -1,6 +1,5 @@
-from dataclasses import fields
+from questions.models import Option, Question, QuestionType
 from rest_framework.serializers import ModelSerializer
-from questions.models import QuestionType, Question, Option
 
 
 class QuestionTypeSerializer(ModelSerializer):

@@ -1,5 +1,5 @@
-from django.db import models
 from account.models import Account as AccountModel
+from django.db import models
 
 
 class Poll(models.Model):
