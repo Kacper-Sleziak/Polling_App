@@ -7,7 +7,7 @@ import { Answer } from 'src/app/models/form-models/answer';
   styleUrls: ['./answer.component.css']
 })
 export class AnswerComponent implements OnInit {
-  @Input() answer!: Answer;
+  @Input() answers: Answer [] = [];
 
   constructor() { }
 

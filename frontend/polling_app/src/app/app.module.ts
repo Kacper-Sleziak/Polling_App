@@ -13,13 +13,21 @@ import {MatCardModule} from '@angular/material/card'
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio'
+import {MatSlideToggleModule} from '@angular/material/slide-toggle'
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatInputModule} from '@angular/material/input'
 import { CheckboxAnswerComponent } from './components/form-components/answers/checkbox-answer/checkbox-answer.component';
 import { ComboboxAnswerComponent } from './components/form-components/answers/combobox-answer/combobox-answer.component';
-import { FormAnswersComponent } from './components/form-components/form-answers/form-answers.component'
+import { FormAnswersComponent } from './components/form-components/form-answers/form-answers.component';
+import { TextAnswerComponent } from './components/form-components/answers/text-answer/text-answer.component';
+import { TrueOrFalseAnswerComponent } from './components/form-components/answers/true-or-false-answer/true-or-false-answer.component';
+import { RadioAnswerComponent } from './components/form-components/answers/radio-answer/radio-answer.component';
+import { ShortTextAnswerComponent } from './components/form-components/answers/short-text-answer/short-text-answer.component'
 
 
 const appRoutes: Routes = [{
-  path: '', component: PollingFormComponent
+  path: 'form', component: PollingFormComponent
   },
 ]
 
@@ -32,7 +40,11 @@ const appRoutes: Routes = [{
     AnswerComponent,
     CheckboxAnswerComponent,
     ComboboxAnswerComponent,
-    FormAnswersComponent
+    FormAnswersComponent,
+    TextAnswerComponent,
+    TrueOrFalseAnswerComponent,
+    RadioAnswerComponent,
+    ShortTextAnswerComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +54,11 @@ const appRoutes: Routes = [{
     MatCardModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

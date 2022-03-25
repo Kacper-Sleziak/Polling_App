@@ -1,9 +1,8 @@
-
-<div class="answer" *ngFor="let answer of answers">
-    <app-checkbox-answer *ngIf="type == questionType.Checkbox" [answer]="answer" ></app-checkbox-answer>
-
-</div>
-
-<div class="answer">
-<app-combobox-answer *ngIf="type == questionType.Combobox" [answers]="answers"></app-combobox-answer>
+<div class="answers" [ngSwitch]="type">
+    <app-checkbox-answer *ngSwitchCase="questionType.Checkbox" [answers]="answers" ></app-checkbox-answer>
+    <app-combobox-answer *ngSwitchCase="questionType.Combobox" [answers]="answers"></app-combobox-answer>
+    <app-short-text-answer *ngSwitchCase="questionType.ShortText" [answers]="answers"></app-short-text-answer>
+    <app-text-answer *ngSwitchCase="questionType.LongText" [answers]="answers"></app-text-answer>
+    <app-radio-answer *ngSwitchCase="questionType.Radio" [answers]="answers"></app-radio-answer>
+    <app-true-or-false-answer *ngSwitchCase="questionType.TrueFalse" [answers]="answers"></app-true-or-false-answer>
 </div>
