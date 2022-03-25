@@ -19,6 +19,9 @@ class PostEmailAdressAndSendMail(APIView):
             subject = serializer.validated_data["subject"]
             slug = serializer.data['slug']
             
+            message = message + f"\n Link do ankiety: Frontend/Ankiety/{slug}"
+            print(message)
+            
             # Host Email to configure           
             send_mail(
                 subject,
