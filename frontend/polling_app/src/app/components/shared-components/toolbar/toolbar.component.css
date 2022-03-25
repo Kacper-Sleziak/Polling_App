@@ -1,0 +1,15 @@
+.mat-toolbar{
+    padding-left: 2rem;
+    padding-right: 1rem;
+    justify-content: space-between;
+}
+
+a{
+    font-size: 1.25rem;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+}
+
+#logo{
+    font-size: 2rem;
+}
