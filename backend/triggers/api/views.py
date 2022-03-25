@@ -65,7 +65,7 @@ class TriggerView(APIView):
                 return Response(
                     self.serializer_class(trigger).data,
                     status.HTTP_200_OK)
-            return Response(staus=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
