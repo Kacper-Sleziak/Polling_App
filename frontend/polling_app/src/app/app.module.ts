@@ -23,7 +23,10 @@ import { FormAnswersComponent } from './components/form-components/form-answers/
 import { TextAnswerComponent } from './components/form-components/answers/text-answer/text-answer.component';
 import { TrueOrFalseAnswerComponent } from './components/form-components/answers/true-or-false-answer/true-or-false-answer.component';
 import { RadioAnswerComponent } from './components/form-components/answers/radio-answer/radio-answer.component';
-import { ShortTextAnswerComponent } from './components/form-components/answers/short-text-answer/short-text-answer.component'
+import { ShortTextAnswerComponent } from './components/form-components/answers/short-text-answer/short-text-answer.component';
+import { FooterComponent } from './components/shared-components/footer/footer.component';
+import { ToolbarComponent } from './components/shared-components/toolbar/toolbar.component';
+import { SideNavigatorComponent } from './components/shared-components/side-navigator/side-navigator.component'
 
 
 
@@ -40,7 +43,10 @@ import { ShortTextAnswerComponent } from './components/form-components/answers/s
     TextAnswerComponent,
     TrueOrFalseAnswerComponent,
     RadioAnswerComponent,
-    ShortTextAnswerComponent
+    ShortTextAnswerComponent,
+    FooterComponent,
+    ToolbarComponent,
+    SideNavigatorComponent
   ],
   imports: [
     BrowserModule,
