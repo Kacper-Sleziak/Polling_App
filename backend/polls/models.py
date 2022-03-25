@@ -15,7 +15,7 @@ class Poll(models.Model):
         (FINISHED, 'Finished'),
         (DRAFT, 'Draft'),
     ]
-    
+
     title = models.TextField(default="New poll", max_length=50)
     description = models.TextField(max_length=250, blank=True, null=True)
     slug = models.TextField(max_length=50, null=True, editable=False)
@@ -24,7 +24,7 @@ class Poll(models.Model):
     end_date = models.DateTimeField(
         blank=True, null=True, verbose_name="end date")
     create_date = models.DateTimeField(
-        auto_now=True, verbose_name="create date")
+        auto_now_add=True, verbose_name="create date")
     filling = models.IntegerField(default=0)
     sent = models.IntegerField(default=0)
     status = models.IntegerField(

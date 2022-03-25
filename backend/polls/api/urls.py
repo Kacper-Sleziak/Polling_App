@@ -1,7 +1,7 @@
 from django.urls import path
-from polls.api.views import GetPollsView, PollView
+from polls.api.views import PollForAuthorList, PollDetail
 
 urlpatterns = [
-    path("", GetPollsView.as_view()),
-    path("<int:pk>", PollView.as_view())
+    path("<int:pk>/", PollDetail.as_view()),
+    path("author/<int:author_id>/", PollForAuthorList.as_view()),
 ]
