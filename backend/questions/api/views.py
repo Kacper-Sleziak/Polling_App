@@ -77,6 +77,7 @@ class QuestionDetail(APIView):
 
 
 class QuestionForPullList(APIView):
+    
     def get(self, request, poll_id, format=None):
         question = Question.objects.filter(poll=poll_id)
         if question.exists():
@@ -121,6 +122,7 @@ class OptionDetail(APIView):
 
 
 class OptionForQuestionList(APIView):
+    
     def get(self, request, question_id, format=None):
         option = Option.objects.filter(question=question_id)
         if option.exists():
