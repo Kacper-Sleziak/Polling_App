@@ -1,19 +1,22 @@
-from dataclasses import fields
+from questions.models import Option, Question, QuestionType
 from rest_framework.serializers import ModelSerializer
-from questions.models import QuestionType, Question, Option
 
 
 class QuestionTypeSerializer(ModelSerializer):
     class Meta:
         model = QuestionType
-        fields = '__all__'
-        
+        fields = ('type_name', )
+
+
 class QuestionSerializer(ModelSerializer):
     class Meta:
         model = Question
-        fields = '__all__'
+        fields = ('content', 'poll', 'question_type')
+        read_only_fields = ('poll', 'question_type')
+
 
 class OptionSerializer(ModelSerializer):
     class Meta:
         model = Option
-        fields = '__all__'
+        fields = ('content', 'question')
+        read_only_fields = ('question')
