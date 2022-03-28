@@ -2,8 +2,8 @@ mat-tab-group{
     padding-top: 2rem;
     margin: auto;
     width: 34.375rem;
-}
 
+}
 
 ::ng-deep .mat-tab-label-container{
     justify-content: center;
@@ -82,6 +82,7 @@ mat-tab-group{
 
 table{
     width: 100%;
+    height: auto;
     text-align: center !important;
 }
 
@@ -148,5 +149,11 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 }
 
 .mat-row{
-    height: 3rem;
+    height: auto;
+}
+
+::ng-deep .mat-header-row{
+    padding-bottom: 0.5rem;
+    height: auto;
+
 }
