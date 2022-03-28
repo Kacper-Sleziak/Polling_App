@@ -8,7 +8,7 @@ import { PollsComponent } from './pages/polls/polls.component';
 const routes: Routes = [
   { path: '', component: DashboardComponent},
   { path: 'create-poll', component: CreatePollComponent},
-  { path: 'pools', component: PollsComponent},
+  { path: 'polls', component: PollsComponent},
   { path: 'form', component: PollingFormComponent}
 ];
 
