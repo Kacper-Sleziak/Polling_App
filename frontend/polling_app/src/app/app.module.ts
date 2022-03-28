@@ -23,7 +23,8 @@ import { ToolbarComponent } from './components/shared-components/toolbar/toolbar
 import { SideNavigatorComponent } from './components/shared-components/side-navigator/side-navigator.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollsComponent } from './pages/polls/polls.component';
-import { CreatePollComponent } from './pages/create-poll/create-poll.component'
+import { CreatePollComponent } from './pages/create-poll/create-poll.component';
+import { CardComponent } from './pages/polls/components/card/card.component'
 
 
 
@@ -46,7 +47,8 @@ import { CreatePollComponent } from './pages/create-poll/create-poll.component'
     SideNavigatorComponent,
     DashboardComponent,
     PollsComponent,
-    CreatePollComponent
+    CreatePollComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
