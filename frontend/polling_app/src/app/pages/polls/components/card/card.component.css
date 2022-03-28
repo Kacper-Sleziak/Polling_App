@@ -1,9 +1,36 @@
 .card {
-    max-width: 200px;
+    width: 200px;
     margin: 0.5rem 0.75rem;
+    height: auto;
 }
   
 .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
 }
+
+
+#startDate, #endDate{
+    margin-bottom: 0px;
+    text-align: center;
+    margin: 0px -16px;
+    background-color: #f0f2f5;
+}
+
+.fake-image{
+    width: auto;
+    height: 150px;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px -16px;
+    overflow-y: auto;
+}
+
+.poll-title{
+    margin: 0rem 2rem;
+    text-align: center;
+    max-height: 100%;
+}
+
