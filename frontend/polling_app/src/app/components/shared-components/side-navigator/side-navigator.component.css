@@ -16,6 +16,7 @@ mat-sidenav{
 /* Content area */
 mat-sidenav-content{
     width: 100%;
+    background-color: #fafafa;
 }
 
 mat-nav-list{
