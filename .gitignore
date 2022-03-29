@@ -273,3 +273,4 @@ cython_debug/
 # End of https://www.toptal.com/developers/gitignore/api/python,django,angular
 backend/triggers/migrations/0002_alter_trigger_triggered_question_and_more.py
 backend/answers/migrations/0002_answer_answers_id_answer_option_id_and_more.py
+backend/answers/migrations/0003_merge_20220327_2300.py
