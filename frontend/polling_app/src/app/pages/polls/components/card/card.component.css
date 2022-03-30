@@ -27,6 +27,7 @@
     margin: 0px -1rem;
     background-color: #f0f2f5;
     font-size: 0.75rem;
+    color: rgba(0,0,0,.7);
 }
 
 .fake-image{
@@ -57,4 +58,58 @@
 }
 
 
+.dot {
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+}
 
+.red{
+    background-color: rgb(251, 96, 40);
+    /* -webkit-box-shadow: 0px 0px 5px 0px rgb(251, 96, 40);
+    -moz-box-shadow: 0px 0px 5px 0px rgb(251, 96, 40);
+    box-shadow: 0px 0px 5px 0px rgb(251, 96, 40); */
+}
+
+.blue{
+    background-color: rgb(0, 157, 255);
+    /* -webkit-box-shadow: 0px 0px 5px 0px rgb(0, 157, 255);
+    -moz-box-shadow: 0px 0px 5px 0px rgb(0, 157, 255);
+    box-shadow: 0px 0px 5px 0px rgb(0, 157, 255); */
+
+}
+.yellow{
+    background-color: rgb(255, 217, 0);
+    /* -webkit-box-shadow: 0px 0px 5px 0px rgba(255, 217, 0, 1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(255, 217, 0, 1);
+    box-shadow: 0px 0px 5px 0px rgba(255, 217, 0, 1 ); */
+}
+.green{
+    background-color: rgb(23, 240, 23);
+    /* -webkit-box-shadow: 0px 0px 5px 0px rgba(23, 240, 23, 1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(23, 240, 23, 1);
+    box-shadow: 0px 0px 5px 0px rgba(23, 240, 23, 1); */
+}
+
+::ng-deep .mat-card-header-text{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0rem 0.5rem !important;
+}
+
+.mat-card-title{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.125rem !important;
+    font-size: 1.125rem;
+}
+
+.mat-card-subtitle{
+    margin-bottom: 0.5rem;
+    margin-top: 0px !important;
+    font-size: 0.875rem;
+}

@@ -9,6 +9,8 @@ export class CardComponent implements OnInit {
 
 
   @Input() text!: string;
+  @Input() status!: string;
+  @Input() id!: string;
 
   constructor() { }
 
