@@ -14,11 +14,6 @@
     border-radius: 0 0 4px 4px;
 }
   
-.mat-card-actions{
-    margin: 0px !important;
-    padding: 0px;
-    text-align: center;
-}
 
 .mat-card-content{
     margin-bottom: 1em;
@@ -115,20 +110,31 @@
 }
 
 
+.mat-card-actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px !important;
+    padding: 0px;
+    margin-bottom: 0.5em;
+    font-size: 1em;
+    height: 2.25em;
+    line-height: 1.25em;
+}
+
 .mat-icon-button{
-    width: 2.125em;
-    height: 2.125em;
+    width: 2em;
+    height: 2em;
     line-height: 1.5em;
     font-size: 1em;
 }
 
-.material-icons{
-    font-size: 1.625em;
-}
-
-.mat-card-actions{
-    margin-bottom: 0.5em;
-    font-size: 1em;
+/* Refer to icons inside card-actions */
+.mat-card-actions .material-icons{
+    font-size: 1.5em;  
+    height: 1em; 
+    width: 1em; 
+    line-height: 1em; 
 }
 
 .delete-button:hover{
@@ -136,6 +142,10 @@
 }
 
 
+::ng-deep .mat-tooltip{
+    margin: 0px !important; 
+    padding: 0px; 
+}
 
 @media screen and (max-width: 480px){
     .card{

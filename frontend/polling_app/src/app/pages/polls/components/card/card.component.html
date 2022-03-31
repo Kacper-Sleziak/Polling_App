@@ -36,23 +36,27 @@
     <!-- Buttons -->
     <mat-card-actions>
 
-      <button mat-icon-button color="primary" aria-label="Button to send poll">
+      <button mat-icon-button matTooltip="Wyślij" mat color="primary" aria-label="Button to send poll">
         <mat-icon>send</mat-icon>
       </button>
 
-      <button mat-icon-button color="primary" aria-label="Button to poll preview">
+      <button mat-icon-button matTooltip="Podgląd" color="primary" aria-label="Button to poll preview">
         <mat-icon>pageview</mat-icon>
       </button>
 
-      <button mat-icon-button color="primary" aria-label="Button to show results">
+      <button mat-icon-button matTooltip="Wyniki" color="primary" aria-label="Button to show results">
         <mat-icon>poll</mat-icon>
       </button>
 
-      <button mat-icon-button color="primary" aria-label="Button to edit poll">
+      <button mat-icon-button  matTooltip="Edytuj" color="primary" aria-label="Button to edit poll">
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button class="delete-button" mat-icon-button color="primary" aria-label="Button to delete poll">
+      <button matTooltip="Skopiuj" mat-icon-button color="primary" aria-label="Button to duplicate poll">
+        <mat-icon>file_copy</mat-icon>
+      </button>
+
+      <button class="delete-button" matTooltip="Usuń" mat-icon-button color="primary" aria-label="Button to delete poll">
         <mat-icon>delete_forever</mat-icon>
       </button>
 
