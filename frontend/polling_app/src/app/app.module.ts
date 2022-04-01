@@ -24,7 +24,8 @@ import { SideNavigatorComponent } from './components/shared-components/side-navi
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollsComponent } from './pages/polls/polls.component';
 import { CreatePollComponent } from './pages/create-poll/create-poll.component';
-import { CardComponent } from './pages/polls/components/card/card.component'
+import { CardComponent } from './pages/polls/components/card/card.component';
+import { CreatePollCardComponent } from './pages/polls/components/create-poll-card/create-poll-card.component'
 
 
 
@@ -48,7 +49,8 @@ import { CardComponent } from './pages/polls/components/card/card.component'
     DashboardComponent,
     PollsComponent,
     CreatePollComponent,
-    CardComponent
+    CardComponent,
+    CreatePollCardComponent
   ],
   imports: [
     BrowserModule,

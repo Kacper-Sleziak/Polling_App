@@ -9,7 +9,7 @@
 }
 
 .card:hover{
-    margin-bottom: 0.25em;
+    margin-bottom: 0.5625em;
     border-bottom: 3px solid #3f51b5;
     border-radius: 0 0 4px 4px;
 }
@@ -27,8 +27,8 @@
     background-color: #f0f2f5;
     font-size: 0.75em;
     color: rgba(0,0,0,.6);
-    height: 1.6em;
-    line-height: 1.6em;
+    height: 1.75em;
+    line-height: 1.9em;
 }
 
 .fake-image{
