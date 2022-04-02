@@ -1,0 +1,17 @@
+
+    <div *ngFor="let answer of answers">
+        <div class="scale-answer">
+            <mat-radio-group>
+            <p>{{answer.answer}}</p>
+            <div class="scale-answer-container">
+                <div class="scale-label">0</div>
+                
+                <div *ngFor="let result of results; let i = index" [attr.data-index]="i">
+                    <mat-radio-button [value]="i" [checked]="result"></mat-radio-button>
+                </div>
+                
+                <div class="scale-label">{{scale}}</div>
+            </div>
+            </mat-radio-group>
+        </div>
+    </div> 

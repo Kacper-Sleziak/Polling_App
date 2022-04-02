@@ -6,7 +6,9 @@ export enum QuestionType {
     LongText,
     ShortText,
     TrueFalse,
-    Radio
+    Radio,
+    Scale5,
+    Scale10
 }
 
 export class Question{
