@@ -1,4 +1,4 @@
 <div *ngFor="let answer of answers">
-    <mat-slide-toggle>{{answer.answer}}</mat-slide-toggle> 
+    <mat-slide-toggle (change)="updateResult($event, answer)" >{{answer.answer}}</mat-slide-toggle> 
     <br>
 </div>

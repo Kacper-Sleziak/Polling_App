@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Answer } from 'src/app/models/form-models/answer';
+import { Result } from 'src/app/models/form-models/result';
 
 @Component({
   selector: 'app-answer',
@@ -8,6 +9,9 @@ import { Answer } from 'src/app/models/form-models/answer';
 })
 export class AnswerComponent implements OnInit {
   @Input() answers: Answer [] = [];
+  @Input() answerId!: number;
+  @Output() result: Result = new Result(this.answerId, []);
+  @Output() resultChanged: EventEmitter<Result> = new EventEmitter();
 
   constructor() { }
 

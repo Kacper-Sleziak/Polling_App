@@ -1,5 +1,5 @@
 <mat-radio-group>
     <div *ngFor="let answer of answers">
-        <mat-radio-button [value]="answer.answer" [checked]="answer.result">{{answer.answer}}</mat-radio-button>
+        <mat-radio-button [value]="answer" [checked]="answer.result" (change)="updateResult($event)">{{answer.answer}}</mat-radio-button>
     </div> 
 </mat-radio-group>

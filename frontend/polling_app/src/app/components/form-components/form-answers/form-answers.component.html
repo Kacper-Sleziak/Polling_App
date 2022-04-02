@@ -1,10 +1,10 @@
 <div class="answers" [ngSwitch]="type">
-    <app-checkbox-answer *ngSwitchCase="questionType.Checkbox" [answers]="answers" ></app-checkbox-answer>
-    <app-combobox-answer *ngSwitchCase="questionType.Combobox" [answers]="answers"></app-combobox-answer>
-    <app-short-text-answer *ngSwitchCase="questionType.ShortText" [answers]="answers"></app-short-text-answer>
-    <app-text-answer *ngSwitchCase="questionType.LongText" [answers]="answers"></app-text-answer>
-    <app-radio-answer *ngSwitchCase="questionType.Radio" [answers]="answers"></app-radio-answer>
-    <app-true-or-false-answer *ngSwitchCase="questionType.TrueFalse" [answers]="answers"></app-true-or-false-answer>
-    <app-scale-answer *ngSwitchCase="questionType.Scale5" [answers]="answers" [scale]="5"></app-scale-answer>
-    <app-scale-answer *ngSwitchCase="questionType.Scale10" [answers]="answers" [scale]="10"></app-scale-answer>
+    <app-checkbox-answer *ngSwitchCase="questionType.Checkbox" [answers]="answers" [answerId]="questionId" (resultChanged)="onResultChanged($event)"></app-checkbox-answer>
+    <app-combobox-answer *ngSwitchCase="questionType.Combobox" [answers]="answers" [answerId]="questionId" (resultChanged)="onResultChanged($event)"></app-combobox-answer>
+    <app-short-text-answer *ngSwitchCase="questionType.ShortText" [answers]="answers" [answerId]="questionId" (resultChanged)="onResultChanged($event)"></app-short-text-answer>
+    <app-text-answer *ngSwitchCase="questionType.LongText" [answers]="answers" [answerId]="questionId" (resultChanged)="onResultChanged($event)"></app-text-answer>
+    <app-radio-answer *ngSwitchCase="questionType.Radio" [answers]="answers" [answerId]="questionId" (resultChanged)="onResultChanged($event)"></app-radio-answer>
+    <app-true-or-false-answer *ngSwitchCase="questionType.TrueFalse" [answers]="answers" [answerId]="questionId" (resultChanged)="onResultChanged($event)"></app-true-or-false-answer>
+    <app-scale-answer *ngSwitchCase="questionType.Scale5" [answers]="answers" [scale]="5" [answerId]="questionId" (resultChanged)="onResultChanged($event)"></app-scale-answer>
+    <app-scale-answer *ngSwitchCase="questionType.Scale10" [answers]="answers" [scale]="10" [answerId]="questionId" (resultChanged)="onResultChanged($event)"></app-scale-answer>
 </div>
