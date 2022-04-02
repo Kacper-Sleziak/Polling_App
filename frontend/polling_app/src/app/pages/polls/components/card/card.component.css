@@ -1,0 +1,155 @@
+
+
+.card {
+    /* Using this font size we can scale size of cards */
+    font-size: 0.9rem;
+    width: 12.5em;
+    margin: 0.75em;
+    padding: 1em;
+}
+
+.card:hover{
+    margin-bottom: 0.5625em;
+    border-bottom: 3px solid #3f51b5;
+    border-radius: 0 0 4px 4px;
+}
+  
+
+.mat-card-content{
+    margin-bottom: 1em;
+    font-size: 1em;
+    margin: 0px -1em 1em -1em;
+}
+
+#startDate, #endDate{
+    margin-bottom: 0px;
+    text-align: center;
+    background-color: #f0f2f5;
+    font-size: 0.75em;
+    color: rgba(0,0,0,.6);
+    height: 1.75em;
+    line-height: 1.9em;
+}
+
+.fake-image{
+    /* Center content x and y */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: auto;
+    height: 8.25em;
+    margin: 0em -1em;
+    background-color: lightblue;
+}
+
+.poll-title{
+    width: auto;
+    margin: 1em 2em;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 300;
+    line-height: 1.25em;
+
+    /* Line clamp */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;  
+
+}
+
+.dot {
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+}
+
+.red{
+    background-color: rgb(251, 96, 40);
+}
+
+.blue{
+    background-color: rgb(0, 157, 255);
+}
+.yellow{
+    background-color: rgb(255, 217, 0);
+}
+.green{
+    background-color: rgb(23, 240, 23);
+}
+
+::ng-deep .mat-card-header-text{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0em 0.5em !important;
+    height: 3.125em;
+}
+
+.mat-card-title{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.125em !important;
+    font-size: 1.125em;
+    height: 1.25em;
+    line-height: 1.25em;
+    
+}
+
+.mat-card-subtitle{
+    margin-bottom: 0.5em;
+    margin-top: 0px !important;
+    font-size: 0.875em;
+    width: 100%;
+    height: 1.25em;
+    line-height: 1.25em;
+}
+
+
+.mat-card-actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px !important;
+    padding: 0px;
+    margin-bottom: 0.5em;
+    font-size: 1em;
+    height: 2.25em;
+    line-height: 1.25em;
+}
+
+.mat-icon-button{
+    width: 2em;
+    height: 2em;
+    line-height: 1.5em;
+    font-size: 1em;
+}
+
+/* Refer to icons inside card-actions */
+.mat-card-actions .material-icons{
+    font-size: 1.5em;  
+    height: 1em; 
+    width: 1em; 
+    line-height: 1em; 
+}
+
+.delete-button:hover{
+    color: #f44336
+}
+
+
+::ng-deep .mat-tooltip{
+    margin: 0px !important; 
+    padding: 0px; 
+}
+
+@media screen and (max-width: 480px){
+    .card{
+        font-size: 0.6rem;
+    }
+}
+

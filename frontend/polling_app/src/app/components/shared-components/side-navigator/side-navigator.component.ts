@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-navigator',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavigatorComponent implements OnInit {
 
-  constructor() { }
+  constructor( private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  hasRoute(route: string): boolean{
+    return this.router.url.includes(route);
   }
 
 }

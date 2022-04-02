@@ -1,0 +1,52 @@
+.card {
+    /* Using this font size we can scale size of cards */
+    font-size: 0.9rem;
+    width: 12.5em;
+    margin: 0.75em;
+    padding: 1em;
+    height: 17.25em;
+}
+
+.card:hover{
+    margin-bottom: 0.5625em;
+    border-bottom: 3px solid #3f51b5;
+    border-radius: 0 0 4px 4px;
+    cursor: pointer;
+}
+
+.card:hover .mat-icon{
+    font-size: 8.5em;
+}
+
+
+.mat-icon{
+    font-size: 8em;
+    height: 1em;
+    width: 1em;
+    line-height: 1em;
+}
+
+
+.top-divider{
+    padding-top: 3.125em !important;
+}
+
+.bottom-divider{
+    padding-bottom: 3.125em !important;
+}
+
+
+.icon-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+@media screen and (max-width: 480px){
+    .card{
+        font-size: 0.6rem;
+    }
+}

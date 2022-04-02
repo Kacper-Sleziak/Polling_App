@@ -1,0 +1,65 @@
+<mat-card class="card mat-elevation-z3">
+
+    <!-- Header -->
+    <mat-card-header>
+      <mat-card-title>{{status}} 
+        <div class="dot green" *ngIf="status === 'Aktywna'"></div>
+        <div class="dot yellow" *ngIf="status === 'Wstrzymana'"></div>
+        <div class="dot blue" *ngIf="status === 'Oczekująca'"></div>
+        <div class="dot red" *ngIf="status === 'Zakończona'"></div>
+      </mat-card-title>
+      <mat-card-subtitle>ID ankiety: {{id}}</mat-card-subtitle>
+      
+    </mat-card-header>
+    <mat-divider></mat-divider>
+
+    <!-- Fake image -->
+    <div class="fake-image mat-elevation-z2"><div class="poll-title">{{text}}</div></div>
+
+    <!-- Contnent below fake image -->
+    <mat-card-content>
+
+        <!-- Start date -->
+        <mat-divider></mat-divider>
+        <div id="startDate">
+            Od: 17.03.2022 13:00
+        </div>
+        <!-- End date -->
+        <mat-divider></mat-divider>
+        <div id="endDate">
+            Do: 17.03.2022 13:00
+        </div>
+      <mat-divider></mat-divider>
+
+    </mat-card-content>
+
+    <!-- Buttons -->
+    <mat-card-actions>
+
+      <button mat-icon-button matTooltip="Wyślij" matTooltipDisabled="status === 'Zakończona' || status === 'Oczekująca' || status === 'Wstrzymana'" [disabled]="status === 'Zakończona' || status === 'Oczekująca' || status === 'Wstrzymana'" color="primary" aria-label="Button to send poll">
+        <mat-icon>send</mat-icon>
+      </button>
+
+      <button mat-icon-button matTooltip="Wyniki" matTooltipDisabled="status === 'Oczekująca'" [disabled]="status === 'Oczekująca'" color="primary" aria-label="Button to show results">
+        <mat-icon>poll</mat-icon>
+      </button>
+      
+      <button mat-icon-button matTooltip="Podgląd" color="primary" aria-label="Button to poll preview">
+        <mat-icon>pageview</mat-icon>
+      </button>
+
+      <button mat-icon-button  matTooltip="Edytuj" matTooltipDisabled="status === 'Zakończona'" [disabled]="status === 'Zakończona'" color="primary" aria-label="Button to edit poll">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button matTooltip="Skopiuj" mat-icon-button color="primary" aria-label="Button to duplicate poll">
+        <mat-icon>file_copy</mat-icon>
+      </button>
+
+      <button class="delete-button" matTooltip="Usuń" mat-icon-button color="primary" aria-label="Button to delete poll">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+
+    </mat-card-actions>
+  </mat-card>
+  

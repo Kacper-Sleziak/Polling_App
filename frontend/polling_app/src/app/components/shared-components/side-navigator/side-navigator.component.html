@@ -1,7 +1,7 @@
 <mat-sidenav-container>
 
-    <!-- Right side navigation panel -->
-    <mat-sidenav #sidenav mode="side" opened
+    <!-- Right side navigation panel (is not present when route: /form)-->
+    <mat-sidenav *ngIf="!hasRoute('form')" #sidenav mode="side" opened
                  [fixedInViewport]= false 
                  [fixedTopGap] = 0
                  [fixedBottomGap] = 0 >
@@ -17,6 +17,13 @@
 
                  <mat-divider></mat-divider>
 
+    </mat-sidenav>
+    
+    <!-- The side navigator present when route: /form -->
+    <mat-sidenav ngClass="empty-side-nav" *ngIf="hasRoute('form')" #sidenav mode="side" opened
+                [fixedInViewport]= false 
+                [fixedTopGap] = 0
+                [fixedBottomGap] = 0 >
     </mat-sidenav>
 
     <!-- Content area -->
