@@ -75,6 +75,28 @@ export class QuestionsService {
           QuestionType.ShortText
         )
       )
+
+      this.questions.push(
+        new Question(
+          "Pytanie skala 5-punktowa", 
+          [new Answer("Odpowiedź 1"), 
+          new Answer("Odpowiedź 2"), 
+          new Answer("Odpowiedź 3"), 
+          new Answer("Odpowiedź 4")],
+          QuestionType.Scale5
+        )
+      )
+
+      this.questions.push(
+        new Question(
+          "Pytanie skala 10-punktowa", 
+          [new Answer("Odpowiedź 1"), 
+          new Answer("Odpowiedź 2"), 
+          new Answer("Odpowiedź 3"), 
+          new Answer("Odpowiedź 4")],
+          QuestionType.Scale10
+        )
+      )
     
   }
 

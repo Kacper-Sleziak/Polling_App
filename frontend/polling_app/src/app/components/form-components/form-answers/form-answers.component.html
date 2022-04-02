@@ -5,4 +5,6 @@
     <app-text-answer *ngSwitchCase="questionType.LongText" [answers]="answers"></app-text-answer>
     <app-radio-answer *ngSwitchCase="questionType.Radio" [answers]="answers"></app-radio-answer>
     <app-true-or-false-answer *ngSwitchCase="questionType.TrueFalse" [answers]="answers"></app-true-or-false-answer>
+    <app-scale-answer *ngSwitchCase="questionType.Scale5" [answers]="answers" [scale]="5"></app-scale-answer>
+    <app-scale-answer *ngSwitchCase="questionType.Scale10" [answers]="answers" [scale]="10"></app-scale-answer>
 </div>
