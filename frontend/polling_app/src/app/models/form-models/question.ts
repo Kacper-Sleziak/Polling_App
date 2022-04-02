@@ -12,11 +12,13 @@ export enum QuestionType {
 }
 
 export class Question{
+    id: number = -1;
     question!: string;
     answers: Answer[] = [];
     type: QuestionType;
 
-    constructor(question: string, answers: Answer[], type: QuestionType = QuestionType.Checkbox) {
+    constructor(id: number, question: string, answers: Answer[], type: QuestionType = QuestionType.Checkbox) {
+        this.id = id;
         this.question = question;
         this.answers = answers;
         this.type = type;

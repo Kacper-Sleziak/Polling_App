@@ -9,91 +9,101 @@ import { Question, QuestionType } from '../../models/form-models/question';
 })
 export class QuestionsService {
   questions: Question[] = [];
+  questionNewId: number = 0;
+  answerNewId: number = 0;
 
   constructor() {
       this.questions.push(
         new Question(
+          this.questionNewId++,
           "Pytanie wielokrotnego wyboru", 
-          [new Answer("Odpowiedź 1"), 
-          new Answer("Odpowiedź 2"), 
-          new Answer("Odpowiedź 3"), 
-          new Answer("Odpowiedź 4")]
+          [new Answer(this.answerNewId++, "Odpowiedź 1"), 
+          new Answer(this.answerNewId++, "Odpowiedź 2"), 
+          new Answer(this.answerNewId++, "Odpowiedź 3"), 
+          new Answer(this.answerNewId++, "Odpowiedź 4")]
         )
       )
 
       this.questions.push(
         new Question(
+          this.questionNewId++,
           "Pytanie jednokrotnego wyboru combo", 
-          [new Answer("Odpowiedź 1"), 
-          new Answer("Odpowiedź 2"), 
-          new Answer("Odpowiedź 3"), 
-          new Answer("Odpowiedź 4")],
+          [new Answer(this.answerNewId++, "Odpowiedź 1"), 
+          new Answer(this.answerNewId++, "Odpowiedź 2"), 
+          new Answer(this.answerNewId++, "Odpowiedź 3"), 
+          new Answer(this.answerNewId++, "Odpowiedź 4")],
           QuestionType.Combobox
         )
       )
 
       this.questions.push(
         new Question(
+          this.questionNewId++,
           "Pytanie jednokrotnego wyboru radio", 
-          [new Answer("Odpowiedź 1", QuestionType.Radio), 
-          new Answer("Odpowiedź 2", QuestionType.Radio), 
-          new Answer("Odpowiedź 3", QuestionType.Radio), 
-          new Answer("Odpowiedź 4", QuestionType.Radio)],
+          [new Answer(this.answerNewId++, "Odpowiedź 1", QuestionType.Radio), 
+          new Answer(this.answerNewId++, "Odpowiedź 2", QuestionType.Radio), 
+          new Answer(this.answerNewId++, "Odpowiedź 3", QuestionType.Radio), 
+          new Answer(this.answerNewId++, "Odpowiedź 4", QuestionType.Radio)],
           QuestionType.Radio
         )
       )
 
       this.questions.push(
         new Question(
+          this.questionNewId++,
           "Pytanie prawda/fałsz", 
-          [new Answer("Odpowiedź 1"), 
-          new Answer("Odpowiedź 2"), 
-          new Answer("Odpowiedź 3"), 
-          new Answer("Odpowiedź 4")],
+          [new Answer(this.answerNewId++, "Odpowiedź 1"), 
+          new Answer(this.answerNewId++, "Odpowiedź 2"), 
+          new Answer(this.answerNewId++, "Odpowiedź 3"), 
+          new Answer(this.answerNewId++, "Odpowiedź 4")],
           QuestionType.TrueFalse
         )
       )
 
       this.questions.push(
         new Question(
+          this.questionNewId++,
           "Pytanie odpowiedź długa", 
-          [new Answer("Odpowiedź 1"), 
-          new Answer("Odpowiedź 2"), 
-          new Answer("Odpowiedź 3"), 
-          new Answer("Odpowiedź 4")],
+          [new Answer(this.answerNewId++, "Odpowiedź 1"), 
+          new Answer(this.answerNewId++, "Odpowiedź 2"), 
+          new Answer(this.answerNewId++, "Odpowiedź 3"), 
+          new Answer(this.answerNewId++, "Odpowiedź 4")],
           QuestionType.LongText
         )
       )
 
       this.questions.push(
         new Question(
+          this.questionNewId++,
           "Pytanie odpowiedź krótka", 
-          [new Answer("Odpowiedź 1"), 
-          new Answer("Odpowiedź 2"), 
-          new Answer("Odpowiedź 3"), 
-          new Answer("Odpowiedź 4")],
+          [new Answer(this.answerNewId++, "Odpowiedź 1"), 
+          new Answer(this.answerNewId++, "Odpowiedź 2"), 
+          new Answer(this.answerNewId++, "Odpowiedź 3"), 
+          new Answer(this.answerNewId++, "Odpowiedź 4")],
           QuestionType.ShortText
         )
       )
 
       this.questions.push(
         new Question(
+          this.questionNewId++,
           "Pytanie skala 5-punktowa", 
-          [new Answer("Odpowiedź 1"), 
-          new Answer("Odpowiedź 2"), 
-          new Answer("Odpowiedź 3"), 
-          new Answer("Odpowiedź 4")],
+          [new Answer(this.answerNewId++, "Odpowiedź 1"), 
+          new Answer(this.answerNewId++, "Odpowiedź 2"), 
+          new Answer(this.answerNewId++, "Odpowiedź 3"), 
+          new Answer(this.answerNewId++, "Odpowiedź 4")],
           QuestionType.Scale5
         )
       )
 
       this.questions.push(
         new Question(
+          this.questionNewId++,
           "Pytanie skala 10-punktowa", 
-          [new Answer("Odpowiedź 1"), 
-          new Answer("Odpowiedź 2"), 
-          new Answer("Odpowiedź 3"), 
-          new Answer("Odpowiedź 4")],
+          [new Answer(this.answerNewId++, "Odpowiedź 1"), 
+          new Answer(this.answerNewId++, "Odpowiedź 2"), 
+          new Answer(this.answerNewId++, "Odpowiedź 3"), 
+          new Answer(this.answerNewId++, "Odpowiedź 4")],
           QuestionType.Scale10
         )
       )
