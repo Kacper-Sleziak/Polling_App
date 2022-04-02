@@ -1,7 +1,7 @@
 <mat-form-field appearance="fill">
     <mat-label>Wybierz odpowiedź</mat-label>
     <mat-select>
-        <mat-option *ngFor="let answer of answers" [value]="answer">
+        <mat-option *ngFor="let answer of answers" [value]="answer" (onSelectionChange)="updateResult($event)">
             {{answer.answer}}
         </mat-option>
     </mat-select>
