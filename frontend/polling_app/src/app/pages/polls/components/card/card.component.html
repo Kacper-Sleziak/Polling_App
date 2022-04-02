@@ -36,19 +36,19 @@
     <!-- Buttons -->
     <mat-card-actions>
 
-      <button mat-icon-button matTooltip="Wyślij" mat color="primary" aria-label="Button to send poll">
+      <button mat-icon-button matTooltip="Wyślij" matTooltipDisabled="status === 'Zakończona' || status === 'Oczekująca' || status === 'Wstrzymana'" [disabled]="status === 'Zakończona' || status === 'Oczekująca' || status === 'Wstrzymana'" color="primary" aria-label="Button to send poll">
         <mat-icon>send</mat-icon>
       </button>
 
+      <button mat-icon-button matTooltip="Wyniki" matTooltipDisabled="status === 'Oczekująca'" [disabled]="status === 'Oczekująca'" color="primary" aria-label="Button to show results">
+        <mat-icon>poll</mat-icon>
+      </button>
+      
       <button mat-icon-button matTooltip="Podgląd" color="primary" aria-label="Button to poll preview">
         <mat-icon>pageview</mat-icon>
       </button>
 
-      <button mat-icon-button matTooltip="Wyniki" color="primary" aria-label="Button to show results">
-        <mat-icon>poll</mat-icon>
-      </button>
-
-      <button mat-icon-button  matTooltip="Edytuj" color="primary" aria-label="Button to edit poll">
+      <button mat-icon-button  matTooltip="Edytuj" matTooltipDisabled="status === 'Zakończona'" [disabled]="status === 'Zakończona'" color="primary" aria-label="Button to edit poll">
         <mat-icon>edit</mat-icon>
       </button>
 
