@@ -31,6 +31,6 @@ export class ScaleAnswerComponent extends AnswerComponent {
       options.push({optionId: answer.id, content: ""});  
     }
 
-    this.result = new Result(this.answerId, options);
+    this.result = new Result(options);
   }
 }

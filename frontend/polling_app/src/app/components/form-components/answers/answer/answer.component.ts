@@ -10,7 +10,7 @@ import { Result } from 'src/app/models/form-models/result';
 export class AnswerComponent implements OnInit {
   @Input() answers: Answer [] = [];
   @Input() answerId!: number;
-  @Output() result: Result = new Result(this.answerId, []);
+  @Output() result: Result = new Result([]);
   @Output() resultChanged: EventEmitter<Result> = new EventEmitter();
 
   constructor() { }

@@ -11,7 +11,7 @@ import { AnswerComponent } from '../answer/answer.component';
 export class RadioAnswerComponent extends AnswerComponent{
 
   updateResult = (event: MatRadioChange) => {
-    this.resultChanged.emit(new Result(this.answerId, [{optionId: event.value.id, content: "true"}]));
+    this.resultChanged.emit(new Result([{optionId: event.value.id, content: "true"}]));
   }
 
 }
