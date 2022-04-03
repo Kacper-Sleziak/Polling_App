@@ -3,10 +3,12 @@
     <!-- Header -->
     <mat-card-header>
       <mat-card-title>{{status}} 
+        <!-- Possible colors of cards -->
         <div class="dot green" *ngIf="status === 'Aktywna'"></div>
         <div class="dot yellow" *ngIf="status === 'Wstrzymana'"></div>
         <div class="dot blue" *ngIf="status === 'Oczekująca'"></div>
         <div class="dot red" *ngIf="status === 'Zakończona'"></div>
+        <div class="dot grey" *ngIf="status === 'Edytowana'"></div>
       </mat-card-title>
       <mat-card-subtitle>ID ankiety: {{id}}</mat-card-subtitle>
       
@@ -33,30 +35,78 @@
 
     </mat-card-content>
 
-    <!-- Buttons -->
+    <!---------------------------------------------- Buttons -------------------------------------------------------------->
     <mat-card-actions>
 
-      <button mat-icon-button matTooltip="Wyślij" matTooltipDisabled="status === 'Zakończona' || status === 'Oczekująca' || status === 'Wstrzymana'" [disabled]="status === 'Zakończona' || status === 'Oczekująca' || status === 'Wstrzymana'" color="primary" aria-label="Button to send poll">
+      <!-- Send button -->
+      <button mat-icon-button 
+              matTooltip="Wyślij" 
+              [disabled]="status !== 'Aktywna'"
+              [matTooltipDisabled]="status !== 'Aktywna'"  
+              color="primary" 
+              aria-label="Button to send poll">
+
         <mat-icon>send</mat-icon>
       </button>
 
-      <button mat-icon-button matTooltip="Wyniki" matTooltipDisabled="status === 'Oczekująca'" [disabled]="status === 'Oczekująca'" color="primary" aria-label="Button to show results">
+      <!-- Results button -->
+      <button mat-icon-button 
+              matTooltip="Wyniki" 
+              [matTooltipDisabled]="status === 'Oczekująca' || status === 'Edytowana'" 
+              [disabled]="status === 'Oczekująca' || status === 'Edytowana'" 
+              color="primary" 
+              aria-label="Button to show results">
+
         <mat-icon>poll</mat-icon>
       </button>
       
-      <button mat-icon-button matTooltip="Podgląd" color="primary" aria-label="Button to poll preview">
+      <!-- Pageview button -->
+      <button mat-icon-button 
+              matTooltip="Podgląd" 
+              color="primary" 
+              aria-label="Button to poll preview">
+
         <mat-icon>pageview</mat-icon>
       </button>
 
-      <button mat-icon-button  matTooltip="Edytuj" matTooltipDisabled="status === 'Zakończona'" [disabled]="status === 'Zakończona'" color="primary" aria-label="Button to edit poll">
+      <!-- Edit dates button (toggled with edit poll button according to state)-->
+      <button mat-icon-button  
+              *ngIf="status !== 'Edytowana'"
+              matTooltip="Edytuj daty" 
+              [matTooltipDisabled]="status === 'Zakończona'" 
+              [disabled]="status === 'Zakończona'" 
+              color="primary" 
+              aria-label="Button to edit poll dates">
+
+        <mat-icon>edit_calendar</mat-icon>
+      </button>
+
+      <!-- Edit poll button -->
+      <button mat-icon-button  
+              *ngIf="status === 'Edytowana'"
+              matTooltip="Edytuj" 
+              color="primary" 
+              aria-label="Button to edit poll">
+
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button matTooltip="Skopiuj" mat-icon-button color="primary" aria-label="Button to duplicate poll">
+      <!-- Copy button -->
+      <button mat-icon-button 
+              matTooltip="Skopiuj" 
+              color="primary" 
+              aria-label="Button to duplicate poll">
+
         <mat-icon>file_copy</mat-icon>
       </button>
 
-      <button class="delete-button" matTooltip="Usuń" mat-icon-button color="primary" aria-label="Button to delete poll">
+      <!-- Delete button -->
+      <button mat-icon-button
+              class="delete-button" 
+              matTooltip="Usuń"  
+              color="primary" 
+              aria-label="Button to delete poll">
+
         <mat-icon>delete_forever</mat-icon>
       </button>
 

@@ -54,9 +54,9 @@ export class PollService {
           "name": "Jakość usług",
           "startDate": "12.03.2022 13:00:21",
           "endDate": "12.04.2022 13:00:21",
-          "filled": 12,
-          "sent": 100,
-          "status": "aktywna"
+          "filled": 0,
+          "sent": 0,
+          "status": "edytowana"
       },
       {
           "id": 54,

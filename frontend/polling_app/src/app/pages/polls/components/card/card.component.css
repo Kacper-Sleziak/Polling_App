@@ -1,8 +1,8 @@
 
 
 .card {
-    /* Using this font size we can scale size of cards */
-    font-size: 0.9rem;
+    /* Using this font size we can scale size of card */
+    font-size: 1em;
     width: 12.5em;
     margin: 0.75em;
     padding: 1em;
@@ -10,7 +10,7 @@
 
 .card:hover{
     margin-bottom: 0.5625em;
-    border-bottom: 3px solid #3f51b5;
+    border-bottom: 0.1875em solid #3f51b5;
     border-radius: 0 0 4px 4px;
 }
   
@@ -68,7 +68,6 @@
 .red{
     background-color: rgb(251, 96, 40);
 }
-
 .blue{
     background-color: rgb(0, 157, 255);
 }
@@ -77,6 +76,9 @@
 }
 .green{
     background-color: rgb(23, 240, 23);
+}
+.grey{
+    background-color: #C0C0C0;
 }
 
 ::ng-deep .mat-card-header-text{
@@ -143,9 +145,10 @@
 
 
 ::ng-deep .mat-tooltip{
-    margin: 0px !important; 
-    padding: 0px; 
+    margin: 0em 0em !important; 
+    padding: 0em 1em !important;
 }
+
 
 @media screen and (max-width: 480px){
     .card{
