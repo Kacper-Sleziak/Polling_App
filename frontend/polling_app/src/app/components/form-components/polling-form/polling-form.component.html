@@ -1,5 +1,5 @@
 <div id="form-content">
     <app-form-title [form_title]="title" [description]="description"></app-form-title>
         <app-question *ngFor="let question of questions" [question]="question" (onAnswer)="updateAnswer(question, $event)"></app-question>
-    <button mat-raised-button color="primary">Wyślij</button>
+    <button mat-raised-button color="primary" (click)="handleSendAnswer()">Wyślij</button>
 </div>

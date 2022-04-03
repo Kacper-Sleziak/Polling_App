@@ -12,6 +12,7 @@ export class PollingFormComponent implements OnInit {
   questions: Question[] = [];
   @Output() title: string = 'Przykładowy tytuł';
   @Output() description: string = 'Przykładowy opis';
+  questionResult: Map<Question, Result> = new Map();
 
   constructor(private questionsService: QuestionsService) {}
 
@@ -20,7 +21,24 @@ export class PollingFormComponent implements OnInit {
   }
 
   updateAnswer = (question: Question, result: Result) => {
-    console.log(question, result);
+    this.questionResult.set(question, result);
+  }
+
+  getResultInJSON = () => {
+    let arr = [];
+    for (const key of this.questionResult.keys()) {
+      let res = {
+      questionId: key.id,
+      question: key.question,
+      type: key.type,
+      results: this.questionResult.get(key)};
+      arr.push(res);
+    }
+    return JSON.stringify(arr);
+  }
+
+  handleSendAnswer = () => {
+    console.log(this.getResultInJSON());
   }
 
 }
