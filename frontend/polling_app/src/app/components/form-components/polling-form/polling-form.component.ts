@@ -1,5 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Question } from 'src/app/models/form-models/question';
+import { Result } from 'src/app/models/form-models/result';
 import { QuestionsService } from 'src/app/services/form-services/questions.service';
 
 @Component({
@@ -16,6 +17,10 @@ export class PollingFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.questionsService.getQuestions().subscribe(questions=>this.questions = questions);
+  }
+
+  updateAnswer = (question: Question, result: Result) => {
+    console.log(question, result);
   }
 
 }
