@@ -2,21 +2,21 @@
 
     <!-- Header -->
     <mat-card-header>
-      <mat-card-title>{{status}} 
+      <mat-card-title>{{poll.status.charAt(0).toUpperCase() + poll.status.slice(1)}} 
         <!-- Possible colors of cards -->
-        <div class="dot green" *ngIf="status === 'Aktywna'"></div>
-        <div class="dot yellow" *ngIf="status === 'Wstrzymana'"></div>
-        <div class="dot blue" *ngIf="status === 'Oczekująca'"></div>
-        <div class="dot red" *ngIf="status === 'Zakończona'"></div>
-        <div class="dot grey" *ngIf="status === 'Edytowana'"></div>
+        <div class="dot green" *ngIf="poll.status === 'aktywna'"></div>
+        <div class="dot yellow" *ngIf="poll.status === 'wstrzymana'"></div>
+        <div class="dot blue" *ngIf="poll.status === 'oczekująca'"></div>
+        <div class="dot red" *ngIf="poll.status === 'zakończona'"></div>
+        <div class="dot grey" *ngIf="poll.status === 'edytowana'"></div>
       </mat-card-title>
-      <mat-card-subtitle>ID ankiety: {{id}}</mat-card-subtitle>
+      <mat-card-subtitle>ID ankiety: {{poll.id}}</mat-card-subtitle>
       
     </mat-card-header>
     <mat-divider></mat-divider>
 
     <!-- Fake image -->
-    <div class="fake-image mat-elevation-z2"><div class="poll-title">{{text}}</div></div>
+    <div class="fake-image mat-elevation-z2"><div class="poll-title">{{poll.name}}</div></div>
 
     <!-- Contnent below fake image -->
     <mat-card-content>
@@ -24,12 +24,12 @@
         <!-- Start date -->
         <mat-divider></mat-divider>
         <div id="startDate">
-            Od: 17.03.2022 13:00
+            Od: {{poll.startDate.slice(0,16)}}
         </div>
         <!-- End date -->
         <mat-divider></mat-divider>
         <div id="endDate">
-            Do: 17.03.2022 13:00
+            Do: {{poll.endDate.slice(0,16)}}
         </div>
       <mat-divider></mat-divider>
 
@@ -41,8 +41,8 @@
       <!-- Send button -->
       <button mat-icon-button 
               matTooltip="Wyślij" 
-              [disabled]="status !== 'Aktywna'"
-              [matTooltipDisabled]="status !== 'Aktywna'"  
+              [disabled]="poll.status !== 'Aktywna'"
+              [matTooltipDisabled]="poll.status !== 'Aktywna'"  
               color="primary" 
               aria-label="Button to send poll">
 
@@ -52,8 +52,8 @@
       <!-- Results button -->
       <button mat-icon-button 
               matTooltip="Wyniki" 
-              [matTooltipDisabled]="status === 'Oczekująca' || status === 'Edytowana'" 
-              [disabled]="status === 'Oczekująca' || status === 'Edytowana'" 
+              [matTooltipDisabled]="poll.status === 'Oczekująca' || poll.status === 'Edytowana'" 
+              [disabled]="poll.status === 'Oczekująca' || poll.status === 'Edytowana'" 
               color="primary" 
               aria-label="Button to show results">
 
@@ -71,10 +71,10 @@
 
       <!-- Edit dates button (toggled with edit poll button according to state)-->
       <button mat-icon-button  
-              *ngIf="status !== 'Edytowana'"
-              matTooltip="Edytuj daty" 
-              [matTooltipDisabled]="status === 'Zakończona'" 
-              [disabled]="status === 'Zakończona'" 
+              *ngIf="poll.status !== 'Edytowana'"
+              matTooltip="Edytowanie dat" 
+              [matTooltipDisabled]="poll.status === 'Zakończona'" 
+              [disabled]="poll.status === 'Zakończona'" 
               color="primary" 
               aria-label="Button to edit poll dates">
 
@@ -83,7 +83,7 @@
 
       <!-- Edit poll button -->
       <button mat-icon-button  
-              *ngIf="status === 'Edytowana'"
+              *ngIf="poll.status === 'Edytowana'"
               matTooltip="Edytuj" 
               color="primary" 
               aria-label="Button to edit poll">
@@ -105,6 +105,7 @@
               class="delete-button" 
               matTooltip="Usuń"  
               color="primary" 
+              (click)="openDeleteDialog()"
               aria-label="Button to delete poll">
 
         <mat-icon>delete_forever</mat-icon>
