@@ -41,8 +41,8 @@
       <!-- Send button -->
       <button mat-icon-button 
               matTooltip="Wyślij" 
-              [disabled]="poll.status !== 'Aktywna'"
-              [matTooltipDisabled]="poll.status !== 'Aktywna'"  
+              [disabled]="poll.status !== 'aktywna'"
+              [matTooltipDisabled]="poll.status !== 'aktywna'"  
               color="primary" 
               aria-label="Button to send poll">
 
@@ -52,8 +52,8 @@
       <!-- Results button -->
       <button mat-icon-button 
               matTooltip="Wyniki" 
-              [matTooltipDisabled]="poll.status === 'Oczekująca' || poll.status === 'Edytowana'" 
-              [disabled]="poll.status === 'Oczekująca' || poll.status === 'Edytowana'" 
+              [matTooltipDisabled]="poll.status === 'oczekująca' || poll.status === 'edytowana'" 
+              [disabled]="poll.status === 'oczekująca' || poll.status === 'edytowana'" 
               color="primary" 
               aria-label="Button to show results">
 
@@ -71,10 +71,10 @@
 
       <!-- Edit dates button (toggled with edit poll button according to state)-->
       <button mat-icon-button  
-              *ngIf="poll.status !== 'Edytowana'"
+              *ngIf="poll.status !== 'edytowana'"
               matTooltip="Edytowanie dat" 
-              [matTooltipDisabled]="poll.status === 'Zakończona'" 
-              [disabled]="poll.status === 'Zakończona'" 
+              [matTooltipDisabled]="poll.status === 'zakończona'" 
+              [disabled]="poll.status === 'zakończona'" 
               color="primary" 
               aria-label="Button to edit poll dates">
 
@@ -83,7 +83,7 @@
 
       <!-- Edit poll button -->
       <button mat-icon-button  
-              *ngIf="poll.status === 'Edytowana'"
+              *ngIf="poll.status === 'edytowana'"
               matTooltip="Edytuj" 
               color="primary" 
               aria-label="Button to edit poll">

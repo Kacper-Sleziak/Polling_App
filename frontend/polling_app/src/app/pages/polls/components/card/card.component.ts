@@ -11,11 +11,6 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 })
 export class CardComponent implements OnInit {
 
-
-  // @Input() text!: string;
-  // @Input() status!: string;
-  // @Input() id!: number;
-
   @Input() poll !: Poll;
 
   constructor(public dialog: MatDialog, private pollService: PollService) { }
