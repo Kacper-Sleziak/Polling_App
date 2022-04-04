@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
@@ -9,8 +10,9 @@ import { Poll } from '../../models/dashboard-models/poll'
 export class PollService {
 
   polls: Poll[];
+  private apiURL = "http://localhost:4200"
 
-  constructor() { 
+  constructor(private http: HttpClient) { 
     
     this.polls = [
       {
@@ -199,5 +201,10 @@ export class PollService {
 
   getPolls(): Observable<Poll[]>{
     return of(this.polls);
+  }
+
+  deletePoll(id : number): void{
+      console.log(this.apiURL.concat(`/polls/${id}`));
+    // this.http.delete(this.apiURL.concat(`/polls/${id}`));
   }
 }
