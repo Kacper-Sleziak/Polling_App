@@ -10,7 +10,6 @@ from answers.models import Answer, Answers
 
 # [POST] Creating Answer
 
-
 class CreateAnswerView(APIView):
     serializer_class = AnswerSerializer
 
@@ -42,12 +41,14 @@ class AnswerView(APIView):
         serializer = self.serializer_class
         answer = self.get_answer(pk)
 
-        if answer != 0:
-            return Response(
-                serializer(answer).data,
-                status=status.HTTP_200_OK)
+        if self.get_answer(pk) != 0:
+            response_data = serializer(answer, many=True).data
+            return Response(response_data, status=status.HTTP_200_OK)
+        return Response({'Answer': 'there is no answer with given id'},
+                        status=status.HTTP_204_NO_CONTENT)
 
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
     def delete(self, request, pk, format=None):
         answer = self.get_answer(pk)
@@ -107,12 +108,11 @@ class AnswersView(APIView):
         serializer = self.serializer_class
         answers = self.get_answers(pk)
 
-        if answers != 0:
-            return Response(
-                serializer(answers).data,
-                status=status.HTTP_200_OK)
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if self.get_answers(pk) != 0:
+            response_data = serializer(answers, many=True).data
+            return Response(response_data, status=status.HTTP_200_OK)
+        return Response({'Answers': 'there is no asnwers with given id'},
+                        status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk, format=None):
         answers = self.get_answers(pk)

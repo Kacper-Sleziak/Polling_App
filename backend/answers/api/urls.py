@@ -4,6 +4,6 @@ from answers.api.views import (AnswerView, AnswersView, CreateAnswerView,CreateA
 urlpatterns = [
     path('create_answer', CreateAnswerView.as_view()),
     path('create_answers', CreateAnswersView.as_view()),
-    path('<int:pk>', AnswerView.as_view()),
+    path('answer/<int:pk>', AnswerView.as_view()),
     path('<int:pk>', AnswersView.as_view())
 ]

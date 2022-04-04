@@ -4,13 +4,13 @@ from rest_framework.serializers import ModelSerializer
 
 class AnswersSerializer(ModelSerializer):
     class Meta:
-        model = Answer
+        model = Answers
         fields = ['id', 'question_id']
         read_only_fields = ['id']
 
 
 class AnswerSerializer(ModelSerializer):
     class Meta:
-        model = Answers
+        model = Answer
         fields = ['id', 'answers_id', 'text_answer', 'option_id']
         read_only_fields = ['id']
