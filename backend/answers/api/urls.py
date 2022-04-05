@@ -1,5 +1,6 @@
 from django.urls import path
-from answers.api.views import (AnswerView, AnswerDetailsView, CreateAnswerView,CreateAnswerDetailsView)
+from answers.api.views import (
+    AnswerView, AnswerDetailsView, CreateAnswerView, CreateAnswerDetailsView)
 
 urlpatterns = [
     path('create_answers', CreateAnswerView.as_view()),

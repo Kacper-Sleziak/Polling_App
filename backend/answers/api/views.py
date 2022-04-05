@@ -23,7 +23,6 @@ class CreateAnswerDetailsView(APIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-
 # [GET, DELETE] AnswerDetails View
 
 
@@ -48,9 +47,6 @@ class AnswerDetailsView(APIView):
             return Response(response_data, status=status.HTTP_200_OK)
         return Response({'AnswerDetails': 'there is no AnswerDetails with given id'},
                         status=status.HTTP_204_NO_CONTENT)
-
-
-
 
     def delete(self, request, pk, format=None):
         answer_details = self.get_answer_details_by_id(pk)
@@ -82,7 +78,6 @@ class AnswerDetailsView(APIView):
 class CreateAnswerView(APIView):
     serializer_class = AnswerSerializer
 
-
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
 
@@ -90,6 +85,31 @@ class CreateAnswerView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# [GET] Getting By Question ID
+
+class GetAnswerByQuestion(APIView):
+    serializer_class = AnswerSerializer
+
+    def get_answer_by_question(self, pk):
+        queryset = Answer.objects.filter(question_id=pk)
+
+        if queryset.exists():
+            answer = queryset[0]
+            return answer
+        else:
+            return 0
+
+    def get(self, request, pk, format=None):
+        serializer = self.serializer_class
+        answer = self.get_answer_by_question(pk)
+
+        if self.get_answer_by_question(pk) != 0:
+            response_data = serializer(answer, many=True).data
+            return Response(response_data, status=status.HTTP_200_OK)
+        return Response({'Answer': 'there is no asnwers with given question id'},
+                        status=status.HTTP_204_NO_CONTENT)
 
 
 # [GET, DELETE] Answer View
@@ -114,7 +134,7 @@ class AnswerView(APIView):
         if self.get_answer_by_id(pk) != 0:
             response_data = serializer(answer, many=True).data
             return Response(response_data, status=status.HTTP_200_OK)
-        return Response({'Answers': 'there is no asnwers with given id'},
+        return Response({'Answer': 'there is no asnwers with given id'},
                         status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk, format=None):
