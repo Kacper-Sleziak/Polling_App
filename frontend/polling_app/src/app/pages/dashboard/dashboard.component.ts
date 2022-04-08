@@ -44,6 +44,9 @@ export class DashboardComponent implements OnInit, AfterViewInit{
       case "Oczekujące":
         this.displayingData.data = this.polls.filter((poll) => poll.status === "oczekująca");
         break;
+      case "Edytowane":
+        this.displayingData.data = this.polls.filter((poll) => poll.status === "edytowana");
+        break;
       case "Zakończone":
         this.displayingData.data = this.polls.filter((poll) => poll.status === "zakończona");
         break;
@@ -57,7 +60,7 @@ export class DashboardComponent implements OnInit, AfterViewInit{
 
 
   ngOnInit(): void {
-    //pobieramy dane z servera API
+    //fetch data
     this.pollService.getPolls().subscribe(polls => {
       this.polls = polls;
       this.displayingData.data = polls;

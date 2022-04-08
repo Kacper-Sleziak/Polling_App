@@ -10,4 +10,6 @@
     width: 100%;
     flex-wrap: wrap;
     padding: 1rem 1.5rem;
+    /* Using this font size we can scale size of cards */
+    font-size: 0.9rem;
 }

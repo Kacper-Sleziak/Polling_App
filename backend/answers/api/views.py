@@ -4,8 +4,72 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from answers.api.serializers import (AnswerSerializer, AnswersSerializer)
-from answers.models import Answer, Answers
+
+from answers.api.serializers import (AnswerSerializer, AnswerDetailsSerializer)
+from answers.models import Answer, AnswerDetails
+
+
+# [POST] Creating AnswerDetails
+
+class CreateAnswerDetailsView(APIView):
+    serializer_class = AnswerDetailsSerializer
+
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# [GET, DELETE] AnswerDetails View
+
+
+class AnswerDetailsView(APIView):
+    serializer_class = AnswerSerializer
+
+    def get_answer_details_by_id(self, pk):
+        queryset = AnswerDetails.objects.filter(id=pk)
+
+        if queryset.exists():
+            answer_details = queryset[0]
+            return answer_details
+        else:
+            return 0
+
+    def get(self, request, pk, format=None):
+        serializer = self.serializer_class
+        answer_details = self.get_answer_details_by_id(pk)
+
+        if self.get_answer(pk) != 0:
+            response_data = serializer(answer_details, many=True).data
+            return Response(response_data, status=status.HTTP_200_OK)
+        return Response({'AnswerDetails': 'there is no AnswerDetails with given id'},
+                        status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, request, pk, format=None):
+        answer_details = self.get_answer_details_by_id(pk)
+
+        if answer_details != 0:
+            answer_details.delete()
+            answer_details.save()
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def put(self, request, pk, format=None):
+        serializer = self.serializer_class(data=request.data)
+        answer_details = self.get_answer_details_by_id(pk)
+
+        if answer_details != 0:
+            if serializer.is_valid():
+                serializer.update(answer_details, serializer.validated_data)
+                return Response(
+                    self.serializer_class(answer_details).data,
+                    status.HTTP_200_OK)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # [POST] Creating Answer
@@ -23,13 +87,38 @@ class CreateAnswerView(APIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+# [GET] Getting By Question ID
+
+class GetAnswerByQuestion(APIView):
+    serializer_class = AnswerSerializer
+
+    def get_answer_by_question(self, pk):
+        queryset = Answer.objects.filter(question_id=pk)
+
+        if queryset.exists():
+            answer = queryset[0]
+            return answer
+        else:
+            return 0
+
+    def get(self, request, pk, format=None):
+        serializer = self.serializer_class
+        answer = self.get_answer_by_question(pk)
+
+        if self.get_answer_by_question(pk) != 0:
+            response_data = serializer(answer, many=True).data
+            return Response(response_data, status=status.HTTP_200_OK)
+        return Response({'Answer': 'there is no asnwers with given question id'},
+                        status=status.HTTP_204_NO_CONTENT)
+
+
 # [GET, DELETE] Answer View
 
 
 class AnswerView(APIView):
     serializer_class = AnswerSerializer
 
-    def get_answer(self, pk):
+    def get_answer_by_id(self, pk):
         queryset = Answer.objects.filter(id=pk)
 
         if queryset.exists():
@@ -40,17 +129,16 @@ class AnswerView(APIView):
 
     def get(self, request, pk, format=None):
         serializer = self.serializer_class
-        answer = self.get_answer(pk)
+        answer = self.get_answer_by_id(pk)
 
-        if answer != 0:
-            return Response(
-                serializer(answer).data,
-                status=status.HTTP_200_OK)
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if self.get_answer_by_id(pk) != 0:
+            response_data = serializer(answer, many=True).data
+            return Response(response_data, status=status.HTTP_200_OK)
+        return Response({'Answer': 'there is no asnwers with given id'},
+                        status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk, format=None):
-        answer = self.get_answer(pk)
+        answer = self.get_answer_by_id(pk)
 
         if answer != 0:
             answer.delete()
@@ -60,72 +148,7 @@ class AnswerView(APIView):
 
     def put(self, request, pk, format=None):
         serializer = self.serializer_class(data=request.data)
-        answer = self.get_answer(pk)
-
-        if answer != 0:
-            if serializer.is_valid():
-                serializer.update(answer, serializer.validated_data)
-                return Response(
-                    self.serializer_class(answer).data,
-                    status.HTTP_200_OK)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-# [POST] Creating Answers
-
-
-class CreateAnswersView(APIView):
-    serializer_class = AnswersSerializer
-
-    def post(self, request, format=None):
-        serializer = self.serializer_class(data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-# [GET, DELETE] Answers View
-
-
-class AnswersView(APIView):
-    serializer_class = AnswersSerializer
-
-    def get_answers(self, pk):
-        queryset = Answers.objects.filter(id=pk)
-
-        if queryset.exists():
-            answers = queryset[0]
-            return answers
-        else:
-            return 0
-
-    def get(self, request, pk, format=None):
-        serializer = self.serializer_class
-        answers = self.get_answers(pk)
-
-        if answers != 0:
-            return Response(
-                serializer(answers).data,
-                status=status.HTTP_200_OK)
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    def delete(self, request, pk, format=None):
-        answers = self.get_answers(pk)
-
-        if answers != 0:
-            answers.delete()
-            answers.save()
-            return Response(status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    def put(self, request, pk, format=None):
-        serializer = self.serializer_class(data=request.data)
-        answers = self.get_answers(pk)
+        answers = self.get_answer_by_id(pk)
 
         if answers != 0:
             if serializer.is_valid():
