@@ -69,6 +69,7 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     # Orgin of frontend app
+    'http://localhost:4200'
 ]
 
 ROOT_URLCONF = 'Polling_App.urls'
