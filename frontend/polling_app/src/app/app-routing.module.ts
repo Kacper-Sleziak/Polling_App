@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', component: DashboardComponent},
   { path: 'create-poll', component: CreatePollComponent},
   { path: 'polls', component: PollsComponent},
-  { path: 'form', component: PollingFormComponent}
+  { path: 'form/:slug', component: PollingFormComponent}
 ];
 
 @NgModule({
