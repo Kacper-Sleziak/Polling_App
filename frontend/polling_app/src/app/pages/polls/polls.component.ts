@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Poll } from '../../models/dashboard-models/poll';
+import { PollService } from '../../services/dashboard-services/poll.service';
 
 @Component({
   selector: 'app-polls',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PollsComponent implements OnInit {
 
-  constructor() { }
+  polls: Poll[] = [];
+  displayingData: Poll[] = [];
+
+
+  constructor(private pollService: PollService) { 
+  }
 
   ngOnInit(): void {
+    //fetch data
+    this.pollService.getPolls().subscribe(polls => {
+      this.polls = polls;
+      this.displayingData = polls;
+    });
   }
 
 }

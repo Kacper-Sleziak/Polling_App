@@ -1,16 +1,16 @@
-from answers.models import Answer, Answers
+from answers.models import Answer, AnswerDetails
 from rest_framework.serializers import ModelSerializer
 
 
-class AnswersSerializer(ModelSerializer):
+class AnswerSerializer(ModelSerializer):
     class Meta:
         model = Answer
         fields = ['id', 'question_id']
         read_only_fields = ['id']
 
 
-class AnswerSerializer(ModelSerializer):
+class AnswerDetailsSerializer(ModelSerializer):
     class Meta:
-        model = Answers
+        model = AnswerDetails
         fields = ['id', 'answers_id', 'text_answer', 'option_id']
         read_only_fields = ['id']

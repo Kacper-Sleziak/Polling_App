@@ -5,6 +5,5 @@ from rest_framework.serializers import ModelSerializer
 class PollSerializer(ModelSerializer):
     class Meta:
         model = Poll
-        fields = ('id', 'title', 'description', 'slug', 'start_date', 'end_date',
-                  'create_date', 'filling', 'sent', 'status')
+        fields = ('__all__')
         read_only_fields = ['id', 'slug', 'create_date']
