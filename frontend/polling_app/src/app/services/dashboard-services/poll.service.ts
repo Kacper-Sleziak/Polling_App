@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { Poll } from '../../models/dashboard-models/poll'
 import { environment } from 'src/environments/environment';
@@ -224,8 +225,17 @@ export class PollService {
   }
 
   deletePoll(id : number): void{
-      console.log(this.apiURL.concat(`/polls/${id}`));
       console.log(environment.apiUrl.concat(`/polls/${id}`));
     // this.http.delete(this.apiURL.concat(`/polls/${id}`));
+  }
+
+  getPoll(slug: string): Observable<Poll>{
+    return this.http.get(`${environment.apiUrl}/polls/${slug}`)
+    .pipe(
+        map(
+        (result: any)=>{
+            return new Poll(result.id, result.title, result.description, result.start_date, result.end_date, result.filling, result.sent, result.status);
+        })
+    );
   }
 }
