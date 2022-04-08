@@ -21,7 +21,7 @@ export class ScaleAnswerComponent extends AnswerComponent {
     this.resultChanged.emit(this.result);
   }
 
-  override ngOnInit(): void {
+  ngOnChanges(): void {
     this.results = [];
     for(let i = 0; i < this.scale; i++){
       this.results.push(false);

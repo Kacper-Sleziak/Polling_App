@@ -10,7 +10,7 @@ import { AnswerComponent } from '../answer/answer.component';
 })
 export class CheckboxAnswerComponent extends AnswerComponent {
   
-  override ngOnInit(): void {
+  ngOnChanges(): void {
     const options = [];
     for (const answer of this.answers) {
       options.push({optionId: answer.id, content: answer.isChecked.toString()});
@@ -23,6 +23,6 @@ export class CheckboxAnswerComponent extends AnswerComponent {
     for (const option of result.options) {
       if(option.optionId === optionId) option.content = event.checked.toString();
     }
-    this.resultChanged.emit(result);
+    this.resultChanged.emit(this.result);
   }
 }
