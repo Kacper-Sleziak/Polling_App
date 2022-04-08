@@ -10,7 +10,6 @@ import { Poll } from '../../models/dashboard-models/poll'
 export class PollService {
 
   polls: Poll[];
-  private apiURL = "http://localhost:4200"
 
   constructor(private http: HttpClient) { 
     
@@ -205,6 +204,7 @@ export class PollService {
 
   deletePoll(id : number): void{
       console.log(this.apiURL.concat(`/polls/${id}`));
+      console.log(environment.apiUrl.concat(`/polls/${id}`));
     // this.http.delete(this.apiURL.concat(`/polls/${id}`));
   }
 }
