@@ -21,7 +21,7 @@ export class ScaleAnswerComponent extends AnswerComponent {
     this.resultChanged.emit(this.result);
   }
 
-  override ngOnInit(): void {
+  ngOnChanges(): void {
     this.results = [];
     for(let i = 0; i < this.scale; i++){
       this.results.push(false);
@@ -31,6 +31,6 @@ export class ScaleAnswerComponent extends AnswerComponent {
       options.push({optionId: answer.id, content: ""});  
     }
 
-    this.result = new Result(this.answerId, options);
+    this.result = new Result(options);
   }
 }

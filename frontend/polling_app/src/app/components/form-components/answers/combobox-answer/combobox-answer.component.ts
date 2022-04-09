@@ -13,7 +13,7 @@ export class ComboboxAnswerComponent extends AnswerComponent {
 
   override ngOnInit(): void {
     const options: []= [];
-    this.result = new Result(this.answerId, options);
+    this.result = new Result(options);
   }
 
   updateResult = (event: MatOptionSelectionChange) => {

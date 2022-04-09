@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { Poll } from '../../models/dashboard-models/poll'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,6 @@ import { Poll } from '../../models/dashboard-models/poll'
 export class PollService {
 
   polls: Poll[];
-  private apiURL = "http://localhost:4200"
 
   constructor(private http: HttpClient) { 
     
@@ -18,6 +19,7 @@ export class PollService {
       {
         "id": 250,
         "name": "Jakość usług - marzec 2022",
+        "description": "",
         "startDate": "17.03.2022 13:00:21",
         "endDate": "17.04.2022 13:00:21",
         "filled": 0,
@@ -27,6 +29,7 @@ export class PollService {
       {
           "id": 23,
           "name": "Ocena zmian",
+          "description": "",
           "startDate": "11.03.2021 12:11:35",
           "endDate": "14.03.2021 12:11:35",
           "filled": 100,
@@ -36,6 +39,7 @@ export class PollService {
       {
           "id": 33,
           "name": "Jakość usług",
+          "description": "",
           "startDate": "14.03.2021 12:11:35",
           "endDate": "20.03.2022 12:11:35",
           "filled": 33,
@@ -45,6 +49,7 @@ export class PollService {
       {
           "id": 34,
           "name": "Prosty formularz",
+          "description": "",
           "startDate": "12.03.2022 12:11:35",
           "endDate": "20.03.2022 12:11:35",
           "filled": 14,
@@ -54,6 +59,7 @@ export class PollService {
       {
           "id": 35,
           "name": "Jakość usług",
+          "description": "",
           "startDate": "12.03.2022 13:00:21",
           "endDate": "12.04.2022 13:00:21",
           "filled": 0,
@@ -63,6 +69,7 @@ export class PollService {
       {
           "id": 54,
           "name": "Prosty formularz",
+          "description": "",
           "startDate": "17.03.2022 13:00:21",
           "endDate": "17.04.2022 13:00:21",
           "filled": 0,
@@ -72,6 +79,7 @@ export class PollService {
       {
           "id": 23,
           "name": "Ocena zmian",
+          "description": "",
           "startDate": "11.03.2021 12:11:35",
           "endDate": "14.03.2021 12:11:35",
           "filled": 100,
@@ -81,6 +89,7 @@ export class PollService {
       {
           "id": 23,
           "name": "Ocena zmian",
+          "description": "",
           "startDate": "11.03.2021 12:11:35",
           "endDate": "14.03.2021 12:11:35",
           "filled": 100,
@@ -90,6 +99,7 @@ export class PollService {
       {
           "id": 33,
           "name": "Jakość usług",
+          "description": "",
           "startDate": "14.03.2021 12:11:35",
           "endDate": "20.03.2022 12:11:35",
           "filled": 33,
@@ -99,6 +109,7 @@ export class PollService {
       {
           "id": 34,
           "name": "Prosty formularz",
+          "description": "",
           "startDate": "12.03.2022 12:11:35",
           "endDate": "20.03.2022 12:11:35",
           "filled": 14,
@@ -108,6 +119,7 @@ export class PollService {
       {
           "id": 35,
           "name": "Jakość usług",
+          "description": "",
           "startDate": "12.03.2022 13:00:21",
           "endDate": "12.04.2022 13:00:21",
           "filled": 12,
@@ -117,6 +129,7 @@ export class PollService {
       {
           "id": 54,
           "name": "Prosty formularz",
+          "description": "",
           "startDate": "17.03.2022 13:00:21",
           "endDate": "17.04.2022 13:00:21",
           "filled": 0,
@@ -126,6 +139,7 @@ export class PollService {
       {
           "id": 23,
           "name": "Aktywna",
+          "description": "",
           "startDate": "11.03.2021 12:11:35",
           "endDate": "14.03.2021 12:11:35",
           "filled": 100,
@@ -135,6 +149,7 @@ export class PollService {
       {
           "id": 33,
           "name": "Jakość usług",
+          "description": "",
           "startDate": "14.03.2021 12:11:35",
           "endDate": "20.03.2022 12:11:35",
           "filled": 33,
@@ -144,6 +159,7 @@ export class PollService {
       {
           "id": 34,
           "name": "Prosty formularz",
+          "description": "",
           "startDate": "12.03.2022 12:11:35",
           "endDate": "20.03.2022 12:11:35",
           "filled": 14,
@@ -153,6 +169,7 @@ export class PollService {
       {
           "id": 35,
           "name": "Jakość usług",
+          "description": "",
           "startDate": "12.03.2022 13:00:21",
           "endDate": "12.04.2022 13:00:21",
           "filled": 12,
@@ -162,6 +179,7 @@ export class PollService {
       {
           "id": 33,
           "name": "Jakość usług",
+          "description": "",
           "startDate": "14.03.2021 12:11:35",
           "endDate": "20.03.2022 12:11:35",
           "filled": 33,
@@ -171,6 +189,7 @@ export class PollService {
       {
           "id": 34,
           "name": "Prosty formularz",
+          "description": "",
           "startDate": "12.03.2022 12:11:35",
           "endDate": "20.03.2022 12:11:35",
           "filled": 14,
@@ -180,6 +199,7 @@ export class PollService {
       {
           "id": 35,
           "name": "Jakość usług",
+          "description": "",
           "startDate": "12.03.2022 13:00:21",
           "endDate": "12.04.2022 13:00:21",
           "filled": 12,
@@ -189,6 +209,7 @@ export class PollService {
       {
           "id": 250,
           "name": "Jakość usług - marzec 2022",
+          "description": "",
           "startDate": "17.03.2022 13:00:21",
           "endDate": "17.04.2022 13:00:21",
           "filled": 0,
@@ -204,7 +225,17 @@ export class PollService {
   }
 
   deletePoll(id : number): void{
-      console.log(this.apiURL.concat(`/polls/${id}`));
+      console.log(environment.apiUrl.concat(`/polls/${id}`));
     // this.http.delete(this.apiURL.concat(`/polls/${id}`));
+  }
+
+  getPoll(slug: string): Observable<Poll>{
+    return this.http.get(`${environment.apiUrl}/polls/${slug}`)
+    .pipe(
+        map(
+        (result: any)=>{
+            return new Poll(result.id, result.title, result.description, result.start_date, result.end_date, result.filling, result.sent, result.status);
+        })
+    );
   }
 }

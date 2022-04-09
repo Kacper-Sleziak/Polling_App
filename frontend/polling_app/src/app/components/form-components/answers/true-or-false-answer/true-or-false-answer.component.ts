@@ -17,7 +17,7 @@ export class TrueOrFalseAnswerComponent extends AnswerComponent {
     for (const answer of this.answers) {
       options.push({optionId: answer.id, content: answer.isChecked.toString()});
     }
-    this.resultChanged.emit(new Result(this.answerId, options));
+    this.resultChanged.emit(new Result(options));
   }
 
 }

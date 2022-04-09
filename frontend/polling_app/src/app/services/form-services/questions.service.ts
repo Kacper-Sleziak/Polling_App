@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { map, of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from 'src/environments/environment';
 import { Answer } from '../../models/form-models/answer';
 import { Question, QuestionType } from '../../models/form-models/question';
 
@@ -12,7 +14,7 @@ export class QuestionsService {
   questionNewId: number = 0;
   answerNewId: number = 0;
 
-  constructor() {
+  constructor(private http: HttpClient) {
       this.questions.push(
         new Question(
           this.questionNewId++,
@@ -110,7 +112,28 @@ export class QuestionsService {
     
   }
 
-  getQuestions(): Observable<Question[]>{
-    return of(this.questions)
+  getQuestions(id: number): Observable<Question[]>{
+    return this.http.get(`${environment.apiUrl}/questions/question/poll/${id}`)
+    .pipe(
+        map(
+        (result: any)=>{
+            const questions: Question [] = [];
+            for (const question of result) {
+              questions.push(new Question(question.id, question.content, [], QuestionTypeFactory.getType(question.question_type)))
+            }
+            return questions;
+        })
+    );
+  }
+}
+
+const QuestionTypeFactory = {
+  getType: (typeId: number): QuestionType => {
+    switch(typeId){
+      case 2: return QuestionType.Checkbox;
+      case 5: return QuestionType.ShortText;
+      case 6: return QuestionType.Radio;
+    }
+    return QuestionType.Checkbox;
   }
 }

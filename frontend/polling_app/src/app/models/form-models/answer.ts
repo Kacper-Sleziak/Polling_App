@@ -10,7 +10,7 @@ export class Answer{
         this.id = id;
         this.answer = answer;
         this.result = '';
-        if(type===QuestionType.Radio){ 
+        if(type===QuestionType.Radio || type===QuestionType.Checkbox){ 
             this.result = 'false';
         }
     }

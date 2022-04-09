@@ -19,7 +19,7 @@ export class TextAnswerComponent extends AnswerComponent {
     for (const answer of this.answers) {
       options.push({optionId: answer.id, content: answer.result});  
     }
-    this.result = new Result(this.answerId, options);
+    this.result = new Result(options);
     this.resultChanged.emit(this.result);
   }
 }
