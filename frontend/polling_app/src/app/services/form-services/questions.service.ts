@@ -129,8 +129,10 @@ export class QuestionsService {
 
 const QuestionTypeFactory = {
   getType: (typeId: number): QuestionType => {
+    console.log(typeId);
     switch(typeId){
       case 2: return QuestionType.Checkbox;
+      case 3: return QuestionType.Combobox;
       case 5: return QuestionType.ShortText;
       case 6: return QuestionType.Radio;
     }
