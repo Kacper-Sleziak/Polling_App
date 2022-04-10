@@ -9,7 +9,7 @@ from triggers.api.serializers import TriggerSerializer
 # [POST] Creating Trigger
 
 
-class CreateTriggerView(APIView):
+class CreateTriggerView(generics.ListAPIView):
     serializer_class = TriggerSerializer
 
     def post(self, request, format=None):
@@ -23,7 +23,7 @@ class CreateTriggerView(APIView):
 # [GET, DELETE] Trigger View
 
 
-class TriggerView(APIView):
+class TriggerView(generics.ListAPIView):
     serializer_class = TriggerSerializer
 
     def get_trigger(self, pk):
@@ -72,7 +72,7 @@ class TriggerView(APIView):
 # [GET] Get all triggers for given question view
 
 
-class GetTriggersForQuestion(APIView):
+class GetTriggersForQuestion(generics.ListAPIView):
     serializer_class = TriggerSerializer
 
     def get_question(self, pk):
