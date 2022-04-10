@@ -1,5 +1,4 @@
 from questions.models import Option, Question, QuestionType
-from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 
@@ -13,7 +12,7 @@ class QuestionTypeSerializer(ModelSerializer):
 class QuestionSerializer(ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', 'content', 'question_type')
+        fields = ('id', 'position', 'content', 'question_type')
         read_only_fields = ['id']
 
 

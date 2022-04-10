@@ -1,6 +1,6 @@
 from django.http import Http404
 
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -11,7 +11,7 @@ from answers.models import Answer, AnswerDetails
 
 # [POST] Creating AnswerDetails
 
-class CreateAnswerDetailsView(APIView):
+class CreateAnswerDetailsView(generics.ListAPIView):
     serializer_class = AnswerDetailsSerializer
 
     def post(self, request, format=None):
@@ -26,7 +26,7 @@ class CreateAnswerDetailsView(APIView):
 # [GET, DELETE] AnswerDetails View
 
 
-class AnswerDetailsView(APIView):
+class AnswerDetailsView(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
     def get_answer_details_by_id(self, pk):
@@ -75,7 +75,7 @@ class AnswerDetailsView(APIView):
 # [POST] Creating Answer
 
 
-class CreateAnswerView(APIView):
+class CreateAnswerView(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
     def post(self, request, format=None):
@@ -89,7 +89,7 @@ class CreateAnswerView(APIView):
 
 # [GET] Getting By Question ID
 
-class GetAnswerByQuestion(APIView):
+class GetAnswerByQuestion(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
     def get_answer_by_question(self, pk):
@@ -115,7 +115,7 @@ class GetAnswerByQuestion(APIView):
 # [GET, DELETE] Answer View
 
 
-class AnswerView(APIView):
+class AnswerView(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
     def get_answer_by_id(self, pk):
