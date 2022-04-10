@@ -12,13 +12,32 @@ import { AnswerComponent } from '../answer/answer.component';
 export class ComboboxAnswerComponent extends AnswerComponent {
 
   override ngOnInit(): void {
-    const options: []= [];
+    const options: {optionId: number, content: string}[]= [];
+    for (const answer of this.answers) {
+      options.push({optionId: answer.id, content: answer.isChecked.toString()});
+    }
+    console.log(options);
+    this.result = new Result(options);
+  }
+
+  ngOnChange(): void {
+    const options: {optionId: number, content: string}[]= [];
+    for (const answer of this.answers) {
+      options.push({optionId: answer.id, content: answer.isChecked.toString()});
+    }
+    console.log(options);
     this.result = new Result(options);
   }
 
   updateResult = (event: MatOptionSelectionChange) => {
     const result = this.result;
-    result.options = [{optionId: event.source.value.id, content:event.source.value.isChecked.toString()}];
+    console.log(result);
+    for (const option of result.options) {
+      if(option.optionId === event.source.value.id){
+        option.content = event.source.selected.toString();
+      }
+    }
+    console.log(this.result);
     this.resultChanged.emit(result);
   }
 }
