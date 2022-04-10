@@ -10,8 +10,20 @@ import { AnswerComponent } from '../answer/answer.component';
 })
 export class RadioAnswerComponent extends AnswerComponent{
 
+  ngOnChange(): void {
+
+  }
+
   updateResult = (event: MatRadioChange) => {
-    this.resultChanged.emit(new Result([{optionId: event.value.id, content: "true"}]));
+    const options: {optionId: number, content: string}[] = [];
+    for (const answer of this.answers) {
+      if(answer.id === event.value.id){
+        options.push({optionId: answer.id, content: "true"});
+      }else{
+        options.push({optionId: answer.id, content: "false"});
+      }
+    }
+    this.resultChanged.emit(new Result(options));
   }
 
 }
