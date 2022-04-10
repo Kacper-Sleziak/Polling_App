@@ -1,4 +1,3 @@
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
 
@@ -8,7 +7,7 @@ from account.models import Account as AccountModel
 # [POST] Login API View
 
 
-class LoginView(generics.ListAPIView):
+class LoginView(generics.CreateAPIView):
     serializer_class = LoginSerializer
 
     def post(self, request, format=None):
@@ -40,7 +39,7 @@ class AccountsView(generics.ListAPIView):
 # [POST] View Creating Account by post request
 
 
-class CreateAccountView(generics.ListAPIView):
+class CreateAccountView(generics.CreateAPIView):
     serializer_class = CreateAccountSerializer
 
     def post(self, request, format=None):

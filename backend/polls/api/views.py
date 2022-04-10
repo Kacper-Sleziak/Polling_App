@@ -7,14 +7,16 @@ from rest_framework.response import Response
 
 class PollForAuthorList(generics.ListAPIView):
     serializer_class = PollSerializer
+    queryset = ""
 
     def get(self, request, author_id, format=None):
         """
-        TEST.
+        TEST
+        TEST2
         """
-        poll = Poll.objects.filter(author=author_id)
-        if poll.exists():
-            serializer = self.serializer_class(poll, many=True)
+        queryset = Poll.objects.filter(author=author_id)
+        if queryset.exists():
+            serializer = self.serializer_class(queryset, many=True)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
