@@ -1,8 +1,22 @@
 <div class="content">
-    <div class="cards-container">
+
+    <!-- Filter for status -->
+    <mat-tab-group (selectedTabChange)="filterData($event)" animationDuration="0ms" mat-align-tabs="center">
+        <mat-tab label="Wszystkie" ></mat-tab>
+        <mat-tab label="Aktywne"></mat-tab>
+        <mat-tab label="Wstrzymane"></mat-tab>
+        <mat-tab label="Oczekujące"></mat-tab>
+        <mat-tab label="Edytowane"></mat-tab>
+        <mat-tab label="Zakończone"></mat-tab>
+    </mat-tab-group>
+
+    
+    <div class="cards-container mat-elevation-z1">
         <!-- Create poll card -->
         <app-create-poll-card></app-create-poll-card>
         <!-- Rendering cards -->
         <app-card *ngFor="let poll of displayingData;" [poll]="poll"></app-card>
     </div>
+   
+    
 </div>

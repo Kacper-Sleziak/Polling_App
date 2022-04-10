@@ -3,12 +3,11 @@
     <!-- Header -->
     <mat-card-header>
       <mat-card-title>{{poll.status.charAt(0).toUpperCase() + poll.status.slice(1)}} 
-        <!-- Possible colors of cards -->
-        <div class="dot green" *ngIf="poll.status === 'aktywna'"></div>
-        <div class="dot yellow" *ngIf="poll.status === 'wstrzymana'"></div>
-        <div class="dot blue" *ngIf="poll.status === 'oczekująca'"></div>
-        <div class="dot red" *ngIf="poll.status === 'zakończona'"></div>
-        <div class="dot grey" *ngIf="poll.status === 'edytowana'"></div>
+        <!-- Toggled depends on status -->
+        <mat-slide-toggle *ngIf="poll.status === 'editing'" disabled></mat-slide-toggle>
+        <mat-slide-toggle *ngIf="poll.status === 'close'" color="primary" checked="false" (change)="taggleChangeHandle()"></mat-slide-toggle>
+        <mat-slide-toggle *ngIf="poll.status === 'open'" color="primary" checked="true" (change)="taggleChangeHandle()"></mat-slide-toggle>
+        
       </mat-card-title>
       <mat-card-subtitle>ID ankiety: {{poll.id}}</mat-card-subtitle>
       

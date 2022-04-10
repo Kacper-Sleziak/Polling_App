@@ -13,6 +13,19 @@ export class CardComponent implements OnInit {
 
   @Input() poll !: Poll;
 
+
+  taggleChangeHandle() : void {
+
+    if(this.poll.status === 'open'){
+      this.poll.status = 'close';
+    }
+    else{
+      this.poll.status = 'open';
+    }
+
+    this.pollService.putPollStatus(this.poll.id);
+  }
+
   constructor(public dialog: MatDialog, private pollService: PollService) { }
 
   openDeleteDialog(): void{

@@ -40,7 +40,7 @@
     width: auto;
     height: 8.25em;
     margin: 0em -1em;
-    background-color: lightblue;
+    background-color: rgba(0, 191, 255, 0.174);
 }
 
 .poll-title{
@@ -150,9 +150,15 @@
 }
 
 
+.mat-slide-toggle {
+    transform: scale(0.80);
+}
+
 @media screen and (max-width: 480px){
     .card{
         font-size: 0.6rem;
     }
 }
+
+
 
