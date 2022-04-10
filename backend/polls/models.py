@@ -1,6 +1,5 @@
 from account.models import Account as AccountModel
 from django.db import models
-from django.utils.text import slugify
 
 
 class Poll(models.Model):
