@@ -8,7 +8,7 @@ from account.models import Account as AccountModel
 # [POST] Login API View
 
 
-class LoginView(APIView):
+class LoginView(generics.ListAPIView):
     serializer_class = LoginSerializer
 
     def post(self, request, format=None):
@@ -40,7 +40,7 @@ class AccountsView(generics.ListAPIView):
 # [POST] View Creating Account by post request
 
 
-class CreateAccountView(APIView):
+class CreateAccountView(generics.ListAPIView):
     serializer_class = CreateAccountSerializer
 
     def post(self, request, format=None):

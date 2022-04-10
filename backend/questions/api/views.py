@@ -2,27 +2,28 @@ from django.http import Http404
 from questions.api.serializers import (OptionSerializer, QuestionSerializer,
                                        QuestionTypeSerializer)
 from questions.models import Option, Question, QuestionType
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 
-class QuestionTypeList(APIView):
-
+class QuestionTypeList(generics.ListAPIView):
+    serializer_class = QuestionTypeSerializer
+    
     def get(self, request, format=None):
         question_types = QuestionType.objects.all()
-        serializer = QuestionTypeSerializer(question_types, many=True)
+        serializer = self.serializer_class(question_types, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = QuestionTypeSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class QuestionTypeDetail(APIView):
+class QuestionTypeDetail(generics.ListAPIView):
+    serializer_class = QuestionTypeSerializer
 
     def get_object(self, pk):
         try:
@@ -32,12 +33,12 @@ class QuestionTypeDetail(APIView):
 
     def get(self, request, pk, format=None):
         question_type = self.get_object(pk)
-        serializer = QuestionTypeSerializer(question_type)
+        serializer = self.serializer_class(question_type)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         question_type = self.get_object(pk)
-        serializer = QuestionTypeSerializer(question_type, data=request.data)
+        serializer = self.serializer_class(question_type, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -49,7 +50,8 @@ class QuestionTypeDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class QuestionDetail(APIView):
+class QuestionDetail(generics.ListAPIView):
+    serializer_class = QuestionSerializer
 
     def get_object(self, pk):
         try:
@@ -59,12 +61,12 @@ class QuestionDetail(APIView):
 
     def get(self, request, pk, format=None):
         question = self.get_object(pk)
-        serializer = QuestionSerializer(question)
+        serializer = self.serializer_class(question)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         question = self.get_object(pk)
-        serializer = QuestionSerializer(question, data=request.data)
+        serializer = self.serializer_class(question, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -76,25 +78,27 @@ class QuestionDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class QuestionForPullList(APIView):
+class QuestionForPullList(generics.ListAPIView):
+    serializer_class = QuestionSerializer
     
     def get(self, request, poll_id, format=None):
         question = Question.objects.filter(poll=poll_id)
         if question.exists():
-            serializer = QuestionSerializer(question, many=True)
+            serializer = self.serializer_class(question, many=True)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
 
     def post(self, request, poll_id, format=None):
-        serializer = QuestionSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class OptionDetail(APIView):
+class OptionDetail(generics.ListAPIView):
+    serializer_class = OptionSerializer
 
     def get_object(self, pk):
         try:
@@ -104,12 +108,12 @@ class OptionDetail(APIView):
 
     def get(self, request, pk, format=None):
         option = self.get_object(pk)
-        serializer = OptionSerializer(option)
+        serializer = self.serializer_class(option)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         option = self.get_object(pk)
-        serializer = OptionSerializer(option, data=request.data)
+        serializer = self.serializer_class(option, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -121,18 +125,19 @@ class OptionDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class OptionForQuestionList(APIView):
+class OptionForQuestionList(generics.ListAPIView):
+    serializer_class = OptionSerializer
     
     def get(self, request, question_id, format=None):
         option = Option.objects.filter(question=question_id)
         if option.exists():
-            serializer = OptionSerializer(option, many=True)
+            serializer = self.serializer_class(option, many=True)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
 
     def post(self, request, question_id, format=None):
-        serializer = OptionSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
