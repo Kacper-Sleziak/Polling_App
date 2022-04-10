@@ -30,7 +30,7 @@ export class QuestionViewModelService {
   loadPollQuestions(pollId: number) {
     this.subject.next(this.questions);
     this.questionsService.getQuestions(pollId).subscribe((questions) => {
-      this.questions.push(...questions);
+      this.questions.push(...questions.sort((a, b) => a.position - b.position));
       for (const question of this.questions) {
         this.answerService
           .getAnswers(question.id)
@@ -44,6 +44,10 @@ export class QuestionViewModelService {
         });
       }
     });
+    this.questionsViewModel = this.questionsViewModel.sort(
+      (a, b) => a.position - b.position
+    );
+    this.subject.next(this.questionsViewModel);
   }
 
   getQuestions() {
@@ -92,13 +96,17 @@ export class QuestionViewModelService {
         this.hideQuestion(triggeredQuestion);
       }
     }
+    this.questionsViewModel = this.questionsViewModel.sort(
+      (a, b) => a.position - b.position
+    );
+    this.subject.next(this.questionsViewModel);
   }
 
   hideQuestion(question: Question) {
     console.log(question);
-    this.questionsViewModel = this.questionsViewModel.filter(
-      (q) => q.id !== question.id
-    );
+    this.questionsViewModel = this.questionsViewModel
+      .filter((q) => q.id !== question.id)
+      .sort((a, b) => a.position - b.position);
     this.subject.next(this.questionsViewModel);
     this.questionResult.delete(question);
     const triggers = this.triggers.get(question.id);
