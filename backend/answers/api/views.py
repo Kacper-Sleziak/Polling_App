@@ -10,7 +10,6 @@ from answers.models import Answer, AnswerDetails
 
 
 # [POST] Creating AnswerDetails
-
 class CreateAnswerDetailsView(generics.ListAPIView):
     serializer_class = AnswerDetailsSerializer
 
@@ -24,8 +23,6 @@ class CreateAnswerDetailsView(generics.ListAPIView):
 
 
 # [GET, DELETE] AnswerDetails View
-
-
 class AnswerDetailsView(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
@@ -71,8 +68,7 @@ class AnswerDetailsView(generics.ListAPIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# [GET] Getting By Question ID
-
+# [GET] Getting AnswerDetails By Question ID
 class GetAnswerDetailsByQuestion(generics.ListAPIView):
     serializer_class = AnswerDetailsSerializer
 
@@ -96,8 +92,6 @@ class GetAnswerDetailsByQuestion(generics.ListAPIView):
                         status=status.HTTP_204_NO_CONTENT)
 
 # [POST] Creating Answer
-
-
 class CreateAnswerView(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
@@ -110,8 +104,7 @@ class CreateAnswerView(generics.ListAPIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# [GET] Getting By Question ID
-
+# [GET] Getting Answer By Question ID
 class GetAnswerByQuestion(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
@@ -136,8 +129,6 @@ class GetAnswerByQuestion(generics.ListAPIView):
 
 
 # [GET, DELETE] Answer View
-
-
 class AnswerView(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
