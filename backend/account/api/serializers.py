@@ -47,3 +47,10 @@ class CreateAccountSerializer(ModelSerializer):
         account.set_password(password)
         account.save()
         return account
+    
+class LogoSerializer(ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('logo',)
+
+    
