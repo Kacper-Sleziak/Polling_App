@@ -99,10 +99,15 @@ AUTH_USER_MODEL = "account.Account"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rosvhydj',
+        'USER': 'rosvhydj',
+        'PASSWORD': '70JOjoIK_xPwxMGa9l0dg9vdmDd1SFeQ',
+        'HOST': 'dumbo.db.elephantsql.com',
+        'PORT': ' 5432',
     }
 }
+
 
 
 # Password validation
