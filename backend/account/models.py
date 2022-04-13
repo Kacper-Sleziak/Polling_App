@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+def logo_upload_location(instance, filename):
+    
+    print(instance.company_name)
+    file_path = f"logos/{instance.company_name}/{filename}"
+
+    return file_path
 
 class AccountManager(BaseUserManager):
 
@@ -41,6 +47,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    logo = models.ImageField(upload_to=logo_upload_location, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['company_name']
