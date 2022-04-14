@@ -1,20 +1,15 @@
 from account.models import Account as AccountModel
 from django.db import models
-from django.utils.text import slugify
 
 
 class Poll(models.Model):
     ACTIVE = 0
-    STOPPED = 1
-    WAITING = 2
-    FINISHED = 3
-    DRAFT = 4
+    FINISHED = 1
+    DRAFT = 2
     STATUS_CHOICES = [
         (ACTIVE, 'Active'),
-        (STOPPED, 'Stopped'),
-        (WAITING, 'Waiting'),
         (FINISHED, 'Finished'),
-        (DRAFT, 'Draft'),
+        (DRAFT, 'Draft')
     ]
 
     title = models.TextField(default="New poll", max_length=50)

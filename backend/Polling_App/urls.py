@@ -10,9 +10,9 @@ urlpatterns = [
     path('questions/', include('questions.api.urls')),
     path('answers/', include('answers.api.urls')),
     path('triggers/', include('triggers.api.urls')),
-    path('results/', include('results_exporter.api.urls')),
     path('mail/', include('mail_sender.api.urls')),
-    path('openapi', get_schema_view(), name='openapi-schema'),
+    path('pdf/', include('pdf_results_exporter.api.urls')),
+    path('openapi/', get_schema_view(), name='openapi-schema'),
     path('', TemplateView.as_view(
         template_name='swagger-ui.html',
         extra_context={'schema_url':'openapi-schema'}

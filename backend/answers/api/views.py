@@ -10,7 +10,6 @@ from answers.models import Answer, AnswerDetails
 
 
 # [POST] Creating AnswerDetails
-
 class CreateAnswerDetailsView(generics.ListAPIView):
     serializer_class = AnswerDetailsSerializer
 
@@ -24,8 +23,6 @@ class CreateAnswerDetailsView(generics.ListAPIView):
 
 
 # [GET, DELETE] AnswerDetails View
-
-
 class AnswerDetailsView(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
@@ -71,10 +68,30 @@ class AnswerDetailsView(generics.ListAPIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# [GET] Getting AnswerDetails By Question ID
+class GetAnswerDetailsByQuestion(generics.ListAPIView):
+    serializer_class = AnswerDetailsSerializer
+
+    def get_answerdetails_by_question(self, pk):
+        queryset = AnswerDetails.objects.filter(question_id=pk)
+
+        if queryset.exists():
+            answer = queryset[0]
+            return answer
+        else:
+            return 0
+
+    def get(self, request, pk, format=None):
+        serializer = self.serializer_class
+        answer = self.get_answerdetails_by_question(pk)
+
+        if self.get_answerdetails_by_question(pk) != 0:
+            response_data = serializer(answer, many=True).data
+            return Response(response_data, status=status.HTTP_200_OK)
+        return Response({'AnswerDetails': 'there is no answerdetails with given question id'},
+                        status=status.HTTP_204_NO_CONTENT)
 
 # [POST] Creating Answer
-
-
 class CreateAnswerView(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
@@ -87,8 +104,7 @@ class CreateAnswerView(generics.ListAPIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# [GET] Getting By Question ID
-
+# [GET] Getting Answer By Question ID
 class GetAnswerByQuestion(generics.ListAPIView):
     serializer_class = AnswerSerializer
 
@@ -108,13 +124,11 @@ class GetAnswerByQuestion(generics.ListAPIView):
         if self.get_answer_by_question(pk) != 0:
             response_data = serializer(answer, many=True).data
             return Response(response_data, status=status.HTTP_200_OK)
-        return Response({'Answer': 'there is no asnwers with given question id'},
+        return Response({'Answer': 'there is no answers with given question id'},
                         status=status.HTTP_204_NO_CONTENT)
 
 
 # [GET, DELETE] Answer View
-
-
 class AnswerView(generics.ListAPIView):
     serializer_class = AnswerSerializer
 

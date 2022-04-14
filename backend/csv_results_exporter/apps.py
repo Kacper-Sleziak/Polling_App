@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ResultsExporterConfig(AppConfig):
+class CsvResultsExporterConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'results_exporter'
+    name = 'csv_results_exporter'
