@@ -6,10 +6,11 @@ def generate_pdf(poll):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font('Arial', 'B', 16)
-    pdf.cell(40, 10, "xd")
+    pdf.cell(40, 10, poll.title)
     
-    path = f"{BASE_DIR}\pdf_results_exporter\pdf\pdfs.pdf"
+    file_name = f"{poll.title}_results"    
+    path = os.path.join(BASE_DIR, "pdf_results_exporter", 
+                        "pdf", "pdfs", f"{file_name}.pdf")
     
-    pdf.output(path , dest=path)
+    pdf.output(path)
     return path 
-

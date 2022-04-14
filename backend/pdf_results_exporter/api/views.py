@@ -2,12 +2,8 @@ from pdf_results_exporter.api.renderers import BinaryFileRenderer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.renderers import JSONRenderer
-from Polling_App.settings import BASE_DIR
 from polls.models import Poll
 from pdf_results_exporter.exporter_pdf import generate_pdf
-import os
-
 
 
 '''
