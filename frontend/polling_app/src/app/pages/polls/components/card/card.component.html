@@ -2,7 +2,11 @@
 
     <!-- Header -->
     <mat-card-header>
-      <mat-card-title>{{poll.status.charAt(0).toUpperCase() + poll.status.slice(1)}} 
+      <mat-card-title>
+        <!-- Title -->
+        <span *ngIf="poll.status === 'editing'">Edytowana</span>
+        <span *ngIf="poll.status === 'open'">Otwarta</span>
+        <span *ngIf="poll.status === 'close'">Zamknięta</span>
         <!-- Toggled depends on status -->
         <mat-slide-toggle *ngIf="poll.status === 'editing'" disabled></mat-slide-toggle>
         <mat-slide-toggle *ngIf="poll.status === 'close'" color="primary" checked="false" (change)="taggleChangeHandle()"></mat-slide-toggle>
@@ -15,7 +19,9 @@
     <mat-divider></mat-divider>
 
     <!-- Fake image -->
-    <div class="fake-image mat-elevation-z2"><div class="poll-title">{{poll.name}}</div></div>
+    <div class="fake-image mat-elevation-z2 editing-color" *ngIf="poll.status === 'editing'"><div class="poll-title">{{poll.name}}</div></div>
+    <div class="fake-image mat-elevation-z2 open-color" *ngIf="poll.status === 'open'"><div class="poll-title">{{poll.name}}</div></div>
+    <div class="fake-image mat-elevation-z2 close-color" *ngIf="poll.status === 'close'"><div class="poll-title">{{poll.name}}</div></div>
 
     <!-- Contnent below fake image -->
     <mat-card-content>
@@ -23,12 +29,14 @@
         <!-- Start date -->
         <mat-divider></mat-divider>
         <div id="startDate">
-            Od: {{poll.startDate.slice(0,16)}}
+            <span *ngIf="poll.status !== 'editing'">Otwarto: {{poll.startDate.slice(0,16)}}</span>
+            <span *ngIf="poll.status === 'editing'"><mat-icon style="opacity: 0.6">more_horiz</mat-icon></span>
         </div>
         <!-- End date -->
         <mat-divider></mat-divider>
         <div id="endDate">
-            Do: {{poll.endDate.slice(0,16)}}
+            <span *ngIf="poll.status !== 'close'"><mat-icon style="opacity: 0.6">more_horiz</mat-icon></span>
+            <span *ngIf="poll.status === 'close'">Zamknięto: {{poll.endDate.slice(0,16)}}</span>
         </div>
       <mat-divider></mat-divider>
 
@@ -40,25 +48,34 @@
       <!-- Send button -->
       <button mat-icon-button 
               matTooltip="Wyślij" 
-              [disabled]="poll.status !== 'aktywna'"
-              [matTooltipDisabled]="poll.status !== 'aktywna'"  
+              [disabled]="poll.status !== 'open'"
+              [matTooltipDisabled]="poll.status !== 'open'"  
               color="primary" 
               aria-label="Button to send poll">
 
         <mat-icon>send</mat-icon>
       </button>
 
-      <!-- Results button -->
+      <!-- Results button (instead of edit) -->
       <button mat-icon-button 
+              *ngIf="poll.status !== 'editing'"
               matTooltip="Wyniki" 
-              [matTooltipDisabled]="poll.status === 'oczekująca' || poll.status === 'edytowana'" 
-              [disabled]="poll.status === 'oczekująca' || poll.status === 'edytowana'" 
               color="primary" 
               aria-label="Button to show results">
 
         <mat-icon>poll</mat-icon>
       </button>
-      
+
+      <!-- Edit button (instead of results) -->
+      <button mat-icon-button  
+              *ngIf="poll.status === 'editing'"
+              matTooltip="Edytuj" 
+              color="primary" 
+              aria-label="Button to edit poll dates">
+
+        <mat-icon>edit</mat-icon>
+      </button>
+
       <!-- Pageview button -->
       <button mat-icon-button 
               matTooltip="Podgląd" 
@@ -66,28 +83,6 @@
               aria-label="Button to poll preview">
 
         <mat-icon>pageview</mat-icon>
-      </button>
-
-      <!-- Edit dates button (toggled with edit poll button according to state)-->
-      <button mat-icon-button  
-              *ngIf="poll.status !== 'edytowana'"
-              matTooltip="Edytowanie dat" 
-              [matTooltipDisabled]="poll.status === 'zakończona'" 
-              [disabled]="poll.status === 'zakończona'" 
-              color="primary" 
-              aria-label="Button to edit poll dates">
-
-        <mat-icon>edit_calendar</mat-icon>
-      </button>
-
-      <!-- Edit poll button -->
-      <button mat-icon-button  
-              *ngIf="poll.status === 'edytowana'"
-              matTooltip="Edytuj" 
-              color="primary" 
-              aria-label="Button to edit poll">
-
-        <mat-icon>edit</mat-icon>
       </button>
 
       <!-- Copy button -->

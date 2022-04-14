@@ -109,6 +109,8 @@ export class PollService {
     ];
   }
 
+ 
+
   getPolls(): Observable<Poll[]>{
     return of(this.polls);
   }
@@ -118,8 +120,27 @@ export class PollService {
     // this.http.delete(this.apiURL.concat(`/polls/${id}`));
   }
 
-  putPollStatus(id : number): void{
-      
+  putPollStatus(id : number, newStatus : string): void{
+      // Zamiast zapytania (szukamy ankiety o danym id i podmieniamy status)
+      this.polls.forEach((poll) =>{ 
+        if(poll.id === id){
+          poll.status = newStatus;
+          if(newStatus === 'close'){
+            let date = new Date().toISOString();
+            poll.endDate = date;
+          }
+          else if(newStatus === 'open'){
+            let date = new Date().toISOString();
+            poll.startDate = date;
+
+          }
+        }
+
+      });
+
+
+      // Odpowiednie zapytanie
+      // With change status we should update endDate/startDate
   }
 
   getPoll(slug: string): Observable<Poll>{

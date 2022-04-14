@@ -16,6 +16,7 @@ export class CardComponent implements OnInit {
 
   taggleChangeHandle() : void {
 
+    // Gdy będzie odświeżanie to będzie zbędne
     if(this.poll.status === 'open'){
       this.poll.status = 'close';
     }
@@ -23,7 +24,16 @@ export class CardComponent implements OnInit {
       this.poll.status = 'open';
     }
 
-    this.pollService.putPollStatus(this.poll.id);
+    this.pollService.putPollStatus(this.poll.id, this.poll.status);
+    // Raczej data będzie aktualizowana po stronie backendu, a więc będzie trzeba odświeżyć kartę 
+    this.refreshCard();
+  }
+
+  refreshCard() : void{
+    // Na razie zamiast slug id w formie stringa
+    this.pollService.getPoll( this.poll.id.toString()).subscribe((updatedPoll : Poll) => {
+      this.poll = updatedPoll;
+    });
   }
 
   constructor(public dialog: MatDialog, private pollService: PollService) { }

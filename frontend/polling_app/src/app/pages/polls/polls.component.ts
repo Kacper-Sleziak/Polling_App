@@ -23,20 +23,14 @@ export class PollsComponent implements OnInit {
       case "Wszystkie":
         this.displayingData = this.polls;
         break;
-      case "Aktywne":
-        this.displayingData = this.polls.filter((poll) => poll.status === "aktywna");
+      case "Otwarte":
+        this.displayingData = this.polls.filter((poll) => poll.status === "open");
         break;
-      case "Wstrzymane":
-        this.displayingData = this.polls.filter((poll) => poll.status === "wstrzymana");
-        break;
-      case "Oczekujące":
-        this.displayingData = this.polls.filter((poll) => poll.status === "oczekująca");
+      case "Zamknięte":
+        this.displayingData = this.polls.filter((poll) => poll.status === "close");
         break;
       case "Edytowane":
-        this.displayingData = this.polls.filter((poll) => poll.status === "edytowana");
-        break;
-      case "Zakończone":
-        this.displayingData = this.polls.filter((poll) => poll.status === "zakończona");
+        this.displayingData = this.polls.filter((poll) => poll.status === "editing");
         break;
     }
   }
