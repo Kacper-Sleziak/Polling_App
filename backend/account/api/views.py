@@ -1,4 +1,3 @@
-from urllib import response
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
@@ -67,6 +66,7 @@ class GetLogoView(generics.RetrieveAPIView):
         if queryset.exists():
             if queryset[0].logo:
                 logo = queryset[0].logo
+                print(logo)
                 return Response(logo, content_type='image/jpg')
         return Response(status=status.HTTP_404_NOT_FOUND)
 
