@@ -27,7 +27,8 @@ import { CreatePollComponent } from './pages/create-poll/create-poll.component';
 import { CardComponent } from './pages/polls/components/card/card.component';
 import { CreatePollCardComponent } from './pages/polls/components/create-poll-card/create-poll-card.component'
 import { ScaleAnswerComponent } from './components/form-components/answers/scale-answer/scale-answer.component';
-import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/delete-dialog.component'
+import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/delete-dialog.component';
+import { StatusFilterComponent } from './pages/polls/components/status-filter/status-filter.component'
 
 
 
@@ -54,7 +55,8 @@ import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/de
     CardComponent,
     CreatePollCardComponent,
     ScaleAnswerComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    StatusFilterComponent
   ],
   imports: [
     BrowserModule,

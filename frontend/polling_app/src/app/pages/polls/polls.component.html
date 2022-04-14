@@ -1,14 +1,9 @@
 <div class="content">
 
-    <!-- Filter for status -->
-    <mat-tab-group (selectedTabChange)="filterData($event)" animationDuration="0ms" mat-align-tabs="center">
-        <mat-tab label="Wszystkie" ></mat-tab>
-        <mat-tab label="Otwarte"></mat-tab>
-        <mat-tab label="Zamknięte"></mat-tab>
-        <mat-tab label="Edytowane"></mat-tab>
-    </mat-tab-group>
+    <!-- Status filter component -->
+    <app-status-filter (tabChange)="filterData($event)" [labelsList]="labels"></app-status-filter>
 
-    
+    <!-- Cards container -->
     <div class="cards-container mat-elevation-z1">
         <!-- Create poll card -->
         <app-create-poll-card></app-create-poll-card>

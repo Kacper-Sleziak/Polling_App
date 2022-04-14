@@ -12,6 +12,7 @@ export class PollsComponent implements OnInit {
 
   polls: Poll[] = [];
   displayingData: Poll[] = [];
+  labels = ['Wszystkie', 'Otwarte', 'Zamknięte', 'Edytowane'];
 
 
   constructor(private pollService: PollService) { 
