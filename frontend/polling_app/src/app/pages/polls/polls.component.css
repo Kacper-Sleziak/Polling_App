@@ -7,17 +7,14 @@
     align-items: center;
 }
 
-.cards-container{
+#cards-container{
     /* Using this font size we can scale size of cards */
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    margin: auto;
     margin-bottom: 3rem;
     padding: 1rem 3rem;
-    width: 100%;
-    max-width: 72rem;
     background-color: white;
     border-radius: 4px;
     min-height: 30rem;
@@ -25,23 +22,81 @@
 
 
 
-/* Adjusting sorting tab */
-mat-tab-group{
-    /* Use this font size to scale all tab */
-    font-size: 1rem;
-    padding: 1.75em 0em;
+.cards-and-filters-wrapper{
     margin: auto;
-    width: 30em;
+    width: 75%;
 }
 
-::ng-deep .mat-tab-label{
+
+
+/* Adjusting filters */
+.filters-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1.5em;
+    height: auto;
+    /* Main font of filters */
+    font-size: 1rem;
+}
+
+/* Additional space to center elements in filters-container (grid of filters space)*/
+.free-space{
+    flex: 1;
+}
+
+.button-space{
+    flex: 1;
+    font-size: 1rem;
+}
+
+/* Change view button */
+.change-view-btn{
+    float: right;
+    padding: 0 1em;
+    line-height: 2.5em;
     font-size: 0.875em;
-    height: 2.2em !important;
-    padding: 0px !important;
-    min-width: 7.5em !important;
-
 }
 
-::ng-deep .mat-tab-label-active .mat-tab-label-content{
-    font-size: 1.1em;
+.change-view-btn-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.change-view-btn-content .mat-icon{
+    font-size: 1.5em;
+    height: 1em;
+    width: 1em;
+    line-height: 1em;
+}
+
+/* Status filter*/
+.status-filter{
+    overflow-x: auto;
+}
+
+::ng-deep .status-filter mat-tab-group {
+    /* Scale the status filter */
+    font-size: 1em !important;
+} 
+
+
+
+
+
+@media screen and (max-width: 480px){
+    ::ng-deep .status-filter mat-tab-group {
+        /* Scale the status filter */
+        font-size: 0.7em !important;
+    } 
+
+    .filters-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        /* padding: 0 1.5em; */
+        height: auto;
+    }
 }

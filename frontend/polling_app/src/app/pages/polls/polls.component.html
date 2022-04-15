@@ -1,15 +1,26 @@
 <div class="content">
 
-    <!-- Status filter component -->
-    <app-status-filter (tabChange)="filterData($event)" [labelsList]="labels"></app-status-filter>
+    <!-- The section containing the cards and their filters -->
+    <div class="cards-and-filters-wrapper">
 
-    <!-- Cards container -->
-    <div class="cards-container mat-elevation-z1">
-        <!-- Create poll card -->
-        <app-create-poll-card></app-create-poll-card>
-        <!-- Rendering cards -->
-        <app-card *ngFor="let poll of displayingData;" [poll]="poll"></app-card>
+        <!-- Status filter component -->
+        <div class="filters-container">
+            <div class="free-space"></div>
+            <app-status-filter class="status-filter" (tabChange)="filterData($event)" [labelsList]="labels"></app-status-filter>
+            <div class="button-space">
+                <button class="change-view-btn" mat-button>
+                    <span class="change-view-btn-content">Zmień widok<mat-icon style="margin-left: 5px;" color="primary">table_rows</mat-icon></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Cards container -->
+        <div id="cards-container" class="mat-elevation-z1">
+            <!-- Create poll card -->
+            <app-create-poll-card></app-create-poll-card>
+            <!-- Rendering cards -->
+            <app-card *ngFor="let poll of displayingData;" [poll]="poll"></app-card>
+        </div>
+
     </div>
-   
-    
 </div>

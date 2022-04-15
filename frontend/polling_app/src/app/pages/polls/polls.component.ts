@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Poll } from '../../models/dashboard-models/poll';
 import { PollService } from '../../services/dashboard-services/poll.service';
@@ -8,14 +8,20 @@ import { PollService } from '../../services/dashboard-services/poll.service';
   templateUrl: './polls.component.html',
   styleUrls: ['./polls.component.css']
 })
-export class PollsComponent implements OnInit {
+
+
+export class PollsComponent implements OnInit, AfterViewInit {
 
   polls: Poll[] = [];
   displayingData: Poll[] = [];
-  labels = ['Wszystkie', 'Otwarte', 'Zamknięte', 'Edytowane'];
-
+  labels : string[] = ['Wszystkie', 'Otwarte', 'Zamknięte', 'Edytowane'];
+  @ViewChild('cards-container') input!: ElementRef<HTMLInputElement>;
+  
 
   constructor(private pollService: PollService) { 
+  }
+
+  ngAfterViewInit(): void {
   }
 
   filterData(event: MatTabChangeEvent){
@@ -35,13 +41,16 @@ export class PollsComponent implements OnInit {
         break;
     }
   }
-
+  
   ngOnInit(): void {
     //fetch data
     this.pollService.getPolls().subscribe(polls => {
       this.polls = polls;
       this.displayingData = polls;
     });
+
+    console.log(this.input);
+       
   }
 
 }
