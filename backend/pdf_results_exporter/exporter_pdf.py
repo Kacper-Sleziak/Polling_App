@@ -12,5 +12,5 @@ def generate_pdf(poll):
     path = os.path.join(BASE_DIR, "pdf_results_exporter", 
                         "pdf", "pdfs", f"{file_name}.pdf")
     
-    pdf.output(path)
-    return path 
+    pdf.output(name=path, dest='D')
+    return path, file_name 

@@ -19,13 +19,14 @@ class GetPdfView(APIView):
         
         if queryset.exists():
             poll = queryset[0]
-            pdf_path = generate_pdf(poll)
+            pdf_path, file_name = generate_pdf(poll)
+            file_name = file_name + ".pdf"
             
             with open(pdf_path, 'rb') as report:
                 return Response(
                     report.read(),
                     headers={'Content-Disposition': 
-                        'attachment; filename="file.pdf"'},
+                        f'attachment; filename="{file_name}"'},
                     content_type='application/pdf',
                     status=status.HTTP_200_OK
                     )
