@@ -9,8 +9,8 @@
         <span *ngIf="poll.status === 'close'">Zamknięta</span>
         <!-- Toggled depends on status -->
         <mat-slide-toggle *ngIf="poll.status === 'editing'" disabled></mat-slide-toggle>
-        <mat-slide-toggle *ngIf="poll.status === 'close'" color="primary" checked="false" (change)="taggleChangeHandle()"></mat-slide-toggle>
-        <mat-slide-toggle *ngIf="poll.status === 'open'" color="primary" checked="true" (change)="taggleChangeHandle()"></mat-slide-toggle>
+        <mat-slide-toggle *ngIf="poll.status === 'close'" color="primary" checked="false" (change)="toggleChangeHandle()"></mat-slide-toggle>
+        <mat-slide-toggle *ngIf="poll.status === 'open'" color="primary" checked="true" (change)="toggleChangeHandle()"></mat-slide-toggle>
         
       </mat-card-title>
       <mat-card-subtitle>ID ankiety: {{poll.id}}</mat-card-subtitle>
@@ -28,17 +28,19 @@
 
         <!-- Start date -->
         <mat-divider></mat-divider>
-        <div id="startDate">
-            <span *ngIf="poll.status !== 'editing'">Otwarto: {{poll.startDate.slice(0,16)}}</span>
-            <span *ngIf="poll.status === 'editing'"><mat-icon class="three-dots-icon">more_horiz</mat-icon></span>
+        <div id="startDate">  
+            <span *ngIf="poll.status !== 'editing' && poll.startDate !== null; else showDots">Otwarto: {{poll.startDate.slice(0,16)}}</span>
+            <ng-template #showDots>
+              <span><mat-icon class="three-dots-icon">more_horiz</mat-icon></span>
+            </ng-template>
         </div>
-        <!-- End date -->
         <mat-divider></mat-divider>
+
+        <!-- End date -->
         <div id="endDate">
-            <span *ngIf="poll.status !== 'close'"><mat-icon  class="three-dots-icon">more_horiz</mat-icon></span>
-            <span *ngIf="poll.status === 'close'">Zamknięto: {{poll.endDate.slice(0,16)}}</span>
+            <span *ngIf="poll.status === 'close' && poll.endDate !== null; else showDots">Zamknięto: {{poll.endDate.slice(0,16)}}</span>
         </div>
-      <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
     </mat-card-content>
 
