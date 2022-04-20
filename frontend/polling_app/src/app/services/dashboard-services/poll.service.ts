@@ -70,11 +70,11 @@ export class PollService {
           "id": 7,
           "name": "Prosty formularz",
           "description": "",
-          "startDate": "17.03.2022 13:00:21",
-          "endDate": "17.04.2022 13:00:21",
+          "startDate": null,
+          "endDate": null,
           "filled": 0,
           "sent": 0,
-          "status": "open"
+          "status": "close"
       },
       {
           "id": 101,
@@ -95,16 +95,6 @@ export class PollService {
           "filled": 100,
           "sent": 243,
           "status": "open"
-      },
-      {
-          "id": 77,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "14.03.2021 12:11:35",
-          "endDate": "20.03.2022 12:11:35",
-          "filled": 33,
-          "sent": 50,
-          "status": "editing" 
       }
     ];
   }
@@ -120,27 +110,26 @@ export class PollService {
     // this.http.delete(this.apiURL.concat(`/polls/${id}`));
   }
 
-  putPollStatus(id : number, newStatus : string): void{
-      // Zamiast zapytania (szukamy ankiety o danym id i podmieniamy status)
-      this.polls.forEach((poll) =>{ 
-        if(poll.id === id){
-          poll.status = newStatus;
-          if(newStatus === 'close'){
-            let date = new Date().toISOString();
-            poll.endDate = date;
-          }
-          else if(newStatus === 'open'){
-            let date = new Date().toISOString();
-            poll.startDate = date;
+  statusChange(poll : Poll): void{
+    // Update status and dates
+    let date = new Date().toJSON();
 
-          }
-        }
+    if(poll.status === 'open'){
+      poll.status = 'close';
+      if(poll.startDate !== null){
+        poll.endDate = date;
+      }
+    }
+    else{
+      poll.status = 'open';
+      poll.startDate = date;
+      poll.endDate = null;
+    }
+    this.putPoll(poll);
+  }
 
-      });
-
-
-      // Odpowiednie zapytanie
-      // With change status we should update endDate/startDate
+  putPoll(poll : Poll): void{
+      // this.http.put(`${environment.apiUrl}/polls/${poll.id}`, poll);
   }
 
   getPoll(slug: string): Observable<Poll>{
