@@ -1,6 +1,5 @@
 asgiref==3.5.0
 autopep8==1.6.0
-backports.zoneinfo==0.2.1
 Django==3.2.12
 django-cors-headers==3.11.0
 djangorestframework==3.13.1
