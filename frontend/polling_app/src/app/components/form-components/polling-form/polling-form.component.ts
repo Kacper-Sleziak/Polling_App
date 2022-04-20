@@ -45,10 +45,6 @@ export class PollingFormComponent implements OnInit {
   };
 
   handleSendAnswer = () => {
-    //console.log(this.getResultInJSON());
-    console.log(this.questionViewModelService.getResultInJSON());
-    /*fetch('http://127.0.0.1:8000/polls/1/')
-    .then(response => response.json())
-    .then(data => console.log(data));*/
+    console.log(this.questionViewModelService.getResults());
   };
 }
