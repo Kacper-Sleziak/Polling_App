@@ -9,7 +9,7 @@ class Answer(models.Model):
         QuestionModel, verbose_name="question_id", on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.question_ID
+        return f"{self.question_id}"
 
 
 class AnswerDetails(models.Model):
