@@ -1,25 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Question } from 'src/app/models/form-models/question';
-import { Result } from 'src/app/models/form-models/result';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
 import { QuestionViewModelService } from 'src/app/services/form-services/question-view-model.service';
+import { QuestionsService } from 'src/app/services/form-services/questions.service';
 
 @Component({
-  selector: 'app-polling-form',
-  templateUrl: './polling-form.component.html',
-  styleUrls: ['./polling-form.component.css'],
+  selector: 'app-form-edit',
+  templateUrl: './form-edit.component.html',
+  styleUrls: ['./form-edit.component.css'],
 })
-export class PollingFormComponent implements OnInit {
+export class FormEditComponent implements OnInit {
   questions: Question[] = [];
   title: string = 'Przykładowy tytuł';
   description: string = 'Przykładowy opis';
-  questionResult: Map<Question, Result> = new Map();
-
   constructor(
     private pollService: PollService,
-    private questionViewModelService: QuestionViewModelService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private questionViewModelService: QuestionViewModelService
   ) {}
 
   ngOnInit(): void {
@@ -29,19 +27,12 @@ export class PollingFormComponent implements OnInit {
         this.title = poll.name;
         this.description = poll.description;
         this.questionViewModelService.loadPollQuestions(poll.id);
-        this.questionViewModelService
+        /*this.questionViewModelService
           .onUpdate()
-          .subscribe((q: Question[]) => (this.questions = q));
+          .subscribe((questions: Question[]) => (this.questions = questions));
+        this.questionViewModelService.getQuestions();*/
+        this.questions = this.questionViewModelService.getAllQuestions();
       });
     }
   }
-
-  updateAnswer = (question: Question, result: Result) => {
-    this.questionViewModelService.updateAnswer(question, result);
-    this.questions = this.questionViewModelService.getQuestions();
-  };
-
-  handleSendAnswer = () => {
-    console.log(this.questionViewModelService.getResults());
-  };
 }

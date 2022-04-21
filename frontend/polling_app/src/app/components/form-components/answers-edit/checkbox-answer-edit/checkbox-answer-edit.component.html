@@ -1,0 +1,6 @@
+<p *ngFor="let answer of answers">
+    <mat-checkbox >
+    <textarea matInput placeholder="Wprowadź odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{answer.answer}}">
+    </textarea>
+    </mat-checkbox>
+</p>

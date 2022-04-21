@@ -1,0 +1,8 @@
+<mat-radio-group>
+    <div *ngFor="let answer of answers">
+        <mat-radio-button [value]="answer" [checked]="answer.result">
+            <textarea matInput placeholder="Wprowadź odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{answer.answer}}">
+            </textarea>
+        </mat-radio-button>
+    </div> 
+</mat-radio-group>

@@ -27,7 +27,19 @@ import { CreatePollComponent } from './pages/create-poll/create-poll.component';
 import { CardComponent } from './pages/polls/components/card/card.component';
 import { CreatePollCardComponent } from './pages/polls/components/create-poll-card/create-poll-card.component'
 import { ScaleAnswerComponent } from './components/form-components/answers/scale-answer/scale-answer.component';
-import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/delete-dialog.component'
+import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/delete-dialog.component';
+import { FormEditComponent } from './components/form-components/form-edit/form-edit.component';
+import { FormTitleEditComponent } from './components/form-components/form-title-edit/form-title-edit.component';
+import { QuestionEditComponent } from './components/form-components/question-edit/question-edit.component';
+import { FormAnswersEditComponent } from './components/form-components/form-answers-edit/form-answers-edit.component';
+import { CheckboxAnswerEditComponent } from './components/form-components/answers-edit/checkbox-answer-edit/checkbox-answer-edit.component';
+import { AnswerEditComponent } from './components/form-components/answers-edit/answer-edit/answer-edit.component';
+import { ComboboxAnswerEditComponent } from './components/form-components/answers-edit/combobox-answer-edit/combobox-answer-edit.component';
+import { ShortTextAnswerEditComponent } from './components/form-components/answers-edit/short-text-answer-edit/short-text-answer-edit.component';
+import { TextAnswerEditComponent } from './components/form-components/answers-edit/text-answer-edit/text-answer-edit.component';
+import { RadioAnswerEditComponent } from './components/form-components/answers-edit/radio-answer-edit/radio-answer-edit.component';
+import { ScaleAnswerEditComponent } from './components/form-components/answers-edit/scale-answer-edit/scale-answer-edit.component';
+import { QuestionEditControlsComponent } from './components/form-components/question-edit-controls/question-edit-controls.component'
 
 
 
@@ -54,7 +66,19 @@ import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/de
     CardComponent,
     CreatePollCardComponent,
     ScaleAnswerComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    FormEditComponent,
+    FormTitleEditComponent,
+    QuestionEditComponent,
+    FormAnswersEditComponent,
+    CheckboxAnswerEditComponent,
+    AnswerEditComponent,
+    ComboboxAnswerEditComponent,
+    ShortTextAnswerEditComponent,
+    TextAnswerEditComponent,
+    RadioAnswerEditComponent,
+    ScaleAnswerEditComponent,
+    QuestionEditControlsComponent
   ],
   imports: [
     BrowserModule,

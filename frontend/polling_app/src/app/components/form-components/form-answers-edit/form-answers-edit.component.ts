@@ -1,0 +1,18 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { Answer } from 'src/app/models/form-models/answer';
+import { QuestionType } from 'src/app/models/form-models/question';
+
+@Component({
+  selector: 'app-form-answers-edit',
+  templateUrl: './form-answers-edit.component.html',
+  styleUrls: ['./form-answers-edit.component.css'],
+})
+export class FormAnswersEditComponent implements OnInit {
+  @Input() answers: Answer[] = [];
+  @Input() type: QuestionType = QuestionType.Checkbox;
+  @Input() questionId!: number;
+  questionType: typeof QuestionType = QuestionType;
+  constructor() {}
+
+  ngOnInit(): void {}
+}

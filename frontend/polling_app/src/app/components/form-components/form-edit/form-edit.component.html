@@ -1,0 +1,5 @@
+<div id="form-edit-content">
+    <app-form-title-edit [form_title]="title" [description]="description"></app-form-title-edit>
+    <app-question-edit *ngFor="let question of questions" [question]="question"></app-question-edit>
+    <button mat-raised-button color="primary">Zapisz</button>
+</div>

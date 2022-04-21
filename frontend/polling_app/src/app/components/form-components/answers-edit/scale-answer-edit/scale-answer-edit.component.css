@@ -1,0 +1,9 @@
+.scale-answer-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.scale-label{
+    margin: 1em;
+    font-size: large;
+}

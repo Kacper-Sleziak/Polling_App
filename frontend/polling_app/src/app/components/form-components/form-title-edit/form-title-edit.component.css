@@ -1,0 +1,19 @@
+#form-title{
+    margin-bottom: 20px;
+}
+
+.mat-card{
+    background-color: #3f51b5;
+    color: white;
+}
+
+mat-card-title textarea{
+    width: 60%;
+    font-size: large;
+}
+
+textarea{
+    width: 80%;
+    font-size: large;
+    padding: 1em;
+}
