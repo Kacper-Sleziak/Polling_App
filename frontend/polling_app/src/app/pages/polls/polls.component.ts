@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
 import { Poll } from '../../models/dashboard-models/poll';
 import { PollService } from '../../services/dashboard-services/poll.service';
 
@@ -13,44 +14,45 @@ import { PollService } from '../../services/dashboard-services/poll.service';
 export class PollsComponent implements OnInit, AfterViewInit {
 
   polls: Poll[] = [];
-  displayingData: Poll[] = [];
-  labels : string[] = ['Wszystkie', 'Otwarte', 'Zamknięte', 'Edytowane'];
-  @ViewChild('cards-container') input!: ElementRef<HTMLInputElement>;
-  
+  displayingPolls: Poll[] = [];
+  labels: string[] = ['Wszystkie', 'Otwarte', 'Zamknięte', 'Edytowane'];
+  changeView: boolean = false;
 
-  constructor(private pollService: PollService) { 
+  constructor(private pollService: PollService, private uiPollsService : UiPollsService) {
   }
 
   ngAfterViewInit(): void {
   }
 
-  filterData(event: MatTabChangeEvent){
+  onChangeView(): void{
+    this.changeView = !this.changeView;
+  }
 
+  onStatusFilterChange(event: MatTabChangeEvent){
+    // Change displayingPolls
     switch(event.tab.textLabel){
       case "Wszystkie":
-        this.displayingData = this.polls;
+        this.displayingPolls = this.polls;
         break;
       case "Otwarte":
-        this.displayingData = this.polls.filter((poll) => poll.status === "open");
+        this.displayingPolls = this.polls.filter((poll) => poll.status === "open");
         break;
       case "Zamknięte":
-        this.displayingData = this.polls.filter((poll) => poll.status === "close");
+        this.displayingPolls = this.polls.filter((poll) => poll.status === "close");
         break;
       case "Edytowane":
-        this.displayingData = this.polls.filter((poll) => poll.status === "editing");
+        this.displayingPolls = this.polls.filter((poll) => poll.status === "editing");
         break;
     }
+    // Inform components which base on displayingPolls table that data have been changed
+    this.uiPollsService.setDisplayingPolls(this.displayingPolls);
   }
   
   ngOnInit(): void {
     //fetch data
     this.pollService.getPolls().subscribe(polls => {
       this.polls = polls;
-      this.displayingData = polls;
+      this.displayingPolls = polls;
     });
-
-    console.log(this.input);
-       
   }
-
 }

@@ -7,17 +7,18 @@ import { Poll } from 'src/app/models/dashboard-models/poll';
 })
 export class UiPollsService {
 
-  private displayingPolls : Poll[] = [];
-  private subject = new Subject<any>();
+  private displayingPolls: Poll[] = [];
+  private subject = new Subject<Poll[]>();
 
-  constructor() { }
+  constructor() { 
+  }
 
-  setDisplayingPolls(polls : Poll[]){
+  setDisplayingPolls(polls : Poll[]): void{
     this.displayingPolls = polls;
     this.subject.next(this.displayingPolls);
   }
 
-  onStatusFilterChange(): Observable<any> {
+  onStatusFilterChange(): Observable<Poll[]> {
     return this.subject.asObservable();
   }
 

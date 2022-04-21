@@ -7,37 +7,21 @@
     align-items: center;
 }
 
-#cards-container{
-    /* Using this font size we can scale size of cards */
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-    padding: 1rem 3rem;
-    background-color: white;
-    border-radius: 4px;
-    min-height: 30rem;
-}
-
-
-
 .cards-and-filters-wrapper{
     margin: auto;
-    width: 75%;
+    max-width: 70rem;
+    width: 100%;
 }
-
-
 
 /* Adjusting filters */
 .filters-container{
+    /* Main font of filters */
+    font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 1.5em;
     height: auto;
-    /* Main font of filters */
-    font-size: 1rem;
 }
 
 /* Additional space to center elements in filters-container (grid of filters space)*/
