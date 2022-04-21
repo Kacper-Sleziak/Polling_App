@@ -18,6 +18,12 @@ export class CardComponent implements OnInit {
     this.pollService.statusChange(this.poll);
   }
 
+  convertDate(date: string): string{
+    let dateObject = new Date(date);
+    let convertedDate = dateObject.toJSON();
+    return convertedDate.replace('-', '.').replace('-', '.').replace('T', ' ').slice(0,16);
+  }
+
   constructor(public dialog: MatDialog, private pollService: PollService) { }
 
   openDeleteDialog(): void{

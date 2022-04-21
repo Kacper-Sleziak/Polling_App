@@ -29,7 +29,7 @@
         <!-- Start date -->
         <mat-divider></mat-divider>
         <div id="startDate">  
-            <span *ngIf="poll.status !== 'editing' && poll.startDate !== null; else showDots">Otwarto: {{poll.startDate.slice(0,16)}}</span>
+            <span *ngIf="poll.status !== 'editing' && poll.startDate !== null; else showDots">Otwarto: {{convertDate(poll.startDate)}}</span>
             <ng-template #showDots>
               <span><mat-icon class="three-dots-icon">more_horiz</mat-icon></span>
             </ng-template>
@@ -38,7 +38,7 @@
 
         <!-- End date -->
         <div id="endDate">
-            <span *ngIf="poll.status === 'close' && poll.endDate !== null; else showDots">Zamknięto: {{poll.endDate.slice(0,16)}}</span>
+            <span *ngIf="poll.status === 'close' && poll.endDate !== null; else showDots">Zamknięto: {{convertDate(poll.endDate)}}</span>
         </div>
         <mat-divider></mat-divider>
 
