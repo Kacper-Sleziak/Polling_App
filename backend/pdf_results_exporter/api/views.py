@@ -2,6 +2,9 @@ from pdf_results_exporter.api.renderers import BinaryFileRenderer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import status, generics
+
+from pdf_results_exporter.api.serializers import empty_serializer
 from polls.models import Poll
 from pdf_results_exporter.exporter_pdf import generate_pdf
 
@@ -10,8 +13,9 @@ from pdf_results_exporter.exporter_pdf import generate_pdf
 This view return pdf with results of poll
 '''
 
-class GetPdfView(APIView):
+class GetPdfView(generics.GenericAPIView):
     renderer_classes = [BinaryFileRenderer]
+    serializer_class = empty_serializer
     
     def get(self, request, pk, format=None):
         

@@ -59,6 +59,7 @@ class CreateAccountView(generics.CreateAPIView):
 class GetLogoView(generics.RetrieveAPIView):
 
     renderer_classes = [JPEGRenderer, PNGRenderer]
+    serializer_class = LogoSerializer
         
     def get(self, request, *args, **kwargs):
         queryset = AccountModel.objects.filter(
@@ -74,7 +75,7 @@ class GetLogoView(generics.RetrieveAPIView):
 This view add logo to account and delete old one if exists
 '''
 
-class UpdateLogo(APIView):
+class UpdateLogo(generics.GenericAPIView):
     serializer_class = LogoSerializer
 
     def put(self, request, *args, **kwargs):

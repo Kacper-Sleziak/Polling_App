@@ -10,7 +10,7 @@ from answers.models import Answer, AnswerDetails
 
 
 # [POST] Creating AnswerDetails
-class CreateAnswerDetailsView(generics.ListAPIView):
+class CreateAnswerDetailsView(generics.GenericAPIView):
     serializer_class = AnswerDetailsSerializer
 
     def post(self, request, format=None):
@@ -23,7 +23,7 @@ class CreateAnswerDetailsView(generics.ListAPIView):
 
 
 # [GET, DELETE] AnswerDetails View
-class AnswerDetailsView(generics.ListAPIView):
+class AnswerDetailsView(generics.GenericAPIView):
     serializer_class = AnswerSerializer
 
     def get_answer_details_by_id(self, pk):
@@ -69,7 +69,7 @@ class AnswerDetailsView(generics.ListAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # [GET] Getting AnswerDetails By Question ID
-class GetAnswerDetailsByQuestion(generics.ListAPIView):
+class GetAnswerDetailsByQuestion(generics.GenericAPIView):
     serializer_class = AnswerDetailsSerializer
 
     def get_answerdetails_by_question(self, pk):
@@ -92,7 +92,7 @@ class GetAnswerDetailsByQuestion(generics.ListAPIView):
                         status=status.HTTP_204_NO_CONTENT)
 
 # [POST] Creating Answer
-class CreateAnswerView(generics.ListAPIView):
+class CreateAnswerView(generics.CreateAPIView):
     serializer_class = AnswerSerializer
 
     def post(self, request, format=None):
@@ -105,7 +105,7 @@ class CreateAnswerView(generics.ListAPIView):
 
 
 # [GET] Getting Answer By Question ID
-class GetAnswerByQuestion(generics.ListAPIView):
+class GetAnswerByQuestion(generics.GenericAPIView):
     serializer_class = AnswerSerializer
 
     def get_answer_by_question(self, pk):
@@ -129,7 +129,7 @@ class GetAnswerByQuestion(generics.ListAPIView):
 
 
 # [GET, DELETE] Answer View
-class AnswerView(generics.ListAPIView):
+class AnswerView(generics.GenericAPIView):
     serializer_class = AnswerSerializer
 
     def get_answer_by_id(self, pk):
