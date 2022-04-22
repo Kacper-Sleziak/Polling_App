@@ -1,6 +1,6 @@
 
 ::ng-deep mat-radio-button{
-    width: 100%;
+    width: 60%;
 }
 
 ::ng-deep .mat-radio-label{
@@ -13,5 +13,15 @@
 
 textarea{
     margin-left: 1em;
-    width: 60%;
+    width: 100%;
+}
+
+.radio-answer-edit-entry{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.radio-answer-edit-entry button{
+    margin-left: 1em;
 }
