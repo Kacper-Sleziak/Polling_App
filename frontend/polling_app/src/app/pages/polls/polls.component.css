@@ -20,7 +20,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 1.5em;
     height: auto;
 }
 
@@ -29,31 +28,45 @@
     flex: 1;
 }
 
-.button-space{
+
+
+/* Buttons space (change view and add poll) */
+.buttons-space{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     flex: 1;
+    /* align-self: stretch; */
     font-size: 1rem;
 }
 
 /* Change view button */
-.change-view-btn{
-    float: right;
-    padding: 0 1em;
+.btn-adjust{
+    padding: 0 0.75em;
+    /* margin-top: 2em; */
     line-height: 2.5em;
     font-size: 0.875em;
 }
 
-.change-view-btn-content{
+.btn-content{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.change-view-btn-content .mat-icon{
+.btn-content .mat-icon{
     font-size: 1.5em;
+    margin-left: 5px;
     height: 1em;
     width: 1em;
     line-height: 1em;
 }
+
+.add-poll-btn .mat-icon{
+    font-size: 1.625em;
+}
+
+
 
 /* Status filter*/
 .status-filter{
@@ -66,14 +79,7 @@
 } 
 
 
-
-
-
 @media screen and (max-width: 480px){
-    ::ng-deep .status-filter mat-tab-group {
-        /* Scale the status filter */
-        font-size: 0.7em !important;
-    } 
 
     .filters-container{
         display: flex;
@@ -82,5 +88,16 @@
         flex-direction: column;
         /* padding: 0 1.5em; */
         height: auto;
+    }
+    .buttons-space{
+        justify-content: center;
+    }
+
+    ::ng-deep mat-tab-group{
+        padding-bottom: 1em !important;
+    }
+
+    .btn-adjust{
+        margin-bottom: 1em;
     }
 }

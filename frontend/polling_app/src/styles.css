@@ -2,8 +2,16 @@
 html, body { 
     height: 100%; 
     background-color: #c5cae9;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+@media screen and (max-width: 480px){
+    
+    html{
+        font-size: 12px;
+    }
+}
 

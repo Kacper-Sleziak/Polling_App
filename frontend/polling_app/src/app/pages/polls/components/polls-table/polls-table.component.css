@@ -148,4 +148,5 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 .three-dots-icon{
     opacity: 0.6;
     line-height: 1.5em;
+    font-size: 1.5em;
 }

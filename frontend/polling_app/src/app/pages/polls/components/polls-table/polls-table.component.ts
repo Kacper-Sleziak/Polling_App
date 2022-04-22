@@ -74,12 +74,4 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
 
     return `${lowerBound} - ${upperBound} z ${length}`;
   }
-
-  globalRippleConfig: RippleGlobalOptions = {
-    disabled: true,
-    animation: {
-      enterDuration: 0,
-      exitDuration: 0
-    }
-  };
 }

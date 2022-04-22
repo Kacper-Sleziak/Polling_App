@@ -7,11 +7,20 @@
         <div class="filters-container">
             <div class="free-space"></div>
             <app-status-filter class="status-filter" (tabChange)="onStatusFilterChange($event)" [labelsList]="labels"></app-status-filter>
-            <div class="button-space">
-                <button class="change-view-btn" (click)="onChangeView()" mat-button>
-                    <span class="change-view-btn-content">Zmień widok
-                        <mat-icon *ngIf="changeView === false" style="margin-left: 5px;" color="primary">view_list</mat-icon>
-                        <mat-icon *ngIf="changeView === true" style="margin-left: 5px;" color="primary">grid_view</mat-icon>
+            <div class="buttons-space">
+                <!-- Add poll button visible only when changeView === true -->
+                <button *ngIf="changeView === true" class="btn-adjust add-poll-btn" mat-button>
+                    <span class="btn-content">
+                        Utwórz ankietę
+                        <mat-icon color="primary">add</mat-icon>
+                    </span>
+                </button>
+                <!-- Change View button -->
+                <button class="btn-adjust" (click)="onChangeView()" mat-button>
+                    <span class="btn-content">
+                        Zmień widok
+                        <mat-icon *ngIf="changeView === false" color="primary">view_list</mat-icon>
+                        <mat-icon *ngIf="changeView === true" color="primary">grid_view</mat-icon>
                     </span>
                 </button>
             </div>
