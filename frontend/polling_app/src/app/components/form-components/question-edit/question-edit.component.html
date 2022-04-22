@@ -1,14 +1,16 @@
 <div class="question">
     <mat-card>
         <mat-card-content>
-            <div>
+            <div class="question-edit-top-bar">
                 <textarea matInput placeholder="Wprowadź tytuł..."  maxlength="2000" cdkTextareaAutosize value="{{question.question}}">
                 </textarea>
-                <mat-select value="question.type" value={{question.type}}>
-                    <mat-option *ngFor="let type of questionTypes | keyvalue" [value]="type.key">
-                        {{type.value}}
-                    </mat-option>
-                </mat-select>
+                <div class="question-type-select">
+                    <mat-select value="question.type" value={{question.type}}>
+                        <mat-option *ngFor="let type of questionTypes | keyvalue" [value]="type.key">
+                            {{type.value}}
+                        </mat-option>
+                    </mat-select>
+                </div>
             </div>
             <app-form-answers-edit [answers] = "question.answers" [type] = "question.type" [questionId]="question.id" ></app-form-answers-edit>
             <app-question-edit-controls ></app-question-edit-controls>

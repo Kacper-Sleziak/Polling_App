@@ -9,6 +9,7 @@ import { Answer } from 'src/app/models/form-models/answer';
 export class AnswerEditComponent implements OnInit {
   @Input() answers: Answer[] = [];
   @Input() answerId!: number;
+  newAnswer: string = '';
   constructor() {}
 
   ngOnInit(): void {}

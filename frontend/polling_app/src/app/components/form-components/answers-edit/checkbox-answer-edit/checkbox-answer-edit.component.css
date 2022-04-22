@@ -1,0 +1,17 @@
+.checkbox-edit-answer{
+    display: flex;
+    align-items: center;
+}
+::ng-deep mat-checkbox{
+    width: 100%;
+}
+::ng-deep .mat-checkbox-layout{
+    width: 100%;
+}
+::ng-deep .mat-checkbox-label{
+    width: 100%;
+}
+textarea{
+    margin-left: 1em;
+    width: 60%;
+}
