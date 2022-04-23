@@ -73,31 +73,56 @@
         </td>
       </ng-container>
     
-      <!-- icons Column -->
-      <ng-container matColumnDef="buttons">
+      <!-- More Column -->
+      <ng-container matColumnDef="more">
         <th mat-header-cell *matHeaderCellDef ></th>
         <td  mat-cell *matCellDef="let row" >
-    
-            <div class="icons">
-              <div class="icons-cell">
-                <!-- Edit date icon -->
-                <!-- <button routerLink="#" mat-icon-button disableRipple="true" color="primary" matTooltip="Edytowanie dat"><mat-icon>edit_calendar</mat-icon></button> -->
-                <!-- Preview icon -->
-                <!-- <button routerLink="#" mat-icon-button disableRipple="true" color="primary" matTooltip="Podgląd"><mat-icon>pageview</mat-icon></button> -->
-                <!-- Results icon -->
-                <!-- <button *ngIf="row.status === 'edytowana' || row.status === 'oczekująca'" mat-icon-button disabled><mat-icon>poll</mat-icon></button>
-                <button *ngIf="row.status !== 'edytowana' && row.status !== 'oczekująca'" 
-                        mat-icon-button 
-                        disableRipple="true" 
-                        color="primary" 
-                        matTooltip="Wyniki">
-                        <mat-icon>poll</mat-icon>
-                </button> -->
 
-                <button mat-icon-button color="primary" matTooltip="Więcej"><mat-icon>expand_more</mat-icon></button>
-              </div>
-            </div>
-    
+          <!-- More button -->
+          <button mat-icon-button [matMenuTriggerFor]="menu" color="primary" aria-label="Button with menu" matTooltip="Więcej">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+
+          <!-- More button menu -->
+          <mat-menu #menu="matMenu">
+
+            <!-- Send -->
+            <button mat-menu-item  [disabled]="row.status !== 'open'">
+              <mat-icon>send</mat-icon>
+              <span>Wyślij</span>
+            </button>
+
+            <!-- Results -->
+            <button *ngIf="row.status !== 'editing'" mat-menu-item>
+              <mat-icon>poll</mat-icon>
+              <span>Wyniki</span>
+            </button>
+
+            <!-- Edit instead Results for editing poll-->
+            <button *ngIf="row.status === 'editing'" mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <span>Edytuj</span>
+            </button>
+
+            <!-- Preview -->
+            <button mat-menu-item>
+              <mat-icon>pageview</mat-icon>
+              <span>Podgląd</span>
+            </button>
+
+            <!-- Copy -->
+            <button mat-menu-item>
+              <mat-icon>file_copy</mat-icon>
+              <span>Kopiuj</span>
+            </button>
+
+            <!-- Delete -->
+            <button class="delete-menu-item" mat-menu-item>
+              <mat-icon class="delete-icon">delete_forever</mat-icon>
+              <span class="delete-icon-text">Usuń</span>
+            </button>
+          </mat-menu>
+  
         </td>
       </ng-container>
     

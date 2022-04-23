@@ -20,7 +20,7 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
   @ViewChild(MatSort) sort!: MatSort;
   subscription: Subscription;
   displayingData : MatTableDataSource<Poll>;   //Table expects this object to view data
-  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'filled', 'sent', 'status', 'buttons', 'toggle'];
+  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'filled', 'sent', 'status','toggle', 'more'];
   
 
   constructor(private pollService: PollService, private uiPollsService : UiPollsService) { 

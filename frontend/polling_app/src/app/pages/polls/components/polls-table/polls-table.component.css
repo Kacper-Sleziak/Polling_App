@@ -19,17 +19,6 @@
     align-items: center;
 }
 
-::ng-deep .icons-cell .mat-icon-button{
-    height: 1.625rem !important;
-    width: 1.625rem !important;
-}
-
-.icons-cell{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
 
 .mat-cell{
     font-size: 0.75rem;
@@ -75,15 +64,14 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
     padding-left: 1rem;
 }
 
-.mat-column-buttons{
-    padding-left: 2rem;
+::ng-deep .mat-column-toggle{
+    padding-left: 2rem !important;
 }
 
-.mat-column-toggle{
+.mat-column-more{
     padding-left: 1rem;
-    padding-right: 2rem !important;
+    padding-right: 1rem !important;
 }
-
 
 
 ::ng-deep .mat-tooltip{
@@ -92,15 +80,18 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 }
 
 .mat-icon-button{
-    width: 2.5rem;
-    height: 2.5rem;
+    font-size: 2.5rem;
+    width: 1em;
+    height: 1em;
     line-height: 0px;
 }
 
-.material-icons{
+/* By default height and width is the same as font-size */
+.mat-icon{
     font-size: 1.5rem;
+    height: 1em;
+    width: 1em;
 }
-
 
 .mat-row{
     height: 3rem;
@@ -110,7 +101,6 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
     padding-bottom: 0.5rem;
     height: auto;
 }
-
 
 
 /* Adjusting message viewed when no data */
@@ -149,4 +139,25 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
     opacity: 0.6;
     line-height: 1.5em;
     font-size: 1.5em;
+}
+
+/* Adjust menu showing after press more button (in polls table) */
+.mat-menu-item{
+    font-size: 0.875rem;
+    line-height: 2.625em;
+    height: 2.625em;
+}
+/* Adjust icons in menu */
+.mat-menu-item .mat-icon{
+    font-size: 1.75em;
+    margin-right: 0.5em;
+}
+
+::ng-deep .mat-menu-panel {
+    min-width: 10em !important;
+}
+
+/* Paint red when hover delete button in drop-down menu */
+.delete-menu-item:hover .delete-icon, .delete-menu-item:hover .delete-icon-text{
+    color: red;
 }
