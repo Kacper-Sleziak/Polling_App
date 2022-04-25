@@ -8,9 +8,9 @@
         <span *ngIf="poll.status === 'open'">Otwarta</span>
         <span *ngIf="poll.status === 'close'">Zamknięta</span>
         <!-- Toggled depends on status -->
-        <mat-slide-toggle *ngIf="poll.status === 'editing'" disabled></mat-slide-toggle>
-        <mat-slide-toggle *ngIf="poll.status === 'close'" color="primary" checked="false" (change)="toggleChangeHandle()"></mat-slide-toggle>
-        <mat-slide-toggle *ngIf="poll.status === 'open'" color="primary" checked="true" (change)="toggleChangeHandle()"></mat-slide-toggle>
+        <!-- <mat-slide-toggle *ngIf="poll.status === 'editing'" disabled></mat-slide-toggle> -->
+        <mat-slide-toggle *ngIf="poll.status !== 'open'" color="primary" [disableRipple]="true" checked="false" (change)="onToggleChange($event.source)"></mat-slide-toggle>
+        <mat-slide-toggle *ngIf="poll.status === 'open'" color="primary" [disableRipple]="true" checked="true" (change)="onToggleChange($event.source)"></mat-slide-toggle>
         
       </mat-card-title>
       <mat-card-subtitle>ID ankiety: {{poll.id}}</mat-card-subtitle>

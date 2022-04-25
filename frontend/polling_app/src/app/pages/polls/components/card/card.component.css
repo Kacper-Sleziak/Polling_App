@@ -187,6 +187,11 @@
 ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container {
     transform: translate3d(1em,0,0) !important;
 }
+/* To disable all ripple effects (especially when hover - grey circle) */
+::ng-deep .mat-ripple.mat-slide-toggle-ripple.mat-focus-indicator{
+    display: none; 
+}
+
 
 .three-dots-icon{
     opacity: 0.6;
@@ -195,7 +200,6 @@
     width: 1em; 
     line-height: 1em; 
 }
-
 
 @media screen and (max-width: 480px){
     .card{
