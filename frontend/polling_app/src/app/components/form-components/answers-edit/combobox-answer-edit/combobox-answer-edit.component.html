@@ -2,7 +2,7 @@
     <div *ngFor="let answer of answers" class="combobox-edit-answer">
         <textarea matInput placeholder="Wprowadź odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{answer.answer}}">
         </textarea>
-        <button mat-icon-button color="primary"><div class="material-icons">close</div></button>
+        <button mat-icon-button color="primary"><div class="material-icons" (click)="handleAnswerRemove(answer)">close</div></button>
     </div>
     <div class="combobox-add-answer">
         <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">

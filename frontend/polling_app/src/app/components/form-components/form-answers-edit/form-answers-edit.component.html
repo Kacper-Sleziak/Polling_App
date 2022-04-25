@@ -1,9 +1,9 @@
 <div class="answers-edit" [ngSwitch]="type">
-    <app-checkbox-answer-edit *ngSwitchCase="questionType.Checkbox" [answers]="answers" [answerId]="questionId"></app-checkbox-answer-edit>
-    <app-combobox-answer-edit *ngSwitchCase="questionType.Combobox" [answers]="answers" [answerId]="questionId"></app-combobox-answer-edit>
+    <app-checkbox-answer-edit *ngSwitchCase="questionType.Checkbox" [answers]="answers" [answerId]="questionId" (newAnswerCreated)="createNewAnswer($event)" (answerRemoved)="removeAnswer($event)"></app-checkbox-answer-edit>
+    <app-combobox-answer-edit *ngSwitchCase="questionType.Combobox" [answers]="answers" [answerId]="questionId" (newAnswerCreated)="createNewAnswer($event)" (answerRemoved)="removeAnswer($event)"></app-combobox-answer-edit>
     <app-short-text-answer-edit *ngSwitchCase="questionType.ShortText" [answers]="answers" [answerId]="questionId"></app-short-text-answer-edit>
     <app-text-answer-edit *ngSwitchCase="questionType.LongText" [answers]="answers" [answerId]="questionId"></app-text-answer-edit>
-    <app-radio-answer-edit *ngSwitchCase="questionType.Radio" [answers]="answers" [answerId]="questionId"></app-radio-answer-edit>
+    <app-radio-answer-edit *ngSwitchCase="questionType.Radio" [answers]="answers" [answerId]="questionId" (newAnswerCreated)="createNewAnswer($event)" (answerRemoved)="removeAnswer($event)"></app-radio-answer-edit>
     <app-scale-answer-edit *ngSwitchCase="questionType.Scale5" [answers]="answers" [answerId]="questionId" [scale]=5></app-scale-answer-edit>
     <app-scale-answer-edit *ngSwitchCase="questionType.Scale10" [answers]="answers" [answerId]="questionId" [scale]=10></app-scale-answer-edit>
 </div>

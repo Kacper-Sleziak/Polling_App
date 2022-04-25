@@ -19,4 +19,8 @@ export class FormAnswersEditComponent implements OnInit {
   createNewAnswer = (answer: Answer) => {
     this.answers.push(answer);
   };
+
+  removeAnswer = (answer: Answer) => {
+    this.answers = this.answers.filter((a) => a !== answer);
+  };
 }
