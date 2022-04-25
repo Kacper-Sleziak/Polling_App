@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Question } from 'src/app/models/form-models/question';
+import { Question, QuestionType } from 'src/app/models/form-models/question';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
 import { QuestionViewModelService } from 'src/app/services/form-services/question-view-model.service';
 import { QuestionsService } from 'src/app/services/form-services/questions.service';
@@ -39,5 +39,11 @@ export class FormEditComponent implements OnInit {
 
   removeQuestion = (question: Question) => {
     this.questions = this.questions.filter((q) => q !== question);
+  };
+
+  addNewQuestion = () => {
+    this.questions.push(
+      new Question(-1, '', [], QuestionType.Checkbox, this.questions.length)
+    );
   };
 }
