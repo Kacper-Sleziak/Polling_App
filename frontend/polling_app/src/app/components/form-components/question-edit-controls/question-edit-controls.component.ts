@@ -7,11 +7,16 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class QuestionEditControlsComponent implements OnInit {
   @Output() onQuestionCopy: EventEmitter<any> = new EventEmitter();
+  @Output() onQuestionRemove: EventEmitter<any> = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
 
   handleCopyButton = (event: Event) => {
     this.onQuestionCopy.emit();
+  };
+
+  handleRemoveButton = () => {
+    this.onQuestionRemove.emit();
   };
 }

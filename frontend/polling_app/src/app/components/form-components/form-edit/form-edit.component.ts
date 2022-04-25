@@ -33,7 +33,11 @@ export class FormEditComponent implements OnInit {
   }
 
   copyQuestion = (question: Question) => {
-    const id = this.questions.push(question);
-    this.questions[id].id = -1;
+    this.questions.push({ ...question });
+    this.questions[this.questions.length - 1].id = -1;
+  };
+
+  removeQuestion = (question: Question) => {
+    this.questions = this.questions.filter((q) => q !== question);
   };
 }

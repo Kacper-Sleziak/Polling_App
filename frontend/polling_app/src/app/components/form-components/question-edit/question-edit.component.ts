@@ -10,6 +10,7 @@ import { Question, QuestionType } from 'src/app/models/form-models/question';
 export class QuestionEditComponent implements OnInit {
   @Input() question!: Question;
   @Output() onQuestionCopy: EventEmitter<Question> = new EventEmitter();
+  @Output() onQuestionRemove: EventEmitter<Question> = new EventEmitter();
   questionType?: string;
   questionTypes = Object.values(QuestionType).filter(
     (v) => !Number.isInteger(v)
@@ -25,5 +26,9 @@ export class QuestionEditComponent implements OnInit {
 
   handleQuestionCopy = () => {
     this.onQuestionCopy.emit(this.question);
+  };
+
+  handleQuestionRemove = () => {
+    this.onQuestionRemove.emit(this.question);
   };
 }
