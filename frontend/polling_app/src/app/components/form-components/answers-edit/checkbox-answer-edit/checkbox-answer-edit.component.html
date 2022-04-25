@@ -8,7 +8,7 @@
 </div>
 <div class="checkbox-new-answer">
     <mat-checkbox disabled="true">
-        <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}">
+        <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">
         </textarea>
     </mat-checkbox>
 </div>

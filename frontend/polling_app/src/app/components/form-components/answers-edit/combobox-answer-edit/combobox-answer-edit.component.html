@@ -5,7 +5,7 @@
         <button mat-icon-button color="primary"><div class="material-icons">close</div></button>
     </div>
     <div class="combobox-add-answer">
-        <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}">
+        <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">
         </textarea>
     </div>
 </div>
