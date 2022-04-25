@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { Question, QuestionType } from 'src/app/models/form-models/question';
 
 @Component({
@@ -16,4 +17,8 @@ export class QuestionEditComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  handleTypeSelectChange = (event: MatSelectChange) => {
+    this.question.type = parseInt(event.toString()) as QuestionType;
+  };
 }

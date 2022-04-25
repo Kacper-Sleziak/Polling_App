@@ -5,7 +5,7 @@
                 <textarea matInput placeholder="Wprowadź tytuł..."  maxlength="2000" cdkTextareaAutosize value="{{question.question}}">
                 </textarea>
                 <div class="question-type-select">
-                    <mat-select value="question.type" value={{question.type}}>
+                    <mat-select value="question.type" value={{question.type}} (valueChange)="handleTypeSelectChange($event)">
                         <mat-option *ngFor="let type of questionTypes | keyvalue" [value]="type.key">
                             {{type.value}}
                         </mat-option>
