@@ -27,10 +27,13 @@ import { CreatePollComponent } from './pages/create-poll/create-poll.component';
 import { CardComponent } from './pages/polls/components/card/card.component';
 import { CreatePollCardComponent } from './pages/polls/components/create-poll-card/create-poll-card.component'
 import { ScaleAnswerComponent } from './components/form-components/answers/scale-answer/scale-answer.component';
-import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from './pages/polls/components/dialogs/delete-dialog/delete-dialog.component';
 import { StatusFilterComponent } from './pages/polls/components/status-filter/status-filter.component';
 import { PollsTableComponent } from './pages/polls/components/polls-table/polls-table.component';
 import { PollsAsCardsComponent } from './pages/polls/components/polls-as-cards/polls-as-cards.component';
+import { OpenEditingPollDialogComponent } from './pages/polls/components/dialogs/open-editing-poll-dialog/open-editing-poll-dialog.component';
+import { CloseOpenedPollDialogComponent } from './pages/polls/components/dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
+import { OpenClosedPollDialogComponent } from './pages/polls/components/dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 
 
 
@@ -60,7 +63,10 @@ import { PollsAsCardsComponent } from './pages/polls/components/polls-as-cards/p
     DeleteDialogComponent,
     StatusFilterComponent,
     PollsTableComponent,
-    PollsAsCardsComponent
+    PollsAsCardsComponent,
+    OpenEditingPollDialogComponent,
+    CloseOpenedPollDialogComponent,
+    OpenClosedPollDialogComponent
   ],
   imports: [
     BrowserModule,

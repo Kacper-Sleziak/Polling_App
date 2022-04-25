@@ -161,3 +161,7 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 .delete-menu-item:hover .delete-icon, .delete-menu-item:hover .delete-icon-text{
     color: red;
 }
+
+/* ::ng-deep .cdk-overlay-pane{
+    scale: 0.85 !important;
+} */

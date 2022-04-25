@@ -1,12 +1,16 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
-import { RippleGlobalOptions } from '@angular/material/core';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { Poll } from 'src/app/models/dashboard-models/poll';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
 import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
+import { CloseOpenedPollDialogComponent } from '../dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
+import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
+import { OpenEditingPollDialogComponent } from '../dialogs/open-editing-poll-dialog/open-editing-poll-dialog.component';
 
 @Component({
   selector: 'app-polls-table',
@@ -23,7 +27,7 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
   displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'filled', 'sent', 'status','toggle', 'more'];
   
 
-  constructor(private pollService: PollService, private uiPollsService : UiPollsService) { 
+  constructor(public dialog: MatDialog, private pollService: PollService, private uiPollsService : UiPollsService) { 
     this.displayingData = new MatTableDataSource<Poll>();
     // Subscribe the displayingPolls change caused by status filter
     this.subscription = uiPollsService.onStatusFilterChange().subscribe( (displayingPolls: Poll[]) => { this.displayingData.data = displayingPolls });
@@ -46,10 +50,52 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
     this.displayingData.sort = this.sort;
   }
 
-  // Handle the event emitted by button to change poll status
-  onToggleChange(poll : Poll) : void {
-    // Change poll status and update dates
-    this.pollService.statusChange(poll);
+  // Handle the event emitted by slideButton 
+  onToggleChange(matSildeToggle : MatSlideToggle, poll : Poll) : void {
+
+    let dialogRef : MatDialogRef<any>;
+
+    switch(poll.status){
+
+      case 'open':
+        // Don't uncheck the slideToggle without user response from dialog
+        matSildeToggle.checked = true;
+        // Show dialog
+        dialogRef = this.dialog.open(CloseOpenedPollDialogComponent, {data: {pollName : poll.name}});
+        dialogRef.afterClosed().subscribe((result : boolean) => {
+          if(result === true){
+            // Note: The slideToggle will change position when update poll data
+            this.pollService.statusChange(poll);
+          }
+        });
+        break;
+
+      case 'close':
+        // Don't check the slideToggle without user response from dialog
+        matSildeToggle.checked = false;
+        // Show dialog
+        dialogRef = this.dialog.open(OpenClosedPollDialogComponent, {data: {pollName : poll.name}});
+        dialogRef.afterClosed().subscribe((result : boolean) => {
+          if(result === true){
+            // Note: The slideToggle will change position when update poll data
+            this.pollService.statusChange(poll);
+          }
+        });
+        break;
+
+      case 'editing':
+        // Don't check the slideToggle without user response from dialog
+        matSildeToggle.checked = false;
+        // Show dialog
+        dialogRef = this.dialog.open(OpenEditingPollDialogComponent, {data: {pollName : poll.name}});
+        dialogRef.afterClosed().subscribe((result : boolean) => {
+          if(result === true){
+            // Note: The slideToggle will change position when update poll data
+            this.pollService.statusChange(poll);
+          }
+        });
+        break;
+    }
   }
 
   getDateWithoutTime(date: string) : string{
