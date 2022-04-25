@@ -11,6 +11,10 @@ export class QuestionEditComponent implements OnInit {
   @Input() question!: Question;
   @Output() onQuestionCopy: EventEmitter<Question> = new EventEmitter();
   @Output() onQuestionRemove: EventEmitter<Question> = new EventEmitter();
+  @Output() onQuestionMove: EventEmitter<{
+    questionMoved: Question;
+    moved: number;
+  }> = new EventEmitter();
   questionType?: string;
   questionTypes = Object.values(QuestionType).filter(
     (v) => !Number.isInteger(v)
@@ -30,5 +34,9 @@ export class QuestionEditComponent implements OnInit {
 
   handleQuestionRemove = () => {
     this.onQuestionRemove.emit(this.question);
+  };
+
+  handleQuestionMove = (event: number) => {
+    this.onQuestionMove.emit({ questionMoved: this.question, moved: event });
   };
 }

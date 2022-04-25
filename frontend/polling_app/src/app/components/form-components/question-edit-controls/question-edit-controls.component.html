@@ -3,9 +3,9 @@
     <div>Wymagane: <mat-slide-toggle></mat-slide-toggle></div>
     <div class="move-control">
         <div class="line"></div>
-        <button mat-icon-button color="primary"><div class="material-icons">arrow_upward</div></button>
+        <button mat-icon-button color="primary" (click)="handleMoveUpButton()"><div class="material-icons">arrow_upward</div></button>
         <div class="line"></div>
-        <button mat-icon-button color="primary"><div class="material-icons">arrow_downward</div></button>
+        <button mat-icon-button color="primary" (click)="handleMoveDownButton()"><div class="material-icons">arrow_downward</div></button>
         <div class="line"></div>
     </div>
     <div>

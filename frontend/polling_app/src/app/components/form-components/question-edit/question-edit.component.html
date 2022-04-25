@@ -13,7 +13,7 @@
                 </div>
             </div>
             <app-form-answers-edit [answers] = "question.answers" [type] = "question.type" [questionId]="question.id" ></app-form-answers-edit>
-            <app-question-edit-controls (onQuestionCopy)="handleQuestionCopy()" (onQuestionRemove)="handleQuestionRemove()"></app-question-edit-controls>
+            <app-question-edit-controls (onQuestionCopy)="handleQuestionCopy()" (onQuestionRemove)="handleQuestionRemove()" (onQuestionMove)="handleQuestionMove($event)"></app-question-edit-controls>
         </mat-card-content>
     </mat-card>
 </div> 

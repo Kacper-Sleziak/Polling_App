@@ -8,6 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class QuestionEditControlsComponent implements OnInit {
   @Output() onQuestionCopy: EventEmitter<any> = new EventEmitter();
   @Output() onQuestionRemove: EventEmitter<any> = new EventEmitter();
+  @Output() onQuestionMove: EventEmitter<number> = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
@@ -18,5 +19,13 @@ export class QuestionEditControlsComponent implements OnInit {
 
   handleRemoveButton = () => {
     this.onQuestionRemove.emit();
+  };
+
+  handleMoveUpButton = () => {
+    this.onQuestionMove.emit(-1);
+  };
+
+  handleMoveDownButton = () => {
+    this.onQuestionMove.emit(1);
   };
 }

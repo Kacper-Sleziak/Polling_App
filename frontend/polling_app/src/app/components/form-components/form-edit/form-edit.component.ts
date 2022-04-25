@@ -46,4 +46,12 @@ export class FormEditComponent implements OnInit {
       new Question(-1, '', [], QuestionType.Checkbox, this.questions.length)
     );
   };
+
+  moveQuestion = (event: { questionMoved: Question; moved: number }) => {
+    console.log(event);
+    const index = this.questions.findIndex((q) => q === event.questionMoved);
+    this.questions[index + event.moved].position += -event.moved;
+    event.questionMoved.position += event.moved;
+    this.questions = this.questions.sort((q1, q2) => q1.position - q2.position);
+  };
 }
