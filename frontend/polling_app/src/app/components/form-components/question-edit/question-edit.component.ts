@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { Question, QuestionType } from 'src/app/models/form-models/question';
 
@@ -9,6 +9,7 @@ import { Question, QuestionType } from 'src/app/models/form-models/question';
 })
 export class QuestionEditComponent implements OnInit {
   @Input() question!: Question;
+  @Output() onQuestionCopy: EventEmitter<Question> = new EventEmitter();
   questionType?: string;
   questionTypes = Object.values(QuestionType).filter(
     (v) => !Number.isInteger(v)
@@ -20,5 +21,9 @@ export class QuestionEditComponent implements OnInit {
 
   handleTypeSelectChange = (event: MatSelectChange) => {
     this.question.type = parseInt(event.toString()) as QuestionType;
+  };
+
+  handleQuestionCopy = () => {
+    this.onQuestionCopy.emit(this.question);
   };
 }

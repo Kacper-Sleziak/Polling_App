@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-question-edit-controls',
   templateUrl: './question-edit-controls.component.html',
-  styleUrls: ['./question-edit-controls.component.css']
+  styleUrls: ['./question-edit-controls.component.css'],
 })
 export class QuestionEditControlsComponent implements OnInit {
+  @Output() onQuestionCopy: EventEmitter<any> = new EventEmitter();
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
+  handleCopyButton = (event: Event) => {
+    this.onQuestionCopy.emit();
+  };
 }

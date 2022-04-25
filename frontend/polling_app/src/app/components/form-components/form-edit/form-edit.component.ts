@@ -27,12 +27,13 @@ export class FormEditComponent implements OnInit {
         this.title = poll.name;
         this.description = poll.description;
         this.questionViewModelService.loadPollQuestions(poll.id);
-        /*this.questionViewModelService
-          .onUpdate()
-          .subscribe((questions: Question[]) => (this.questions = questions));
-        this.questionViewModelService.getQuestions();*/
         this.questions = this.questionViewModelService.getAllQuestions();
       });
     }
   }
+
+  copyQuestion = (question: Question) => {
+    const id = this.questions.push(question);
+    this.questions[id].id = -1;
+  };
 }
