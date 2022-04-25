@@ -12,7 +12,7 @@ export class QuestionEditControlsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  handleCopyButton = (event: Event) => {
+  handleCopyButton = () => {
     this.onQuestionCopy.emit();
   };
 
