@@ -3,7 +3,7 @@
         <div class="scale-answer-container">
             <div class="scale-label">1</div>
                 <div *ngFor="let result of [].constructor(scale); let i = index" [attr.data-index]="i">
-                    <mat-radio-button [value]="{optionId: answers[0].id, content: i}" [checked]="result"></mat-radio-button>
+                    <mat-radio-button [value]="true" [checked]="result"></mat-radio-button>
                 </div>
             <div class="scale-label">{{scale}}</div>
         </div>
