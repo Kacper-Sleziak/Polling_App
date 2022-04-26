@@ -47,6 +47,24 @@ export class PollsComponent implements OnInit, AfterViewInit {
     // Inform components which base on displayingPolls table that data have been changed
     this.uiPollsService.setDisplayingPolls(this.displayingPolls);
   }
+
+  onDeletePoll(pollId : number){
+
+    // Delete poll from current displaying polls
+    this.displayingPolls = this.displayingPolls.filter((poll) => {
+      if(pollId === poll.id) return false;
+      return true;
+    });
+
+    // Delete poll from all polls
+    this.polls = this.polls.filter((poll) => {
+      if(pollId === poll.id) return false;
+      return true;
+    });
+
+    // Use service to update date in child components
+    this.uiPollsService.setDisplayingPolls(this.displayingPolls);
+  }
   
   ngOnInit(): void {
     //fetch data

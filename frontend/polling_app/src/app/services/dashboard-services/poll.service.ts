@@ -106,6 +106,11 @@ export class PollService {
   }
 
   deletePoll(id : number): void{
+      this.polls = this.polls.filter((poll) => {
+        if(poll.id === id) return false;
+        return true; 
+      });
+      
       console.log(environment.apiUrl.concat(`/polls/${id}`));
     // this.http.delete(this.apiURL.concat(`/polls/${id}`));
   }

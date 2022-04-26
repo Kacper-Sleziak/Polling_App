@@ -1,6 +1,6 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Output ,Input, OnInit, EventEmitter} from '@angular/core';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { Poll } from 'src/app/models/dashboard-models/poll';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
 import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
@@ -16,6 +16,7 @@ import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialo
 export class CardComponent implements OnInit {
 
   @Input() poll !: Poll;
+  @Output() onDeletePoll = new EventEmitter<number>();
 
   constructor(public dialog: MatDialog, private pollService: PollService) { }
 
@@ -75,12 +76,13 @@ export class CardComponent implements OnInit {
     return convertedDate.replace('-', '.').replace('-', '.').replace('T', ' ').slice(0,16);
   }
 
-  openDeleteDialog(): void{
+  onDeleteButtonClick(): void{
     const dialogRef = this.dialog.open(DeleteDialogComponent, {data: {pollId : this.poll.id}});
 
     dialogRef.afterClosed().subscribe((result : boolean) => {
       if(result === true){
         this.pollService.deletePoll(this.poll.id);
+        this.onDeletePoll.emit(this.poll.id);
       }
     });
   }

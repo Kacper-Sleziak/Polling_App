@@ -159,7 +159,7 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 
 /* Paint red when hover delete button in drop-down menu */
 .delete-menu-item:hover .delete-icon, .delete-menu-item:hover .delete-icon-text{
-    color: red;
+    color: #f44336;
 }
 
 /* ::ng-deep .cdk-overlay-pane{

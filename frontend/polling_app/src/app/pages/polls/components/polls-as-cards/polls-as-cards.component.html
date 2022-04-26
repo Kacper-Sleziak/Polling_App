@@ -3,5 +3,5 @@
     <!-- Create poll card -->
     <app-create-poll-card></app-create-poll-card>
     <!-- Rendering cards -->
-    <app-card *ngFor="let poll of displayingPolls;" [poll]="poll"></app-card>
+    <app-card *ngFor="let poll of displayingPolls;" [poll]="poll" (onDeletePoll)="onDeleteButtonClick($event)"></app-card>
 </div>

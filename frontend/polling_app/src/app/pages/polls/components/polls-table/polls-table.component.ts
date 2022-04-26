@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
@@ -9,6 +9,7 @@ import { Poll } from 'src/app/models/dashboard-models/poll';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
 import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
 import { CloseOpenedPollDialogComponent } from '../dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
+import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
 import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 import { OpenEditingPollDialogComponent } from '../dialogs/open-editing-poll-dialog/open-editing-poll-dialog.component';
 
@@ -20,6 +21,8 @@ import { OpenEditingPollDialogComponent } from '../dialogs/open-editing-poll-dia
 export class PollsTableComponent implements OnInit, AfterViewInit{
 
   @Input() displayingPolls: Poll[] = [];
+  @Output() onDeletePoll = new EventEmitter<number>();
+
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   subscription: Subscription;
@@ -30,9 +33,24 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
   constructor(public dialog: MatDialog, private pollService: PollService, private uiPollsService : UiPollsService) { 
     this.displayingData = new MatTableDataSource<Poll>();
     // Subscribe the displayingPolls change caused by status filter
-    this.subscription = uiPollsService.onStatusFilterChange().subscribe( (displayingPolls: Poll[]) => { this.displayingData.data = displayingPolls });
+    this.subscription = uiPollsService.onStatusFilterChange().subscribe( (displayingPolls: Poll[]) => { 
+      this.displayingPolls = displayingPolls;
+      this.displayingData.data = displayingPolls;
+    });
   }
   
+  onDeleteButtonClick(poll : Poll) : void {
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {data: {pollId : poll.id}});
+
+    dialogRef.afterClosed().subscribe((result : boolean) => {
+      if(result === true){
+        this.pollService.deletePoll(poll.id);
+        this.onDeletePoll.emit(poll.id);
+      }
+    });
+
+  }
 
   ngOnInit(): void {
     // It have to by initiate in this block instead of constructor to properly show data in table

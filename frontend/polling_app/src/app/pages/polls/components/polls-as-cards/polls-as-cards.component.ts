@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Poll } from 'src/app/models/dashboard-models/poll';
 import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
@@ -11,11 +11,16 @@ import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.ser
 export class PollsAsCardsComponent implements OnInit {
 
   @Input() displayingPolls: Poll[] = [];
+  @Output() onDeletePoll = new EventEmitter<number>();
   subscription: Subscription;
 
   constructor(private uiPollsService : UiPollsService) { 
     // Subscribe the displayingPolls change caused by status filter
     this.subscription = uiPollsService.onStatusFilterChange().subscribe( (displayingPolls : Poll[]) => this.displayingPolls = displayingPolls);
+  }
+
+  onDeleteButtonClick(pollId : number) : void{
+    this.onDeletePoll.emit(pollId);
   }
 
   ngOnInit(): void {

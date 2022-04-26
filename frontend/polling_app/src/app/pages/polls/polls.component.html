@@ -27,10 +27,10 @@
         </div>
 
         <!-- Polls as cards when changeView === false -->
-        <app-polls-as-cards *ngIf="changeView === false" [displayingPolls]="displayingPolls" ></app-polls-as-cards>
+        <app-polls-as-cards *ngIf="changeView === false" [displayingPolls]="displayingPolls" (onDeletePoll)="onDeletePoll($event)" ></app-polls-as-cards>
 
         <!-- Table of polls when changeView === true-->
-        <app-polls-table *ngIf="changeView === true" [displayingPolls]='displayingPolls' ></app-polls-table>
+        <app-polls-table *ngIf="changeView === true" [displayingPolls]='displayingPolls' (onDeletePoll)="onDeletePoll($event)"></app-polls-table>
     
     </div>
 </div>

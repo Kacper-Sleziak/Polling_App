@@ -117,7 +117,7 @@
             </button>
 
             <!-- Delete -->
-            <button class="delete-menu-item" mat-menu-item>
+            <button class="delete-menu-item" (click)="onDeleteButtonClick(row)" mat-menu-item>
               <mat-icon class="delete-icon">delete_forever</mat-icon>
               <span class="delete-icon-text">Usuń</span>
             </button>
