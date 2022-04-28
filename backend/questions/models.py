@@ -15,7 +15,7 @@ class Question(models.Model):
     poll = models.ForeignKey(
         PollModel, on_delete=models.CASCADE, verbose_name="poll ID")
     question_type = models.ForeignKey(
-        QuestionType, on_delete=models.CASCADE, verbose_name="question ID")
+        QuestionType, on_delete=models.CASCADE, verbose_name="question_type")
 
     def __str__(self):
         if len(self.content) > 100:

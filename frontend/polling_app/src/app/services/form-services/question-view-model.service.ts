@@ -31,18 +31,7 @@ export class QuestionViewModelService {
     this.subject.next(this.questions);
     this.questionsService.getQuestions(pollId).subscribe((questions) => {
       this.questions.push(...questions.sort((a, b) => a.position - b.position));
-      for (const question of this.questions) {
-        this.answerService
-          .getAnswers(question.id)
-          .subscribe((answers) => (question.answers = answers));
-        this.triggerService.getTriggers(question.id).subscribe((triggers) => {
-          this.updateTriggers(triggers);
-          this.updateQuestionViewModel(question, triggers);
-          if (triggers.length <= 0) {
-            this.questionsViewModel.push(question);
-          }
-        });
-      }
+      this.loadQuestionsData(this.questions);
     });
     this.questionsViewModel = this.questionsViewModel.sort(
       (a, b) => a.position - b.position
@@ -50,47 +39,68 @@ export class QuestionViewModelService {
     this.subject.next(this.questionsViewModel);
   }
 
+  loadQuestionsData = (questions: Question[]) => {
+    for (const question of questions) {
+      this.loadAnswers(question);
+      this.loadTriggers(question);
+    }
+  };
+
+  loadAnswers = (question: Question) => {
+    this.answerService
+      .getAnswers(question.id)
+      .subscribe((answers) => (question.answers = answers));
+  };
+
+  loadTriggers = (question: Question) => {
+    this.triggerService.getTriggers(question.id).subscribe((triggers) => {
+      this.updateTriggers(triggers);
+      this.updateQuestionViewModel(question, triggers);
+      if (triggers.length <= 0) {
+        this.questionsViewModel.push(question);
+      }
+    });
+  };
+
   getQuestions() {
     return this.questionsViewModel;
   }
 
+  getTriggeredQuestion(trigger: Trigger) {
+    return this.questions.find((q) => q.id === trigger.triggeredQuestionId);
+  }
+
+  checkIfTriggerFulfilled(question: Question, trigger: Trigger): boolean {
+    const options = this.questionResult.get(question)?.options;
+    if (options !== undefined) {
+      if (trigger.triggeringAnswer === 'any') {
+        return this.questionResult.get(question) !== undefined;
+      } else {
+        for (const option of options) {
+          const answer = question.answers.filter(
+            (a) => a.id === option.optionId
+          )[0];
+          return (
+            answer.answer === trigger.triggeringAnswer &&
+            option.content !== 'false'
+          );
+        }
+      }
+    }
+    return false;
+  }
+
   updateQuestionViewModel(question: Question, triggers: Trigger[]) {
     for (const trigger of triggers) {
-      const triggeredQuestion = this.questions.find(
-        (q) => q.id === trigger.triggeredQuestionId
-      );
+      const triggeredQuestion = this.getTriggeredQuestion(trigger);
       if (triggeredQuestion === undefined) continue;
-      const options = this.questionResult.get(question)?.options;
-      if (options !== undefined) {
-        if (trigger.triggeringAnswer === 'any') {
-          if (this.questionResult.get(question) !== undefined) {
-            if (
-              this.questionsViewModel.find(
-                (q) => q.id === triggeredQuestion.id
-              ) === undefined
-            )
-              this.questionsViewModel.push(triggeredQuestion);
-          }
-        } else {
-          for (const option of options) {
-            const answer = question.answers.filter(
-              (a) => a.id === option.optionId
-            )[0];
-            if (answer.answer === trigger.triggeringAnswer) {
-              if (option.content === 'false') {
-                this.hideQuestion(triggeredQuestion);
-                break;
-              }
-              if (
-                this.questionsViewModel.find(
-                  (q) => q.id === triggeredQuestion.id
-                ) === undefined
-              ) {
-                this.questionsViewModel.push(triggeredQuestion);
-              }
-              break;
-            }
-          }
+      const triggered = this.checkIfTriggerFulfilled(question, trigger);
+      if (triggered) {
+        if (
+          this.questionsViewModel.find((q) => q.id === triggeredQuestion.id) ===
+          undefined
+        ) {
+          this.questionsViewModel.push(triggeredQuestion);
         }
       } else {
         this.hideQuestion(triggeredQuestion);
@@ -103,7 +113,6 @@ export class QuestionViewModelService {
   }
 
   hideQuestion(question: Question) {
-    console.log(question);
     this.questionsViewModel = this.questionsViewModel
       .filter((q) => q.id !== question.id)
       .sort((a, b) => a.position - b.position);
@@ -142,5 +151,9 @@ export class QuestionViewModelService {
       arr.push(res);
     }
     return JSON.stringify(arr);
+  };
+
+  getResults = () => {
+    return this.questionResult;
   };
 }

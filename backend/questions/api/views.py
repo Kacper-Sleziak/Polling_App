@@ -6,7 +6,7 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 
 
-class QuestionTypeList(generics.ListAPIView):
+class QuestionTypeList(generics.GenericAPIView):
     serializer_class = QuestionTypeSerializer
     
     def get(self, request, format=None):
@@ -22,7 +22,7 @@ class QuestionTypeList(generics.ListAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class QuestionTypeDetail(generics.ListAPIView):
+class QuestionTypeDetail(generics.GenericAPIView):
     serializer_class = QuestionTypeSerializer
 
     def get_object(self, pk):
@@ -78,7 +78,7 @@ class QuestionDetail(generics.ListAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class QuestionForPullList(generics.ListAPIView):
+class QuestionForPullList(generics.GenericAPIView):
     serializer_class = QuestionSerializer
     
     def get(self, request, poll_id, format=None):
@@ -97,7 +97,7 @@ class QuestionForPullList(generics.ListAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class OptionDetail(generics.ListAPIView):
+class OptionDetail(generics.GenericAPIView):
     serializer_class = OptionSerializer
 
     def get_object(self, pk):
@@ -125,7 +125,7 @@ class OptionDetail(generics.ListAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class OptionForQuestionList(generics.ListAPIView):
+class OptionForQuestionList(generics.GenericAPIView):
     serializer_class = OptionSerializer
     
     def get(self, request, question_id, format=None):

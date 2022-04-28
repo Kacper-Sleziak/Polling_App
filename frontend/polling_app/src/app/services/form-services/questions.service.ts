@@ -154,10 +154,16 @@ const QuestionTypeFactory = {
         return QuestionType.Checkbox;
       case 3:
         return QuestionType.Combobox;
+      case 4:
+        return QuestionType.LongText;
       case 5:
         return QuestionType.ShortText;
       case 6:
         return QuestionType.Radio;
+      case 7:
+        return QuestionType.Scale5;
+      case 8:
+        return QuestionType.Scale10;
     }
     return QuestionType.Checkbox;
   },

@@ -1,17 +1,19 @@
 from rest_framework.views import APIView
+from rest_framework import status, generics
 from rest_framework.response import Response
-from rest_framework import status
 from django.core.mail import send_mail
 from mail_sender.api.serializer import EmailSerializer
+
 from Polling_App.settings import EMAIL_HOST_USER
 
 # [POST] This view takes emails and send given message
 # to these emails
 
-class PostEmailAdressAndSendMail(APIView):
-
+class PostEmailAdressAndSendMail(generics.GenericAPIView):
+    serializer_class = EmailSerializer
+    
     def post(self, request):
-        serializer = EmailSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
             emails = serializer.data['emails']
