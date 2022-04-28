@@ -1,0 +1,7 @@
+
+<div id="cards-container" class="mat-elevation-z1">
+    <!-- Create poll card -->
+    <app-create-poll-card></app-create-poll-card>
+    <!-- Rendering cards -->
+    <app-card *ngFor="let poll of displayingPolls;" [poll]="poll" (onDeletePoll)="onDeleteButtonClick($event)"></app-card>
+</div>

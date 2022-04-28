@@ -1,166 +1,103 @@
-
-
-/* Adjusting sorting tab */
-mat-tab-group{
-    /* Use this font size to scale all tab */
-    font-size: 1rem;
-    padding: 1.75em 0em;
-    margin: auto;
-    width: 45em;
-}
-
-::ng-deep .mat-tab-label{
-    font-size: 0.875em;
-    height: 2.2em !important;
-    padding: 0px !important;
-    min-width: 7.5em !important;
-
-}
-
-::ng-deep .mat-tab-label-active .mat-tab-label-content{
-    font-size: 1.1em;
-}
-
-
-
-/* Adjusting table */
-.table{
-    font-size: 1rem;
-    width: 68.75em;
-    margin: auto;
-    margin-bottom: 2.5em;
-    height: auto;
-    text-align: center;
-}
-
-.status{
-    display:flex;
-    align-items: center;
-}
-
-::ng-deep .icons-cell .mat-icon-button{
-    height: 1.625rem !important;
-    width: 1.625rem !important;
-}
-
-.icons-cell{
+.content{
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-
-.mat-cell{
-    font-size: 0.75rem;
-}
-
-
-::ng-deep .mat-sort-header-container{
-    justify-content: center;
-    padding-left: 1.25rem;
-    font-size: 0.875rem;
-}
-
-th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
-    padding-left: 1rem;
-}
-
-.mat-column-name{
-    width:  15.625rem;
-    padding-left: 1rem;
-}
-
-.mat-column-startDate{
-    max-width: 5.25rem;
-    padding-left: 1rem;
-}
-
-.mat-column-endDate{
-    max-width: 5.25rem;
-    padding-left: 1rem;
-}
-
-.mat-column-status{
-    padding-left: 1.5rem;
-}
-
-.mat-column-filled{
-    padding-left: 1rem;
-}
-
-.mat-column-sent{
-    padding-left: 1rem;
-}
-
-.mat-column-buttons{
-    padding-left: 2rem;
-}
-
-.mat-column-actions{
-    padding-left: 1rem;
-}
-
-
-::ng-deep .mat-tooltip{
-    margin: 0em !important; 
-    padding: 0em 1em !important;
-}
-
-.mat-icon-button{
-    width: 2.5rem;
-    height: 2.5rem;
-    line-height: 0px;
-}
-
-.material-icons{
-    font-size: 1.5rem;
-}
-
-
-.mat-row{
-    height: 3rem;
-}
-
-::ng-deep .mat-header-row{
-    padding-bottom: 0.5rem;
+    width: 100%;
     height: auto;
-}
-
-
-
-/* Adjusting message viewed when no data */
-.no-polls-message{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    min-height: 10rem;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.54);
+    justify-content: center;
+    align-items: center;
+}
+
+.cards-and-filters-wrapper{
+    margin: auto;
+    max-width: 70rem;
+    width: 100%;
+}
+
+/* Adjusting filters */
+.filters-container{
+    /* Main font of filters */
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+/* Additional space to center elements in filters-container (grid of filters space)*/
+.free-space{
+    flex: 1;
 }
 
 
-/* Dots */
-.dot {
-    height: 0.625rem;
-    width: 0.625rem;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 0.25rem;
+
+/* Buttons space (change view and add poll) */
+.buttons-space{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+    /* align-self: stretch; */
+    font-size: 1rem;
 }
 
-.red{
-    background-color: rgb(251, 96, 40);
+/* Change view button */
+.btn-adjust{
+    padding: 0 0.75em;
+    /* margin-top: 2em; */
+    line-height: 2.5em;
+    font-size: 0.875em;
 }
-.blue{
-    background-color: rgb(0, 157, 255);
+
+.btn-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.yellow{
-    background-color: rgb(255, 217, 0);
+
+.btn-content .mat-icon{
+    font-size: 1.5em;
+    margin-left: 5px;
+    height: 1em;
+    width: 1em;
+    line-height: 1em;
 }
-.green{
-    background-color: rgb(23, 240, 23);
+
+.add-poll-btn .mat-icon{
+    font-size: 1.625em;
 }
-.grey{
-    background-color: #C0C0C0;
+
+
+
+/* Status filter*/
+.status-filter{
+    overflow-x: auto;
+}
+
+::ng-deep .status-filter mat-tab-group {
+    /* Scale the status filter */
+    font-size: 1em !important;
+} 
+
+
+@media screen and (max-width: 480px){
+
+    .filters-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        /* padding: 0 1.5em; */
+        height: auto;
+    }
+    .buttons-space{
+        justify-content: center;
+    }
+
+    ::ng-deep mat-tab-group{
+        padding-bottom: 1em !important;
+    }
+
+    .btn-adjust{
+        margin-bottom: 1em;
+    }
 }

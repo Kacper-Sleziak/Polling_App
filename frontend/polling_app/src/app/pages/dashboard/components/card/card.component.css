@@ -40,7 +40,20 @@
     width: auto;
     height: 8.25em;
     margin: 0em -1em;
-    background-color: lightblue;
+    /* background-color: rgba(0, 191, 255, 0.174); */
+}
+.editing-color{
+    background-color: rgba(214, 234, 248, 1);
+    background-image: radial-gradient(circle, rgba(214, 234, 248, 1) 0%, rgba(41, 53, 86, 0.01) 100%);
+}
+.close-color{
+    background-color: rgba(245, 183, 177, 1);
+    background-image: radial-gradient(circle, rgba(245, 183, 177, 1) 0%, rgba(41, 53, 86, 0.01) 100%);
+}
+.open-color{
+    background-color: rgba(171, 235, 198, 1);
+    background-image: radial-gradient(circle, rgba(171, 235, 198, 1) 0%, rgba(41, 53, 86, 0.01) 100%);
+    
 }
 
 .poll-title{
@@ -57,28 +70,6 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;  
 
-}
-
-.dot {
-    height: 1em;
-    width: 1em;
-    border-radius: 50%;
-}
-
-.red{
-    background-color: rgb(251, 96, 40);
-}
-.blue{
-    background-color: rgb(0, 157, 255);
-}
-.yellow{
-    background-color: rgb(255, 217, 0);
-}
-.green{
-    background-color: rgb(23, 240, 23);
-}
-.grey{
-    background-color: #C0C0C0;
 }
 
 ::ng-deep .mat-card-header-text{
@@ -128,7 +119,8 @@
     width: 2em;
     height: 2em;
     line-height: 1.5em;
-    font-size: 1em;
+    /* To resize buttons */
+    font-size: 1.2em;
 }
 
 /* Refer to icons inside card-actions */
@@ -143,16 +135,54 @@
     color: #f44336
 }
 
-
-::ng-deep .mat-tooltip{
+::ng-deep .tooltip-adjust{
+    font-size: 0.625rem !important;
     margin: 0em 0em !important; 
     padding: 0em 1em !important;
 }
 
+::ng-deep .mat-slide-toggle-bar{
+    font-size: calc((16*1em)/18) !important;
+    width: 2.25em !important;
+    height: 0.875em !important;
+    border-radius: 0.5em !important;
+    line-height: 1.5em !important;
+}
+
+::ng-deep .mat-slide-toggle-thumb{
+    width: 1.25em !important; 
+    height: 1.25em !important;
+    line-height: 1.5em !important;
+}
+
+::ng-deep .mat-slide-toggle-thumb-container{
+    width: 1.25em !important; 
+    height: 1.25em !important;
+    line-height: 1.5em !important;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container {
+    transform: translate3d(1em,0,0) !important;
+}
+/* To disable all ripple effects (especially when hover - grey circle) */
+::ng-deep .mat-ripple.mat-slide-toggle-ripple.mat-focus-indicator{
+    display: none; 
+}
+
+
+.three-dots-icon{
+    opacity: 0.6;
+    font-size: 2em;  
+    height: 1em; 
+    width: 1em; 
+    line-height: 1em; 
+}
 
 @media screen and (max-width: 480px){
     .card{
         font-size: 0.6rem;
     }
 }
+
+
 

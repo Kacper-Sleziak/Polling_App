@@ -1,0 +1,5 @@
+
+<mat-tab-group (selectedTabChange)="onTabChange($event)" animationDuration="0ms" mat-align-tabs="center">
+    <!-- Generate labels -->
+    <mat-tab *ngFor="let label of labelsList" label={{label}} ></mat-tab>
+</mat-tab-group>

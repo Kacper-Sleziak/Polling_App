@@ -1,0 +1,20 @@
+
+mat-tab-group{
+    /* Use this font size to scale all tab */
+    font-size: 1rem;
+    padding: 1.75em 0em;
+    margin: auto;
+    width: 30em;
+}
+
+::ng-deep .mat-tab-label{
+    font-size: 0.875em;
+    height: 2.2em !important;
+    padding: 0px !important;
+    min-width: 7.5em !important;
+
+}
+
+::ng-deep .mat-tab-label-active .mat-tab-label-content{
+    font-size: 1.1em;
+}

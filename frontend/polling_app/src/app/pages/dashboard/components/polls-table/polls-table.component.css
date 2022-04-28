@@ -1,0 +1,168 @@
+/* Adjusting table (div which contains the mat-table)*/
+.table{
+    font-size: 1rem;
+    max-width: 70rem;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 2.5em;
+    height: auto;
+    text-align: center;
+}
+
+/* Adjusting mat-table */
+.mat-table{
+    width: 100%;
+}
+
+.status{
+    display:flex;
+    align-items: center;
+}
+
+
+.mat-cell{
+    font-size: 0.75rem;
+}
+
+
+::ng-deep .mat-sort-header-container{
+    justify-content: center;
+    padding-left: 1.25rem;
+    font-size: 0.875rem;
+}
+
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+    padding-left: 1rem;
+}
+
+
+/* Adjusting columns */
+.mat-column-name{
+    width:  15.625rem;
+    padding-left: 1rem;
+}
+
+.mat-column-startDate{
+    max-width: 5.25rem;
+    padding-left: 1rem;
+}
+
+.mat-column-endDate{
+    max-width: 5.25rem;
+    padding-left: 1rem;
+}
+
+.mat-column-status{
+    padding-left: 1.5rem;
+}
+
+.mat-column-filled{
+    padding-left: 1rem;
+}
+
+.mat-column-sent{
+    padding-left: 1rem;
+}
+
+::ng-deep .mat-column-toggle{
+    padding-left: 2rem !important;
+}
+
+.mat-column-more{
+    padding-left: 1rem;
+    padding-right: 1rem !important;
+}
+
+
+::ng-deep .tooltip-adjust{
+    font-size: 0.625rem !important;
+    margin: 0em 0em !important; 
+    padding: 0em 1em !important;
+}
+
+.mat-icon-button{
+    font-size: 2.5rem;
+    width: 1em;
+    height: 1em;
+    line-height: 0px;
+}
+
+/* By default height and width is the same as font-size */
+.mat-icon{
+    font-size: 1.5rem;
+    height: 1em;
+    width: 1em;
+}
+
+.mat-row{
+    height: 3rem;
+}
+
+::ng-deep .mat-header-row{
+    padding-bottom: 0.5rem;
+    height: auto;
+}
+
+
+/* Adjusting message viewed when no data */
+.no-polls-message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 10rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+
+/* Dots */
+.dot {
+    height: 0.625rem;
+    width: 0.625rem;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
+.red{
+    background-color: rgb(251, 96, 40);
+}
+.blue{
+    background-color: rgb(0, 157, 255);
+}
+.green{
+    background-color: rgb(23, 240, 23);
+}
+
+
+.three-dots-icon{
+    opacity: 0.6;
+    line-height: 1.5em;
+    font-size: 1.5em;
+}
+
+/* Adjust menu showing after press more button (in polls table) */
+.mat-menu-item{
+    font-size: 0.875rem;
+    line-height: 2.625em;
+    height: 2.625em;
+}
+/* Adjust icons in menu */
+.mat-menu-item .mat-icon{
+    font-size: 1.75em;
+    margin-right: 0.5em;
+}
+
+::ng-deep .mat-menu-panel {
+    min-width: 10em !important;
+}
+
+/* Paint red when hover delete button in drop-down menu */
+.delete-menu-item:hover .delete-icon, .delete-menu-item:hover .delete-icon-text{
+    color: #f44336;
+}
+
+/* ::ng-deep .cdk-overlay-pane{
+    scale: 0.85 !important;
+} */

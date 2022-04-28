@@ -1,0 +1,12 @@
+#cards-container{
+    /* Using this font size we can scale size of cards */
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    padding: 1rem 3rem;
+    background-color: white;
+    border-radius: 4px;
+    min-height: 30rem;
+}

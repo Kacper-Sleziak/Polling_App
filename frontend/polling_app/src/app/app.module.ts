@@ -21,13 +21,18 @@ import { ComboboxAnswerComponent } from './components/form-components/answers/co
 import { FooterComponent } from './components/shared-components/footer/footer.component';
 import { ToolbarComponent } from './components/shared-components/toolbar/toolbar.component';
 import { SideNavigatorComponent } from './components/shared-components/side-navigator/side-navigator.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PollsComponent } from './pages/polls/polls.component';
-import { CreatePollComponent } from './pages/create-poll/create-poll.component';
-import { CardComponent } from './pages/polls/components/card/card.component';
-import { CreatePollCardComponent } from './pages/polls/components/create-poll-card/create-poll-card.component'
+import { CardComponent } from './pages/dashboard/components/card/card.component';
+import { CreatePollCardComponent } from './pages/dashboard/components/create-poll-card/create-poll-card.component'
 import { ScaleAnswerComponent } from './components/form-components/answers/scale-answer/scale-answer.component';
-import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/delete-dialog.component'
+import { DeleteDialogComponent } from './pages/dashboard/components/dialogs/delete-dialog/delete-dialog.component';
+import { StatusFilterComponent } from './pages/dashboard/components/status-filter/status-filter.component';
+import { PollsTableComponent } from './pages/dashboard/components/polls-table/polls-table.component';
+import { PollsAsCardsComponent } from './pages/dashboard/components/polls-as-cards/polls-as-cards.component';
+import { OpenEditingPollDialogComponent } from './pages/dashboard/components/dialogs/open-editing-poll-dialog/open-editing-poll-dialog.component';
+import { CloseOpenedPollDialogComponent } from './pages/dashboard/components/dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
+import { OpenClosedPollDialogComponent } from './pages/dashboard/components/dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+
 
 
 
@@ -48,13 +53,17 @@ import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/de
     FooterComponent,
     ToolbarComponent,
     SideNavigatorComponent,
-    DashboardComponent,
-    PollsComponent,
-    CreatePollComponent,
     CardComponent,
     CreatePollCardComponent,
     ScaleAnswerComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    StatusFilterComponent,
+    PollsTableComponent,
+    PollsAsCardsComponent,
+    OpenEditingPollDialogComponent,
+    CloseOpenedPollDialogComponent,
+    OpenClosedPollDialogComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
