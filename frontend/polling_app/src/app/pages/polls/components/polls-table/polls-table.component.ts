@@ -130,7 +130,11 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
 
   // Change range label of paginator
   customGetRangeLabel(page: number, pageSize: number, length: number) : string{
-    let lowerBound = 1 + page*pageSize;
+    let lowerBound : number;
+
+    if(length === 0) lowerBound = 0;
+    else lowerBound = 1 + page*pageSize;
+    
     let upperBound = page*pageSize + pageSize;
     if(upperBound > length){
       upperBound = length;

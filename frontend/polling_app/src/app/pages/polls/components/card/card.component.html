@@ -50,6 +50,7 @@
       <!-- Send button -->
       <button mat-icon-button 
               matTooltip="Wyślij" 
+              matTooltipClass="tooltip-adjust" 
               [disabled]="poll.status !== 'open'"
               [matTooltipDisabled]="poll.status !== 'open'"  
               color="primary" 
@@ -62,6 +63,7 @@
       <button mat-icon-button 
               *ngIf="poll.status !== 'editing'"
               matTooltip="Wyniki" 
+              matTooltipClass="tooltip-adjust" 
               color="primary" 
               aria-label="Button to show results">
 
@@ -72,6 +74,7 @@
       <button mat-icon-button  
               *ngIf="poll.status === 'editing'"
               matTooltip="Edytuj" 
+              matTooltipClass="tooltip-adjust" 
               color="primary" 
               aria-label="Button to edit poll dates">
 
@@ -81,6 +84,7 @@
       <!-- Pageview button -->
       <button mat-icon-button 
               matTooltip="Podgląd" 
+              matTooltipClass="tooltip-adjust" 
               color="primary" 
               aria-label="Button to poll preview">
 
@@ -90,6 +94,7 @@
       <!-- Copy button -->
       <button mat-icon-button 
               matTooltip="Skopiuj" 
+              matTooltipClass="tooltip-adjust" 
               color="primary" 
               aria-label="Button to duplicate poll">
 
@@ -99,7 +104,8 @@
       <!-- Delete button -->
       <button mat-icon-button
               class="delete-button" 
-              matTooltip="Usuń"  
+              matTooltip="Usuń"
+              matTooltipClass="tooltip-adjust"  
               color="primary" 
               (click)="onDeleteButtonClick()"
               aria-label="Button to delete poll">

@@ -72,28 +72,6 @@
 
 }
 
-.dot {
-    height: 1em;
-    width: 1em;
-    border-radius: 50%;
-}
-
-.red{
-    background-color: rgb(251, 96, 40);
-}
-.blue{
-    background-color: rgb(0, 157, 255);
-}
-.yellow{
-    background-color: rgb(255, 217, 0);
-}
-.green{
-    background-color: rgb(23, 240, 23);
-}
-.grey{
-    background-color: #C0C0C0;
-}
-
 ::ng-deep .mat-card-header-text{
     display: flex;
     flex-direction: row;
@@ -157,12 +135,11 @@
     color: #f44336
 }
 
-
-::ng-deep .mat-tooltip{
+::ng-deep .tooltip-adjust{
+    font-size: 0.625rem !important;
     margin: 0em 0em !important; 
     padding: 0em 1em !important;
 }
-
 
 ::ng-deep .mat-slide-toggle-bar{
     font-size: calc((16*1em)/18) !important;
