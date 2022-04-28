@@ -1,14 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PollingFormComponent } from './components/form-components/polling-form/polling-form.component';
-import { CreatePollComponent } from './pages/create-poll/create-poll.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PollsComponent } from './pages/polls/polls.component';
 
 const routes: Routes = [
-  { path: '', component: PollsComponent},
-  { path: 'dashboard', component: DashboardComponent},
-  { path: 'polls', component: PollsComponent},
+  { path: '', component: DashboardComponent},
   { path: 'form/:slug', component: PollingFormComponent}
 ];
 
