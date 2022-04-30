@@ -35,13 +35,13 @@ export class DashboardComponent  implements OnInit, AfterViewInit {
         this.displayingPolls = this.polls;
         break;
       case "Otwarte":
-        this.displayingPolls = this.polls.filter((poll) => poll.status === "open");
+        this.displayingPolls = this.polls.filter((poll) => poll.status === Poll.Status.open);
         break;
       case "Zamknięte":
-        this.displayingPolls = this.polls.filter((poll) => poll.status === "close");
+        this.displayingPolls = this.polls.filter((poll) => poll.status === Poll.Status.close);
         break;
       case "Edytowane":
-        this.displayingPolls = this.polls.filter((poll) => poll.status === "editing");
+        this.displayingPolls = this.polls.filter((poll) => poll.status === Poll.Status.editing);
         break;
     }
     // Inform components which base on displayingPolls table that data have been changed

@@ -4,13 +4,12 @@
     <mat-card-header>
       <mat-card-title>
         <!-- Title -->
-        <span *ngIf="poll.status === 'editing'">Edytowana</span>
-        <span *ngIf="poll.status === 'open'">Otwarta</span>
-        <span *ngIf="poll.status === 'close'">Zamknięta</span>
+        <span *ngIf="poll.status === PollStatus.editing">Edytowana</span>
+        <span *ngIf="poll.status === PollStatus.open">Otwarta</span>
+        <span *ngIf="poll.status === PollStatus.close">Zamknięta</span>
         <!-- Toggled depends on status -->
-        <!-- <mat-slide-toggle *ngIf="poll.status === 'editing'" disabled></mat-slide-toggle> -->
-        <mat-slide-toggle *ngIf="poll.status !== 'open'" color="primary" [disableRipple]="true" checked="false" (change)="onToggleChange($event.source)"></mat-slide-toggle>
-        <mat-slide-toggle *ngIf="poll.status === 'open'" color="primary" [disableRipple]="true" checked="true" (change)="onToggleChange($event.source)"></mat-slide-toggle>
+        <mat-slide-toggle *ngIf="poll.status !== PollStatus.open" color="primary" [disableRipple]="true" checked="false" (change)="onToggleChange($event.source)"></mat-slide-toggle>
+        <mat-slide-toggle *ngIf="poll.status === PollStatus.open" color="primary" [disableRipple]="true" checked="true" (change)="onToggleChange($event.source)"></mat-slide-toggle>
         
       </mat-card-title>
       <mat-card-subtitle>ID ankiety: {{poll.id}}</mat-card-subtitle>
@@ -19,9 +18,9 @@
     <mat-divider></mat-divider>
 
     <!-- Fake image -->
-    <div class="fake-image mat-elevation-z2 editing-color" *ngIf="poll.status === 'editing'"><div class="poll-title">{{poll.name}}</div></div>
-    <div class="fake-image mat-elevation-z2 open-color" *ngIf="poll.status === 'open'"><div class="poll-title">{{poll.name}}</div></div>
-    <div class="fake-image mat-elevation-z2 close-color" *ngIf="poll.status === 'close'"><div class="poll-title">{{poll.name}}</div></div>
+    <div class="fake-image mat-elevation-z2 editing-color" *ngIf="poll.status === PollStatus.editing"><div class="poll-title">{{poll.title}}</div></div>
+    <div class="fake-image mat-elevation-z2 open-color" *ngIf="poll.status === PollStatus.open"><div class="poll-title">{{poll.title}}</div></div>
+    <div class="fake-image mat-elevation-z2 close-color" *ngIf="poll.status === PollStatus.close"><div class="poll-title">{{poll.title}}</div></div>
 
     <!-- Contnent below fake image -->
     <mat-card-content>
@@ -29,7 +28,8 @@
         <!-- Start date -->
         <mat-divider></mat-divider>
         <div id="startDate">  
-            <span *ngIf="poll.status !== 'editing' && poll.startDate !== null; else showDots">Otwarto: {{convertDate(poll.startDate)}}</span>
+            <span *ngIf="poll.status !== PollStatus.editing && poll.startDate !== null; else showDots">Otwarto: {{convertDate(poll.startDate)}}</span>
+            <!-- Alternative - dots -->
             <ng-template #showDots>
               <span><mat-icon class="three-dots-icon">more_horiz</mat-icon></span>
             </ng-template>
@@ -38,7 +38,8 @@
 
         <!-- End date -->
         <div id="endDate">
-            <span *ngIf="poll.status === 'close' && poll.endDate !== null; else showDots">Zamknięto: {{convertDate(poll.endDate)}}</span>
+          <!-- Note: showDots element is above - in startDate-->
+            <span *ngIf="poll.status === PollStatus.close && poll.endDate !== null; else showDots">Zamknięto: {{convertDate(poll.endDate)}}</span> 
         </div>
         <mat-divider></mat-divider>
 
@@ -51,8 +52,8 @@
       <button mat-icon-button 
               matTooltip="Wyślij" 
               matTooltipClass="tooltip-adjust" 
-              [disabled]="poll.status !== 'open'"
-              [matTooltipDisabled]="poll.status !== 'open'"  
+              [disabled]="poll.status !== PollStatus.open"
+              [matTooltipDisabled]="poll.status !== PollStatus.open"  
               color="primary" 
               aria-label="Button to send poll">
 
@@ -61,7 +62,7 @@
 
       <!-- Results button (instead of edit) -->
       <button mat-icon-button 
-              *ngIf="poll.status !== 'editing'"
+              *ngIf="poll.status !== PollStatus.editing"
               matTooltip="Wyniki" 
               matTooltipClass="tooltip-adjust" 
               color="primary" 
@@ -72,7 +73,7 @@
 
       <!-- Edit button (instead of results) -->
       <button mat-icon-button  
-              *ngIf="poll.status === 'editing'"
+              *ngIf="poll.status === PollStatus.editing"
               matTooltip="Edytuj" 
               matTooltipClass="tooltip-adjust" 
               color="primary" 

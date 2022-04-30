@@ -8,10 +8,10 @@
         <td mat-cell *matCellDef="let row"> {{row.id}} </td>
       </ng-container>
     
-      <!-- Name column -->
-      <ng-container matColumnDef="name">
+      <!-- Title column -->
+      <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa ankiety </th>
-        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.title}} </td>
       </ng-container>
     
       <!-- StartDate column -->
@@ -19,12 +19,12 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Otwarto </th>
         <td mat-cell *matCellDef="let row">
 
-          <!-- Dots or StartDate -->
+          <!-- StartDate -->
           <div id="start-date-{{row.id}}" *ngIf="row.startDate !== null; else showDotsStart">
             <!-- Divide date into two parts separated via <br> tag-->
             {{getDateWithoutTime(row.startDate)}} <br> {{getTimeWithoutDate(row.startDate)}}
           </div>
-
+          <!-- Alternative - dots -->
           <ng-template #showDotsStart>
             <span><mat-icon class="three-dots-icon">more_horiz</mat-icon></span>
           </ng-template>
@@ -32,18 +32,17 @@
         </td>
       </ng-container>
       
-    
       <!-- EndDate column -->
       <ng-container matColumnDef="endDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Zamknięto </th>
         <td mat-cell *matCellDef="let row">
 
-          <!-- Dots or EndDate -->
+          <!-- EndDate -->
           <div id="end-date-{{row.id}}" *ngIf="row.endDate !== null; else showDotsEnd">
             <!-- Divide date into two parts -->
             {{getDateWithoutTime(row.endDate)}} <br> {{getTimeWithoutDate(row.endDate)}}
           </div>
-
+          <!-- Alternative - dots -->
           <ng-template #showDotsEnd>
             <span><mat-icon class="three-dots-icon">more_horiz</mat-icon></span>
           </ng-template>
@@ -67,12 +66,23 @@
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
         <td  mat-cell *matCellDef="let row">
-            <div class="status" *ngIf="row.status === 'open' "><div class="dot green"></div> otwarta </div>
-            <div class="status" *ngIf="row.status === 'editing' "><div class="dot blue"></div> edytowana </div>
-            <div class="status" *ngIf="row.status === 'close' "><div class="dot red"></div> zamknięta </div>
+            <div class="status" *ngIf="row.status === PollStatus.open "><div class="dot green"></div> otwarta </div>
+            <div class="status" *ngIf="row.status === PollStatus.editing "><div class="dot blue"></div> edytowana </div>
+            <div class="status" *ngIf="row.status === PollStatus.close "><div class="dot red"></div> zamknięta </div>
         </td>
       </ng-container>
-    
+      
+      <!-- Toggle column -->
+      <ng-container matColumnDef="toggle">
+        <th mat-header-cell *matHeaderCellDef ></th>
+        <td  mat-cell *matCellDef="let row">
+
+            <!-- Toggled depends on status -->
+          <mat-slide-toggle *ngIf="row.status === PollStatus.open" color="primary" checked="true" (change)="onToggleChange($event.source, row)"></mat-slide-toggle>
+          <mat-slide-toggle *ngIf="row.status !== PollStatus.open" color="primary" checked="false" (change)="onToggleChange($event.source, row)"></mat-slide-toggle>
+        </td>
+      </ng-container>
+
       <!-- More Column -->
       <ng-container matColumnDef="more">
         <th mat-header-cell *matHeaderCellDef ></th>
@@ -87,19 +97,19 @@
           <mat-menu #menu="matMenu">
 
             <!-- Send -->
-            <button mat-menu-item  [disabled]="row.status !== 'open'">
+            <button mat-menu-item  [disabled]="row.status !== PollStatus.open">
               <mat-icon>send</mat-icon>
               <span>Wyślij</span>
             </button>
 
             <!-- Results -->
-            <button *ngIf="row.status !== 'editing'" mat-menu-item>
+            <button *ngIf="row.status !== PollStatus.editing" mat-menu-item>
               <mat-icon>poll</mat-icon>
               <span>Wyniki</span>
             </button>
 
             <!-- Edit instead Results for editing poll-->
-            <button *ngIf="row.status === 'editing'" mat-menu-item>
+            <button *ngIf="row.status === PollStatus.editing" mat-menu-item>
               <mat-icon>edit</mat-icon>
               <span>Edytuj</span>
             </button>
@@ -126,17 +136,6 @@
         </td>
       </ng-container>
     
-      <!-- Toggle column -->
-      <ng-container matColumnDef="toggle">
-        <th mat-header-cell *matHeaderCellDef ></th>
-        <td  mat-cell *matCellDef="let row">
-
-            <!-- Toggled depends on status -->
-          <mat-slide-toggle *ngIf="row.status === 'open'" color="primary" checked="true" (change)="onToggleChange($event.source, row)"></mat-slide-toggle>
-          <mat-slide-toggle *ngIf="row.status !== 'open'" color="primary" checked="false" (change)="onToggleChange($event.source, row)"></mat-slide-toggle>
-        </td>
-      </ng-container>
-    
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     
@@ -154,5 +153,5 @@
     </table>
     
     <!-- Paginator -->
-    <mat-paginator [pageSizeOptions]="[10, 20, 30, 40]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[10, 20, 30, 40]" aria-label="Select page of polls"></mat-paginator>
 </div>

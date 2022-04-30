@@ -32,6 +32,7 @@ import { OpenEditingPollDialogComponent } from './pages/dashboard/components/dia
 import { CloseOpenedPollDialogComponent } from './pages/dashboard/components/dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
 import { OpenClosedPollDialogComponent } from './pages/dashboard/components/dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PollService } from './services/dashboard-services/poll.service';
 
 
 
@@ -72,7 +73,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    PollService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
