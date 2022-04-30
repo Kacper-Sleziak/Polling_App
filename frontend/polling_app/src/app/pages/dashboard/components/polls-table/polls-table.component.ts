@@ -46,7 +46,7 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
 
     dialogRef.afterClosed().subscribe((result : boolean) => {
       if(result === true){
-        this.pollService.deletePoll(poll.id);
+        this.pollService.deletePoll(poll.slug);
         this.onDeletePoll.emit(poll.id);
       }
     });

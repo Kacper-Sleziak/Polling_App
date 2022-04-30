@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { Poll } from '../../models/dashboard-models/poll'
 import { environment } from 'src/environments/environment';
@@ -31,17 +31,24 @@ export class PollService {
  
 
   getPolls(): Observable<Poll[]>{
-    return of(this.polls);
+
+    let polls: Poll[] = []; 
+
+    this.http.get<any[]>(`${environment.apiUrl}/polls/author/1`).subscribe(
+      (result: any[]) => {
+        result.forEach(
+          (jsonPoll: any) => { 
+            polls.push(new Poll(jsonPoll.id, jsonPoll.title, jsonPoll.description, jsonPoll.slug , jsonPoll.start_date, jsonPoll.end_date, jsonPoll.create_date, jsonPoll.filling, jsonPoll.sent, jsonPoll.status));
+          }
+        )
+      }
+    );
+    return of(polls);
   }
 
-  deletePoll(id : number): void{
-      this.polls = this.polls.filter((poll) => {
-        if(poll.id === id) return false;
-        return true; 
-      });
-      
-      console.log(environment.apiUrl.concat(`/polls/${id}`));
-    // this.http.delete(this.apiURL.concat(`/polls/${id}`));
+  deletePoll(slug : string): void{
+    // console.log(`${environment.apiUrl}/polls/${slug}/`));
+    this.http.delete(`${environment.apiUrl}/polls/${slug}/`).subscribe();
   }
 
   statusChange(poll : Poll): void{
@@ -63,7 +70,19 @@ export class PollService {
   }
 
   putPoll(poll : Poll): void{
-      // this.http.put(`${environment.apiUrl}/polls/${poll.id}`, poll);
+      console.log(poll);
+      // Problem - server doesn't support the null in end_date and start_date so the put request works only when open is changing to close
+      this.http.put(`${environment.apiUrl}/polls/${poll.slug}/`, { 
+        'title': poll.title,
+        'description': poll.description,
+        'start_date': poll.startDate,
+        'end_date': poll.endDate,
+        'filling': poll.filled,
+        'sent': poll.sent,
+        'status': poll.status,
+        'author': 1 
+        
+      }).subscribe();
   }
 
   getPoll(slug: string): Observable<Poll>{
