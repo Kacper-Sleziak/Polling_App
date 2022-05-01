@@ -29,7 +29,7 @@ export class PollingFormComponent implements OnInit {
     const slug = this.route.snapshot.paramMap.get('slug');
     if (slug !== null) {
       this.pollService.getPoll(slug).subscribe((poll) => {
-        this.title = poll.name;
+        this.title = poll.title;
         this.description = poll.description;
         this.questionViewModelService.loadPollQuestions(poll.id);
         this.questionViewModelService

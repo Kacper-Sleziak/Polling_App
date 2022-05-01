@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class OpenClosedPollDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {pollName: string}) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {pollTitle: string}) { }
 
   ngOnInit(): void {
   }
