@@ -80,7 +80,8 @@ export class CardComponent implements OnInit {
     let dateWithoutTime = (dateObject.toLocaleDateString().replace('/', '.')).replace('/', '.');    // We want to see template: dd.mm.yyyy
     // Note: toTimeString() function returns the time increased by your timezone offset (so the time which you see at the computer's clock)
     let timeWithoutDate = dateObject.toTimeString().slice(0,5); 
-    let convertedDate = dateWithoutTime + ' ' + timeWithoutDate;
+    let convertedDate = " " + dateWithoutTime + '  [ ' + timeWithoutDate + ' ]';
+    
     return convertedDate;
   }
 
