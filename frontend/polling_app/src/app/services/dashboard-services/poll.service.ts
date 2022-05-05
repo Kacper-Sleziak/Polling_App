@@ -34,7 +34,7 @@ export class PollService {
 
     let polls: Poll[] = []; 
 
-    this.http.get<any[]>(`${environment.apiUrl}/polls/author/1`).subscribe(
+    this.http.get<any[]>(`${environment.apiUrl}/polls/author/3`).subscribe(
       (result: any[]) => {
         result.forEach(
           (jsonPoll: any) => { 
@@ -80,7 +80,7 @@ export class PollService {
         'filling': poll.filled,
         'sent': poll.sent,
         'status': poll.status,
-        'author': 1 
+        'author': 3 
         
       }).subscribe();
   }
