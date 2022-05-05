@@ -17,11 +17,14 @@ export class CardComponent implements OnInit {
 
   @Input() poll !: Poll;
   @Output() onDeletePoll = new EventEmitter<number>();
+  PollStatus = Poll.Status;   // For the access to enum type from component's html
+
 
   constructor(public dialog: MatDialog, private pollService: PollService) { }
 
   ngOnInit(): void {
   }
+
 
   onToggleChange(matSildeToggle : MatSlideToggle) : void {
 
@@ -29,11 +32,11 @@ export class CardComponent implements OnInit {
 
     switch(this.poll.status){
 
-      case 'open':
+      case Poll.Status.open:
         // Don't uncheck the slideToggle without user response from dialog
         matSildeToggle.checked = true;
         // Show dialog
-        dialogRef = this.dialog.open(CloseOpenedPollDialogComponent, {data: {pollName : this.poll.name}});
+        dialogRef = this.dialog.open(CloseOpenedPollDialogComponent, {data: {pollTitle : this.poll.title}});
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
@@ -42,11 +45,11 @@ export class CardComponent implements OnInit {
         });
         break;
 
-      case 'close':
+      case Poll.Status.close:
         // Don't check the slideToggle without user response from dialog
         matSildeToggle.checked = false;
         // Show dialog
-        dialogRef = this.dialog.open(OpenClosedPollDialogComponent, {data: {pollName : this.poll.name}});
+        dialogRef = this.dialog.open(OpenClosedPollDialogComponent, {data: {pollTitle : this.poll.title}});
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
@@ -55,11 +58,11 @@ export class CardComponent implements OnInit {
         });
         break;
 
-      case 'editing':
+      case Poll.Status.editing:
         // Don't check the slideToggle without user response from dialog
         matSildeToggle.checked = false;
         // Show dialog
-        dialogRef = this.dialog.open(OpenEditingPollDialogComponent, {data: {pollName : this.poll.name}});
+        dialogRef = this.dialog.open(OpenEditingPollDialogComponent, {data: {pollTitle : this.poll.title}});
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
@@ -72,8 +75,14 @@ export class CardComponent implements OnInit {
 
   convertDate(date: string): string{
     let dateObject = new Date(date);
-    let convertedDate = dateObject.toJSON();
-    return convertedDate.replace('-', '.').replace('-', '.').replace('T', ' ').slice(0,16);
+    console.log(date);
+    
+    let dateWithoutTime = (dateObject.toLocaleDateString().replace('/', '.')).replace('/', '.');    // We want to see template: dd.mm.yyyy
+    // Note: toTimeString() function returns the time increased by your timezone offset (so the time which you see at the computer's clock)
+    let timeWithoutDate = dateObject.toTimeString().slice(0,5); 
+    let convertedDate = " " + dateWithoutTime + '  [ ' + timeWithoutDate + ' ]';
+    
+    return convertedDate;
   }
 
   onDeleteButtonClick(): void{
@@ -81,7 +90,7 @@ export class CardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result : boolean) => {
       if(result === true){
-        this.pollService.deletePoll(this.poll.id);
+        this.pollService.deletePoll(this.poll.slug);
         this.onDeletePoll.emit(this.poll.id);
       }
     });

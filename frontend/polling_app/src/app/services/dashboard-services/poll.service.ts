@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { Poll } from '../../models/dashboard-models/poll'
 import { environment } from 'src/environments/environment';
@@ -15,118 +15,54 @@ export class PollService {
 
   constructor(private http: HttpClient) { 
     
+
     this.polls = [
-      {
-        "id": 2,
-        "name": "Jakość usług - marzec 2022",
-        "description": "",
-        "startDate": null,
-        "endDate": null,
-        "filled": 0,
-        "sent": 0,
-        "status": "editing"
-      },
-      {
-          "id": 23,
-          "name": "Ocena zmian",
-          "description": "",
-          "startDate": "2021-03-11T12:11:35.000Z",
-          "endDate": null,
-          "filled": 100,
-          "sent": 243,
-          "status": "open"
-      },
-      {
-          "id": 33,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "2021-03-14T12:11:35.000Z",
-          "endDate": "2021-03-20T12:11:35.000Z",
-          "filled": 33,
-          "sent": 50,
-          "status": "close" 
-      },
-      {
-          "id": 4,
-          "name": "Prosty formularz",
-          "description": "",
-          "startDate": "2021-03-12T12:11:35.000Z",
-          "endDate": "2021-03-20T12:11:35.000Z",
-          "filled": 14,
-          "sent": 20,
-          "status": "close"
-      },
-      {
-          "id": 1,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": null,
-          "endDate": null,
-          "filled": 0,
-          "sent": 0,
-          "status": "editing"
-      },
-      {
-          "id": 7,
-          "name": "Prosty formularz",
-          "description": "",
-          "startDate": null,
-          "endDate": null,
-          "filled": 0,
-          "sent": 0,
-          "status": "close"
-      },
-      {
-          "id": 101,
-          "name": "Ocena zmian",
-          "description": "",
-          "startDate": "2021-03-11T12:11:35.000Z",
-          "endDate": null,
-          "filled": 100,
-          "sent": 243,
-          "status": "open"
-      },
-      {
-          "id": 57,
-          "name": "Ocena zmian",
-          "description": "",
-          "startDate": "2021-03-11T12:11:35.000Z",
-          "endDate": null,
-          "filled": 100,
-          "sent": 243,
-          "status": "open"
-      }
+      new Poll(2, "Jakość usług - marzec 2022", "", "asdzc", null , null, "2021-03-11T12:11:35.000Z", 0, 0, 2 ),
+      new Poll(23, "Ocena zmian", "", "asdzasdc", "2021-03-11T12:11:35.000Z" , null, "2021-03-11T12:11:35.000Z", 100, 243, 0),
+      new Poll(33, "Jakość usług", "", "asdzasdc", "2021-03-14T12:11:35.000Z" , "2021-03-20T12:11:35.000Z", "2021-03-11T12:11:35.000Z", 33, 50, 1),
+      new Poll(4, "Prosty formularz", "", "asdzasdc", "2021-03-12T12:11:35.000Z" , "2021-03-20T12:11:35.000Z", "2021-03-11T12:11:35.000Z", 14, 20, 1),
+      new Poll(1, "Jakość usług", "", "asdzasdc", null , null, "2021-03-11T12:11:35.000Z", 0, 0, 2),
+      new Poll(7, "Prosty formularz", "", "asdzasdc", null , null, "2021-03-11T12:11:35.000Z", 0, 0, 2),
+      new Poll(101, "Ocena zmian", "", "asdzasdc", "2021-03-11T12:11:35.000Z" , null, "2021-03-09T12:11:35.000Z", 100, 243, 0),
+      new Poll(57, "Ocena zmian", "", "asdzasdc", "2021-03-11T12:11:35.000Z" , null, "2021-03-09T12:11:35.000Z", 100, 250, 0),
     ];
   }
 
  
 
   getPolls(): Observable<Poll[]>{
-    return of(this.polls);
+
+    let polls: Poll[] = []; 
+
+    this.http.get<any[]>(`${environment.apiUrl}/polls/author/1`).subscribe(
+      (result: any[]) => {
+        result.forEach(
+          (jsonPoll: any) => { 
+            polls.push(new Poll(jsonPoll.id, jsonPoll.title, jsonPoll.description, jsonPoll.slug , jsonPoll.start_date, jsonPoll.end_date, jsonPoll.create_date, jsonPoll.filling, jsonPoll.sent, jsonPoll.status));
+          }
+        )
+      }
+    );
+    return of(polls);
   }
 
-  deletePoll(id : number): void{
-      this.polls = this.polls.filter((poll) => {
-        if(poll.id === id) return false;
-        return true; 
-      });
-      
-      console.log(environment.apiUrl.concat(`/polls/${id}`));
-    // this.http.delete(this.apiURL.concat(`/polls/${id}`));
+  deletePoll(slug : string): void{
+    // console.log(`${environment.apiUrl}/polls/${slug}/`));
+    this.http.delete(`${environment.apiUrl}/polls/${slug}/`).subscribe();
   }
 
   statusChange(poll : Poll): void{
     // Update status and dates
     let date = new Date().toJSON();
 
-    if(poll.status === 'open'){
-      poll.status = 'close';
+    if(poll.status === Poll.Status.open){
+      poll.status = Poll.Status.close;
       if(poll.startDate !== null){
         poll.endDate = date;
       }
     }
     else{
-      poll.status = 'open';
+      poll.status = Poll.Status.open;
       poll.startDate = date;
       poll.endDate = null;
     }
@@ -134,7 +70,19 @@ export class PollService {
   }
 
   putPoll(poll : Poll): void{
-      // this.http.put(`${environment.apiUrl}/polls/${poll.id}`, poll);
+      console.log(poll);
+      // Problem - server doesn't support the null in end_date and start_date so the put request works only when open is changing to close
+      this.http.put(`${environment.apiUrl}/polls/${poll.slug}/`, { 
+        'title': poll.title,
+        'description': poll.description,
+        'start_date': poll.startDate,
+        'end_date': poll.endDate,
+        'filling': poll.filled,
+        'sent': poll.sent,
+        'status': poll.status,
+        'author': 1 
+        
+      }).subscribe();
   }
 
   getPoll(slug: string): Observable<Poll>{
@@ -142,7 +90,7 @@ export class PollService {
     .pipe(
         map(
         (result: any)=>{
-            return new Poll(result.id, result.title, result.description, result.start_date, result.end_date, result.filling, result.sent, result.status);
+            return new Poll(result.id, result.title, result.description, result.slug , result.start_date, result.end_date, result.create_date, result.filling, result.sent, result.status);
         })
     );
   }

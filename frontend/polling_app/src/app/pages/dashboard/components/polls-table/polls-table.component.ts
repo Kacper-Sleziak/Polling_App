@@ -27,7 +27,8 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
   @ViewChild(MatSort) sort!: MatSort;
   subscription: Subscription;
   displayingData : MatTableDataSource<Poll>;   //Table expects this object to view data
-  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'filled', 'sent', 'status','toggle', 'more'];
+  displayedColumns: string[] = ['id', 'title', 'startDate', 'endDate', 'filled', 'sent', 'status','toggle', 'more'];
+  PollStatus = Poll.Status;   // For the access to enum type from component's html
   
 
   constructor(public dialog: MatDialog, private pollService: PollService, private uiPollsService : UiPollsService) { 
@@ -45,7 +46,7 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
 
     dialogRef.afterClosed().subscribe((result : boolean) => {
       if(result === true){
-        this.pollService.deletePoll(poll.id);
+        this.pollService.deletePoll(poll.slug);
         this.onDeletePoll.emit(poll.id);
       }
     });
@@ -75,11 +76,11 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
 
     switch(poll.status){
 
-      case 'open':
+      case Poll.Status.open:
         // Don't uncheck the slideToggle without user response from dialog
         matSildeToggle.checked = true;
         // Show dialog
-        dialogRef = this.dialog.open(CloseOpenedPollDialogComponent, {data: {pollName : poll.name}});
+        dialogRef = this.dialog.open(CloseOpenedPollDialogComponent, {data: {pollTitle : poll.title}});
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
@@ -88,11 +89,11 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
         });
         break;
 
-      case 'close':
+      case Poll.Status.close:
         // Don't check the slideToggle without user response from dialog
         matSildeToggle.checked = false;
         // Show dialog
-        dialogRef = this.dialog.open(OpenClosedPollDialogComponent, {data: {pollName : poll.name}});
+        dialogRef = this.dialog.open(OpenClosedPollDialogComponent, {data: {pollTitle : poll.title}});
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
@@ -101,11 +102,11 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
         });
         break;
 
-      case 'editing':
+      case Poll.Status.editing:
         // Don't check the slideToggle without user response from dialog
         matSildeToggle.checked = false;
         // Show dialog
-        dialogRef = this.dialog.open(OpenEditingPollDialogComponent, {data: {pollName : poll.name}});
+        dialogRef = this.dialog.open(OpenEditingPollDialogComponent, {data: {pollTitle : poll.title}});
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
