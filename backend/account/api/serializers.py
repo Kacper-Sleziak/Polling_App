@@ -16,7 +16,7 @@ class LoginSerializer(ModelSerializer):
 class AccountSerializer(ModelSerializer):
     class Meta:
         model = Account
-        fields = ('email', 'company_name', 'date_joined', 'last_login', 'is_admin',
+        fields = ('id', 'email', 'company_name', 'date_joined', 'last_login', 'is_admin',
                   'is_active', 'is_staff', 'is_superuser')
 
 
