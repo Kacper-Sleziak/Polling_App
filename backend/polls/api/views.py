@@ -13,6 +13,7 @@ class PollForAuthorList(generics.GenericAPIView):
         """
         Get all polls for given author
         """
+        
         queryset = Poll.objects.filter(author=author_id)
         if queryset.exists():
             serializer = self.serializer_class(queryset, many=True)
