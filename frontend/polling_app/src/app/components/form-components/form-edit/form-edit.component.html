@@ -1,5 +1,5 @@
 <div id="form-edit-content">
-    <app-form-title-edit [form_title]="title" [description]="description"></app-form-title-edit>
+    <app-form-title-edit [(title)]="title" [(description)]="description"></app-form-title-edit>
     <app-question-edit *ngFor="let question of questions" [question]="question" (onQuestionCopy)="copyQuestion($event)" (onQuestionRemove)="removeQuestion($event)" (onQuestionMove)="moveQuestion($event)"></app-question-edit>
     <div class="buttons-container">
         <button mat-fab color="primary" (click)="addNewQuestion()"><div class="material-icons">add</div></button>

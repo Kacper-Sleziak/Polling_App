@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-form-title-edit',
@@ -6,9 +6,22 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./form-title-edit.component.css'],
 })
 export class FormTitleEditComponent implements OnInit {
-  @Input() form_title: string = '';
+  @Input() title: string = '';
   @Input() description: string = '';
+  @Output() titleChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() descriptionChange: EventEmitter<string> =
+    new EventEmitter<string>();
   constructor() {}
 
   ngOnInit(): void {}
+
+  handleTitleChange = (event: Event) => {
+    const target = event.target as HTMLTextAreaElement;
+    this.titleChange.emit(target.value);
+  };
+
+  handleDescriptionChange = (event: Event) => {
+    const target = event.target as HTMLTextAreaElement;
+    this.descriptionChange.emit(target.value);
+  };
 }
