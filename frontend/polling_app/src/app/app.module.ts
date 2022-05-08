@@ -33,6 +33,7 @@ import { CloseOpenedPollDialogComponent } from './pages/dashboard/components/dia
 import { OpenClosedPollDialogComponent } from './pages/dashboard/components/dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollService } from './services/dashboard-services/poll.service';
+import { SendingPollsDialogComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/sending-polls-dialog.component';
 
 
 
@@ -65,6 +66,7 @@ import { PollService } from './services/dashboard-services/poll.service';
     CloseOpenedPollDialogComponent,
     OpenClosedPollDialogComponent,
     DashboardComponent,
+    SendingPollsDialogComponent,
   ],
   imports: [
     BrowserModule,

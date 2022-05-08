@@ -7,6 +7,7 @@ import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.co
 import { OpenEditingPollDialogComponent } from '../dialogs/open-editing-poll-dialog/open-editing-poll-dialog.component';
 import { CloseOpenedPollDialogComponent } from '../dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
 import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
+import { SendingPollsDialogComponent } from '../dialogs/sending-polls-dialog/sending-polls-dialog.component';
 
 @Component({
   selector: 'app-card',
@@ -95,4 +96,12 @@ export class CardComponent implements OnInit {
       }
     });
   }
+
+  onSendButtonClick(): void{
+    // Open sending polls dialog
+    const dialogRef = this.dialog.open(SendingPollsDialogComponent, {data: {pollSlug : this.poll.slug}});
+    
+  }
+
+
 }
