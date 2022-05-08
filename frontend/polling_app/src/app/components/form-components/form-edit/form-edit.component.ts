@@ -54,4 +54,9 @@ export class FormEditComponent implements OnInit {
     event.questionMoved.position += event.moved;
     this.questions = this.questions.sort((q1, q2) => q1.position - q2.position);
   };
+
+  savePoll = () => {
+    console.log(this.title, this.description);
+    console.log(this.questions);
+  };
 }
