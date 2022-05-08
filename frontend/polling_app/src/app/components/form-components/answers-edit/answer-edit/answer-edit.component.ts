@@ -29,4 +29,9 @@ export class AnswerEditComponent implements OnInit {
   handleAnswerRemove = (answer: Answer) => {
     this.answerRemoved.emit(answer);
   };
+
+  handleAnswerChange = (event: Event, answer: Answer) => {
+    const target = event.target as HTMLTextAreaElement;
+    answer.answer = target.value;
+  };
 }

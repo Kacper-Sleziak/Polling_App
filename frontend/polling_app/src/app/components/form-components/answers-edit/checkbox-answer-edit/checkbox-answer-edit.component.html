@@ -1,7 +1,7 @@
 <div class="checkbox-edit-answers">
 <div *ngFor="let answer of answers" class="checkbox-edit-answer">
     <mat-checkbox >
-    <textarea matInput placeholder="Wprowadź odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{answer.answer}}">
+    <textarea matInput placeholder="Wprowadź odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{answer.answer}}" (change)="handleAnswerChange($event, answer)">
     </textarea>
     </mat-checkbox>
     <button mat-icon-button color="primary"><div class="material-icons" (click)="handleAnswerRemove(answer)">close</div></button>
