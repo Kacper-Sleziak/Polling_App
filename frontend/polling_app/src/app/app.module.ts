@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,7 +8,6 @@ import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { FormAnswersComponent } from './components/form-components/form-answers/form-answers.component';
 import { TextAnswerComponent } from './components/form-components/answers/text-answer/text-answer.component';
-import { TrueOrFalseAnswerComponent } from './components/form-components/answers/true-or-false-answer/true-or-false-answer.component';
 import { RadioAnswerComponent } from './components/form-components/answers/radio-answer/radio-answer.component';
 import { ShortTextAnswerComponent } from './components/form-components/answers/short-text-answer/short-text-answer.component';
 import { PollingFormComponent } from './components/form-components/polling-form/polling-form.component';
@@ -25,7 +23,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollsComponent } from './pages/polls/polls.component';
 import { CreatePollComponent } from './pages/create-poll/create-poll.component';
 import { CardComponent } from './pages/polls/components/card/card.component';
-import { CreatePollCardComponent } from './pages/polls/components/create-poll-card/create-poll-card.component'
+import { CreatePollCardComponent } from './pages/polls/components/create-poll-card/create-poll-card.component';
 import { ScaleAnswerComponent } from './components/form-components/answers/scale-answer/scale-answer.component';
 import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/delete-dialog.component';
 import { FormEditComponent } from './components/form-components/form-edit/form-edit.component';
@@ -39,9 +37,7 @@ import { ShortTextAnswerEditComponent } from './components/form-components/answe
 import { TextAnswerEditComponent } from './components/form-components/answers-edit/text-answer-edit/text-answer-edit.component';
 import { RadioAnswerEditComponent } from './components/form-components/answers-edit/radio-answer-edit/radio-answer-edit.component';
 import { ScaleAnswerEditComponent } from './components/form-components/answers-edit/scale-answer-edit/scale-answer-edit.component';
-import { QuestionEditControlsComponent } from './components/form-components/question-edit-controls/question-edit-controls.component'
-
-
+import { QuestionEditControlsComponent } from './components/form-components/question-edit-controls/question-edit-controls.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +50,6 @@ import { QuestionEditControlsComponent } from './components/form-components/ques
     ComboboxAnswerComponent,
     FormAnswersComponent,
     TextAnswerComponent,
-    TrueOrFalseAnswerComponent,
     RadioAnswerComponent,
     ShortTextAnswerComponent,
     FooterComponent,
@@ -78,16 +73,16 @@ import { QuestionEditControlsComponent } from './components/form-components/ques
     TextAnswerEditComponent,
     RadioAnswerEditComponent,
     ScaleAnswerEditComponent,
-    QuestionEditControlsComponent
+    QuestionEditControlsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

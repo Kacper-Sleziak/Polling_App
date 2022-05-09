@@ -55,20 +55,6 @@ export class QuestionsService {
     this.questions.push(
       new Question(
         this.questionNewId++,
-        'Pytanie prawda/fałsz',
-        [
-          new Answer(this.answerNewId++, 'Odpowiedź 1'),
-          new Answer(this.answerNewId++, 'Odpowiedź 2'),
-          new Answer(this.answerNewId++, 'Odpowiedź 3'),
-          new Answer(this.answerNewId++, 'Odpowiedź 4'),
-        ],
-        QuestionType.TrueFalse
-      )
-    );
-
-    this.questions.push(
-      new Question(
-        this.questionNewId++,
         'Pytanie odpowiedź długa',
         [
           new Answer(this.answerNewId++, 'Odpowiedź 1'),
