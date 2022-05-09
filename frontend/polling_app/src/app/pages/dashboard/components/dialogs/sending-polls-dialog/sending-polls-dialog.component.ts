@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Email } from 'src/app/models/dashboard-models/email';
+import { MailService } from 'src/app/services/dashboard-services/mail.service';
+import { CustomSnackBarComponent } from './components/custom-snack-bar/custom-snack-bar.component';
 
 @Component({
   selector: 'app-sending-polls-dialog',
@@ -9,7 +13,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class SendingPollsDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {pollSlug: string}, private formBuilder: FormBuilder) { }
+  constructor(  @Inject(MAT_DIALOG_DATA) public data: {pollSlug: string}, 
+                private formBuilder: FormBuilder, 
+                private mailService: MailService,
+                private snackBar: MatSnackBar) {}
 
   emails : string[] = []
   isSubject: boolean = false;
@@ -85,6 +92,23 @@ export class SendingPollsDialogComponent implements OnInit {
   onSubjectChange(value : any): void{
     if(value.target.value !== '') this.isSubject = true;
     else this.isSubject = false;
+  }
+
+  onSendPoll(){
+    let subject: string = this.messageForm.controls['subject'].value;
+    let message: string = this.messageForm.controls['message'].value;
+
+    this.mailService.postMail(new Email(subject, message, this.data.pollSlug, this.emails));
+    this.openSnackBar();
+  }
+
+  // Open snackbar function
+  openSnackBar() {
+    this.snackBar.openFromComponent(CustomSnackBarComponent, {
+      duration: 1000,
+      horizontalPosition: 'end',
+      panelClass: 'custom-snack-bar'
+    });
   }
 
 }

@@ -90,7 +90,7 @@
     <button mat-button [mat-dialog-close]="false">Powrót</button>
 
     <!-- Send button -->
-    <button [disabled]="!(isSubject && isRecipient)" form="message-form" mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>
+    <button [disabled]="!(isSubject && isRecipient)" form="message-form" (click)="onSendPoll()" mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>
         <mat-icon style="margin-right: 5px;">send</mat-icon>
         <span>Wyślij</span>
     </button>
