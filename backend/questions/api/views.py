@@ -77,6 +77,15 @@ class QuestionDetail(generics.ListAPIView):
         question.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class CreateQuestion(generics.CreateAPIView):
+    serializer_class = QuestionSerializer
+    
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class QuestionForPullList(generics.GenericAPIView):
     serializer_class = QuestionSerializer
@@ -88,13 +97,6 @@ class QuestionForPullList(generics.GenericAPIView):
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
-
-    def post(self, request, poll_id, format=None):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class OptionDetail(generics.GenericAPIView):
@@ -125,6 +127,16 @@ class OptionDetail(generics.GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+class CreateOption(generics.CreateAPIView):
+    serializer_class = OptionSerializer
+    
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class OptionForQuestionList(generics.GenericAPIView):
     serializer_class = OptionSerializer
     
@@ -136,9 +148,3 @@ class OptionForQuestionList(generics.GenericAPIView):
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def post(self, request, question_id, format=None):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
