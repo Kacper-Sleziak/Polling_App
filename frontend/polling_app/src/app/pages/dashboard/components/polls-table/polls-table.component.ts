@@ -12,6 +12,7 @@ import { CloseOpenedPollDialogComponent } from '../dialogs/close-opened-poll-dia
 import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
 import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 import { OpenEditingPollDialogComponent } from '../dialogs/open-editing-poll-dialog/open-editing-poll-dialog.component';
+import { SendingPollsDialogComponent } from '../dialogs/sending-polls-dialog/sending-polls-dialog.component';
 
 @Component({
   selector: 'app-polls-table',
@@ -142,5 +143,11 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
     }
 
     return `${lowerBound} - ${upperBound} z ${length}`;
+  }
+
+  onSendButtonClick(slug: string): void{
+    // Open sending polls dialog
+    const dialogRef = this.dialog.open(SendingPollsDialogComponent, {data: {pollSlug : slug}, width: '900px', hasBackdrop: true});
+    
   }
 }
