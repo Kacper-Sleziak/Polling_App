@@ -66,7 +66,7 @@ class CreatePoll(generics.GenericAPIView):
     
     def post(self, request, format=None):
         """
-        Create poll with given slug
+        Create poll
         """
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
