@@ -11,25 +11,11 @@ import { environment } from 'src/environments/environment';
 })
 export class PollService {
 
-  polls: Poll[];
-
   constructor(private http: HttpClient) { 
-    
 
-    this.polls = [
-      new Poll(2, "Jakość usług - marzec 2022", "", "asdzc", null , null, "2021-03-11T12:11:35.000Z", 0, 0, 2 ),
-      new Poll(23, "Ocena zmian", "", "asdzasdc", "2021-03-11T12:11:35.000Z" , null, "2021-03-11T12:11:35.000Z", 100, 243, 0),
-      new Poll(33, "Jakość usług", "", "asdzasdc", "2021-03-14T12:11:35.000Z" , "2021-03-20T12:11:35.000Z", "2021-03-11T12:11:35.000Z", 33, 50, 1),
-      new Poll(4, "Prosty formularz", "", "asdzasdc", "2021-03-12T12:11:35.000Z" , "2021-03-20T12:11:35.000Z", "2021-03-11T12:11:35.000Z", 14, 20, 1),
-      new Poll(1, "Jakość usług", "", "asdzasdc", null , null, "2021-03-11T12:11:35.000Z", 0, 0, 2),
-      new Poll(7, "Prosty formularz", "", "asdzasdc", null , null, "2021-03-11T12:11:35.000Z", 0, 0, 2),
-      new Poll(101, "Ocena zmian", "", "asdzasdc", "2021-03-11T12:11:35.000Z" , null, "2021-03-09T12:11:35.000Z", 100, 243, 0),
-      new Poll(57, "Ocena zmian", "", "asdzasdc", "2021-03-11T12:11:35.000Z" , null, "2021-03-09T12:11:35.000Z", 100, 250, 0),
-    ];
   }
 
  
-
   getPolls(): Observable<Poll[]>{
 
     let polls: Poll[] = []; 
@@ -48,7 +34,7 @@ export class PollService {
 
   deletePoll(slug : string): void{
     // console.log(`${environment.apiUrl}/polls/${slug}/`));
-    this.http.delete(`${environment.apiUrl}/polls/${slug}/`).subscribe();
+    this.http.delete(`${environment.apiUrl}/polls/${slug}/`).subscribe(response => {});
   }
 
   statusChange(poll : Poll): void{
@@ -70,8 +56,7 @@ export class PollService {
   }
 
   putPoll(poll : Poll): void{
-      console.log(poll);
-      // Problem - server doesn't support the null in end_date and start_date so the put request works only when open is changing to close
+
       this.http.put(`${environment.apiUrl}/polls/${poll.slug}/`, { 
         'title': poll.title,
         'description': poll.description,
@@ -82,7 +67,7 @@ export class PollService {
         'status': poll.status,
         'author': 3 
         
-      }).subscribe();
+      }).subscribe( response => {});
   }
 
   getPoll(slug: string): Observable<Poll>{

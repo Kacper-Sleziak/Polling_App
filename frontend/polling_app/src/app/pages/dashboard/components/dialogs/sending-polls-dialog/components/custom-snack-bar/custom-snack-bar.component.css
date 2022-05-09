@@ -1,0 +1,4 @@
+::ng-deep .custom-snack-bar{
+    background-color: aliceblue !important;
+    color: black !important;
+}

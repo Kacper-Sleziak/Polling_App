@@ -97,7 +97,7 @@
           <mat-menu #menu="matMenu">
 
             <!-- Send -->
-            <button mat-menu-item  [disabled]="row.status !== PollStatus.open">
+            <button mat-menu-item  (click)="onSendButtonClick(row.slug)" [disabled]="row.status !== PollStatus.open">
               <mat-icon>send</mat-icon>
               <span>Wyślij</span>
             </button>
