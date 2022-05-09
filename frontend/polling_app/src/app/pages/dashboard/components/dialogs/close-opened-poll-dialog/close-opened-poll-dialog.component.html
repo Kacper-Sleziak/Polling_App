@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Zamykanie ankiety</h1>
+
+<div mat-dialog-content>
+    <span style="text-decoration: underline;">Klienci, do których rozesłałeś ankietę nie będą mogli jej wypełnić do ponownego otwarcia.</span>
+    <br>
+    <span>Czy na pewno chcesz zamknąć ankietę <span style="font-weight: 500;">{{data.pollTitle}}?</span></span>
+</div>
+
+<mat-dialog-actions align="center">
+    <button mat-button [mat-dialog-close]="false">Nie</button>
+    <button mat-button [mat-dialog-close]="true" color="warn">Tak</button>
+</mat-dialog-actions>

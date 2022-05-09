@@ -1,0 +1,124 @@
+<mat-card class="card mat-elevation-z3">
+
+    <!-- Header -->
+    <mat-card-header>
+      <mat-card-title>
+        <!-- Title -->
+        <span *ngIf="poll.status === PollStatus.editing">Edytowana</span>
+        <span *ngIf="poll.status === PollStatus.open">Otwarta</span>
+        <span *ngIf="poll.status === PollStatus.close">Zamknięta</span>
+        <!-- Toggled depends on status -->
+        <mat-slide-toggle *ngIf="poll.status !== PollStatus.open" color="primary" [disableRipple]="true" checked="false" (change)="onToggleChange($event.source)"></mat-slide-toggle>
+        <mat-slide-toggle *ngIf="poll.status === PollStatus.open" color="primary" [disableRipple]="true" checked="true" (change)="onToggleChange($event.source)"></mat-slide-toggle>
+        
+      </mat-card-title>
+      <mat-card-subtitle>ID ankiety: {{poll.id}}</mat-card-subtitle>
+      
+    </mat-card-header>
+    <mat-divider></mat-divider>
+
+    <!-- Fake image -->
+    <div class="fake-image mat-elevation-z2 editing-color" *ngIf="poll.status === PollStatus.editing"><div class="poll-title">{{poll.title}}</div></div>
+    <div class="fake-image mat-elevation-z2 open-color" *ngIf="poll.status === PollStatus.open"><div class="poll-title">{{poll.title}}</div></div>
+    <div class="fake-image mat-elevation-z2 close-color" *ngIf="poll.status === PollStatus.close"><div class="poll-title">{{poll.title}}</div></div>
+
+    <!-- Contnent below fake image -->
+    <mat-card-content>
+
+        <!-- Start date -->
+        <mat-divider></mat-divider>
+        <div id="startDate">  
+            <span *ngIf="poll.status !== PollStatus.editing && poll.startDate !== null; else showDots">
+              <span style="font-weight: 500;">Otwarto :</span> {{convertDate(poll.startDate)}}
+            </span>
+
+            <!-- Alternative - dots -->
+            <ng-template #showDots>
+              <span><mat-icon class="three-dots-icon">more_horiz</mat-icon></span>
+            </ng-template>
+        </div>
+        <mat-divider></mat-divider>
+
+        <!-- End date -->
+        <div id="endDate">
+          <!-- Note: showDots element is above - in startDate-->
+            <span *ngIf="poll.status === PollStatus.close && poll.endDate !== null; else showDots">
+              <span style="font-weight: 500;">Zamknięto :</span> {{convertDate(poll.endDate)}}
+            </span> 
+        </div>
+        <mat-divider></mat-divider>
+
+    </mat-card-content>
+
+    <!---------------------------------------------- Buttons -------------------------------------------------------------->
+    <mat-card-actions>
+
+      <!-- Send button -->
+      <button mat-icon-button 
+              matTooltip="Wyślij" 
+              matTooltipClass="tooltip-adjust" 
+              [disabled]="poll.status !== PollStatus.open"
+              [matTooltipDisabled]="poll.status !== PollStatus.open"  
+              color="primary" 
+              aria-label="Button to send poll">
+
+        <mat-icon>send</mat-icon>
+      </button>
+
+      <!-- Results button (instead of edit) -->
+      <button mat-icon-button 
+              *ngIf="poll.status !== PollStatus.editing"
+              matTooltip="Wyniki" 
+              matTooltipClass="tooltip-adjust" 
+              color="primary" 
+              aria-label="Button to show results">
+
+        <mat-icon>poll</mat-icon>
+      </button>
+
+      <!-- Edit button (instead of results) -->
+      <button mat-icon-button  
+              *ngIf="poll.status === PollStatus.editing"
+              matTooltip="Edytuj" 
+              matTooltipClass="tooltip-adjust" 
+              color="primary" 
+              aria-label="Button to edit poll dates">
+
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <!-- Pageview button -->
+      <a routerLink ='form/{{poll.slug}}'><button mat-icon-button 
+              matTooltip="Podgląd" 
+              matTooltipClass="tooltip-adjust" 
+              color="primary" 
+              aria-label="Button to poll preview">
+
+        <mat-icon>pageview</mat-icon>
+      </button></a>
+
+      <!-- Copy button -->
+      <button mat-icon-button 
+              matTooltip="Skopiuj" 
+              matTooltipClass="tooltip-adjust" 
+              color="primary" 
+              aria-label="Button to duplicate poll">
+
+        <mat-icon>file_copy</mat-icon>
+      </button>
+
+      <!-- Delete button -->
+      <button mat-icon-button
+              class="delete-button" 
+              matTooltip="Usuń"
+              matTooltipClass="tooltip-adjust"  
+              color="primary" 
+              (click)="onDeleteButtonClick()"
+              aria-label="Button to delete poll">
+
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+
+    </mat-card-actions>
+  </mat-card>
+  

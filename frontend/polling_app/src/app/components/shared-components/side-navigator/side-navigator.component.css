@@ -22,6 +22,7 @@ mat-sidenav{
 mat-sidenav-content{
     width: 100%;
     background-color: #fafafa;
+    /* background-color: white; */
 }
 
 mat-nav-list{

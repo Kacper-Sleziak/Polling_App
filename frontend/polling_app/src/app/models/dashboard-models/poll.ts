@@ -1,23 +1,47 @@
+
 export class Poll{
     
     id: number;
-    name: string;
+    title: string;
     description: string;
-    startDate: string;
-    endDate: string;
+    slug: string;
+    startDate: string | null;
+    endDate: string | null;
+    createDate: string;
     filled: number;
     sent: number;
-    status: string;
+    status: number;
 
-    constructor(id: number, name: string, description: string, startDate: string, endDate: string, filled: number, sent: number, status: string){
+    constructor(id: number, 
+                title: string, 
+                description: string, 
+                slug: string, 
+                startDate: string | null, 
+                endDate: string | null, 
+                createDate: string, 
+                filled: number, 
+                sent: number, 
+                status: number){
+                    
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.description = description;
+        this.slug = slug;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.createDate = createDate;
         this.filled = filled;
         this.sent = sent;
         this.status = status;
     }
-  
+}
+
+export namespace Poll
+{
+    export enum Status
+    {
+        open = 0,
+        close = 1,
+        editing = 2,
+    }
 }

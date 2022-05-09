@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { Poll } from '../../models/dashboard-models/poll'
 import { environment } from 'src/environments/environment';
@@ -15,218 +15,74 @@ export class PollService {
 
   constructor(private http: HttpClient) { 
     
-    this.polls = [
-      {
-        "id": 250,
-        "name": "Jakość usług - marzec 2022",
-        "description": "",
-        "startDate": "17.03.2022 13:00:21",
-        "endDate": "17.04.2022 13:00:21",
-        "filled": 0,
-        "sent": 0,
-        "status": "oczekująca"
-      },
-      {
-          "id": 23,
-          "name": "Ocena zmian",
-          "description": "",
-          "startDate": "11.03.2021 12:11:35",
-          "endDate": "14.03.2021 12:11:35",
-          "filled": 100,
-          "sent": 243,
-          "status": "zakończona"
-      },
-      {
-          "id": 33,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "14.03.2021 12:11:35",
-          "endDate": "20.03.2022 12:11:35",
-          "filled": 33,
-          "sent": 50,
-          "status": "wstrzymana" 
-      },
-      {
-          "id": 34,
-          "name": "Prosty formularz",
-          "description": "",
-          "startDate": "12.03.2022 12:11:35",
-          "endDate": "20.03.2022 12:11:35",
-          "filled": 14,
-          "sent": 20,
-          "status": "aktywna"
-      },
-      {
-          "id": 35,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "12.03.2022 13:00:21",
-          "endDate": "12.04.2022 13:00:21",
-          "filled": 0,
-          "sent": 0,
-          "status": "edytowana"
-      },
-      {
-          "id": 54,
-          "name": "Prosty formularz",
-          "description": "",
-          "startDate": "17.03.2022 13:00:21",
-          "endDate": "17.04.2022 13:00:21",
-          "filled": 0,
-          "sent": 0,
-          "status": "oczekująca"
-      },
-      {
-          "id": 23,
-          "name": "Ocena zmian",
-          "description": "",
-          "startDate": "11.03.2021 12:11:35",
-          "endDate": "14.03.2021 12:11:35",
-          "filled": 100,
-          "sent": 243,
-          "status": "zakończona"
-      },
-      {
-          "id": 23,
-          "name": "Ocena zmian",
-          "description": "",
-          "startDate": "11.03.2021 12:11:35",
-          "endDate": "14.03.2021 12:11:35",
-          "filled": 100,
-          "sent": 243,
-          "status": "zakończona"
-      },
-      {
-          "id": 33,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "14.03.2021 12:11:35",
-          "endDate": "20.03.2022 12:11:35",
-          "filled": 33,
-          "sent": 50,
-          "status": "wstrzymana" 
-      },
-      {
-          "id": 34,
-          "name": "Prosty formularz",
-          "description": "",
-          "startDate": "12.03.2022 12:11:35",
-          "endDate": "20.03.2022 12:11:35",
-          "filled": 14,
-          "sent": 20,
-          "status": "aktywna"
-      },
-      {
-          "id": 35,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "12.03.2022 13:00:21",
-          "endDate": "12.04.2022 13:00:21",
-          "filled": 12,
-          "sent": 100,
-          "status": "aktywna"
-      },
-      {
-          "id": 54,
-          "name": "Prosty formularz",
-          "description": "",
-          "startDate": "17.03.2022 13:00:21",
-          "endDate": "17.04.2022 13:00:21",
-          "filled": 0,
-          "sent": 0,
-          "status": "oczekująca"
-      },
-      {
-          "id": 23,
-          "name": "Aktywna",
-          "description": "",
-          "startDate": "11.03.2021 12:11:35",
-          "endDate": "14.03.2021 12:11:35",
-          "filled": 100,
-          "sent": 243,
-          "status": "zakończona"
-      },
-      {
-          "id": 33,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "14.03.2021 12:11:35",
-          "endDate": "20.03.2022 12:11:35",
-          "filled": 33,
-          "sent": 50,
-          "status": "wstrzymana" 
-      },
-      {
-          "id": 34,
-          "name": "Prosty formularz",
-          "description": "",
-          "startDate": "12.03.2022 12:11:35",
-          "endDate": "20.03.2022 12:11:35",
-          "filled": 14,
-          "sent": 20,
-          "status": "aktywna"
-      },
-      {
-          "id": 35,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "12.03.2022 13:00:21",
-          "endDate": "12.04.2022 13:00:21",
-          "filled": 12,
-          "sent": 100,
-          "status": "aktywna"
-      },
-      {
-          "id": 33,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "14.03.2021 12:11:35",
-          "endDate": "20.03.2022 12:11:35",
-          "filled": 33,
-          "sent": 50,
-          "status": "wstrzymana" 
-      },
-      {
-          "id": 34,
-          "name": "Prosty formularz",
-          "description": "",
-          "startDate": "12.03.2022 12:11:35",
-          "endDate": "20.03.2022 12:11:35",
-          "filled": 14,
-          "sent": 20,
-          "status": "aktywna"
-      },
-      {
-          "id": 35,
-          "name": "Jakość usług",
-          "description": "",
-          "startDate": "12.03.2022 13:00:21",
-          "endDate": "12.04.2022 13:00:21",
-          "filled": 12,
-          "sent": 100,
-          "status": "aktywna"
-      },
-      {
-          "id": 250,
-          "name": "Jakość usług - marzec 2022",
-          "description": "",
-          "startDate": "17.03.2022 13:00:21",
-          "endDate": "17.04.2022 13:00:21",
-          "filled": 0,
-          "sent": 0,
-          "status": "oczekująca"
-      }
 
+    this.polls = [
+      new Poll(2, "Jakość usług - marzec 2022", "", "asdzc", null , null, "2021-03-11T12:11:35.000Z", 0, 0, 2 ),
+      new Poll(23, "Ocena zmian", "", "asdzasdc", "2021-03-11T12:11:35.000Z" , null, "2021-03-11T12:11:35.000Z", 100, 243, 0),
+      new Poll(33, "Jakość usług", "", "asdzasdc", "2021-03-14T12:11:35.000Z" , "2021-03-20T12:11:35.000Z", "2021-03-11T12:11:35.000Z", 33, 50, 1),
+      new Poll(4, "Prosty formularz", "", "asdzasdc", "2021-03-12T12:11:35.000Z" , "2021-03-20T12:11:35.000Z", "2021-03-11T12:11:35.000Z", 14, 20, 1),
+      new Poll(1, "Jakość usług", "", "asdzasdc", null , null, "2021-03-11T12:11:35.000Z", 0, 0, 2),
+      new Poll(7, "Prosty formularz", "", "asdzasdc", null , null, "2021-03-11T12:11:35.000Z", 0, 0, 2),
+      new Poll(101, "Ocena zmian", "", "asdzasdc", "2021-03-11T12:11:35.000Z" , null, "2021-03-09T12:11:35.000Z", 100, 243, 0),
+      new Poll(57, "Ocena zmian", "", "asdzasdc", "2021-03-11T12:11:35.000Z" , null, "2021-03-09T12:11:35.000Z", 100, 250, 0),
     ];
   }
 
+ 
+
   getPolls(): Observable<Poll[]>{
-    return of(this.polls);
+
+    let polls: Poll[] = []; 
+
+    this.http.get<any[]>(`${environment.apiUrl}/polls/author/3`).subscribe(
+      (result: any[]) => {
+        result.forEach(
+          (jsonPoll: any) => { 
+            polls.push(new Poll(jsonPoll.id, jsonPoll.title, jsonPoll.description, jsonPoll.slug , jsonPoll.start_date, jsonPoll.end_date, jsonPoll.create_date, jsonPoll.filling, jsonPoll.sent, jsonPoll.status));
+          }
+        )
+      }
+    );
+    return of(polls);
   }
 
-  deletePoll(id : number): void{
-      console.log(environment.apiUrl.concat(`/polls/${id}`));
-    // this.http.delete(this.apiURL.concat(`/polls/${id}`));
+  deletePoll(slug : string): void{
+    // console.log(`${environment.apiUrl}/polls/${slug}/`));
+    this.http.delete(`${environment.apiUrl}/polls/${slug}/`).subscribe();
+  }
+
+  statusChange(poll : Poll): void{
+    // Update status and dates
+    let date = new Date().toJSON();
+
+    if(poll.status === Poll.Status.open){
+      poll.status = Poll.Status.close;
+      if(poll.startDate !== null){
+        poll.endDate = date;
+      }
+    }
+    else{
+      poll.status = Poll.Status.open;
+      poll.startDate = date;
+      poll.endDate = null;
+    }
+    this.putPoll(poll);
+  }
+
+  putPoll(poll : Poll): void{
+      console.log(poll);
+      // Problem - server doesn't support the null in end_date and start_date so the put request works only when open is changing to close
+      this.http.put(`${environment.apiUrl}/polls/${poll.slug}/`, { 
+        'title': poll.title,
+        'description': poll.description,
+        'start_date': poll.startDate,
+        'end_date': poll.endDate,
+        'filling': poll.filled,
+        'sent': poll.sent,
+        'status': poll.status,
+        'author': 3 
+        
+      }).subscribe();
   }
 
   getPoll(slug: string): Observable<Poll>{
@@ -234,7 +90,7 @@ export class PollService {
     .pipe(
         map(
         (result: any)=>{
-            return new Poll(result.id, result.title, result.description, result.start_date, result.end_date, result.filling, result.sent, result.status);
+            return new Poll(result.id, result.title, result.description, result.slug , result.start_date, result.end_date, result.create_date, result.filling, result.sent, result.status);
         })
     );
   }

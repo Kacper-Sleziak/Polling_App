@@ -45,6 +45,15 @@
 }
 
 
+::ng-deep .create-poll-tooltip{
+    font-size: 0.75rem !important;
+    /* background-color: transparent; */
+    margin: 0em !important; 
+    padding: 0.5em !important;
+    /* color: #3f51b5 !important; */
+}
+
+
 @media screen and (max-width: 480px){
     .card{
         font-size: 0.6rem;

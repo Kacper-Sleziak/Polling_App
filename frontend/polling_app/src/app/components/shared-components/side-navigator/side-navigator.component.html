@@ -1,34 +1,34 @@
 <mat-sidenav-container>
 
     <!-- Right side navigation panel (is not present when route: /form)-->
-    <mat-sidenav *ngIf="!hasRoute('form')" #sidenav mode="side" opened
+    <!-- <mat-sidenav *ngIf="!hasRoute('form')" #sidenav mode="side" opened
                  [fixedInViewport]= false 
                  [fixedTopGap] = 0
-                 [fixedBottomGap] = 0 >
+                 [fixedBottomGap] = 0 > -->
 
-                 <mat-divider></mat-divider>
+                 <!-- <mat-divider></mat-divider> -->
 
                  <!-- Bookmarks -->
-                 <mat-nav-list>
+                 <!-- <mat-nav-list>
                     <a mat-list-item routerLink="" ><mat-icon class="bookmark-icon" color="primary">dashboard</mat-icon><span>Strona główna</span></a>
                     <a mat-list-item routerLink="/polls"><mat-icon class="bookmark-icon" color="primary">assignment</mat-icon><span>Ankiety</span></a>
                     <a mat-list-item routerLink="/create-poll"><mat-icon class="bookmark-icon" color="primary">add</mat-icon><span>Utwórz ankietę</span></a>
                  </mat-nav-list>
 
-                 <mat-divider></mat-divider>
-
-    </mat-sidenav>
+                 <mat-divider></mat-divider> -->
+    <!-- </mat-sidenav> -->
     
     <!-- The side navigator present when route: /form -->
-    <mat-sidenav ngClass="empty-side-nav" *ngIf="hasRoute('form')" #sidenav mode="side" opened
+    <!-- <mat-sidenav ngClass="empty-side-nav" *ngIf="hasRoute('form')" #sidenav mode="side" opened
                 [fixedInViewport]= false 
                 [fixedTopGap] = 0
                 [fixedBottomGap] = 0 >
-    </mat-sidenav>
+    </mat-sidenav> -->
 
     <!-- Content area -->
     <mat-sidenav-content>
         <!-- Changing content -->
         <router-outlet></router-outlet>
     </mat-sidenav-content>
+    
   </mat-sidenav-container>

@@ -1,11 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import { Poll } from '../../models/dashboard-models/poll';
-import { PollService} from '../../services/dashboard-services/poll.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { RippleGlobalOptions } from '@angular/material/core';
+import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
+import { Poll } from '../../models/dashboard-models/poll';
+import { PollService } from '../../services/dashboard-services/poll.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,65 +11,66 @@ import { RippleGlobalOptions } from '@angular/material/core';
 })
 
 
-export class DashboardComponent implements OnInit, AfterViewInit{
+export class DashboardComponent  implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'filled', 'sent', 'status', 'buttons', 'actions'];
   polls: Poll[] = [];
-  displayingData: MatTableDataSource<Poll>;
+  displayingPolls: Poll[] = [];
+  labels: string[] = ['Wszystkie', 'Otwarte', 'Zamknięte', 'Edytowane'];
+  changeView: boolean = false;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  
-
-
-  constructor(private pollService: PollService) {
-    this.displayingData = new MatTableDataSource<Poll>();   
+  constructor(private pollService: PollService, private uiPollsService : UiPollsService) {
   }
 
-  filterData(event: MatTabChangeEvent){
+  ngAfterViewInit(): void {
+  }
 
+  onChangeView(): void{
+    this.changeView = !this.changeView;
+  }
+
+  onStatusFilterChange(event: MatTabChangeEvent){
+    // Change displayingPolls
     switch(event.tab.textLabel){
       case "Wszystkie":
-        this.displayingData.data = this.polls;
+        this.displayingPolls = this.polls;
         break;
-      case "Aktywne":
-        this.displayingData.data = this.polls.filter((poll) => poll.status === "aktywna");
+      case "Otwarte":
+        this.displayingPolls = this.polls.filter((poll) => poll.status === Poll.Status.open);
         break;
-      case "Wstrzymane":
-        this.displayingData.data = this.polls.filter((poll) => poll.status === "wstrzymana");
-        break;
-      case "Oczekujące":
-        this.displayingData.data = this.polls.filter((poll) => poll.status === "oczekująca");
+      case "Zamknięte":
+        this.displayingPolls = this.polls.filter((poll) => poll.status === Poll.Status.close);
         break;
       case "Edytowane":
-        this.displayingData.data = this.polls.filter((poll) => poll.status === "edytowana");
-        break;
-      case "Zakończone":
-        this.displayingData.data = this.polls.filter((poll) => poll.status === "zakończona");
+        this.displayingPolls = this.polls.filter((poll) => poll.status === Poll.Status.editing);
         break;
     }
+    // Inform components which base on displayingPolls table that data have been changed
+    this.uiPollsService.setDisplayingPolls(this.displayingPolls);
   }
 
-  ngAfterViewInit() {
-    this.displayingData.paginator = this.paginator;
-    this.displayingData.sort = this.sort;
+  onDeletePoll(pollId : number){
+
+    // Delete poll from current displaying polls
+    this.displayingPolls = this.displayingPolls.filter((poll) => {
+      if(pollId === poll.id) return false;
+      return true;
+    });
+
+    // Delete poll from all polls
+    this.polls = this.polls.filter((poll) => {
+      if(pollId === poll.id) return false;
+      return true;
+    });
+
+    // Use service to update date in child components
+    this.uiPollsService.setDisplayingPolls(this.displayingPolls);
   }
-
-
+  
   ngOnInit(): void {
     //fetch data
     this.pollService.getPolls().subscribe(polls => {
       this.polls = polls;
-      this.displayingData.data = polls;
+      this.displayingPolls = polls;
     });
   }
-
-  globalRippleConfig: RippleGlobalOptions = {
-    disabled: true,
-    animation: {
-      enterDuration: 0,
-      exitDuration: 0
-    }
-  };
-  
 }
