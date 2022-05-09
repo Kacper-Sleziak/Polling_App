@@ -14,7 +14,7 @@
         <!-- Message area -->
         <div class="message-area">
 
-            <form [formGroup]="messageForm" id="message-form" >
+            <form [formGroup]="messageForm" id="message-form" spellcheck="false" >
                 <!-- Subject input -->
                 <mat-form-field class="subject-input" appearance="fill">
                     <mat-label>Temat</mat-label>
@@ -40,7 +40,7 @@
                     
                     <mat-label>Adresat</mat-label>
                     <input type="email" placeholder="Wprowadź email" formControlName="email" matInput>
-                    <button type="button" (click)="addEmail()" color="primary" mat-button matSuffix><mat-icon>add</mat-icon></button>
+                    <button type="submit" (click)="addEmail()" color="primary" mat-button matSuffix><mat-icon>add</mat-icon></button>
                     <!-- <mat-error *ngIf="emailForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error> -->
                     <!-- <button type="button" mat-button color="primary" matSuffix>CSV</button> -->
                 </mat-form-field>
