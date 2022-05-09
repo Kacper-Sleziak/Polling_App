@@ -34,6 +34,7 @@ import { OpenClosedPollDialogComponent } from './pages/dashboard/components/dial
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollService } from './services/dashboard-services/poll.service';
 import { SendingPollsDialogComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/sending-polls-dialog.component';
+import { CustomSnackBarComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/components/custom-snack-bar/custom-snack-bar.component';
 
 
 
@@ -67,6 +68,7 @@ import { SendingPollsDialogComponent } from './pages/dashboard/components/dialog
     OpenClosedPollDialogComponent,
     DashboardComponent,
     SendingPollsDialogComponent,
+    CustomSnackBarComponent,
   ],
   imports: [
     BrowserModule,
