@@ -1,0 +1,61 @@
+.row{
+    display: flex;
+    width: 100%;
+    /* min-width: 800px; */
+    /* width: 800px; */
+    height: auto;
+}
+
+.message-area{
+    /* background-color: lightcoral; */
+    flex: 1 1 auto;
+}
+
+.recipients-area{
+    /* background-color: lightblue; */
+    flex: 0 1 30%;
+    display: flex;
+    flex-direction: column;
+    /* border-left: 4px solid #3f51b5; */
+    border-left: 4px solid #cdcdcd;
+    
+}
+
+form{
+    display: flex;
+    padding: 5px 15px;
+    flex-direction: column;
+}
+
+::ng-deep .title-input .mat-form-field-wrapper{
+    padding-top: 1.34375em !important;
+}
+
+::ng-deep textarea.mat-input-element{
+    overflow: visible !important;
+}
+
+::ng-deep .mat-list-item-content{
+    justify-content: space-between;
+}
+
+::ng-deep mat-selection-list .mat-button{
+    min-width: 32px !important;
+    padding: 0px;
+}
+
+.list{
+    /* background-color:aliceblue; */
+}
+
+@media screen and (max-width: 576px){
+    .row{
+        flex-direction: column;
+    }
+}
+::ng-deep .mat-selection-list{
+    /* width: 200px !important; */
+    height: 250px;
+    overflow-y: auto;
+}
+

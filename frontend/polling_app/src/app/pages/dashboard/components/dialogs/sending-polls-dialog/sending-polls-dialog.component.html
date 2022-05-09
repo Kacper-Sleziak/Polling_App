@@ -1,1 +1,86 @@
-<p>sending-polls-dialog works, this is the slug: {{data.pollSlug}}!</p>
+
+<!-- Title -->
+<h1 mat-dialog-title>Wysyłanie ankiety</h1>
+<mat-divider></mat-divider>
+
+<!-- Content -->
+<div mat-dialog-content>
+    
+    <!-- Main container includs message-area and recipients-area-->
+    <div class="row">
+        
+        <!-- Message area -->
+        <div class="message-area">
+
+            <form id="message-form" >
+                <!-- Title input -->
+                <mat-form-field class="title-input" appearance="fill">
+                    <mat-label>Temat</mat-label>
+                    <input type="text" matInput>
+                </mat-form-field>
+
+                <!-- Content input -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Treść wiadomości</mat-label>
+                    <textarea  style="resize: none;" type="text" rows="14" matInput></textarea>
+                </mat-form-field>    
+            </form>
+        </div>
+
+        <!-- Recipients area -->
+        <div class="recipients-area">
+            
+            <!-- Add recipient area -->
+            <form [formGroup]="emailForm" id="add-recipient-form" style="background-color: aliceblue;">
+                
+                <!-- Input witch button as suffix -->
+                <mat-form-field style="margin-top: 10px;">
+                    
+                    <mat-label>Adresat</mat-label>
+                    <input type="email" placeholder="Wprowadź email" formControlName="email" name="email" matInput>
+                    <button type="button" (click)="addEmail()" color="primary" mat-button matSuffix><mat-icon>add</mat-icon></button>
+                    <!-- <mat-error *ngIf="emailForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error> -->
+                    <!-- <button type="button" mat-button color="primary" matSuffix>CSV</button> -->
+                </mat-form-field>
+                
+                <!-- Import from CSV button -->
+                <button type="button" mat-raised-button color="primary" style="margin-bottom: 15px;">Zaimportuj z CSV</button>
+
+            </form>
+            <mat-divider></mat-divider>
+
+            <!-- List with emails -->
+            <mat-selection-list class="list">
+                <!-- List item -->
+                <div *ngFor="let email of emails">
+                    <mat-list-item style="justify-content: space-between;">
+                        <span style="font-size: 14px; overflow-x: hidden; width: 200px; text-overflow: ellipsis;">{{email}}</span><button color="warn" mat-button><mat-icon>close</mat-icon></button>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                </div>
+                
+            </mat-selection-list>
+
+        </div>
+        <mat-divider [vertical]="true"></mat-divider>
+
+    </div>
+    <mat-divider></mat-divider>
+    
+</div >
+
+
+
+<!-- Buttons -->
+<mat-dialog-actions  align="end">
+
+    <!-- Return button -->
+    <button mat-button [mat-dialog-close]="false">Powrót</button>
+
+    <!-- Send button -->
+    <button type="submit" form="message-form" mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>
+        <mat-icon style="margin-right: 5px;">send</mat-icon>
+        <span>Wyślij</span>
+    </button>
+
+</mat-dialog-actions>

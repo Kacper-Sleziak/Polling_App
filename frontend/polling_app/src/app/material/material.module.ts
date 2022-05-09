@@ -19,6 +19,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu'; 
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 const MaterialComponents = [
@@ -42,7 +44,9 @@ const MaterialComponents = [
   MatSlideToggleModule,
   MatFormFieldModule,
   MatDialogModule,
-  MatMenuModule
+  MatMenuModule,
+  ReactiveFormsModule,
+  FormsModule
   
 ];
 

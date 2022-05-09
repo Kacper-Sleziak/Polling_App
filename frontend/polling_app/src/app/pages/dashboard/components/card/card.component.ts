@@ -24,7 +24,9 @@ export class CardComponent implements OnInit {
   constructor(public dialog: MatDialog, private pollService: PollService) { }
 
   ngOnInit(): void {
+    this.onSendButtonClick();
   }
+
 
 
   onToggleChange(matSildeToggle : MatSlideToggle) : void {
@@ -76,7 +78,6 @@ export class CardComponent implements OnInit {
 
   convertDate(date: string): string{
     let dateObject = new Date(date);
-    console.log(date);
     
     let dateWithoutTime = (dateObject.toLocaleDateString().replace('/', '.')).replace('/', '.');    // We want to see template: dd.mm.yyyy
     // Note: toTimeString() function returns the time increased by your timezone offset (so the time which you see at the computer's clock)
@@ -99,7 +100,7 @@ export class CardComponent implements OnInit {
 
   onSendButtonClick(): void{
     // Open sending polls dialog
-    const dialogRef = this.dialog.open(SendingPollsDialogComponent, {data: {pollSlug : this.poll.slug}});
+    const dialogRef = this.dialog.open(SendingPollsDialogComponent, {data: {pollSlug : this.poll.slug}, width: '900px', hasBackdrop: true});
     
   }
 
