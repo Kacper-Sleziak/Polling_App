@@ -21,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 const MaterialComponents = [
@@ -46,7 +47,8 @@ const MaterialComponents = [
   MatDialogModule,
   MatMenuModule,
   ReactiveFormsModule,
-  FormsModule
+  FormsModule,
+  MatSnackBarModule
   
 ];
 
