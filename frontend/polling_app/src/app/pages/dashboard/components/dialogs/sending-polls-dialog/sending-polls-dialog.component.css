@@ -13,7 +13,7 @@
 
 .recipients-area{
     /* background-color: lightblue; */
-    flex: 0 1 30%;
+    flex: 0 1 33%;
     display: flex;
     flex-direction: column;
     /* border-left: 4px solid #3f51b5; */
@@ -27,7 +27,12 @@ form{
     flex-direction: column;
 }
 
-::ng-deep .title-input .mat-form-field-wrapper{
+::ng-deep #information .mat-list-item-content{
+    justify-content: center !important;
+    padding: 0 !important;
+}
+
+::ng-deep .subject-input .mat-form-field-wrapper{
     padding-top: 1.34375em !important;
 }
 
@@ -42,10 +47,6 @@ form{
 ::ng-deep mat-selection-list .mat-button{
     min-width: 32px !important;
     padding: 0px;
-}
-
-.list{
-    /* background-color:aliceblue; */
 }
 
 @media screen and (max-width: 576px){

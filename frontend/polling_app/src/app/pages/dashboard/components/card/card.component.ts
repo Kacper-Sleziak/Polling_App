@@ -24,7 +24,6 @@ export class CardComponent implements OnInit {
   constructor(public dialog: MatDialog, private pollService: PollService) { }
 
   ngOnInit(): void {
-    this.onSendButtonClick();
   }
 
 

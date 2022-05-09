@@ -3,26 +3,28 @@
 <h1 mat-dialog-title>Wysyłanie ankiety</h1>
 <mat-divider></mat-divider>
 
+
 <!-- Content -->
 <div mat-dialog-content>
     
     <!-- Main container includs message-area and recipients-area-->
     <div class="row">
+        <mat-divider [vertical]="true"></mat-divider>
         
         <!-- Message area -->
         <div class="message-area">
 
-            <form id="message-form" >
-                <!-- Title input -->
-                <mat-form-field class="title-input" appearance="fill">
+            <form [formGroup]="messageForm" id="message-form" >
+                <!-- Subject input -->
+                <mat-form-field class="subject-input" appearance="fill">
                     <mat-label>Temat</mat-label>
-                    <input type="text" matInput>
+                    <input formControlName="subject" (change)="onSubjectChange($event)" type="text" matInput>
                 </mat-form-field>
 
                 <!-- Content input -->
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field  appearance="fill">
                     <mat-label>Treść wiadomości</mat-label>
-                    <textarea  style="resize: none;" type="text" rows="14" matInput></textarea>
+                    <textarea  formControlName="message" style="resize: none;" type="text" rows="14" matInput></textarea>
                 </mat-form-field>    
             </form>
         </div>
@@ -37,7 +39,7 @@
                 <mat-form-field style="margin-top: 10px;">
                     
                     <mat-label>Adresat</mat-label>
-                    <input type="email" placeholder="Wprowadź email" formControlName="email" name="email" matInput>
+                    <input type="email" placeholder="Wprowadź email" formControlName="email" matInput>
                     <button type="button" (click)="addEmail()" color="primary" mat-button matSuffix><mat-icon>add</mat-icon></button>
                     <!-- <mat-error *ngIf="emailForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error> -->
                     <!-- <button type="button" mat-button color="primary" matSuffix>CSV</button> -->
@@ -51,13 +53,20 @@
 
             <!-- List with emails -->
             <mat-selection-list class="list">
+
+                <!-- When no emails -->
+                <mat-list-item id="information" style="justify-content: center;" *ngIf="!isRecipient">
+                    <span style="font-size: 14px; color: red;">Wprowadź adresatów!</span>
+                </mat-list-item>
+
+
                 <!-- List items -->
                 <div *ngFor="let email of emails">
 
                     <!-- Emails tags -->
-                    <mat-list-item style="justify-content: space-between;">
+                    <mat-list-item style="justify-content: space-between; background-color: white">
                         <span style="font-size: 14px; overflow-x: hidden; width: 200px; text-overflow: ellipsis;">{{email}}</span>
-                        <button (click)="onDelete(email)"  color="warn" mat-button><mat-icon>close</mat-icon></button>
+                        <button (click)="onDeleteEmail(email)" color="warn" mat-button><mat-icon>close</mat-icon></button>
                     </mat-list-item>
                     <mat-divider></mat-divider>
 
@@ -74,7 +83,6 @@
 </div >
 
 
-
 <!-- Buttons -->
 <mat-dialog-actions  align="end">
 
@@ -82,7 +90,7 @@
     <button mat-button [mat-dialog-close]="false">Powrót</button>
 
     <!-- Send button -->
-    <button type="submit" form="message-form" mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>
+    <button [disabled]="!(isSubject && isRecipient)" form="message-form" mat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>
         <mat-icon style="margin-right: 5px;">send</mat-icon>
         <span>Wyślij</span>
     </button>

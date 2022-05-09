@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -12,6 +12,8 @@ export class SendingPollsDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: {pollSlug: string}, private formBuilder: FormBuilder) { }
 
   emails : string[] = []
+  isSubject: boolean = false;
+  isRecipient: boolean = false;
 
   emailForm : FormGroup = this.formBuilder.group(
     {
@@ -19,13 +21,16 @@ export class SendingPollsDialogComponent implements OnInit {
     }
   );
 
+  messageForm : FormGroup = this.formBuilder.group(
+    {
+      subject: [''],
+      message: ['']
+    }
+  );
+
   ngOnInit(): void {
     this.emailForm.controls['email'].addValidators([Validators.email]);
-  };
-
-  onAddRecipient(): void{
-    console.log("elo");
-    
+    this.messageForm.controls['subject'].addValidators([Validators.required]);
   };
 
   addEmail(){
@@ -51,16 +56,20 @@ export class SendingPollsDialogComponent implements OnInit {
       // else{
       //   this.emailForm.controls['email'].setErrors({exist: 'true'});
       // }
-
+      this.isRecipient = true;
     }
-    
+
   }
 
-  onDelete(emailToRemove : string){
+  onDeleteEmail(emailToRemove : string){
+    // Delete email from array
     this.emails = this.emails.filter((email)=>{
       if(email === emailToRemove) return false;
       return true;
     })
+
+    // Check that the array is empty -> if so we can't sent the poll
+    if(this.emails.length == 0) this.isRecipient = false;
   }
 
   // getEmailErrorMessage(): string{
@@ -72,5 +81,10 @@ export class SendingPollsDialogComponent implements OnInit {
   //   }
   //   return "";
   // }
+
+  onSubjectChange(value : any): void{
+    if(value.target.value !== '') this.isSubject = true;
+    else this.isSubject = false;
+  }
 
 }
