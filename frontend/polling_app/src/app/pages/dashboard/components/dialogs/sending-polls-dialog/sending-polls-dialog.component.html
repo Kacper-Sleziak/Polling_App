@@ -51,12 +51,16 @@
 
             <!-- List with emails -->
             <mat-selection-list class="list">
-                <!-- List item -->
+                <!-- List items -->
                 <div *ngFor="let email of emails">
+
+                    <!-- Emails tags -->
                     <mat-list-item style="justify-content: space-between;">
-                        <span style="font-size: 14px; overflow-x: hidden; width: 200px; text-overflow: ellipsis;">{{email}}</span><button color="warn" mat-button><mat-icon>close</mat-icon></button>
+                        <span style="font-size: 14px; overflow-x: hidden; width: 200px; text-overflow: ellipsis;">{{email}}</span>
+                        <button (click)="onDelete(email)"  color="warn" mat-button><mat-icon>close</mat-icon></button>
                     </mat-list-item>
                     <mat-divider></mat-divider>
+
                 </div>
                 
             </mat-selection-list>

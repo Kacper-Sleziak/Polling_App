@@ -21,13 +21,12 @@ export class SendingPollsDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.emailForm.controls['email'].addValidators([Validators.email]);
-    
-  }
+  };
 
   onAddRecipient(): void{
     console.log("elo");
     
-  }
+  };
 
   addEmail(){
     // // Custom error
@@ -35,11 +34,33 @@ export class SendingPollsDialogComponent implements OnInit {
     //   this.emailForm.controls['email'].setErrors({empty: 'true'});
     // }
     
+    let email = this.emailForm.controls['email'].value;
     // Add the email only when valid and not empty
-    if(this.emailForm.valid && this.emailForm.controls['email'].value !== ''){
-      this.emails.push(this.emailForm.controls['email'].value);
+    if(this.emailForm.valid && email !== ''){
+
+      // Check that the email exist
+      let filteredArray = this.emails.filter((e) => {
+        if(e === email) return true;
+        return false;
+      })
+
+      console.log(filteredArray);
+      if(filteredArray.length == 0){
+        this.emails.push(email);
+      }
+      // else{
+      //   this.emailForm.controls['email'].setErrors({exist: 'true'});
+      // }
+
     }
     
+  }
+
+  onDelete(emailToRemove : string){
+    this.emails = this.emails.filter((email)=>{
+      if(email === emailToRemove) return false;
+      return true;
+    })
   }
 
   // getEmailErrorMessage(): string{

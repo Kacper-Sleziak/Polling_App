@@ -55,7 +55,8 @@ form{
 }
 ::ng-deep .mat-selection-list{
     /* width: 200px !important; */
-    height: 250px;
+    height: 260px;
     overflow-y: auto;
+    padding: 0px !important;
 }
 
