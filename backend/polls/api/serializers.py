@@ -8,7 +8,7 @@ class PollSerializer(ModelSerializer):
         if data['start_date'] == None and data['end_date'] != None:
             raise ValidationError("Can't specify end date without start date")
 
-        if data['start_date'] > data['end_date']:
+        if data['end_date'] != None and data['start_date'] > data['end_date']:
             raise ValidationError("End date can't be before start date")
         return data
 
