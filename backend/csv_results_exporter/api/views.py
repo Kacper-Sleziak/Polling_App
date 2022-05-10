@@ -26,7 +26,7 @@ class GetCSVView(generics.GenericAPIView):
                     report.read(),
                     headers={'Content-Disposition': 
                         f'attachment; filename="{file_name}"'},
-                    content_type='application/pdf',
+                    content_type='application/csv',
                     status=status.HTTP_200_OK
                     )
         return Response(status=status.HTTP_404_NOT_FOUND)
