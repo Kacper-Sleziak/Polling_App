@@ -5,17 +5,10 @@ import { PollingFormComponent } from './components/form-components/polling-form/
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
-<<<<<<< HEAD
-  { path: '', component: DashboardComponent },
-  { path: 'create-poll', component: CreatePollComponent },
-  { path: 'polls', component: PollsComponent },
   { path: 'form/:slug', component: PollingFormComponent },
   { path: 'form/edit/:slug', component: FormEditComponent },
   { path: 'create-form', component: FormEditComponent },
-=======
-  { path: '', component: DashboardComponent},
-  { path: 'form/:slug', component: PollingFormComponent}
->>>>>>> origin/Tests
+  { path: '', component: DashboardComponent },
 ];
 
 @NgModule({

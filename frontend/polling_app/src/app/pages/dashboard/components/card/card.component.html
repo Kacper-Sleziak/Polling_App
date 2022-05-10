@@ -60,7 +60,8 @@
               [disabled]="poll.status !== PollStatus.open"
               [matTooltipDisabled]="poll.status !== PollStatus.open"  
               color="primary" 
-              aria-label="Button to send poll">
+              aria-label="Button to send poll"
+              (click)="onSendButtonClick()">
 
         <mat-icon>send</mat-icon>
       </button>

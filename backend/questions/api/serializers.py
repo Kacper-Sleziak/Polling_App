@@ -12,12 +12,12 @@ class QuestionTypeSerializer(ModelSerializer):
 class QuestionSerializer(ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', 'position', 'content', 'question_type')
+        fields = ('id', 'position', 'content', 'poll' , 'question_type')
         read_only_fields = ['id']
 
 
 class OptionSerializer(ModelSerializer):
     class Meta:
         model = Option
-        fields = ('id', 'content', )
+        fields = ('id', 'content', 'question')
         read_only_fields = ['id']

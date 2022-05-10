@@ -19,14 +19,6 @@ import { ComboboxAnswerComponent } from './components/form-components/answers/co
 import { FooterComponent } from './components/shared-components/footer/footer.component';
 import { ToolbarComponent } from './components/shared-components/toolbar/toolbar.component';
 import { SideNavigatorComponent } from './components/shared-components/side-navigator/side-navigator.component';
-<<<<<<< HEAD
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PollsComponent } from './pages/polls/polls.component';
-import { CreatePollComponent } from './pages/create-poll/create-poll.component';
-import { CardComponent } from './pages/polls/components/card/card.component';
-import { CreatePollCardComponent } from './pages/polls/components/create-poll-card/create-poll-card.component';
-import { ScaleAnswerComponent } from './components/form-components/answers/scale-answer/scale-answer.component';
-import { DeleteDialogComponent } from './pages/polls/components/delete-dialog/delete-dialog.component';
 import { FormEditComponent } from './components/form-components/form-edit/form-edit.component';
 import { FormTitleEditComponent } from './components/form-components/form-title-edit/form-title-edit.component';
 import { QuestionEditComponent } from './components/form-components/question-edit/question-edit.component';
@@ -39,9 +31,8 @@ import { TextAnswerEditComponent } from './components/form-components/answers-ed
 import { RadioAnswerEditComponent } from './components/form-components/answers-edit/radio-answer-edit/radio-answer-edit.component';
 import { ScaleAnswerEditComponent } from './components/form-components/answers-edit/scale-answer-edit/scale-answer-edit.component';
 import { QuestionEditControlsComponent } from './components/form-components/question-edit-controls/question-edit-controls.component';
-=======
 import { CardComponent } from './pages/dashboard/components/card/card.component';
-import { CreatePollCardComponent } from './pages/dashboard/components/create-poll-card/create-poll-card.component'
+import { CreatePollCardComponent } from './pages/dashboard/components/create-poll-card/create-poll-card.component';
 import { ScaleAnswerComponent } from './components/form-components/answers/scale-answer/scale-answer.component';
 import { DeleteDialogComponent } from './pages/dashboard/components/dialogs/delete-dialog/delete-dialog.component';
 import { StatusFilterComponent } from './pages/dashboard/components/status-filter/status-filter.component';
@@ -52,10 +43,8 @@ import { CloseOpenedPollDialogComponent } from './pages/dashboard/components/dia
 import { OpenClosedPollDialogComponent } from './pages/dashboard/components/dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollService } from './services/dashboard-services/poll.service';
-
-
-
->>>>>>> origin/Tests
+import { SendingPollsDialogComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/sending-polls-dialog.component';
+import { CustomSnackBarComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/components/custom-snack-bar/custom-snack-bar.component';
 
 @NgModule({
   declarations: [
@@ -74,13 +63,10 @@ import { PollService } from './services/dashboard-services/poll.service';
     ToolbarComponent,
     SideNavigatorComponent,
     DashboardComponent,
-    PollsComponent,
-    CreatePollComponent,
     CardComponent,
     CreatePollCardComponent,
     ScaleAnswerComponent,
     DeleteDialogComponent,
-<<<<<<< HEAD
     FormEditComponent,
     FormTitleEditComponent,
     QuestionEditComponent,
@@ -93,7 +79,6 @@ import { PollService } from './services/dashboard-services/poll.service';
     RadioAnswerEditComponent,
     ScaleAnswerEditComponent,
     QuestionEditControlsComponent,
-=======
     StatusFilterComponent,
     PollsTableComponent,
     PollsAsCardsComponent,
@@ -101,7 +86,8 @@ import { PollService } from './services/dashboard-services/poll.service';
     CloseOpenedPollDialogComponent,
     OpenClosedPollDialogComponent,
     DashboardComponent,
->>>>>>> origin/Tests
+    SendingPollsDialogComponent,
+    CustomSnackBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -110,14 +96,7 @@ import { PollService } from './services/dashboard-services/poll.service';
     HttpClientModule,
     MaterialModule,
   ],
-<<<<<<< HEAD
-  providers: [],
+  providers: [PollService],
   bootstrap: [AppComponent],
-=======
-  providers: [
-    PollService
-  ],
-  bootstrap: [AppComponent]
->>>>>>> origin/Tests
 })
 export class AppModule {}
