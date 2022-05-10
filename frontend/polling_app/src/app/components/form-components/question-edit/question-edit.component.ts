@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
+import { Answer } from 'src/app/models/form-models/answer';
 import { Question, QuestionType } from 'src/app/models/form-models/question';
 
 @Component({
@@ -15,6 +16,7 @@ export class QuestionEditComponent implements OnInit {
     questionMoved: Question;
     moved: number;
   }> = new EventEmitter();
+  @Output() onAnswerRemove: EventEmitter<Answer> = new EventEmitter();
   questionType?: string;
   questionTypes = Object.values(QuestionType).filter(
     (v) => !Number.isInteger(v)
@@ -38,5 +40,10 @@ export class QuestionEditComponent implements OnInit {
 
   handleQuestionMove = (event: number) => {
     this.onQuestionMove.emit({ questionMoved: this.question, moved: event });
+  };
+
+  handleQuestionChange = (event: Event) => {
+    const target = event.target as HTMLTextAreaElement;
+    this.question.question = target.value;
   };
 }

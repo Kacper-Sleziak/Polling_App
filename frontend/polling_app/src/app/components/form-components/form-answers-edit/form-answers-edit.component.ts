@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Answer } from 'src/app/models/form-models/answer';
 import { QuestionType } from 'src/app/models/form-models/question';
 
@@ -11,6 +11,7 @@ export class FormAnswersEditComponent implements OnInit {
   @Input() answers: Answer[] = [];
   @Input() type: QuestionType = QuestionType.Checkbox;
   @Input() questionId!: number;
+  @Output() onAnswerRemove: EventEmitter<Answer> = new EventEmitter();
   questionType: typeof QuestionType = QuestionType;
   constructor() {}
 
@@ -22,5 +23,6 @@ export class FormAnswersEditComponent implements OnInit {
 
   removeAnswer = (answer: Answer) => {
     this.answers = this.answers.filter((a) => a !== answer);
+    this.onAnswerRemove.emit(answer);
   };
 }

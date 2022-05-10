@@ -1,7 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { defaultIfEmpty } from 'rxjs';
+import { Poll } from 'src/app/models/dashboard-models/poll';
+import { Answer } from 'src/app/models/form-models/answer';
 import { Question, QuestionType } from 'src/app/models/form-models/question';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
+import { AnswerService } from 'src/app/services/form-services/answer.service';
 import { QuestionViewModelService } from 'src/app/services/form-services/question-view-model.service';
 import { QuestionsService } from 'src/app/services/form-services/questions.service';
 
@@ -11,19 +16,27 @@ import { QuestionsService } from 'src/app/services/form-services/questions.servi
   styleUrls: ['./form-edit.component.css'],
 })
 export class FormEditComponent implements OnInit {
+  @Output() author!: number;
   questions: Question[] = [];
+  questionsToRemove: number[] = [];
+  answersToRemove: number[] = [];
   title: string = 'Przykładowy tytuł';
   description: string = 'Przykładowy opis';
+  poll?: Poll;
   constructor(
     private pollService: PollService,
     private route: ActivatedRoute,
-    private questionViewModelService: QuestionViewModelService
+    private questionViewModelService: QuestionViewModelService,
+    private questionsService: QuestionsService,
+    private answerService: AnswerService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
     if (slug !== null) {
       this.pollService.getPoll(slug).subscribe((poll) => {
+        this.poll = poll;
         this.title = poll.title;
         this.description = poll.description;
         this.questionViewModelService.loadPollQuestions(poll.id);
@@ -39,6 +52,11 @@ export class FormEditComponent implements OnInit {
 
   removeQuestion = (question: Question) => {
     this.questions = this.questions.filter((q) => q !== question);
+    if (question.id !== -1) this.questionsToRemove.push(question.id);
+  };
+
+  removeAnswer = (answer: Answer) => {
+    if (answer.id !== -1) this.answersToRemove.push(answer.id);
   };
 
   addNewQuestion = () => {
@@ -48,7 +66,6 @@ export class FormEditComponent implements OnInit {
   };
 
   moveQuestion = (event: { questionMoved: Question; moved: number }) => {
-    console.log(event);
     const index = this.questions.findIndex((q) => q === event.questionMoved);
     this.questions[index + event.moved].position += -event.moved;
     event.questionMoved.position += event.moved;
@@ -56,7 +73,42 @@ export class FormEditComponent implements OnInit {
   };
 
   savePoll = () => {
-    console.log(this.title, this.description);
-    console.log(this.questions);
+    if (this.poll === undefined) {
+      this.poll = new Poll(
+        -1,
+        this.title,
+        this.description,
+        '',
+        null,
+        null,
+        new Date(Date.now()).toISOString(),
+        0,
+        0,
+        Poll.Status.editing,
+        this.author
+      );
+    }
+    this.poll.title = this.title;
+    this.poll.description = this.description;
+    console.log(this.answersToRemove);
+    console.log(this.questionsToRemove);
+    this.pollService.savePoll(this.poll).subscribe((r) => {
+      this.questionsService
+        .saveQuestions(this.questions, r.id)
+        .subscribe((r) => {
+          this.questionsService
+            .removeQuestions(this.questionsToRemove)
+            .pipe(defaultIfEmpty([]))
+            .subscribe((r) => {
+              this.answerService
+                .removeAnswers(this.answersToRemove)
+                .pipe(defaultIfEmpty([]))
+                .subscribe((r) => {
+                  console.log('finished');
+                  this.router.navigateByUrl('/');
+                });
+            });
+        });
+    });
   };
 }

@@ -1,6 +1,6 @@
 <div id="form-edit-content">
     <app-form-title-edit [(title)]="title" [(description)]="description"></app-form-title-edit>
-    <app-question-edit *ngFor="let question of questions" [question]="question" (onQuestionCopy)="copyQuestion($event)" (onQuestionRemove)="removeQuestion($event)" (onQuestionMove)="moveQuestion($event)"></app-question-edit>
+    <app-question-edit *ngFor="let question of questions" [question]="question" (onQuestionCopy)="copyQuestion($event)" (onQuestionRemove)="removeQuestion($event)" (onQuestionMove)="moveQuestion($event)" (onAnswerRemove)="removeAnswer($event)"></app-question-edit>
     <div class="buttons-container">
         <button mat-fab color="primary" (click)="addNewQuestion()"><div class="material-icons">add</div></button>
         <button mat-raised-button color="primary" (click)="savePoll()">Zapisz</button>

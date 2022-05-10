@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, of } from 'rxjs';
+import { forkJoin, map, of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
 import { Answer } from '../../models/form-models/answer';
 import { Question, QuestionType } from '../../models/form-models/question';
+import { AnswerService } from './answer.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,100 +15,7 @@ export class QuestionsService {
   questionNewId: number = 0;
   answerNewId: number = 0;
 
-  constructor(private http: HttpClient) {
-    this.questions.push(
-      new Question(this.questionNewId++, 'Pytanie wielokrotnego wyboru', [
-        new Answer(this.answerNewId++, 'Odpowiedź 1'),
-        new Answer(this.answerNewId++, 'Odpowiedź 2'),
-        new Answer(this.answerNewId++, 'Odpowiedź 3'),
-        new Answer(this.answerNewId++, 'Odpowiedź 4'),
-      ])
-    );
-
-    this.questions.push(
-      new Question(
-        this.questionNewId++,
-        'Pytanie jednokrotnego wyboru combo',
-        [
-          new Answer(this.answerNewId++, 'Odpowiedź 1'),
-          new Answer(this.answerNewId++, 'Odpowiedź 2'),
-          new Answer(this.answerNewId++, 'Odpowiedź 3'),
-          new Answer(this.answerNewId++, 'Odpowiedź 4'),
-        ],
-        QuestionType.Combobox
-      )
-    );
-
-    this.questions.push(
-      new Question(
-        this.questionNewId++,
-        'Pytanie jednokrotnego wyboru radio',
-        [
-          new Answer(this.answerNewId++, 'Odpowiedź 1', QuestionType.Radio),
-          new Answer(this.answerNewId++, 'Odpowiedź 2', QuestionType.Radio),
-          new Answer(this.answerNewId++, 'Odpowiedź 3', QuestionType.Radio),
-          new Answer(this.answerNewId++, 'Odpowiedź 4', QuestionType.Radio),
-        ],
-        QuestionType.Radio
-      )
-    );
-
-    this.questions.push(
-      new Question(
-        this.questionNewId++,
-        'Pytanie odpowiedź długa',
-        [
-          new Answer(this.answerNewId++, 'Odpowiedź 1'),
-          new Answer(this.answerNewId++, 'Odpowiedź 2'),
-          new Answer(this.answerNewId++, 'Odpowiedź 3'),
-          new Answer(this.answerNewId++, 'Odpowiedź 4'),
-        ],
-        QuestionType.LongText
-      )
-    );
-
-    this.questions.push(
-      new Question(
-        this.questionNewId++,
-        'Pytanie odpowiedź krótka',
-        [
-          new Answer(this.answerNewId++, 'Odpowiedź 1'),
-          new Answer(this.answerNewId++, 'Odpowiedź 2'),
-          new Answer(this.answerNewId++, 'Odpowiedź 3'),
-          new Answer(this.answerNewId++, 'Odpowiedź 4'),
-        ],
-        QuestionType.ShortText
-      )
-    );
-
-    this.questions.push(
-      new Question(
-        this.questionNewId++,
-        'Pytanie skala 5-punktowa',
-        [
-          new Answer(this.answerNewId++, 'Odpowiedź 1'),
-          new Answer(this.answerNewId++, 'Odpowiedź 2'),
-          new Answer(this.answerNewId++, 'Odpowiedź 3'),
-          new Answer(this.answerNewId++, 'Odpowiedź 4'),
-        ],
-        QuestionType.Scale5
-      )
-    );
-
-    this.questions.push(
-      new Question(
-        this.questionNewId++,
-        'Pytanie skala 10-punktowa',
-        [
-          new Answer(this.answerNewId++, 'Odpowiedź 1'),
-          new Answer(this.answerNewId++, 'Odpowiedź 2'),
-          new Answer(this.answerNewId++, 'Odpowiedź 3'),
-          new Answer(this.answerNewId++, 'Odpowiedź 4'),
-        ],
-        QuestionType.Scale10
-      )
-    );
-  }
+  constructor(private http: HttpClient, private answerService: AnswerService) {}
 
   getQuestions(id: number): Observable<Question[]> {
     return this.http
@@ -129,6 +37,75 @@ export class QuestionsService {
           return questions;
         })
       );
+  }
+
+  postQuestion(question: Question, pollId: number): Observable<Question> {
+    return this.http.post<Question>(
+      `${environment.apiUrl}/questions/question/create/`,
+      {
+        position: question.position,
+        content: question.question,
+        poll: pollId,
+        question_type: QuestionTypeFactory.getTypeId(question.type),
+      }
+    );
+  }
+
+  putQuestion(question: Question, pollId: number): Observable<Question> {
+    return this.http.put<Question>(
+      `${environment.apiUrl}/questions/question/${question.id}/`,
+      {
+        position: question.position,
+        content: question.question,
+        poll: pollId,
+        question_type: QuestionTypeFactory.getTypeId(question.type),
+      }
+    );
+  }
+
+  saveQuestions(questions: Question[], pollId: number): Observable<Question[]> {
+    const obs: Observable<Question>[] = [];
+
+    for (const question of questions) {
+      obs.push(
+        new Observable<Question>((subscription) => {
+          if (question.id === -1) {
+            this.postQuestion(question, pollId).subscribe((q) =>
+              this.answerService
+                .saveAnswers(question.answers, q.id)
+                .subscribe((r: Answer[]) => {
+                  q.answers = r;
+                  subscription.next(q);
+                  subscription.complete();
+                })
+            );
+          } else {
+            this.putQuestion(question, pollId).subscribe((q) =>
+              this.answerService
+                .saveAnswers(question.answers, q.id)
+                .subscribe((r: Answer[]) => {
+                  q.answers = r;
+                  subscription.next(q);
+                  subscription.complete();
+                })
+            );
+          }
+        })
+      );
+    }
+    return forkJoin(obs);
+  }
+
+  removeQuestions(questionsToRemove: number[]): Observable<any[]> {
+    const obs: Observable<any>[] = [];
+    for (const questionId of questionsToRemove) {
+      obs.push(
+        this.http.delete(
+          `${environment.apiUrl}/questions/question/${questionId}/`
+        )
+      );
+    }
+    return forkJoin(obs);
   }
 }
 
@@ -152,5 +129,23 @@ const QuestionTypeFactory = {
         return QuestionType.Scale10;
     }
     return QuestionType.Checkbox;
+  },
+  getTypeId: (type: QuestionType): number => {
+    switch (type) {
+      case QuestionType.Checkbox:
+        return 2;
+      case QuestionType.Combobox:
+        return 3;
+      case QuestionType.LongText:
+        return 4;
+      case QuestionType.ShortText:
+        return 5;
+      case QuestionType.Radio:
+        return 6;
+      case QuestionType.Scale5:
+        return 7;
+      case QuestionType.Scale10:
+        return 8;
+    }
   },
 };

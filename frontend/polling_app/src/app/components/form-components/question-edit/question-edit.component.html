@@ -2,7 +2,7 @@
     <mat-card>
         <mat-card-content>
             <div class="question-edit-top-bar">
-                <textarea matInput placeholder="Wprowadź tytuł..."  maxlength="2000" cdkTextareaAutosize value="{{question.question}}">
+                <textarea matInput placeholder="Wprowadź tytuł..."  maxlength="2000" cdkTextareaAutosize value="{{question.question}}" (change)="handleQuestionChange($event)">
                 </textarea>
                 <div class="question-type-select">
                     <mat-select value="question.type" value={{question.type}} (valueChange)="handleTypeSelectChange($event)">
@@ -12,7 +12,7 @@
                     </mat-select>
                 </div>
             </div>
-            <app-form-answers-edit [answers] = "question.answers" [type] = "question.type" [questionId]="question.id" ></app-form-answers-edit>
+            <app-form-answers-edit [answers] = "question.answers" [type] = "question.type" [questionId]="question.id" (onAnswerRemove)="onAnswerRemove.emit($event)"></app-form-answers-edit>
             <app-question-edit-controls (onQuestionCopy)="handleQuestionCopy()" (onQuestionRemove)="handleQuestionRemove()" (onQuestionMove)="handleQuestionMove($event)"></app-question-edit-controls>
         </mat-card-content>
     </mat-card>
