@@ -1,0 +1,4 @@
+<div *ngFor="let answer of answers">
+<textarea disabled="true" matInput placeholder="Pole na odpowiedź..." maxlength="2000" cdkTextareaAutosize value="Pole na odpowiedź..." (change)="handleAnswerChange($event, answer)">
+</textarea>
+</div>

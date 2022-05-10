@@ -1,12 +1,9 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { Question } from 'src/app/models/form-models/question';
 import { Result } from 'src/app/models/form-models/result';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
-import { AnswerService } from 'src/app/services/form-services/answer.service';
 import { QuestionViewModelService } from 'src/app/services/form-services/question-view-model.service';
-import { QuestionsService } from 'src/app/services/form-services/questions.service';
 
 @Component({
   selector: 'app-polling-form',

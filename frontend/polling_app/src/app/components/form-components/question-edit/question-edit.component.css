@@ -1,0 +1,24 @@
+.question{
+    padding: 4px
+}
+.mat-card{
+    border-left: 4px solid #3f51b5;
+}
+textarea{
+    width: 60%;
+    padding: 1em;
+    margin: 1em;
+    margin-left: 0;
+}
+
+.question-edit-top-bar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.question-type-select{
+    width: 20%;
+    border: 1px solid gray;
+}

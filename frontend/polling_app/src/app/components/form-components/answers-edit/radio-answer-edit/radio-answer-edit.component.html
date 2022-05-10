@@ -1,0 +1,13 @@
+<mat-radio-group>
+    <div *ngFor="let answer of answers" class="radio-answer-edit-entry">
+        <mat-radio-button [value]="answer" [checked]="answer.result">
+            <textarea matInput placeholder="Wprowadź odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{answer.answer}}" (change)="handleAnswerChange($event, answer)">
+            </textarea>
+        </mat-radio-button>
+        <button mat-icon-button color="primary"><div class="material-icons" (click)="handleAnswerRemove(answer)">close</div></button>
+    </div> 
+    <mat-radio-button disabled="true">
+        <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">
+        </textarea>
+    </mat-radio-button>
+</mat-radio-group>

@@ -1,0 +1,16 @@
+<mat-divider></mat-divider>
+<div class="question-edit-controls">
+    <div>Wymagane: <mat-slide-toggle></mat-slide-toggle></div>
+    <div class="move-control">
+        <div class="line"></div>
+        <button mat-icon-button color="primary" (click)="handleMoveUpButton()"><div class="material-icons">arrow_upward</div></button>
+        <div class="line"></div>
+        <button mat-icon-button color="primary" (click)="handleMoveDownButton()"><div class="material-icons">arrow_downward</div></button>
+        <div class="line"></div>
+    </div>
+    <div>
+        <button mat-button color="primary">Reguły</button>
+        <button mat-button color="primary" (click)="handleCopyButton()">Kopiuj</button>
+        <button mat-button color="primary" (click)="handleRemoveButton()">Usuń</button>
+    </div>
+</div>

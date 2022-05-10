@@ -1,0 +1,12 @@
+<div id = "form-title">
+    <mat-card>
+        <mat-card-title>
+            <textarea matInput placeholder="Wprowadź tytuł..."  maxlength="2000" cdkTextareaAutosize value="{{title}}" (change)="handleTitleChange($event)">
+            </textarea>
+        </mat-card-title>
+        <mat-card-content>
+            <textarea matInput placeholder="Wprowadź opis..." maxlength="2000" cdkTextareaAutosize value="{{description}}" (change)="handleDescriptionChange($event)">
+            </textarea>
+        </mat-card-content>  
+    </mat-card>
+</div>

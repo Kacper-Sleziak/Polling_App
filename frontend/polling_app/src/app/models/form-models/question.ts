@@ -5,7 +5,6 @@ export enum QuestionType {
   Combobox,
   LongText,
   ShortText,
-  TrueFalse,
   Radio,
   Scale5,
   Scale10,

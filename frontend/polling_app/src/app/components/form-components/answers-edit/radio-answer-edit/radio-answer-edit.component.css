@@ -1,0 +1,27 @@
+
+::ng-deep mat-radio-button{
+    width: 60%;
+}
+
+::ng-deep .mat-radio-label{
+    width: 100%;
+}
+
+::ng-deep .mat-radio-label-content{
+    width: 100%;
+}
+
+textarea{
+    margin-left: 1em;
+    width: 100%;
+}
+
+.radio-answer-edit-entry{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.radio-answer-edit-entry button{
+    margin-left: 1em;
+}

@@ -1,0 +1,14 @@
+#form-edit-content {
+    margin: 40px;
+  }
+  
+.buttons-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button{
+  margin: 1em;
+}

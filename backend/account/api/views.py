@@ -16,6 +16,7 @@ class LoginView(generics.CreateAPIView):
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
 
+
         if serializer.is_valid():
             email = serializer.validated_data['email']
             password = serializer.validated_data['password']
@@ -67,7 +68,6 @@ class GetLogoView(generics.RetrieveAPIView):
         if queryset.exists():
             if queryset[0].logo:
                 logo = queryset[0].logo
-                print(logo)
                 return Response(logo, content_type='image/jpg')
         return Response(status=status.HTTP_404_NOT_FOUND)
 

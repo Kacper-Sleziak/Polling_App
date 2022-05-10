@@ -66,6 +66,10 @@ export class QuestionViewModelService {
     return this.questionsViewModel;
   }
 
+  loadQuestions() {
+    this.subject.next(this.questions.sort((a, b) => a.position - b.position));
+  }
+
   getTriggeredQuestion(trigger: Trigger) {
     return this.questions.find((q) => q.id === trigger.triggeredQuestionId);
   }
@@ -155,5 +159,9 @@ export class QuestionViewModelService {
 
   getResults = () => {
     return this.questionResult;
+  };
+
+  getAllQuestions = () => {
+    return this.questions.sort((a, b) => a.position - b.position);
   };
 }

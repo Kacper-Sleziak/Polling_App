@@ -1,0 +1,13 @@
+.combobox-edit-answers{
+    padding-left: 1em;
+}
+
+.combobox-edit-answer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+textarea{
+    width: 60%;
+}

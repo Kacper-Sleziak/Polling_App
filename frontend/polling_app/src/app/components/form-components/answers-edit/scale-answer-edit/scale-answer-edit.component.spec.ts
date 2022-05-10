@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrueOrFalseAnswerComponent } from './true-or-false-answer.component';
+import { ScaleAnswerEditComponent } from './scale-answer-edit.component';
 
-describe('TrueOrFalseAnswerComponent', () => {
-  let component: TrueOrFalseAnswerComponent;
-  let fixture: ComponentFixture<TrueOrFalseAnswerComponent>;
+describe('ScaleAnswerEditComponent', () => {
+  let component: ScaleAnswerEditComponent;
+  let fixture: ComponentFixture<ScaleAnswerEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrueOrFalseAnswerComponent ]
+      declarations: [ ScaleAnswerEditComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrueOrFalseAnswerComponent);
+    fixture = TestBed.createComponent(ScaleAnswerEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
