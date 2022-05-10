@@ -60,7 +60,7 @@ export class PollService {
       poll.startDate = date;
       poll.endDate = null;
     }
-    this.putPoll(poll);
+    this.putPoll(poll).subscribe();
   }
 
   putPoll(poll: Poll): Observable<Poll> {
