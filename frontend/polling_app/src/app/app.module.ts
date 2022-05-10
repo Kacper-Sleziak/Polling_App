@@ -45,6 +45,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollService } from './services/dashboard-services/poll.service';
 import { SendingPollsDialogComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/sending-polls-dialog.component';
 import { CustomSnackBarComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/components/custom-snack-bar/custom-snack-bar.component';
+import { AuthorService } from './services/shared-services/author.service';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,7 @@ import { CustomSnackBarComponent } from './pages/dashboard/components/dialogs/se
     HttpClientModule,
     MaterialModule,
   ],
-  providers: [PollService],
+  providers: [PollService, AuthorService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -9,6 +9,7 @@ import { PollService } from 'src/app/services/dashboard-services/poll.service';
 import { AnswerService } from 'src/app/services/form-services/answer.service';
 import { QuestionViewModelService } from 'src/app/services/form-services/question-view-model.service';
 import { QuestionsService } from 'src/app/services/form-services/questions.service';
+import { AuthorService } from 'src/app/services/shared-services/author.service';
 
 @Component({
   selector: 'app-form-edit',
@@ -29,10 +30,12 @@ export class FormEditComponent implements OnInit {
     private questionViewModelService: QuestionViewModelService,
     private questionsService: QuestionsService,
     private answerService: AnswerService,
-    private router: Router
+    private router: Router,
+    private authorService: AuthorService
   ) {}
 
   ngOnInit(): void {
+    this.author = this.authorService.getAuthor();
     const slug = this.route.snapshot.paramMap.get('slug');
     if (slug !== null) {
       this.pollService.getPoll(slug).subscribe((poll) => {
@@ -85,7 +88,7 @@ export class FormEditComponent implements OnInit {
         0,
         0,
         Poll.Status.editing,
-        this.author
+        this.authorService.getAuthor()
       );
     }
     this.poll.title = this.title;

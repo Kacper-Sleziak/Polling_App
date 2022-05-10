@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, of } from 'rxjs';
+import { defaultIfEmpty, forkJoin, map, of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
 import { Answer } from '../../models/form-models/answer';
@@ -73,6 +73,7 @@ export class QuestionsService {
             this.postQuestion(question, pollId).subscribe((q) =>
               this.answerService
                 .saveAnswers(question.answers, q.id)
+                .pipe(defaultIfEmpty([]))
                 .subscribe((r: Answer[]) => {
                   q.answers = r;
                   subscription.next(q);
@@ -83,6 +84,7 @@ export class QuestionsService {
             this.putQuestion(question, pollId).subscribe((q) =>
               this.answerService
                 .saveAnswers(question.answers, q.id)
+                .pipe(defaultIfEmpty([]))
                 .subscribe((r: Answer[]) => {
                   q.answers = r;
                   subscription.next(q);
