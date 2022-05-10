@@ -79,7 +79,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     //fetch data
-    this.authorService.setAuthor(1);
+    this.authorService.setAuthor(3);
     this.pollService
       .getPolls(this.authorService.getAuthor())
       .subscribe((polls) => {

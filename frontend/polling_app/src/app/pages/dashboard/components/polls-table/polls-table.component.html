@@ -109,10 +109,10 @@
             </button>
 
             <!-- Edit instead Results for editing poll-->
-            <button *ngIf="row.status === PollStatus.editing" mat-menu-item>
+            <a style="text-decoration: none;" routerLink ='form/edit/{{row.slug}}'><button *ngIf="row.status === PollStatus.editing" mat-menu-item>
               <mat-icon>edit</mat-icon>
               <span>Edytuj</span>
-            </button>
+            </button></a>
 
             <!-- Preview -->
             <a style="text-decoration: none;" routerLink ='form/{{row.slug}}'><button mat-menu-item>
