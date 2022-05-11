@@ -46,7 +46,18 @@
                 </mat-form-field>
                 
                 <!-- Import from CSV button -->
-                <button type="button" mat-raised-button color="primary" style="margin-bottom: 15px;">Zaimportuj z CSV</button>
+                <div class="buttons-container">
+                    <!-- Button to open file dialog -->
+                    <button id="import-button" type="button" mat-raised-button (click)="fileInput.click()" color="primary">Zaimportuj z CSV</button>
+                    <input  type="file" hidden (change)="onFileSelected($event)" accept=".csv" #fileInput>
+                    <!-- Return button -->
+                    <button id="return-button"  [matTooltipDisabled]="removeHistory.length == 0" [disabled]="removeHistory.length == 0" matTooltip="Przywróć" matTooltipClass="tooltip-adjust" (click)="onReturnEmails()" type="button" mat-raised-button color="accent"><mat-icon>keyboard_return</mat-icon></button>
+                    <!-- Delete all button -->
+                    <button id="delete-button" matTooltip="Usuń wszystkie" matTooltipClass="tooltip-adjust" (click)="onRemoveAllEmails()" type="button" mat-raised-button color="warn"><mat-icon>delete_sweep</mat-icon></button>
+                    <!-- <button *ngIf="recentEraseEmails.length !== 0" (click)="onReturnEmails()" type="button" mat-raised-button color="accent">Przywróc</button> -->
+                    <!-- Button to erase inserted emails -->
+                </div>
+                
 
             </form>
             <mat-divider></mat-divider>
@@ -55,8 +66,8 @@
             <mat-selection-list class="list">
 
                 <!-- When no emails -->
-                <mat-list-item id="information" style="justify-content: center;" *ngIf="!isRecipient">
-                    <span style="font-size: 14px; color: red;">Wprowadź adresatów!</span>
+                <mat-list-item id="information" style="justify-content: center; height: 100px;" *ngIf="!isRecipient">
+                    <span style="font-size: 14px; color: red;">Brak adresatów!</span>
                 </mat-list-item>
 
 
