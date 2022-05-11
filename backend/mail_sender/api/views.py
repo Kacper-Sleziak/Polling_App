@@ -15,14 +15,16 @@ class PostEmailAdressAndSendMail(generics.GenericAPIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
 
-        if serializer.is_valid():
+        if serializer.is_valid():      
             emails = serializer.data['emails']
             message = serializer.data['message']
             subject = serializer.validated_data["subject"]
             slug = serializer.data['slug']
-            
-            message = message + f"\n Link do ankiety: Frontend/Ankiety/{slug}"
-            print(message)
+                   
+            if message != None:
+                message = message + f"\n Link do ankiety: Frontend/Ankiety/{slug}"
+            else:
+                message = f"\n Link do ankiety: Frontend/Ankiety/{slug}"
             
             # Host Email to configure           
             send_mail(
