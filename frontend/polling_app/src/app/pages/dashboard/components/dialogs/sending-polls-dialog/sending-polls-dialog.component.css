@@ -61,3 +61,22 @@ form{
     padding: 0px !important;
 }
 
+#import-button{
+    flex: 1 1 auto;
+    margin-right: 3px;
+}
+
+.buttons-container{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#return-button{
+    margin-right: 3px;
+}
+
+::ng-deep .tooltip-adjust{
+    font-size: 0.75rem !important;
+    margin: 0.5em 0em !important; 
+    padding: 0.25em 1em !important;
+}
