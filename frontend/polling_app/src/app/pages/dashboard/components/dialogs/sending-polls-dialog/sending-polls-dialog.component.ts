@@ -24,8 +24,10 @@ export class SendingPollsDialogComponent implements OnInit {
   isSubject: boolean = false;
   isRecipient: boolean = false;
   selectedFile: any = null;
-  removeHistory: string[] = []
-  allEmailsRemoveHistory: Array<Array<string>> = [];
+  actionsLog: string[] = [];
+  deleteHistory: string[][] = [];
+  addHistory: string[][] = [];
+  deleteFromIndexLog: number[] = [];
 
 
   emailForm : FormGroup = this.formBuilder.group(
@@ -46,8 +48,51 @@ export class SendingPollsDialogComponent implements OnInit {
     this.messageForm.controls['subject'].addValidators([Validators.required]);
   };
 
-  addEmail(){
-    // // Custom error
+  // getEmailErrorMessage(): string{
+  //   if(this.emailForm.controls['email'].hasError('empty')){
+  //     return "Nie wprowadzono maila";
+  //   }
+  //   if(this.emailForm.controls['email'].hasError('email')){
+  //     return "Email jest niepoprawny";
+  //   }
+  //   return "";
+  // }
+
+
+  // Open snackbar function
+  onSnackbarOpen() {
+    this.snackBar.openFromComponent(CustomSnackBarComponent, {
+      duration: 1000,
+      horizontalPosition: 'end',
+      panelClass: 'custom-snack-bar'
+    });
+  }
+
+
+  onSubjectChange(value : any): void{
+    if(value.target.value !== '') this.isSubject = true;
+    else this.isSubject = false;
+  }
+
+  onSendPoll(){
+    let subject: string = this.messageForm.controls['subject'].value;
+    let message: string = this.messageForm.controls['message'].value;
+
+    this.mailService.postMail(new Email(subject, message, this.data.pollSlug, this.emails));
+    this.onSnackbarOpen();
+  }
+
+
+  onFileSelected(event: any): void {
+
+    this.selectedFile = event.target.files[0] ?? null;
+
+  }
+
+
+  onAddEmail(){
+
+    // // (Optional) Custom error
     // if(this.emailForm.controls['email'].value === ''){
     //   this.emailForm.controls['email'].setErrors({empty: 'true'});
     // }
@@ -62,79 +107,53 @@ export class SendingPollsDialogComponent implements OnInit {
         return false;
       })
 
-      if(filteredArray.length == 0){
+      // When the email doesn't exist yet -> add it
+      if(filteredArray.length === 0){
+
+        // Update history
+        this.addHistory.push([email]);
+        this.actionsLog.push('ADD');
+        // Add to array        
         this.emails.push(email);
+        this.isRecipient = true;
       }
       // else{
       //   this.emailForm.controls['email'].setErrors({exist: 'true'});
       // }
-      this.isRecipient = true;
     }
-
   }
+
 
   onDeleteEmail(emailToRemove : string){
     // Delete email from array
-    this.emails = this.emails.filter((email)=>{
+    this.emails = this.emails.filter((email, index)=>{
       if(email === emailToRemove) 
       {
-        this.removeHistory.push(emailToRemove);
+        //Update log
+        this.actionsLog.push('DELETE');
+        // Update history
+        this.deleteHistory.push([emailToRemove]);
+        // Remember index
+        this.deleteFromIndexLog.push(index);
+
         return false;
       }
       return true;
     })
 
     // Check that the array is empty -> if so we can't sent the poll
-    if(this.emails.length == 0) this.isRecipient = false;
-  }
-
-  // getEmailErrorMessage(): string{
-  //   if(this.emailForm.controls['email'].hasError('empty')){
-  //     return "Nie wprowadzono maila";
-  //   }
-  //   if(this.emailForm.controls['email'].hasError('email')){
-  //     return "Email jest niepoprawny";
-  //   }
-  //   return "";
-  // }
-
-  onSubjectChange(value : any): void{
-    if(value.target.value !== '') this.isSubject = true;
-    else this.isSubject = false;
-  }
-
-  onSendPoll(){
-    let subject: string = this.messageForm.controls['subject'].value;
-    let message: string = this.messageForm.controls['message'].value;
-
-    this.mailService.postMail(new Email(subject, message, this.data.pollSlug, this.emails));
-    this.openSnackBar();
-  }
-
-  // Open snackbar function
-  openSnackBar() {
-    this.snackBar.openFromComponent(CustomSnackBarComponent, {
-      duration: 1000,
-      horizontalPosition: 'end',
-      panelClass: 'custom-snack-bar'
-    });
+    if(this.emails.length === 0) this.isRecipient = false;
   }
 
 
-  onFileSelected(event: any): void {
-
-    this.selectedFile = event.target.files[0] ?? null;
-    
-  }
-
-
-  onRemoveAllEmails(): void{
+  onDeleteAllEmails(): void{
 
     if(this.emails.length){
-      // Ad "ALL" tag to signal that all emails have been deleted
-      this.removeHistory.push("ALL");
-      this.allEmailsRemoveHistory.push(this.emails);
+      // Add state before delete to history
+      this.deleteHistory.push(this.emails);
+      // Remove emails
       this.emails = [];
+      this.actionsLog.push("DELETE");
       this.isRecipient = false;
     }
   }
@@ -143,26 +162,55 @@ export class SendingPollsDialogComponent implements OnInit {
   onReturnEmails(): void{
 
     // If history isn't empty
-    if(this.removeHistory.length){
+    if(this.actionsLog.length){
 
-      // Pop from array. We will get: email or string "ALL"
-      let lastDeletedEmail = this.removeHistory.pop()!;
+      // Check last operation in log
+      let lastOperation = this.actionsLog[this.actionsLog.length -1];
 
-      // We have to add group of emails
-      if(lastDeletedEmail === 'ALL'){
+      if(lastOperation === 'ADD'){
+        // If add we have to delete 
+        let lastAddEmails = this.addHistory.pop()!;
+        let isFind = false; 
 
-        if(this.allEmailsRemoveHistory.length){
-          let lastGroupRemove = this.allEmailsRemoveHistory.pop()!;
-          this.emails = [...new Set([...this.emails , ...lastGroupRemove])];
+        this.emails = this.emails.filter((email) => {
+
+          isFind = false;
+          // If curent confused email is in the array of last add emails. If yes -> set isFind and filter out
+          lastAddEmails = lastAddEmails.filter((lastAddEmail) => {
+            if(email === lastAddEmail){
+              isFind = true; 
+              return false;
+            }
+            return true;
+          });
+          // If the email was in the array -> filter out
+          if(isFind) return false;
+          else return true; 
+        });
+
+        if(this.emails.length === 0){
+          this.isRecipient = false;
         }
 
       }
-      // Otherwise we have to add only one email
-      else{
-        this.emails = [...new Set([...this.emails , lastDeletedEmail])];
+      else if(lastOperation === 'DELETE'){
+        // If remove we have to add
+        let lastDeleteEmails = this.deleteHistory.pop()!;
+
+        // If it was single deletion
+        if(lastDeleteEmails.length === 1){
+          this.emails.splice(this.deleteFromIndexLog.pop()!, 0, lastDeleteEmails[0]);
+        }
+        // If it was all deletion
+        else{
+          this.emails = lastDeleteEmails;
+        }
+
+        this.isRecipient = true;
       }
 
-      this.isRecipient = true;
+      // Delete last log
+      this.actionsLog.pop();
     }
   }
 }
