@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status, generics
 
 from account.api.serializers import (LoginSerializer, 
-        AccountSerializer, CreateAccountSerializer, LogoSerializer)
+        AccountSerializer, LogoSerializer)
 from account.models import Account as AccountModel
 from account.api.renderers import JPEGRenderer, PNGRenderer
 
@@ -44,7 +44,7 @@ class AccountsView(generics.ListAPIView):
 
 
 class CreateAccountView(generics.CreateAPIView):
-    serializer_class = CreateAccountSerializer
+    serializer_class = AccountSerializer
 
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)

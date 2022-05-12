@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 def logo_upload_location(instance, filename):
-    
-    print(instance.company_name)
     file_path = f"logos/{instance.company_name}/{filename}"
 
     return file_path
