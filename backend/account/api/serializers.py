@@ -1,34 +1,34 @@
-from rest_framework.serializers import ModelSerializer, CharField
+from rest_framework import serializers
 from django.core.validators import EmailValidator
 from account.models import Account
 from account.utils import PasswordValidator
 
 
-class LoginSerializer(ModelSerializer):
+class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('email', 'password')
         extra_kwargs = {
             'email': {'validators': [EmailValidator, ]},
         }
+        
+class AccountSerializer(serializers.ModelSerializer):
 
+    id = serializers.IntegerField(read_only=True)
+    date_joined = serializers.DateTimeField(read_only=True)
+    last_login = serializers.DateTimeField(read_only=True)
+    is_admin = serializers.BooleanField(read_only=True)
+    is_active = serializers.BooleanField(read_only=True)
+    is_staff = serializers.BooleanField(read_only=True)
+    is_superuser= serializers.BooleanField(read_only=True)
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
-class AccountSerializer(ModelSerializer):
     class Meta:
         model = Account
         fields = ('id', 'email', 'company_name', 'date_joined', 'last_login', 'is_admin',
-                  'is_active', 'is_staff', 'is_superuser')
-
-
-class CreateAccountSerializer(ModelSerializer):
-
-    password = CharField(style={'input_type': 'password'}, write_only=True)
-    password2 = CharField(style={'input_type': 'password'}, write_only=True)
-
-    class Meta:
-        model = Account
-        fields = ('company_name', 'email', 'password', 'password2')
-
+                  'is_active', 'is_staff', 'is_superuser', 'password', 'password2')
+        
     def validate(self, data):
         password = data['password']
         password2 = data['password2']
@@ -48,7 +48,7 @@ class CreateAccountSerializer(ModelSerializer):
         account.save()
         return account
     
-class LogoSerializer(ModelSerializer):
+class LogoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('logo',)
