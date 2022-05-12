@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
+import { NgxCsvParser } from 'ngx-csv-parser';
 import { Email } from 'src/app/models/dashboard-models/email';
 import { MailService } from 'src/app/services/dashboard-services/mail.service';
 import { CustomSnackBarComponent } from './components/custom-snack-bar/custom-snack-bar.component';
@@ -18,7 +18,7 @@ export class SendingPollsDialogComponent implements OnInit {
                 private formBuilder: FormBuilder, 
                 private mailService: MailService,
                 private snackBar: MatSnackBar,
-                private ngxCsvParser: NgxCsvParser) {}
+                private ngxCsvParser : NgxCsvParser) {}
 
   emails : string[] = [];
   isSubject: boolean = false;
@@ -27,7 +27,8 @@ export class SendingPollsDialogComponent implements OnInit {
   actionsLog: string[] = [];
   deleteHistory: string[][] = [];
   addHistory: string[][] = [];
-  deleteFromIndexLog: number[] = [];
+  deleteFromIndexLog: number[] = [];   //To known where restore email when 'Undo' operation
+
 
 
   emailForm : FormGroup = this.formBuilder.group(
@@ -84,10 +85,66 @@ export class SendingPollsDialogComponent implements OnInit {
 
 
   onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
 
-    this.selectedFile = event.target.files[0] ?? null;
+    
+    if(this.selectedFile !== null){
+      const reader = new FileReader();
+      reader.onload = (e) => {
+
+        const str = e.target!.result?.toString();
+
+        // Place all rows (without header to array)
+        const rows = str!.slice(str!.indexOf("\n") + 1).split(new RegExp(/\r\n|\r|\n/));
+        // Get first row to check that any field match to email's regex
+        const firstRow = rows[0];
+
+        // Split row via comma
+        const firstRowFields = firstRow.split(",");
+        
+        // Trimed fields
+        const trimedFields =  firstRowFields.map((field) => {
+          return field.trim();
+        })
+        let emailIndex: number = -1;
+        // Looking for email in row (some() - if any iterations returns true -> break)
+        let isEmail = trimedFields.some((field, index) => {
+
+            if(field.match(new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/))){
+              emailIndex = index;
+              return true;
+            }
+            return false;
+        }) 
+
+        if(isEmail){
+          let rowFields: string[] = [];
+          let emailsToAdd: string[] = [];
+          // Adding emails
+          rows.forEach((row) => {
+            // Prevent empty lines under data
+            if(row !== ""){
+              rowFields = row.split(new RegExp(","));
+              emailsToAdd.push(rowFields[emailIndex]);
+            }
+          })
+
+          // Add emails
+          if(emailsToAdd.length){
+            this.addHistory.push(emailsToAdd);
+            this.actionsLog.push('ADD');
+            this.emails = [...new Set([...this.emails, ...emailsToAdd])];
+            this.isRecipient = true;
+          }
+        }
+      }
+
+      reader.readAsText(this.selectedFile);
+    }
 
   }
+
+
 
 
   onAddEmail(){
