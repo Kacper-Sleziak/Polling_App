@@ -75,7 +75,7 @@
                 <div *ngFor="let email of emails">
 
                     <!-- Emails tags -->
-                    <mat-list-item style="justify-content: space-between; background-color: white">
+                    <mat-list-item class="email-tag" style="justify-content: space-between; background-color: white">
                         <span style="font-size: 14px; overflow-x: hidden; width: 200px; text-overflow: ellipsis;">{{email}}</span>
                         <button (click)="onDeleteEmail(email)" color="warn" mat-button><mat-icon>close</mat-icon></button>
                     </mat-list-item>
