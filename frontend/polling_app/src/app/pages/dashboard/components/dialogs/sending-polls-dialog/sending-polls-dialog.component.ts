@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NgxCsvParser } from 'ngx-csv-parser';
 import { Email } from 'src/app/models/dashboard-models/email';
 import { MailService } from 'src/app/services/dashboard-services/mail.service';
 import { CustomSnackBarComponent } from './components/custom-snack-bar/custom-snack-bar.component';
@@ -17,19 +16,14 @@ export class SendingPollsDialogComponent implements OnInit {
   constructor(  @Inject(MAT_DIALOG_DATA) public data: {pollSlug: string}, 
                 private formBuilder: FormBuilder, 
                 private mailService: MailService,
-                private snackBar: MatSnackBar,
-                private ngxCsvParser : NgxCsvParser) {}
+                private snackBar: MatSnackBar) {}
 
   emails : string[] = [];
   isSubject: boolean = false;
   isRecipient: boolean = false;
   selectedFile: any = null;
-  actionsLog: string[] = [];
-  deleteHistory: string[][] = [];
-  addHistory: string[][] = [];
-  deleteFromIndexLog: number[] = [];   //To known where restore email when 'Undo' operation
-
-
+  history: string[][] = [];
+  historySize: number = 10; 
 
   emailForm : FormGroup = this.formBuilder.group(
     {
@@ -49,15 +43,30 @@ export class SendingPollsDialogComponent implements OnInit {
     this.messageForm.controls['subject'].addValidators([Validators.required]);
   };
 
-  // getEmailErrorMessage(): string{
-  //   if(this.emailForm.controls['email'].hasError('empty')){
-  //     return "Nie wprowadzono maila";
-  //   }
-  //   if(this.emailForm.controls['email'].hasError('email')){
-  //     return "Email jest niepoprawny";
-  //   }
-  //   return "";
-  // }
+  getEmailErrorMessage(): string{
+
+    if(this.emailForm.controls['email'].hasError('email')){
+      return "Email jest niepoprawny!";
+    }
+
+    else if(this.emailForm.controls['email'].hasError('noEmailInCsv')){
+      return "W podanym pliku nie znaleziono adresów email!";
+    }
+
+    else if(this.emailForm.controls['email'].hasError('emailExist')){
+      return "Podany email został już dodany!"
+    }
+
+    else if(this.emailForm.controls['email'].hasError('incorrectCsv')){
+      return "Plik CSV jest niepoprawny!"
+    }
+
+    else if(this.emailForm.controls['email'].hasError('incorrectEmailsInCsv')){
+      return `Nie wszystkie adresy były poprawne!`;
+    }
+
+    return "";
+  }
 
 
   // Open snackbar function
@@ -85,20 +94,24 @@ export class SendingPollsDialogComponent implements OnInit {
 
 
   onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
 
-    
+    // Discard previous errors
+    this.emailForm.controls['email'].updateValueAndValidity();  
+
+    this.selectedFile = event.target.files[0];    
+
     if(this.selectedFile !== null){
       const reader = new FileReader();
       reader.onload = (e) => {
 
         const str = e.target!.result?.toString();
 
+        const numberOfColumns = str!.slice(0, str!.indexOf("\n")).split(",").length;        
+
         // Place all rows (without header to array)
         const rows = str!.slice(str!.indexOf("\n") + 1).split(new RegExp(/\r\n|\r|\n/));
         // Get first row to check that any field match to email's regex
         const firstRow = rows[0];
-
         // Split row via comma
         const firstRowFields = firstRow.split(",");
         
@@ -106,12 +119,15 @@ export class SendingPollsDialogComponent implements OnInit {
         const trimedFields =  firstRowFields.map((field) => {
           return field.trim();
         })
-        let emailIndex: number = -1;
+
+        let emailsIndex: number = -1;
+        let emailRegex: RegExp = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/);
+        
         // Looking for email in row (some() - if any iterations returns true -> break)
         let isEmail = trimedFields.some((field, index) => {
 
-            if(field.match(new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/))){
-              emailIndex = index;
+            if(field.match(emailRegex)){
+              emailsIndex = index;
               return true;
             }
             return false;
@@ -120,22 +136,53 @@ export class SendingPollsDialogComponent implements OnInit {
         if(isEmail){
           let rowFields: string[] = [];
           let emailsToAdd: string[] = [];
+          let incorrectEmails: boolean = false;
           // Adding emails
-          rows.forEach((row) => {
+          rows.some((row) => {
+
             // Prevent empty lines under data
             if(row !== ""){
-              rowFields = row.split(new RegExp(","));
-              emailsToAdd.push(rowFields[emailIndex]);
-            }
-          })
 
-          // Add emails
-          if(emailsToAdd.length){
-            this.addHistory.push(emailsToAdd);
-            this.actionsLog.push('ADD');
+              rowFields = row.split(new RegExp(","));
+              // Check that the number of fields is equal to number of columns
+              if(rowFields.length !== numberOfColumns){
+                this.emailForm.controls['email'].setValue("");
+                this.emailForm.controls['email'].setErrors({incorrectCsv : true});
+                this.emailForm.controls['email'].markAsTouched();
+                return true;
+              }
+
+              let email = rowFields[emailsIndex].trim();
+
+              if(email.match(emailRegex)){
+                emailsToAdd.push(email);
+              }
+              else{
+                incorrectEmails = true;
+              }
+            }
+            return false;
+          })          
+
+          if(incorrectEmails){
+            this.emailForm.controls['email'].setValue("");
+            this.emailForm.controls['email'].setErrors({'incorrectEmailsInCsv' : true});
+            this.emailForm.controls['email'].markAsTouched();
+          }
+
+          if(!this.emailForm.controls['email'].hasError('incorrectCsv')){
+            // Store previous state
+            this.addToHistory(this.emails);
+            // Add emails
             this.emails = [...new Set([...this.emails, ...emailsToAdd])];
             this.isRecipient = true;
           }
+        }
+        else{          
+          // Get error that csv doesn't include emails
+          this.emailForm.controls['email'].setValue("");
+          this.emailForm.controls['email'].setErrors({noEmailInCsv: true});
+          this.emailForm.controls['email'].markAsTouched();
         }
       }
 
@@ -144,16 +191,19 @@ export class SendingPollsDialogComponent implements OnInit {
 
   }
 
+  addToHistory(emails : string[]){
 
+    if(this.history.length === this.historySize){
+      // Delete first element
+      this.history.shift();
+    }
+    // Add new element at end
+    this.history.push(emails);
+  }
 
 
   onAddEmail(){
 
-    // // (Optional) Custom error
-    // if(this.emailForm.controls['email'].value === ''){
-    //   this.emailForm.controls['email'].setErrors({empty: 'true'});
-    // }
-    
     let email = this.emailForm.controls['email'].value;
     // Add the email only when valid and not empty
     if(this.emailForm.valid && email !== ''){
@@ -167,34 +217,29 @@ export class SendingPollsDialogComponent implements OnInit {
       // When the email doesn't exist yet -> add it
       if(filteredArray.length === 0){
 
-        // Update history
-        this.addHistory.push([email]);
-        this.actionsLog.push('ADD');
-        // Add to array        
+        // Store previous state
+        this.addToHistory([...this.emails]);
+        // Add email       
         this.emails.push(email);
         this.isRecipient = true;
+        // Clear input
+        this.emailForm.controls['email'].setValue("");
       }
-      // else{
-      //   this.emailForm.controls['email'].setErrors({exist: 'true'});
-      // }
+      else{
+        // Set error that computed email exists
+        this.emailForm.controls['email'].setErrors({emailExist : true});
+      }
     }
   }
 
 
   onDeleteEmail(emailToRemove : string){
+
+    // Store previous state
+    this.addToHistory(this.emails);
     // Delete email from array
     this.emails = this.emails.filter((email, index)=>{
-      if(email === emailToRemove) 
-      {
-        //Update log
-        this.actionsLog.push('DELETE');
-        // Update history
-        this.deleteHistory.push([emailToRemove]);
-        // Remember index
-        this.deleteFromIndexLog.push(index);
-
-        return false;
-      }
+      if(email === emailToRemove) return false;
       return true;
     })
 
@@ -206,70 +251,31 @@ export class SendingPollsDialogComponent implements OnInit {
   onDeleteAllEmails(): void{
 
     if(this.emails.length){
-      // Add state before delete to history
-      this.deleteHistory.push(this.emails);
+
+      // Add state to history before delete 
+      this.addToHistory(this.emails);
+
       // Remove emails
       this.emails = [];
-      this.actionsLog.push("DELETE");
       this.isRecipient = false;
     }
   }
 
-
-  onReturnEmails(): void{
-
+  onReturnEmails(): void{        
     // If history isn't empty
-    if(this.actionsLog.length){
+    if(this.history.length){      
+      // Return previous state
+      this.emails = this.history.pop()!;
 
-      // Check last operation in log
-      let lastOperation = this.actionsLog[this.actionsLog.length -1];
-
-      if(lastOperation === 'ADD'){
-        // If add we have to delete 
-        let lastAddEmails = this.addHistory.pop()!;
-        let isFind = false; 
-
-        this.emails = this.emails.filter((email) => {
-
-          isFind = false;
-          // If curent confused email is in the array of last add emails. If yes -> set isFind and filter out
-          lastAddEmails = lastAddEmails.filter((lastAddEmail) => {
-            if(email === lastAddEmail){
-              isFind = true; 
-              return false;
-            }
-            return true;
-          });
-          // If the email was in the array -> filter out
-          if(isFind) return false;
-          else return true; 
-        });
-
-        if(this.emails.length === 0){
-          this.isRecipient = false;
-        }
-
-      }
-      else if(lastOperation === 'DELETE'){
-        // If remove we have to add
-        let lastDeleteEmails = this.deleteHistory.pop()!;
-
-        // If it was single deletion
-        if(lastDeleteEmails.length === 1){
-          this.emails.splice(this.deleteFromIndexLog.pop()!, 0, lastDeleteEmails[0]);
-        }
-        // If it was all deletion
-        else{
-          this.emails = lastDeleteEmails;
-        }
-
+      // Check that recipients exist
+      if(this.emails!.length){
         this.isRecipient = true;
       }
-
-      // Delete last log
-      this.actionsLog.pop();
+      else{
+        this.isRecipient = false; 
+      }
     }
   }
-}
 
+}
 
