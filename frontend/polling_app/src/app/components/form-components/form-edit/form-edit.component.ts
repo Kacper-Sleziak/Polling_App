@@ -9,7 +9,7 @@ import { PollService } from 'src/app/services/dashboard-services/poll.service';
 import { AnswerService } from 'src/app/services/form-services/answer.service';
 import { QuestionViewModelService } from 'src/app/services/form-services/question-view-model.service';
 import { QuestionsService } from 'src/app/services/form-services/questions.service';
-import { AuthorService } from 'src/app/services/shared-services/author.service';
+import { AccountService } from 'src/app/services/shared-services/account.service';
 
 @Component({
   selector: 'app-form-edit',
@@ -31,21 +31,33 @@ export class FormEditComponent implements OnInit {
     private questionsService: QuestionsService,
     private answerService: AnswerService,
     private router: Router,
-    private authorService: AuthorService
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
-    this.author = this.authorService.getAuthor();
-    const slug = this.route.snapshot.paramMap.get('slug');
-    if (slug !== null) {
-      this.pollService.getPoll(slug).subscribe((poll) => {
-        this.poll = poll;
-        this.title = poll.title;
-        this.description = poll.description;
-        this.questionViewModelService.loadPollQuestions(poll.id);
-        this.questions = this.questionViewModelService.getAllQuestions();
-      });
+
+    this.accountService.getAuthorId()
+    .subscribe({
+      // If success
+      next: (id) => {
+        this.author = id;
+        const slug = this.route.snapshot.paramMap.get('slug');
+        if (slug !== null) {
+          this.pollService.getPoll(slug).subscribe((poll) => {
+            this.poll = poll;
+            this.title = poll.title;
+            this.description = poll.description;
+            this.questionViewModelService.loadPollQuestions(poll.id);
+            this.questions = this.questionViewModelService.getAllQuestions();
+          });
+        }
+      },
+      // If error (not logged)
+      error: () => {
+        this.router.navigate(['login']);
+      }
     }
+    )
   }
 
   copyQuestion = (question: Question) => {
@@ -88,7 +100,7 @@ export class FormEditComponent implements OnInit {
         0,
         0,
         Poll.Status.editing,
-        this.authorService.getAuthor()
+        this.author
       );
     }
     this.poll.title = this.title;
@@ -108,10 +120,11 @@ export class FormEditComponent implements OnInit {
                 .pipe(defaultIfEmpty([]))
                 .subscribe((r) => {
                   console.log('finished');
-                  this.router.navigateByUrl('/');
                 });
             });
         });
     });
+    // Navigate to dashboard after save
+    this.router.navigate(['dashboard']);
   };
 }
