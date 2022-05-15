@@ -1,22 +1,53 @@
 
-<div style="height: 100%; display:flex; align-items: center; justify-content: center; background-color: #f9f9fb;" >
-    <form [formGroup]="loginForm" class="mat-elevation-z6" mat-shadow style="border-radius: 5px; display:flex; flex-direction:column; width:100%; max-width: 300px; background-color: white; padding: 50px;" (submit)="onLoginButtonClick()">
-        
-        <h1 style="text-align: center; margin-bottom: 30px;">Logowanie</h1>
+<div class="login-panel">
+
+    <form [formGroup]="loginForm" class="login-form  mat-elevation-z6" (submit)="onLoginButtonClick()">
+
+        <!-- Login header -->
+        <h1 class="login-header">Logowanie</h1>
+
         <!-- Email -->
         <mat-form-field appearance="fill">
+
+            <!-- Label -->
             <mat-label>Email</mat-label>
-            <input name="email" formControlName="email" type="text" matInput>
+            <!-- Input -->
+            <input type="email" formControlName="email" matInput>
+
+            <!-- Errors displaying-->
+            <mat-error *ngIf="loginForm.controls['email'].hasError('email') && !loginForm.controls['email'].hasError('required')">
+                Wprowadzony adres email jest niepoprawny!
+            </mat-error>
+            <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+                Email jest wymagany!
+            </mat-error>
+
         </mat-form-field>
 
         <!-- Password -->
         <mat-form-field appearance="fill">
+
+            <!-- Label -->
             <mat-label>Hasło</mat-label>
-            <input formControlName="password" type="text" matInput>
+            <!-- Input -->
+            <input [type]="showPassword ? 'text' : 'password'" formControlName="password" matInput>
+            <!-- Toggle password visibility (suffix)-->
+            <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                {{showPassword?'visibility_off':'visibility'}}
+            </mat-icon>
+
+            <!-- Errors displaying-->
+            <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+                Hasło jest wymagane!
+              </mat-error>
+
         </mat-form-field>
-        
-        <button style="margin: 20px 50px;" form="loginForm" mat-raised-button color="primary" routerLink="/dashboard" (click)="onLoginButtonClick()">Zaloguj</button>
-       
+
+        <!-- Message when incorrect data -->
+        <span id="error-message"></span>
+
+        <!-- Submit button -->
+        <button class="submit-button" mat-raised-button color="primary" (click)="onLoginButtonClick()"> Zaloguj </button>
     </form>
 </div>
 
