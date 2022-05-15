@@ -1,6 +1,6 @@
 FROM python:3.10.4-alpine3.15
 ENV PYTHONUNBUFFERED=1
-WORKDIR /djnago
+WORKDIR /django
 COPY requirements.txt requirements.txt
 RUN apk update 
 RUN apk add --no-cache postgresql-libs
