@@ -37,6 +37,8 @@ services:
     container_name: angular2
     ports:
       - 80:80
+    networks:
+      - djangonetwork
 
 networks:
   djangonetwork:
