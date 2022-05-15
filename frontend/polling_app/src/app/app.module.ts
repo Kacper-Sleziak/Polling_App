@@ -45,7 +45,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PollService } from './services/dashboard-services/poll.service';
 import { SendingPollsDialogComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/sending-polls-dialog.component';
 import { CustomSnackBarComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/components/custom-snack-bar/custom-snack-bar.component';
-import { AuthorService } from './services/shared-services/author.service';
 import { LoginPanelComponent } from './pages/login-panel/login-panel.component';
 import { RegisterPanelComponent } from './pages/register-panel/register-panel.component';
 
@@ -101,7 +100,7 @@ import { RegisterPanelComponent } from './pages/register-panel/register-panel.co
     HttpClientModule,
     MaterialModule
   ],
-  providers: [PollService, AuthorService],
+  providers: [PollService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

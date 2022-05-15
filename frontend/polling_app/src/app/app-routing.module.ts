@@ -7,7 +7,8 @@ import { LoginPanelComponent } from './pages/login-panel/login-panel.component';
 import { RegisterPanelComponent } from './pages/register-panel/register-panel.component';
 
 const routes: Routes = [
-  { path: '', component: LoginPanelComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: 'login', component: LoginPanelComponent },
   { path: 'register', component: RegisterPanelComponent },
   { path: 'form/:slug', component: PollingFormComponent},
   { path: 'form/edit/:slug', component: FormEditComponent},

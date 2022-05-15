@@ -2,12 +2,11 @@ import {
   Component,
   OnInit,
   AfterViewInit,
-  ViewChild,
-  ElementRef,
 } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Router } from '@angular/router';
 import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
-import { AuthorService } from 'src/app/services/shared-services/author.service';
+import { AccountService } from 'src/app/services/shared-services/account.service';
 import { Poll } from '../../models/dashboard-models/poll';
 import { PollService } from '../../services/dashboard-services/poll.service';
 
@@ -25,7 +24,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   constructor(
     private pollService: PollService,
     private uiPollsService: UiPollsService,
-    private authorService: AuthorService
+    private accountService: AccountService,
+    private router: Router
   ) {}
 
   ngAfterViewInit(): void {}
@@ -78,13 +78,22 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    //fetch data
-    this.authorService.setAuthor(3);
-    this.pollService
-      .getPolls(this.authorService.getAuthor())
-      .subscribe((polls) => {
-        this.polls = polls;
-        this.displayingPolls = polls;
-      });
+
+    this.accountService.getAuthorId().subscribe({
+        next: id => {
+          // If success 
+          this.pollService
+          .getPolls(id)
+          .subscribe((polls) => {
+            this.polls = polls;
+            this.displayingPolls = polls;
+          });
+        },
+        // If error - no one is logged in  -> redirect to login
+        error: err => {
+          this.router.navigate(['login']);
+        }
+      }
+    )
   }
 }
