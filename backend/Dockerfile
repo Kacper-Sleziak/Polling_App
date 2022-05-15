@@ -10,4 +10,4 @@ RUN pip install --upgrade pip
 RUN python3 -m pip install -r requirements.txt --no-cache-dir
 RUN apk --purge del .build-deps
 
-COPY . /djnago/
+COPY . .
