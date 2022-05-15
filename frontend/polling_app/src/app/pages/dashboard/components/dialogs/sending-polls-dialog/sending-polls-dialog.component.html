@@ -40,13 +40,21 @@
                     
                     <mat-label>Adresat</mat-label>
                     <input type="email" placeholder="Wprowadź email" formControlName="email" matInput>
-                    <button type="submit" (click)="addEmail()" color="primary" mat-button matSuffix><mat-icon>add</mat-icon></button>
-                    <!-- <mat-error *ngIf="emailForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error> -->
-                    <!-- <button type="button" mat-button color="primary" matSuffix>CSV</button> -->
+                    <button type="submit" (click)="onAddEmail()" color="primary" mat-button matSuffix><mat-icon>add</mat-icon></button>
+                    <mat-error *ngIf="emailForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
+
                 </mat-form-field>
                 
                 <!-- Import from CSV button -->
-                <button type="button" mat-raised-button color="primary" style="margin-bottom: 15px;">Zaimportuj z CSV</button>
+                <div class="buttons-container">
+                    <!-- Button to open file dialog -->
+                    <button id="import-button" type="button" mat-raised-button (click)="fileInput.click()" color="primary">Zaimportuj z CSV</button>
+                    <input  type="file" hidden (change)="onFileSelected($event)" accept=".csv" #fileInput>
+                    <!-- Return button -->
+                    <button id="return-button"  [matTooltipDisabled]="history.length == 0" [disabled]="history.length == 0" matTooltip="Cofnij zmiany" matTooltipClass="tooltip-adjust" (click)="onReturnEmails()" type="button" mat-raised-button color="accent"><mat-icon>keyboard_return</mat-icon></button>
+                    <!-- Delete all emails button -->
+                    <button id="delete-button" matTooltip="Usuń wszystkie" matTooltipClass="tooltip-adjust" (click)="onDeleteAllEmails()" type="button" mat-raised-button color="warn"><mat-icon>delete_sweep</mat-icon></button>
+                </div>                
 
             </form>
             <mat-divider></mat-divider>
@@ -55,8 +63,8 @@
             <mat-selection-list class="list">
 
                 <!-- When no emails -->
-                <mat-list-item id="information" style="justify-content: center;" *ngIf="!isRecipient">
-                    <span style="font-size: 14px; color: red;">Wprowadź adresatów!</span>
+                <mat-list-item id="information" style="justify-content: center; height: 100px;" *ngIf="!isRecipient">
+                    <span style="font-size: 14px; color: red;">Brak adresatów!</span>
                 </mat-list-item>
 
 
@@ -64,7 +72,7 @@
                 <div *ngFor="let email of emails">
 
                     <!-- Emails tags -->
-                    <mat-list-item style="justify-content: space-between; background-color: white">
+                    <mat-list-item class="email-tag" style="justify-content: space-between; background-color: white">
                         <span style="font-size: 14px; overflow-x: hidden; width: 200px; text-overflow: ellipsis;">{{email}}</span>
                         <button (click)="onDeleteEmail(email)" color="warn" mat-button><mat-icon>close</mat-icon></button>
                     </mat-list-item>

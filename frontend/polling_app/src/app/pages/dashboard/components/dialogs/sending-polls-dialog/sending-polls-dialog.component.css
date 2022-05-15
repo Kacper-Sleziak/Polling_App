@@ -61,3 +61,30 @@ form{
     padding: 0px !important;
 }
 
+#import-button{
+    flex: 1 1 auto;
+    margin-right: 3px;
+}
+
+.buttons-container{
+    display: flex;
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+
+#return-button{
+    margin-right: 3px;
+}
+
+::ng-deep .tooltip-adjust{
+    font-size: 0.75rem !important;
+    margin: 0.5em 0em !important; 
+    padding: 0.25em 1em !important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper{
+    margin-top: .25em;
+}
+
+
+
