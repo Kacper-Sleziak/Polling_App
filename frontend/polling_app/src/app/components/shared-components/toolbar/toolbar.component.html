@@ -1,21 +1,37 @@
 
-<!-- Standard toolbar -->
-<mat-toolbar *ngIf="!hasRoute('form')"  id="mat-toolbar" color="primary">
+<!-- Toolbar when Login or Register -->
+<mat-toolbar *ngIf='hasRoute("/") || hasRoute("/register")'  id="mat-toolbar" color="primary">
 
-    <!-- Logo -->
+    <!-- Logo without link -->
     <div id="logo">@nkietka.pl</div>
     
     <!-- Buttons section -->
     <div>
-            <a mat-button href="#">Wyloguj</a>
+        <!-- Login and Register button -->
+        <a  mat-button routerLink="/"> Zaloguj </a>
+        <a  mat-button routerLink="/register"> Zarejestruj </a>
     </div>
 
 </mat-toolbar>
 
-<!-- Toolbar when filling out the poll -->
-<mat-toolbar *ngIf="hasRoute('form')"  id="mat-toolbar" color="primary">
+<!-- Toolbar when logged -->
+<mat-toolbar *ngIf='!(hasRoute("/") || hasRoute("/register") || hasRoute("/form"))' id="mat-toolbar" color="primary">
+
+    <!-- Logo with link-->
+    <a class="logo-link" routerLink="/dashboard"><div id="logo"> @nkietka.pl </div></a>
+    
+    <!-- Buttons section -->
+    <div>
+        <!-- Logout button -->
+        <a mat-button routerLink="/"> Wyloguj </a>
+    </div>
+
+</mat-toolbar>
+
+<!-- Toolbar when filling out the poll / preview -->
+<mat-toolbar *ngIf="hasRoute('/form')"  id="mat-toolbar" color="primary">
 
     <!-- Logo with link to dashboard-->
-    <a class="logo-link" routerLink="/"><div id="logo">@nkietka.pl</div></a>
+    <a class="logo-link" routerLink="/dashboard"><div id="logo">@nkietka.pl</div></a>
 
 </mat-toolbar>

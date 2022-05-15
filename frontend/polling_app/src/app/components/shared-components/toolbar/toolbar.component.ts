@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -15,7 +15,14 @@ export class ToolbarComponent implements OnInit {
 
 
   hasRoute(route: string): boolean{
-    return this.router.url.includes(route);
+    
+    // Every path starts with '/' so we can't use includes()
+    if(route === '/'){
+      if(this.router.url === '/') return true;
+      else return false;
+    }
+    
+    return this.router.url.startsWith(route);
   }
 
 }
