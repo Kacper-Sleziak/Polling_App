@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class PollService {
   constructor(private http: HttpClient) {}
 
-  getPolls(author: number): Observable<Poll[]> {
+  getPolls(author: number): Observable<Poll[]>{
     let polls: Poll[] = [];
 
     this.http
