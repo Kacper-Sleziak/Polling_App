@@ -1,6 +1,6 @@
 
 <!-- Toolbar when Login or Register -->
-<mat-toolbar *ngIf='hasRoute("/") || hasRoute("/register")'  id="mat-toolbar" color="primary">
+<mat-toolbar *ngIf='hasRoute("/login") || hasRoute("/register")'  id="mat-toolbar" color="primary">
 
     <!-- Logo without link -->
     <div id="logo">@nkietka.pl</div>
@@ -8,14 +8,14 @@
     <!-- Buttons section -->
     <div>
         <!-- Login and Register button -->
-        <a  mat-button routerLink="/"> Zaloguj </a>
+        <a  mat-button routerLink="/login"> Zaloguj </a>
         <a  mat-button routerLink="/register"> Zarejestruj </a>
     </div>
 
 </mat-toolbar>
 
 <!-- Toolbar when logged -->
-<mat-toolbar *ngIf='!(hasRoute("/") || hasRoute("/register") || hasRoute("/form"))' id="mat-toolbar" color="primary">
+<mat-toolbar *ngIf='!(hasRoute("/login") || hasRoute("/register") || hasRoute("/form"))' id="mat-toolbar" color="primary">
 
     <!-- Logo with link-->
     <a class="logo-link" routerLink="/dashboard"><div id="logo"> @nkietka.pl </div></a>
@@ -23,7 +23,7 @@
     <!-- Buttons section -->
     <div>
         <!-- Logout button -->
-        <a mat-button routerLink="/"> Wyloguj </a>
+        <a mat-button (click)="onLogout()"> Wyloguj </a>
     </div>
 
 </mat-toolbar>
