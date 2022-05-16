@@ -69,7 +69,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:80"
+    "http://localhost:80",
+    "http://localhost"
 ]
 
 ROOT_URLCONF = 'Polling_App.urls'

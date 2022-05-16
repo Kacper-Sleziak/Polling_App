@@ -24,5 +24,8 @@ FROM nginx:latest
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /usr/local/app/dist/polling_app /usr/share/nginx/html
 
+# Copy the default nginx.conf provided by tiangolo/node-frontend
+COPY /nginx.conf  /etc/nginx/conf.d/default.conf
+
 # Expose port 80
 EXPOSE 80
