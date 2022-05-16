@@ -50,6 +50,13 @@
             <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
                 Hasło jest wymagane!
             </mat-error>
+            <mat-error *ngIf="registerForm.controls['password'].hasError('minlength')">
+                <!-- Hasło musi zawierać minimum {{registerForm.controls['password'].getError('minlength').requiredLength }} znaków! -->
+                Hasło musi zawierać minimum {{registerForm.controls['password'].errors!['minlength'].requiredLength }} znaków!
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['password'].hasError('notSame')">
+                Hasła się różnią!
+            </mat-error>
 
         </mat-form-field>
 
@@ -64,6 +71,12 @@
             <!-- Errors displaying-->
             <mat-error *ngIf="registerForm.controls['password2'].hasError('required')">
                 Powtórzenie hasła jest wymagane!
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['password2'].hasError('minlength')">
+                Hasło musi zawierać minimum {{registerForm.controls['password2'].errors!['minlength'].requiredLength }} znaków!
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['password2'].hasError('notSame')">
+                Hasła się różnią!
             </mat-error>
 
         </mat-form-field>

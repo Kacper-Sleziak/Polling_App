@@ -27,17 +27,26 @@ export class RegisterPanelComponent implements OnInit {
     }
   );
 
-
   errorMessage: string = '';
+  
   ngOnInit(): void {
     // Set input validators
     this.registerForm.controls['companyName'].addValidators([Validators.required]);
     this.registerForm.controls['email'].addValidators([Validators.email, Validators.required]);
-    this.registerForm.controls['password'].addValidators([Validators.required]);
-    this.registerForm.controls['password2'].addValidators([Validators.required]);
+    this.registerForm.controls['password'].addValidators([Validators.required, Validators.minLength(9)]);
+    this.registerForm.controls['password2'].addValidators([Validators.required, Validators.minLength(9)]);
   }
 
   onRegisterButtonClick(){
+
+    // Check that passwords are same
+    if(this.registerForm.controls['password'].value !== this.registerForm.controls['password2'].value ){
+
+      // Set errors
+      this.registerForm.controls['password'].setErrors({'notSame' : true});
+      this.registerForm.controls['password2'].setErrors({'notSame' : true});
+    }
+
     // If form is valid
     if(this.registerForm.valid){
     // Send request
@@ -46,37 +55,37 @@ export class RegisterPanelComponent implements OnInit {
                                       this.registerForm.controls['password'].value, 
                                       this.registerForm.controls['password2'].value)
       .subscribe({
+
         // If success
         next: (account) => {
+          // Set author id
           this.accountService.setAuthorId(account.id);
           // Navigate to dashboard
           this.router.navigate(['dashboard']);
         },
         // If error
         error: ({error}) =>{
-          // if(error.email.length){
-          //   console.warn(error.email[0]);
-          // }
-          
-          if(error.company_name !== null && (error.email !== null)){
-            this.errorMessage = "Podany nazwa firmy i email już istnieją!";
-            // document.getElementById('error-message')!.innerText = "Podany nazwa firmy i email już istnieją!";
-            console.log(error.company_name);
-          }
 
-          if(error.email !== null){
-            this.errorMessage = "Podany email już istnieje!";
-            // document.getElementById('error-message')!.innerText = "Podany email już istnieje!";
-            console.log(error.email);
-          }
-
-          if(error.company_name !== null){
+          if(error.company_name !== undefined){
+            // Company name exist
             this.errorMessage = "Podany nazwa firmy już istnieje!";
-            // document.getElementById('error-message')!.innerText = "Podany nazwa firmy już istnieje!";
-            console.log(error.company_name);
           } 
+          else if(error.email !== undefined){
+            // Email exist
+            this.errorMessage = "Podany email już istnieje!";
+          }
+          else if(error.password !== undefined){
+            // Two options: 1.Password does't have min 9 signs, 2.Passwords are different
+            // We will fix this at frontend side to reduce requests 
+            // but for sure we will show this message when something will go wrong with password
+            this.errorMessage = "Hasło nie spełnia kryteriów!";
+          }
+          else{
+            this.errorMessage = "Nieznany błąd. Skontaktuj się z nami.";
+          }
 
-          console.log(error);
+          // Print to console all errors with register form
+          console.error(error);
 
         }
       })
