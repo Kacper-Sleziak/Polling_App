@@ -23,16 +23,21 @@ export class QuestionsService {
       .pipe(
         map((result: any) => {
           const questions: Question[] = [];
-          for (const question of result) {
-            questions.push(
-              new Question(
-                question.id,
-                question.content,
-                [],
-                QuestionTypeFactory.getType(question.question_type),
-                question.position
-              )
-            );
+
+          if(result !== null){
+
+            for (const question of result) {
+              questions.push(
+                new Question(
+                  question.id,
+                  question.content,
+                  [],
+                  QuestionTypeFactory.getType(question.question_type),
+                  question.position
+                )
+              );
+            }
+            
           }
           return questions;
         })

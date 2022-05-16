@@ -18,23 +18,26 @@ export class PollService {
     this.http
       .get<any[]>(`${environment.apiUrl}/polls/author/${author}`)
       .subscribe((result: any[]) => {
-        result.forEach((jsonPoll: any) => {
-          polls.push(
-            new Poll(
-              jsonPoll.id,
-              jsonPoll.title,
-              jsonPoll.description,
-              jsonPoll.slug,
-              jsonPoll.start_date,
-              jsonPoll.end_date,
-              jsonPoll.create_date,
-              jsonPoll.filling,
-              jsonPoll.sent,
-              jsonPoll.status,
-              jsonPoll.author
-            )
-          );
-        });
+        if(result !== null){
+          
+          result.forEach((jsonPoll: any) => {
+            polls.push(
+              new Poll(
+                jsonPoll.id,
+                jsonPoll.title,
+                jsonPoll.description,
+                jsonPoll.slug,
+                jsonPoll.start_date,
+                jsonPoll.end_date,
+                jsonPoll.create_date,
+                jsonPoll.filling,
+                jsonPoll.sent,
+                jsonPoll.status,
+                jsonPoll.author
+              )
+            );
+          });
+        }
       });
     return of(polls);
   }
