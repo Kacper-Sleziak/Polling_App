@@ -1,1 +1,90 @@
-<p>register-panel works!</p>
+<div class="login-panel">
+
+    <form [formGroup]="registerForm" class="login-form  mat-elevation-z6">
+
+        <!-- Login header -->
+        <h1 class="login-header">Rejestracja</h1>
+
+        <!-- Company name -->
+        <mat-form-field appearance="fill">
+
+            <!-- Label -->
+            <mat-label>Nazwa firmy</mat-label>
+            <!-- Input -->
+            <input type="text" formControlName="companyName" matInput>
+
+            <!-- Errors displaying-->
+            <mat-error *ngIf="registerForm.controls['companyName'].hasError('required')">
+                Nazwa firmy jest wymagana!
+            </mat-error>
+
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field appearance="fill">
+
+            <!-- Label -->
+            <mat-label>Email</mat-label>
+            <!-- Input -->
+            <input type="email" formControlName="email" matInput>
+
+            <!-- Errors displaying-->
+            <mat-error *ngIf="registerForm.controls['email'].hasError('email') && !registerForm.controls['email'].hasError('required')">
+                Wprowadzony adres email jest niepoprawny!
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                Email jest wymagany!
+            </mat-error>
+
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="fill">
+
+            <!-- Label -->
+            <mat-label>Hasło</mat-label>
+            <!-- Input -->
+            <input type="password" formControlName="password" matInput>
+
+            <!-- Errors displaying-->
+            <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
+                Hasło jest wymagane!
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['password'].hasError('minlength')">
+                <!-- Hasło musi zawierać minimum {{registerForm.controls['password'].getError('minlength').requiredLength }} znaków! -->
+                Hasło musi zawierać minimum {{registerForm.controls['password'].errors!['minlength'].requiredLength }} znaków!
+            </mat-error>
+            <!-- <mat-error *ngIf="registerForm.controls['password'].hasError('notSame')">
+                Hasła się różnią!
+            </mat-error> -->
+
+        </mat-form-field>
+
+        <!-- Password2 -->
+        <mat-form-field appearance="fill">
+
+            <!-- Label -->
+            <mat-label>Powtórz hasło</mat-label>
+            <!-- Input -->
+            <input type="password" formControlName="password2" matInput>
+    
+            <!-- Errors displaying-->
+            <mat-error *ngIf="registerForm.controls['password2'].hasError('required')">
+                Powtórzenie hasła jest wymagane!
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['password2'].hasError('minlength')">
+                Hasło musi zawierać minimum {{registerForm.controls['password2'].errors!['minlength'].requiredLength }} znaków!
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['password2'].hasError('notSame')">
+                Hasło różni się od poprzedniego!
+            </mat-error>
+
+        </mat-form-field>
+
+        <!-- Message when incorrect data -->
+        <span id="error-message">{{errorMessage}}</span>
+
+        <!-- Submit button -->
+        <button class="submit-button" mat-raised-button color="primary" (click)="onRegisterButtonClick()"> Zarejestruj </button>
+    </form>
+</div>

@@ -1,7 +1,7 @@
 
 <div class="login-panel">
 
-    <form [formGroup]="loginForm" class="login-form  mat-elevation-z6" (submit)="onLoginButtonClick()">
+    <form [formGroup]="loginForm" class="login-form  mat-elevation-z6">
 
         <!-- Login header -->
         <h1 class="login-header">Logowanie</h1>
@@ -37,7 +37,7 @@
             </mat-icon>
 
             <!-- Errors displaying-->
-            <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+            <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
                 Hasło jest wymagane!
               </mat-error>
 
@@ -47,7 +47,7 @@
         <span id="error-message"></span>
 
         <!-- Submit button -->
-        <button class="submit-button" mat-raised-button color="primary" (click)="onLoginButtonClick()"> Zaloguj </button>
+        <button class="submit-button" mat-raised-button color="primary" (click)="onLoginButtonClick()"> Zaloguj</button>
     </form>
 </div>
 
