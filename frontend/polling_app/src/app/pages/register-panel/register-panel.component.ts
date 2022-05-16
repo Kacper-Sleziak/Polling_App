@@ -43,7 +43,7 @@ export class RegisterPanelComponent implements OnInit {
     if(this.registerForm.controls['password'].value !== this.registerForm.controls['password2'].value ){
 
       // Set errors
-      this.registerForm.controls['password'].setErrors({'notSame' : true});
+      // this.registerForm.controls['password'].setErrors({'notSame' : true});
       this.registerForm.controls['password2'].setErrors({'notSame' : true});
     }
 

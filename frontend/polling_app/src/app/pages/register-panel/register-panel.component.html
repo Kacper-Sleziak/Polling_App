@@ -54,9 +54,9 @@
                 <!-- Hasło musi zawierać minimum {{registerForm.controls['password'].getError('minlength').requiredLength }} znaków! -->
                 Hasło musi zawierać minimum {{registerForm.controls['password'].errors!['minlength'].requiredLength }} znaków!
             </mat-error>
-            <mat-error *ngIf="registerForm.controls['password'].hasError('notSame')">
+            <!-- <mat-error *ngIf="registerForm.controls['password'].hasError('notSame')">
                 Hasła się różnią!
-            </mat-error>
+            </mat-error> -->
 
         </mat-form-field>
 
@@ -76,7 +76,7 @@
                 Hasło musi zawierać minimum {{registerForm.controls['password2'].errors!['minlength'].requiredLength }} znaków!
             </mat-error>
             <mat-error *ngIf="registerForm.controls['password2'].hasError('notSame')">
-                Hasła się różnią!
+                Hasło różni się od poprzedniego!
             </mat-error>
 
         </mat-form-field>
