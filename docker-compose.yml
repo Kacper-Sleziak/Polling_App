@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: ./backend
-    command: "gunicorn Polling_App.wsgi --bind 0.0.0.0:8000 && python manage.py migrate"
+    command: /bin/sh /django/start-backend.sh
     ports:
       - 8000:8000
     depends_on:
