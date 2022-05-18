@@ -1,5 +1,6 @@
 version: "3.8"
 services:
+
   app:
     build: .
     volumes: 
@@ -11,6 +12,11 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     depends_on:
       - db
+    links:
+      - db:db
+    networks:
+      - djangonetwork
+
   db:
     image: postgres
     volumes:
@@ -20,4 +26,10 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     container_name: postgresql
+    networks:
+      - djangonetwork
+      
+networks:
+  djangonetwork:
+    driver: bridge
   

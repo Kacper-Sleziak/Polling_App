@@ -36,6 +36,7 @@ export class AccountService {
     return this.http.post(`${environment.apiUrl}/account/login`, {'email': email, 'password': password})
   } 
 
+
   postRegister(companyName: string, email: string, password: string, password2: string): Observable<any>{
     return this.http.post(`${environment.apiUrl}/account/register`, { 'company_name': companyName ,'email': email, 'password': password, 'password2': password2})
   }

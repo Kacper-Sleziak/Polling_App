@@ -1,8 +1,9 @@
 
 <div class="login-panel">
 
-    <form [formGroup]="loginForm" class="login-form  mat-elevation-z6">
 
+    <form [formGroup]="loginForm" class="login-form  mat-elevation-z6">
+      
         <!-- Login header -->
         <h1 class="login-header">Logowanie</h1>
 
@@ -37,6 +38,7 @@
             </mat-icon>
 
             <!-- Errors displaying-->
+
             <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
                 Hasło jest wymagane!
               </mat-error>

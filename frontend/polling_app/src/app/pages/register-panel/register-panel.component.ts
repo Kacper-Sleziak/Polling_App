@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/shared-services/account.service';
 
+
 @Component({
   selector: 'app-register-panel',
   templateUrl: './register-panel.component.html',
   styleUrls: ['./register-panel.component.css']
 })
 export class RegisterPanelComponent implements OnInit {
-
+  
   constructor(private formBuilder: FormBuilder, 
               private accountService: AccountService,
               private router: Router) {
@@ -91,4 +92,5 @@ export class RegisterPanelComponent implements OnInit {
       })
     }
   }
+
 }

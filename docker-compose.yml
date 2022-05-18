@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    command: "gunicorn Polling_App.wsgi --bind 0.0.0.0:8000 && python manage.py migrate"
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    container_name: django_backend
+    links:
+      - db:db
+    networks:
+      - djangonetwork
+  
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    container_name: postgres_db
+    networks:
+      - djangonetwork
+  
+  frontend:
+    build:
+      context: ./frontend/polling_app
+    volumes:
+        - /usr/share/nginx/angular2
+    depends_on:
+      - backend
+    container_name: angular2
+    ports:
+      - 80:80
+    networks:
+      - djangonetwork
+
+networks:
+  djangonetwork:
+    driver: bridge
+  
