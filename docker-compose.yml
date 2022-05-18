@@ -14,6 +14,9 @@ services:
       - db:db
     networks:
       - djangonetwork
+    volumes:
+      - ./backend/start-backend.sh:/django/start-backend.sh
+      - ./backend/share:/django/share
   
   db:
     image: postgres

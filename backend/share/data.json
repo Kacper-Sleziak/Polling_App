@@ -1,0 +1,70 @@
+[
+    {
+      "model": "account.account",
+      "pk": 1,
+      "fields": {
+        "password": "pbkdf2_sha256$260000$j9mJbGceLHuYBTTYbHkWfU$lbGVLY27xa7+91k0Ie8rbSGn0WEXD68MDEqgIfGdmUs=",
+        "email": "user1@mail.com",
+        "company_name": "Firma1",
+        "date_joined": "2022-05-18T22:04:28.868Z",
+        "last_login": "2022-05-18T22:04:28.868Z",
+        "is_admin": false,
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "logo": "",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "account.account",
+      "pk": 2,
+      "fields": {
+        "password": "pbkdf2_sha256$260000$2IHSWP8DPLMgIrhtkgrNPn$rVcBZRORYlelZkgS7fX4g/ntvrdlds51BiwBdtzod4M=",
+        "email": "user2@mail.com",
+        "company_name": "Firma2",
+        "date_joined": "2022-05-18T22:04:55.160Z",
+        "last_login": "2022-05-18T22:04:55.160Z",
+        "is_admin": false,
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "logo": "",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "account.account",
+      "pk": 3,
+      "fields": {
+        "password": "pbkdf2_sha256$260000$gPsLg46KP1uep34YNNFado$czZravLdipqvHEPcOId6kbasgo7ARZKKG1AC/YeE+nI=",
+        "email": "user3@mail.com",
+        "company_name": "Firma3",
+        "date_joined": "2022-05-18T22:05:17.500Z",
+        "last_login": "2022-05-18T22:05:17.500Z",
+        "is_admin": false,
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "logo": "",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "questions.questiontype",
+      "pk": 1,
+      "fields": {
+        "type_name": "Pytanie długie"
+      }
+    },
+    {
+      "model": "questions.questiontype",
+      "pk": 1,
+      "fields": {
+        "type_name": "Pytanie krótkie"
+      }
+    }
+]
