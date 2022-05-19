@@ -17,6 +17,7 @@ services:
     volumes:
       - ./backend/start-backend.sh:/django/start-backend.sh
       - ./backend/share:/django/share
+      - ./backend/custom/commands:/django/custom/commands
   
   db:
     image: postgres
