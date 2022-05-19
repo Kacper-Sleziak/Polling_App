@@ -24,8 +24,7 @@ export class QuestionsService {
         map((result: any) => {
           const questions: Question[] = [];
 
-          if(result !== null){
-
+          if (result !== null) {
             for (const question of result) {
               questions.push(
                 new Question(
@@ -37,7 +36,6 @@ export class QuestionsService {
                 )
               );
             }
-            
           }
           return questions;
         })
@@ -120,19 +118,19 @@ const QuestionTypeFactory = {
   getType: (typeId: number): QuestionType => {
     console.log(typeId);
     switch (typeId) {
-      case 2:
+      case 1:
         return QuestionType.Checkbox;
-      case 3:
+      case 2:
         return QuestionType.Combobox;
-      case 4:
+      case 3:
         return QuestionType.LongText;
-      case 5:
+      case 4:
         return QuestionType.ShortText;
-      case 6:
+      case 5:
         return QuestionType.Radio;
-      case 7:
+      case 6:
         return QuestionType.Scale5;
-      case 8:
+      case 7:
         return QuestionType.Scale10;
     }
     return QuestionType.Checkbox;
@@ -140,19 +138,19 @@ const QuestionTypeFactory = {
   getTypeId: (type: QuestionType): number => {
     switch (type) {
       case QuestionType.Checkbox:
-        return 2;
+        return 1;
       case QuestionType.Combobox:
-        return 3;
+        return 2;
       case QuestionType.LongText:
-        return 4;
+        return 3;
       case QuestionType.ShortText:
-        return 5;
+        return 4;
       case QuestionType.Radio:
-        return 6;
+        return 5;
       case QuestionType.Scale5:
-        return 7;
+        return 6;
       case QuestionType.Scale10:
-        return 8;
+        return 7;
     }
   },
 };
