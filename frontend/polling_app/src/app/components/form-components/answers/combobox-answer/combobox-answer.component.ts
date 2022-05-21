@@ -7,37 +7,47 @@ import { AnswerComponent } from '../answer/answer.component';
 @Component({
   selector: 'app-combobox-answer',
   templateUrl: './combobox-answer.component.html',
-  styleUrls: ['./combobox-answer.component.css']
+  styleUrls: ['./combobox-answer.component.css'],
 })
 export class ComboboxAnswerComponent extends AnswerComponent {
-
   override ngOnInit(): void {
-    const options: {optionId: number, content: string}[]= [];
+    const options: { optionId: number; content: string }[] = [];
     for (const answer of this.answers) {
-      options.push({optionId: answer.id, content: answer.isChecked.toString()});
+      options.push({
+        optionId: answer.id,
+        content: answer.isChecked.toString(),
+      });
     }
-    console.log(options);
     this.result = new Result(options);
   }
 
   ngOnChange(): void {
-    const options: {optionId: number, content: string}[]= [];
+    const options: { optionId: number; content: string }[] = [];
     for (const answer of this.answers) {
-      options.push({optionId: answer.id, content: answer.isChecked.toString()});
+      options.push({
+        optionId: answer.id,
+        content: answer.isChecked.toString(),
+      });
     }
-    console.log(options);
     this.result = new Result(options);
   }
 
   updateResult = (event: MatOptionSelectionChange) => {
-    const result = this.result;
-    console.log(result);
-    for (const option of result.options) {
-      if(option.optionId === event.source.value.id){
+    let options: { optionId: number; content: string }[] = [];
+    for (const answer of this.answers) {
+      options.push({
+        optionId: answer.id,
+        content: answer.isChecked.toString(),
+      });
+    }
+
+    for (const option of options) {
+      if (option.optionId === event.source.value.id) {
         option.content = event.source.selected.toString();
+        options = [option];
       }
     }
-    console.log(this.result);
-    this.resultChanged.emit(result);
-  }
+    this.result = new Result(options);
+    this.resultChanged.emit(this.result);
+  };
 }

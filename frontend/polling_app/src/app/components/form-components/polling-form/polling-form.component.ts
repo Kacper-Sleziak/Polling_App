@@ -42,6 +42,10 @@ export class PollingFormComponent implements OnInit {
   };
 
   handleSendAnswer = () => {
-    console.log(this.questionViewModelService.getResults());
+    let result = this.questionViewModelService.getResults();
+    /* for (let question of result.keys()) {
+      console.log(question.id, result.get(question));
+    }*/
+    console.log(result);
   };
 }

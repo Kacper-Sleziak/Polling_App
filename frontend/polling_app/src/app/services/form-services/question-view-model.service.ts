@@ -28,6 +28,8 @@ export class QuestionViewModelService {
   }
 
   loadPollQuestions(pollId: number) {
+    this.questions = [];
+    this.questionsViewModel = [];
     this.subject.next(this.questions);
     this.questionsService.getQuestions(pollId).subscribe((questions) => {
       this.questions.push(...questions.sort((a, b) => a.position - b.position));
