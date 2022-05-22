@@ -24,13 +24,13 @@ class CreateAnswerDetailsView(generics.GenericAPIView):
 
 # [GET, DELETE] AnswerDetails View
 class AnswerDetailsView(generics.GenericAPIView):
-    serializer_class = AnswerSerializer
+    serializer_class = AnswerDetailsSerializer
 
     def get_answer_details_by_id(self, pk):
         queryset = AnswerDetails.objects.filter(id=pk)
 
         if queryset.exists():
-            answer_details = queryset[0]
+            answer_details = queryset
             return answer_details
         else:
             return 0
@@ -39,24 +39,23 @@ class AnswerDetailsView(generics.GenericAPIView):
         serializer = self.serializer_class
         answer_details = self.get_answer_details_by_id(pk)
 
-        if self.get_answer(pk) != 0:
+        if self.get_answer_details_by_id(pk) != 0:
             response_data = serializer(answer_details, many=True).data
             return Response(response_data, status=status.HTTP_200_OK)
         return Response({'AnswerDetails': 'there is no AnswerDetails with given id'},
                         status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk, format=None):
-        answer_details = self.get_answer_details_by_id(pk)
+        answer_details = self.get_answer_details_by_id(pk)[0]
 
         if answer_details != 0:
             answer_details.delete()
-            answer_details.save()
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def put(self, request, pk, format=None):
         serializer = self.serializer_class(data=request.data)
-        answer_details = self.get_answer_details_by_id(pk)
+        answer_details = self.get_answer_details_by_id(pk)[0]
 
         if answer_details != 0:
             if serializer.is_valid():
@@ -76,7 +75,7 @@ class GetAnswerDetailsByAnswer(generics.GenericAPIView):
         queryset = AnswerDetails.objects.filter(answers_id=pk)
 
         if queryset.exists():
-            answer = queryset[0]
+            answer = queryset
             return answer
         else:
             return 0
@@ -112,7 +111,7 @@ class GetAnswerByQuestion(generics.GenericAPIView):
         queryset = Answer.objects.filter(question_id=pk)
 
         if queryset.exists():
-            answer = queryset[0]
+            answer = queryset
             return answer
         else:
             return 0
@@ -136,7 +135,7 @@ class AnswerView(generics.GenericAPIView):
         queryset = Answer.objects.filter(id=pk)
 
         if queryset.exists():
-            answer = queryset[0]
+            answer = queryset
             return answer
         else:
             return 0
@@ -152,17 +151,16 @@ class AnswerView(generics.GenericAPIView):
                         status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk, format=None):
-        answer = self.get_answer_by_id(pk)
+        answer = self.get_answer_by_id(pk)[0]
 
         if answer != 0:
             answer.delete()
-            answer.save()
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def put(self, request, pk, format=None):
         serializer = self.serializer_class(data=request.data)
-        answers = self.get_answer_by_id(pk)
+        answers = self.get_answer_by_id(pk)[0]
 
         if answers != 0:
             if serializer.is_valid():
