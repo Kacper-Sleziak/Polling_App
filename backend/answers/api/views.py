@@ -68,12 +68,12 @@ class AnswerDetailsView(generics.GenericAPIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# [GET] Getting AnswerDetails By Question ID
-class GetAnswerDetailsByQuestion(generics.GenericAPIView):
+# [GET] Getting AnswerDetails By Answer ID
+class GetAnswerDetailsByAnswer(generics.GenericAPIView):
     serializer_class = AnswerDetailsSerializer
 
-    def get_answerdetails_by_question(self, pk):
-        queryset = AnswerDetails.objects.filter(question_id=pk)
+    def get_answerdetails_by_answer(self, pk):
+        queryset = AnswerDetails.objects.filter(answers_id=pk)
 
         if queryset.exists():
             answer = queryset[0]
@@ -83,12 +83,12 @@ class GetAnswerDetailsByQuestion(generics.GenericAPIView):
 
     def get(self, request, pk, format=None):
         serializer = self.serializer_class
-        answer = self.get_answerdetails_by_question(pk)
+        answer = self.get_answerdetails_by_answer(pk)
 
-        if self.get_answerdetails_by_question(pk) != 0:
+        if self.get_answerdetails_by_answer(pk) != 0:
             response_data = serializer(answer, many=True).data
             return Response(response_data, status=status.HTTP_200_OK)
-        return Response({'AnswerDetails': 'there is no answerdetails with given question id'},
+        return Response({'AnswerDetails': 'there is no answerdetails with given answer id'},
                         status=status.HTTP_204_NO_CONTENT)
 
 # [POST] Creating Answer
