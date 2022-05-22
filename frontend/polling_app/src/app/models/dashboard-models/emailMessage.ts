@@ -1,13 +1,13 @@
-export class Email{
+export class EmailMessage{
     
     subject: string;
-    message: string;
+    message: string | null;
     slug: string;
     emails: string[];
 
 
     constructor(subject: string,
-                message: string,
+                message: string | null,
                 slug: string,
                 emails: string[]){ 
     
