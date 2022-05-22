@@ -1,3 +1,4 @@
+from multiprocessing import pool
 from django.http import Http404
 from django.db import models
 
@@ -8,9 +9,10 @@ from rest_framework.views import APIView
 
 from answers.api.serializers import (AnswerSerializer, AnswerDetailsSerializer)
 from questions.api.serializers import (QuestionSerializer)
+from polls.api.serializers import (PollSerializer)
 from answers.models import Answer, AnswerDetails
 from questions.models import Question
-from polls.models import Poll as PollModel
+from polls.models import Poll 
 
 
 # [POST] Creating AnswerDetails
@@ -183,11 +185,29 @@ class AnswerView(generics.GenericAPIView):
         # [GET] Getting All Answers from Pool with given slug
 
 
-class GetAnswersByPool(generics.GenericAPIView):
-    serializer_class = QuestionSerializer
+class GetAnswersByPoll(generics.GenericAPIView):
+    serializer_class = PollSerializer
 
-    def get_answers_by_pool(self, pk):
-        queryset = Question.objects.filter(answer__id=pk)
+    def get_poll(self, pk):
+        queryset = Poll.objects.filter(id=pk)
+
+        if queryset.exists():
+            poll_queryset = queryset
+            return poll_queryset
+        else:
+            return 0
+    
+    def get_question(self, pk):
+        queryset = Question.objects.filter(poll__id=pk)
+
+        if queryset.exists():
+            question_queryset = queryset
+            return question_queryset
+        else:
+            return 0
+
+    def get_answer(self, pk):
+        queryset = Answer.objects.filter(question__poll__id=pk)
 
         if queryset.exists():
             answer_queryset = queryset
@@ -195,12 +215,23 @@ class GetAnswersByPool(generics.GenericAPIView):
         else:
             return 0
 
+    def get_answerdetails(self, pk):
+        queryset = AnswerDetails.objects.filter(answer__question__poll__id=pk)
+
+        if queryset.exists():
+            answerdetails_queryset = queryset
+            return answerdetails_queryset
+        else:
+            return 0
+
+
+
     def get(self, request, pk, format=None):
         serializer = self.serializer_class
-        answer_queryset = self.get_answers_by_pool(pk)
+        poll_queryset = self.get_poll(pk)
 
-        if self.get_answers_by_pool(pk) != 0:
-            response_data = serializer(answer_queryset, many=True).data
+        if self.get_poll(pk) != 0:
+            response_data = serializer(poll_queryset, many=True).data
             return Response(response_data, status=status.HTTP_200_OK)
         return Response({'Answer': 'there is no answers with given pool id'},
                         status=status.HTTP_204_NO_CONTENT)

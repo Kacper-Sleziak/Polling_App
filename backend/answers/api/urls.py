@@ -1,6 +1,6 @@
 from django.urls import path
 from answers.api.views import (
-    AnswerView, AnswerDetailsView, CreateAnswerView, CreateAnswerDetailsView, GetAnswerByQuestion,GetAnswerDetailsByAnswer, GetAnswersByPool)
+    AnswerView, AnswerDetailsView, CreateAnswerView, CreateAnswerDetailsView, GetAnswerByQuestion,GetAnswerDetailsByAnswer, GetAnswersByPoll)
 
 urlpatterns = [
     path('create_answers', CreateAnswerView.as_view()),
@@ -9,5 +9,5 @@ urlpatterns = [
     path('answer/question/<int:pk>',GetAnswerByQuestion.as_view()),
     path('anwserdetails/<int:pk>', AnswerDetailsView.as_view()),
     path('answerdetails/answer/<int:pk>',GetAnswerDetailsByAnswer.as_view()),
-    path('answer/answerss/<int:pk>',GetAnswersByPool.as_view())
+    path('answer/answerss/<int:pk>',GetAnswersByPoll.as_view())
 ]
