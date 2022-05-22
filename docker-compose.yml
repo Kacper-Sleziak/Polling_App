@@ -15,14 +15,9 @@ services:
       - db:db
     networks:
       - djangonetwork
-    volumes:
-      - ./backend:/django
-      - /django/venv
   
   db:
     image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
@@ -35,11 +30,6 @@ services:
     build:
       context: ./frontend/polling_app
     image: pollingappregistry.azurecr.io/polling-app-frontend
-    volumes:
-        - ./frontend/polling_app/:/usr/local/app
-        - /usr/local/app/.angular2
-        - /usr/local/app/node_modules
-        - /usr/share/nginx/angular2
     depends_on:
       - backend
     container_name: angular2
