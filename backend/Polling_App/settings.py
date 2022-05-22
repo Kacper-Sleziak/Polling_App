@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9dji35kv-+f(wyeu)5wl5!p8&7eszc0k5d@=b4mr2qmg_q(az3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -98,13 +98,6 @@ WSGI_APPLICATION = 'Polling_App.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 AUTH_USER_MODEL = "account.Account"
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 # Setup for postgresql db
 DATABASES = {
