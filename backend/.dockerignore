@@ -4,3 +4,4 @@ docker-compose.yml
 venv
 .dockerignore
 data
+.gitattributes

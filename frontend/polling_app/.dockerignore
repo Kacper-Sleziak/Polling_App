@@ -3,3 +3,7 @@ node_modules
 .vscode
 .gitignore
 Dockerfile
+.dockerignore
+README.md
+.editorconfig
+
