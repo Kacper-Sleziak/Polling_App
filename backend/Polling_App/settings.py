@@ -70,14 +70,13 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:80",
-    "https://localhost:80",
-    "https://pollingapp.westeurope.azurecontainer.io",
-    "http://pollingapp.westeurope.azurecontainer.io",
-    "https://pollingapp.westeurope.azurecontainer.io:80",
-    "http://pollingapp.westeurope.azurecontainer.io:80",
-    "http://pollingapp.westeurope.azurecontainer.io:8000",
-    "https://pollingapp.westeurope.azurecontainer.io:8000"
+    "http://localhost",
+    "http://pollingapp.westeurope.azurecontainer.io"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://pollingapp.westeurope.azurecontainer.io"
 ]
 
 ROOT_URLCONF = 'Polling_App.urls'
