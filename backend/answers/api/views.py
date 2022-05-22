@@ -7,30 +7,10 @@ from rest_framework.views import APIView
 
 
 from answers.api.serializers import (AnswerSerializer, AnswerDetailsSerializer)
+from questions.api.serializers import (QuestionSerializer)
 from answers.models import Answer, AnswerDetails
 from questions.models import Question
 from polls.models import Poll as PollModel
-
-class QuestionType(models.Model):
-    type_name = models.TextField(default="New question type")
-
-    def __str__(self):
-        return self.type_name
-
-
-class Question(models.Model):
-    position = models.IntegerField()
-    content = models.CharField(default="Content", max_length=2000)
-    poll = models.ForeignKey(
-        PollModel, on_delete=models.CASCADE, verbose_name="poll ID")
-    question_type = models.ForeignKey(
-        QuestionType, on_delete=models.CASCADE, verbose_name="question_type")
-
-    def __str__(self):
-        if len(self.content) > 100:
-            return f"{self.content[0:97]}..."
-        else:
-            return self.content[0:100]
 
 
 # [POST] Creating AnswerDetails
@@ -92,6 +72,8 @@ class AnswerDetailsView(generics.GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # [GET] Getting AnswerDetails By Answer ID
+
+
 class GetAnswerDetailsByAnswer(generics.GenericAPIView):
     serializer_class = AnswerDetailsSerializer
 
@@ -115,6 +97,8 @@ class GetAnswerDetailsByAnswer(generics.GenericAPIView):
                         status=status.HTTP_204_NO_CONTENT)
 
 # [POST] Creating Answer
+
+
 class CreateAnswerView(generics.CreateAPIView):
     serializer_class = AnswerSerializer
 
@@ -196,26 +180,27 @@ class AnswerView(generics.GenericAPIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
         # [GET] Getting All Answers from Pool with given slug
+
+
 class GetAnswersByPool(generics.GenericAPIView):
-    serializer_class = AnswerSerializer
+    serializer_class = QuestionSerializer
 
     def get_answers_by_pool(self, pk):
-        queryset = Answer.objects.filter(question__pool__id=pk)
+        queryset = Question.objects.filter(answer__id=pk)
 
         if queryset.exists():
-            answer = queryset
-            return answer
+            answer_queryset = queryset
+            return answer_queryset
         else:
             return 0
 
     def get(self, request, pk, format=None):
         serializer = self.serializer_class
-        answer = self.get_answers_by_pool(pk)
+        answer_queryset = self.get_answers_by_pool(pk)
 
         if self.get_answers_by_pool(pk) != 0:
-            response_data = serializer(answer, many=True).data
+            response_data = serializer(answer_queryset, many=True).data
             return Response(response_data, status=status.HTTP_200_OK)
         return Response({'Answer': 'there is no answers with given pool id'},
                         status=status.HTTP_204_NO_CONTENT)
