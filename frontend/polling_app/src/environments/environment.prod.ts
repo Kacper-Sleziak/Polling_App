@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "http://pollingapp.westeurope.azurecontainer.io:8000"
+  apiUrl: "http://pollingapp.germanywestcentral.azurecontainer.io:8000"
 };

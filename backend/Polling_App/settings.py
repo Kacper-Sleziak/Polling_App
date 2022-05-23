@@ -27,7 +27,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['pollingapp.westeurope.azurecontainer.io']
+ALLOWED_HOSTS = ['pollingapp.germanywestcentral.azurecontainer.io']
 
 
 # Application definition
@@ -71,12 +71,12 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
-    "http://pollingapp.westeurope.azurecontainer.io"
+    "http://pollingapp.germanywestcentral.azurecontainer.io"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
-    "http://pollingapp.westeurope.azurecontainer.io"
+    "http://pollingapp.germanywestcentral.azurecontainer.io"
 ]
 
 ROOT_URLCONF = 'Polling_App.urls'
