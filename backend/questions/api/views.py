@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 class QuestionTypeList(generics.GenericAPIView):
     serializer_class = QuestionTypeSerializer
-    
+
     def get(self, request, format=None):
         question_types = QuestionType.objects.all()
         serializer = self.serializer_class(question_types, many=True)
@@ -77,9 +77,10 @@ class QuestionDetail(generics.ListAPIView):
         question.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class CreateQuestion(generics.CreateAPIView):
     serializer_class = QuestionSerializer
-    
+
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
@@ -87,9 +88,10 @@ class CreateQuestion(generics.CreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class QuestionForPullList(generics.GenericAPIView):
     serializer_class = QuestionSerializer
-    
+
     def get(self, request, poll_id, format=None):
         question = Question.objects.filter(poll=poll_id)
         if question.exists():
@@ -129,7 +131,7 @@ class OptionDetail(generics.GenericAPIView):
 
 class CreateOption(generics.CreateAPIView):
     serializer_class = OptionSerializer
-    
+
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
@@ -137,9 +139,10 @@ class CreateOption(generics.CreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class OptionForQuestionList(generics.GenericAPIView):
     serializer_class = OptionSerializer
-    
+
     def get(self, request, question_id, format=None):
         option = Option.objects.filter(question=question_id)
         if option.exists():
@@ -147,4 +150,3 @@ class OptionForQuestionList(generics.GenericAPIView):
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
-

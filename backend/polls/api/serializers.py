@@ -33,4 +33,4 @@ class PollRelatedSerializer(ModelSerializer):
     class Meta:
         model = Poll
         fields = ('__all__')
-        read_only_fields = ['id', 'slug', 'create_date','poll']
+        read_only_fields = ['id', 'slug', 'create_date', 'poll']

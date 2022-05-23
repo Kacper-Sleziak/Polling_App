@@ -13,7 +13,7 @@ class PollForAuthorList(generics.GenericAPIView):
         """
         Get all polls for given author
         """
-        
+
         queryset = Poll.objects.filter(author=author_id)
         if queryset.exists():
             serializer = self.serializer_class(queryset, many=True)
@@ -61,9 +61,10 @@ class PollDetail(generics.GenericAPIView):
         poll.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class CreatePoll(generics.GenericAPIView):
     serializer_class = PollSerializer
-    
+
     def post(self, request, format=None):
         """
         Create poll

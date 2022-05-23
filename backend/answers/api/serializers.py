@@ -3,7 +3,6 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework.serializers import PrimaryKeyRelatedField
 
 
-
 class AnswerDetailsSerializer(ModelSerializer):
     class Meta:
         model = AnswerDetails
@@ -17,9 +16,11 @@ class AnswerSerializer(ModelSerializer):
         fields = '__all__'
         read_only_fields = ['id']
 
+
 class AnswerRelatedSerializer(ModelSerializer):
     answerdetails = AnswerDetailsSerializer(many=True)
+
     class Meta:
         model = Answer
-        fields = ('question_id','answerdetails')
+        fields = ('question_id', 'answerdetails')
         read_only_fields = ['id']
