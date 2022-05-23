@@ -1,12 +1,21 @@
+from collections import namedtuple
+
+from multiprocessing import pool
+from django.forms import SlugField
 from django.http import Http404
+from django.db import models
 
 from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
-from answers.api.serializers import (AnswerSerializer, AnswerDetailsSerializer)
+from answers.api.serializers import (AnswerSerializer, AnswerRelatedSerializer, AnswerDetailsSerializer)
+from questions.api.serializers import (QuestionRelatedSerializer)
+from polls.api.serializers import (PollRelatedSerializer)
 from answers.models import Answer, AnswerDetails
+from questions.models import Question
+from polls.models import Poll 
 
 
 # [POST] Creating AnswerDetails
@@ -68,6 +77,8 @@ class AnswerDetailsView(generics.GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # [GET] Getting AnswerDetails By Answer ID
+
+
 class GetAnswerDetailsByAnswer(generics.GenericAPIView):
     serializer_class = AnswerDetailsSerializer
 
@@ -91,6 +102,8 @@ class GetAnswerDetailsByAnswer(generics.GenericAPIView):
                         status=status.HTTP_204_NO_CONTENT)
 
 # [POST] Creating Answer
+
+
 class CreateAnswerView(generics.CreateAPIView):
     serializer_class = AnswerSerializer
 
@@ -171,3 +184,54 @@ class AnswerView(generics.GenericAPIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# [GET] Getting All Answers from Pool with given id
+class GetAnswersByPoll_ID(generics.GenericAPIView):
+    serializer_class = PollRelatedSerializer
+
+
+    def get_poll_by_id(self, pk):
+        queryset = Poll.objects.filter(id=pk)
+
+        if queryset.exists():
+            poll_queryset = queryset
+            return poll_queryset
+        else:
+            return 0
+
+
+    def get(self, request, pk, format=None):
+        poll_obj = self.get_poll_by_id(pk)
+        poll_serializer = PollRelatedSerializer(instance=poll_obj,many = True)
+
+        if self.get_poll_by_id(pk) != 0:
+            ResultModel = poll_serializer.data
+            return Response(ResultModel, status=status.HTTP_200_OK)
+        return Response({'Answer': 'there is no answers with given pool id'},
+                        status=status.HTTP_204_NO_CONTENT)
+
+# [GET] Getting All Answers from Pool with given id
+class GetAnswersByPoll_Slug(generics.GenericAPIView):
+    serializer_class = PollRelatedSerializer
+
+
+    def get_poll_by_slug(self, slug):
+        queryset = Poll.objects.filter(slug=slug)
+
+        if queryset.exists():
+            poll_queryset = queryset
+            return poll_queryset
+        else:
+            return 0
+
+
+    def get(self, request, slug, format=None):
+        poll_obj = self.get_poll_by_slug(slug)
+        poll_serializer = PollRelatedSerializer(instance=poll_obj,many = True)
+
+        if self.get_poll_by_slug(slug) != 0:
+            ResultModel = poll_serializer.data
+            return Response(ResultModel, status=status.HTTP_200_OK)
+        return Response({'Answer': 'there is no answers with given pool slug'},
+                        status=status.HTTP_204_NO_CONTENT)
+

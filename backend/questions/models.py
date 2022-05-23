@@ -13,7 +13,7 @@ class Question(models.Model):
     position = models.IntegerField()
     content = models.CharField(default="Content", max_length=2000)
     poll = models.ForeignKey(
-        PollModel, on_delete=models.CASCADE, verbose_name="poll ID")
+        PollModel, on_delete=models.CASCADE, verbose_name="poll ID", related_name='poll')
     question_type = models.ForeignKey(
         QuestionType, on_delete=models.CASCADE, verbose_name="question_type")
 
