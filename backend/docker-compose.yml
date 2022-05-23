@@ -1,21 +1,22 @@
 version: "3.8"
-services:
 
+services:
   app:
     build: .
-    volumes: 
-      - .:/django
     ports:
       - 8000:8000
     image: app:django
     container_name: django
-    command: python manage.py runserver 0.0.0.0:8000
+    command: /bin/sh /django/start-backend.sh
     depends_on:
       - db
     links:
       - db:db
     networks:
       - djangonetwork
+    volumes:
+      - ./:/django
+      - /django/venv
 
   db:
     image: postgres

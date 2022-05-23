@@ -6,14 +6,16 @@ import { AnswerComponent } from '../answer/answer.component';
 @Component({
   selector: 'app-checkbox-answer',
   templateUrl: './checkbox-answer.component.html',
-  styleUrls: ['./checkbox-answer.component.css']
+  styleUrls: ['./checkbox-answer.component.css'],
 })
 export class CheckboxAnswerComponent extends AnswerComponent {
-  
   ngOnChanges(): void {
     const options = [];
     for (const answer of this.answers) {
-      options.push({optionId: answer.id, content: answer.isChecked.toString()});
+      options.push({
+        optionId: answer.id,
+        content: answer.isChecked.toString(),
+      });
     }
     this.result = new Result(options);
   }
@@ -21,8 +23,9 @@ export class CheckboxAnswerComponent extends AnswerComponent {
   updateResult = (optionId: number, event: MatCheckboxChange) => {
     const result = this.result;
     for (const option of result.options) {
-      if(option.optionId === optionId) option.content = event.checked.toString();
+      if (option.optionId === optionId)
+        option.content = event.checked.toString();
     }
     this.resultChanged.emit(this.result);
-  }
+  };
 }

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Email } from 'src/app/models/dashboard-models/email';
+import { catchError, Observable } from 'rxjs';
+import { SubscriptionLog } from 'rxjs/internal/testing/SubscriptionLog';
+import { EmailMessage } from 'src/app/models/dashboard-models/emailMessage';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,9 +14,8 @@ export class MailService {
 
   }
 
-  postMail(email : Email): void{
-
-    this.http.post(`${environment.apiUrl}/mail/`, email).subscribe( response => {});
+  postMail(emailMessage : EmailMessage): Observable<any>{
+    return this.http.post<EmailMessage>(`${environment.apiUrl}/mail/`, emailMessage);
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Email } from 'src/app/models/dashboard-models/email';
+import { EmailMessage } from 'src/app/models/dashboard-models/emailMessage';
 import { MailService } from 'src/app/services/dashboard-services/mail.service';
 import { CustomSnackBarComponent } from './components/custom-snack-bar/custom-snack-bar.component';
 
@@ -87,9 +87,26 @@ export class SendingPollsDialogComponent implements OnInit {
   onSendPoll(){
     let subject: string = this.messageForm.controls['subject'].value;
     let message: string = this.messageForm.controls['message'].value;
+    let emailMessage: EmailMessage;
 
-    this.mailService.postMail(new Email(subject, message, this.data.pollSlug, this.emails));
-    this.onSnackbarOpen();
+    // If message is empty set property to null
+    if(message === ""){
+      emailMessage = new EmailMessage(subject, null, this.data.pollSlug, this.emails);
+    }
+    else{
+      emailMessage = new EmailMessage(subject, message, this.data.pollSlug, this.emails);
+    }
+    
+    this.mailService.postMail(emailMessage).subscribe({
+      // If success
+      next: () => {
+        this.onSnackbarOpen();
+      },
+      // If error
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
 
@@ -276,6 +293,6 @@ export class SendingPollsDialogComponent implements OnInit {
       }
     }
   }
-
+  
 }
 
