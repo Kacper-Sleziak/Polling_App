@@ -1,6 +1,7 @@
 from collections import namedtuple
 
 from multiprocessing import pool
+from django.forms import SlugField
 from django.http import Http404
 from django.db import models
 
@@ -184,16 +185,12 @@ class AnswerView(generics.GenericAPIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-        # [GET] Getting All Answers from Pool with given slug
-
-
-class GetAnswersByPoll(generics.GenericAPIView):
+# [GET] Getting All Answers from Pool with given id
+class GetAnswersByPoll_ID(generics.GenericAPIView):
     serializer_class = PollRelatedSerializer
-    #serializer_class = QuestionSerializer
-    #answer_serializer_class = AnswerSerializer
-    #answerdetails_serializer_class = AnswerDetailsSerializer
 
-    def get_poll(self, pk):
+
+    def get_poll_by_id(self, pk):
         queryset = Poll.objects.filter(id=pk)
 
         if queryset.exists():
@@ -201,64 +198,40 @@ class GetAnswersByPoll(generics.GenericAPIView):
             return poll_queryset
         else:
             return 0
-    
-    def get_question(self, pk):
-        queryset = Question.objects.filter(poll__id=pk)
-
-        if queryset.exists():
-            question_queryset = queryset
-            return question_queryset
-        else:
-            return 0
-
-    # def get_answer(self, pk):
-    #     queryset = Answer.objects.filter(question__poll__id=pk)
-
-    #     if queryset.exists():
-    #         answer_queryset = queryset
-    #         return answer_queryset
-    #     else:
-    #         return 0
-
-    # def get_answerdetails(self, pk):
-    #     queryset = AnswerDetails.objects.filter(answer__question__poll__id=pk)
-
-    #     if queryset.exists():
-    #         answerdetails_queryset = queryset
-    #         return answerdetails_queryset
-    #     else:
-    #         return 0
-
 
 
     def get(self, request, pk, format=None):
-       
-        serializer = self.serializer_class
-        poll_queryset = self.get_poll(pk)
-       # question_queryset = self.get_question(pk)
-       # answer_queryset = self.get_answer(pk)
-       # answerdetails_queryset = self.get_answerdetails(pk)
-       
-        poll_obj = self.get_poll(pk)
-        question_obj = self.get_question(pk)
-        answer_obj = Answer.objects.all()
-        answerdetails_obj = AnswerDetails.objects.all()
-
-        
-        
+        poll_obj = self.get_poll_by_id(pk)
         poll_serializer = PollRelatedSerializer(instance=poll_obj,many = True)
-        question_serializer = QuestionRelatedSerializer(instance=question_obj,many = True)
-        answerdetails_Serializer = AnswerDetailsSerializer(instance=answerdetails_obj,many = True)
-        answer_serializer = AnswerRelatedSerializer(instance=answer_obj,many = True)
-        
 
-        ResultModel = poll_serializer.data
-        if self.get_poll(pk) != 0:
-            poll_info = set()
-            response_data = serializer(poll_queryset, many=True).data
-            poll_info.add(poll_queryset)
-
-            print(response_data)
+        if self.get_poll_by_id(pk) != 0:
+            ResultModel = poll_serializer.data
             return Response(ResultModel, status=status.HTTP_200_OK)
         return Response({'Answer': 'there is no answers with given pool id'},
                         status=status.HTTP_204_NO_CONTENT)
+
+# [GET] Getting All Answers from Pool with given id
+class GetAnswersByPoll_Slug(generics.GenericAPIView):
+    serializer_class = PollRelatedSerializer
+
+
+    def get_poll_by_slug(self, slug):
+        queryset = Poll.objects.filter(slug=slug)
+
+        if queryset.exists():
+            poll_queryset = queryset
+            return poll_queryset
+        else:
+            return 0
+
+
+    def get(self, request, slug, format=None):
+        poll_obj = self.get_poll_by_slug(slug)
+        poll_serializer = PollRelatedSerializer(instance=poll_obj,many = True)
+
+        if self.get_poll_by_slug(slug) != 0:
+            ResultModel = poll_serializer.data
+            return Response(ResultModel, status=status.HTTP_200_OK)
+        return Response({'Answer': 'there is no answers with given pool slug'},
+                        status=status.HTTP_204_NO_CONTENT)
+
