@@ -1,16 +1,25 @@
 from answers.models import Answer, AnswerDetails
 from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import PrimaryKeyRelatedField
 
-
-class AnswerSerializer(ModelSerializer):
-    class Meta:
-        model = Answer
-        fields = '__all__'
-        read_only_fields = ['id']
 
 
 class AnswerDetailsSerializer(ModelSerializer):
     class Meta:
         model = AnswerDetails
-        fields = '__all__'
+        fields = ('answers_id', 'text_answer', 'option_id')
+        read_only_fields = ['id']
+
+
+class AnswerSerializer(ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = ('question_id')
+        read_only_fields = ['id']
+
+class AnswerRelatedSerializer(ModelSerializer):
+    answerdetails = PrimaryKeyRelatedField(many=True, read_only=True)
+    class Meta:
+        model = Answer
+        fields = ('question_id','answerdetails')
         read_only_fields = ['id']

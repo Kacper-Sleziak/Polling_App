@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 from multiprocessing import pool
 from django.http import Http404
 from django.db import models
@@ -7,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
-from answers.api.serializers import (AnswerSerializer, AnswerDetailsSerializer)
+from answers.api.serializers import (AnswerSerializer, AnswerRelatedSerializer, AnswerDetailsSerializer)
 from questions.api.serializers import (QuestionSerializer)
 from polls.api.serializers import (PollSerializer)
 from answers.models import Answer, AnswerDetails
@@ -187,6 +189,9 @@ class AnswerView(generics.GenericAPIView):
 
 class GetAnswersByPoll(generics.GenericAPIView):
     serializer_class = PollSerializer
+    #serializer_class = QuestionSerializer
+    #answer_serializer_class = AnswerSerializer
+    #answerdetails_serializer_class = AnswerDetailsSerializer
 
     def get_poll(self, pk):
         queryset = Poll.objects.filter(id=pk)
@@ -206,32 +211,54 @@ class GetAnswersByPoll(generics.GenericAPIView):
         else:
             return 0
 
-    def get_answer(self, pk):
-        queryset = Answer.objects.filter(question__poll__id=pk)
+    # def get_answer(self, pk):
+    #     queryset = Answer.objects.filter(question__poll__id=pk)
 
-        if queryset.exists():
-            answer_queryset = queryset
-            return answer_queryset
-        else:
-            return 0
+    #     if queryset.exists():
+    #         answer_queryset = queryset
+    #         return answer_queryset
+    #     else:
+    #         return 0
 
-    def get_answerdetails(self, pk):
-        queryset = AnswerDetails.objects.filter(answer__question__poll__id=pk)
+    # def get_answerdetails(self, pk):
+    #     queryset = AnswerDetails.objects.filter(answer__question__poll__id=pk)
 
-        if queryset.exists():
-            answerdetails_queryset = queryset
-            return answerdetails_queryset
-        else:
-            return 0
+    #     if queryset.exists():
+    #         answerdetails_queryset = queryset
+    #         return answerdetails_queryset
+    #     else:
+    #         return 0
 
 
 
     def get(self, request, pk, format=None):
+       
         serializer = self.serializer_class
         poll_queryset = self.get_poll(pk)
+       # question_queryset = self.get_question(pk)
+       # answer_queryset = self.get_answer(pk)
+       # answerdetails_queryset = self.get_answerdetails(pk)
+       
+        poll_obj = self.get_poll(pk)
+        question_obj = self.get_question(pk)
+        answer_obj = Answer.objects.all()
+        answerdetails_obj = AnswerDetails.objects.all()
 
+        
+        
+        poll_serializer = PollSerializer(poll_obj,many = True)
+        question_serializer = QuestionSerializer(question_obj,many = True)
+        answerdetails_Serializer = AnswerDetailsSerializer(instance=answerdetails_obj,many = True)
+        answer_serializer = AnswerRelatedSerializer(instance=answer_obj,many = True)
+        
+
+        ResultModel = answer_serializer.data
         if self.get_poll(pk) != 0:
+            poll_info = set()
             response_data = serializer(poll_queryset, many=True).data
-            return Response(response_data, status=status.HTTP_200_OK)
+            poll_info.add(poll_queryset)
+
+            print(response_data)
+            return Response(ResultModel, status=status.HTTP_200_OK)
         return Response({'Answer': 'there is no answers with given pool id'},
                         status=status.HTTP_204_NO_CONTENT)
