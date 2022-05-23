@@ -10,8 +10,8 @@ from rest_framework.views import APIView
 
 
 from answers.api.serializers import (AnswerSerializer, AnswerRelatedSerializer, AnswerDetailsSerializer)
-from questions.api.serializers import (QuestionSerializer)
-from polls.api.serializers import (PollSerializer)
+from questions.api.serializers import (QuestionRelatedSerializer)
+from polls.api.serializers import (PollRelatedSerializer)
 from answers.models import Answer, AnswerDetails
 from questions.models import Question
 from polls.models import Poll 
@@ -188,7 +188,7 @@ class AnswerView(generics.GenericAPIView):
 
 
 class GetAnswersByPoll(generics.GenericAPIView):
-    serializer_class = PollSerializer
+    serializer_class = PollRelatedSerializer
     #serializer_class = QuestionSerializer
     #answer_serializer_class = AnswerSerializer
     #answerdetails_serializer_class = AnswerDetailsSerializer
@@ -246,13 +246,13 @@ class GetAnswersByPoll(generics.GenericAPIView):
 
         
         
-        poll_serializer = PollSerializer(poll_obj,many = True)
-        question_serializer = QuestionSerializer(question_obj,many = True)
+        poll_serializer = PollRelatedSerializer(instance=poll_obj,many = True)
+        question_serializer = QuestionRelatedSerializer(instance=question_obj,many = True)
         answerdetails_Serializer = AnswerDetailsSerializer(instance=answerdetails_obj,many = True)
         answer_serializer = AnswerRelatedSerializer(instance=answer_obj,many = True)
         
 
-        ResultModel = answer_serializer.data
+        ResultModel = poll_serializer.data
         if self.get_poll(pk) != 0:
             poll_info = set()
             response_data = serializer(poll_queryset, many=True).data

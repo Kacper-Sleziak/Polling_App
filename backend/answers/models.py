@@ -6,7 +6,7 @@ from questions.models import Option
 class Answer(models.Model):
 
     question_id = models.ForeignKey(
-        Question, verbose_name="question id", on_delete=models.CASCADE)
+        Question, verbose_name="question id", on_delete=models.CASCADE,related_name='question')
 
     def __str__(self):
         return f"{self.question_id}"

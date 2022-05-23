@@ -14,11 +14,11 @@ class AnswerDetailsSerializer(ModelSerializer):
 class AnswerSerializer(ModelSerializer):
     class Meta:
         model = Answer
-        fields = ('question_id')
+        fields = '__all__'
         read_only_fields = ['id']
 
 class AnswerRelatedSerializer(ModelSerializer):
-    answerdetails = PrimaryKeyRelatedField(many=True, read_only=True)
+    answerdetails = AnswerDetailsSerializer(many=True)
     class Meta:
         model = Answer
         fields = ('question_id','answerdetails')
