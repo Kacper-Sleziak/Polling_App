@@ -18,12 +18,12 @@ class QuestionSerializer(ModelSerializer):
 
 
 class QuestionRelatedSerializer(ModelSerializer):
-    question = AnswerRelatedSerializer(many=True)
+    answer = AnswerRelatedSerializer(many=True)
 
     class Meta:
         model = Question
         fields = ('id', 'position', 'content',
-                  'poll', 'question_type', 'question')
+                  'poll', 'question_type', 'answer')
         read_only_fields = ['id']
 
 

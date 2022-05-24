@@ -20,7 +20,7 @@ class PollSerializer(ModelSerializer):
 
 
 class PollRelatedSerializer(ModelSerializer):
-    poll = QuestionRelatedSerializer(many=True)
+    question = QuestionRelatedSerializer(many=True)
 
     def validate(self, data):
         if data['start_date'] == None and data['end_date'] != None:
@@ -32,5 +32,6 @@ class PollRelatedSerializer(ModelSerializer):
 
     class Meta:
         model = Poll
-        fields = ('__all__')
-        read_only_fields = ['id', 'slug', 'create_date', 'poll']
+        fields = ('id', 'title', 'description', 'slug', 'start_date', 'end_date',
+                  'create_date', 'filling', 'sent', 'status', 'author', 'question')
+        read_only_fields = ['id', 'slug', 'create_date', 'question']
