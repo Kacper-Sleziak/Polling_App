@@ -1,0 +1,13 @@
+
+/* ::ng-deep .chart-legend .legend-wrap{
+    width: calc(100% - 50px) !important;
+} */
+
+/* Increase legend width
+::ng-deep .legend-labels {
+    width: calc(100% + 40px) !important;
+} */
+
+::ng-deep .legend-title{
+    width: 200px !important;
+}

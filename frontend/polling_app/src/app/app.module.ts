@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppComponent } from './app.component';
 import { FormAnswersComponent } from './components/form-components/form-answers/form-answers.component';
@@ -100,7 +101,8 @@ import { ResultsComponent } from './pages/results/results.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    NgxChartsModule
   ],
   providers: [PollService],
   bootstrap: [AppComponent],
