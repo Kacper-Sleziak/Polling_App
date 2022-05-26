@@ -25,7 +25,25 @@ export class ResultsComponent implements OnInit {
     new AnswerStats("To jest bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina teksts", 2),
     new AnswerStats("To nie ma sensu raczej", 5),
     new AnswerStats("Fajnie", 10),
-    new AnswerStats("Jeszcze jak ", 0)
+    new AnswerStats("Jeszcze jak ", 0),
+    new AnswerStats("To jestd bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina tekst", 5),
+    new AnswerStats("To jestd bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina teksts", 2),
+    new AnswerStats("To nied ma sensu raczej", 5),
+    new AnswerStats("Fajnied", 10),
+    new AnswerStats("Jeszczed jak ", 0),
+    new AnswerStats("To jestd bardzo asddługa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina tekst", 5),
+    new AnswerStats("To jestd barasddzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina teksts", 2),
+    new AnswerStats("To nied asdma sensu raczej", 5),
+    new AnswerStats("Fajasdnied", 10),
+    new AnswerStats("Jeszasdczed jak ", 0)
+  ]
+
+  public dataToChart2 : AnswerStats[] = [
+    new AnswerStats("1", 5),
+    new AnswerStats("2", 100),
+    new AnswerStats("3", 5),
+    new AnswerStats("4", 10),
+    new AnswerStats("5 ", 3)
   ]
 
 
@@ -42,9 +60,4 @@ export class ResultsComponent implements OnInit {
 
     return ((part/this.countNumberOfAnswers(this.dataToChart))*100).toFixed(1);
   }
-
-  view: [number, number] = [700, 300];
-  ans: string = "Odpowiedzi";
-  yLabel: string = "Liczba"
-  pos: LegendPosition = LegendPosition.Right
 }
