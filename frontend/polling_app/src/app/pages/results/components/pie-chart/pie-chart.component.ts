@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { LegendPosition, LegendType } from '@swimlane/ngx-charts';
+import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { LegendPosition } from '@swimlane/ngx-charts';
 import { AnswerStats } from 'src/app/models/results/answer-stats';
 
 @Component({
-  selector: 'app-vertical-bar-chart',
-  templateUrl: './vertical-bar-chart.component.html',
-  styleUrls: ['./vertical-bar-chart.component.css']
+  selector: 'app-pie-chart',
+  templateUrl: './pie-chart.component.html',
+  styleUrls: ['./pie-chart.component.css']
 })
-export class VerticalBarChartComponent implements OnInit, AfterViewInit{
+export class PieChartComponent implements OnInit {
 
   @Input() results: AnswerStats[] = []; 
   @Input() width: number = 700;
@@ -15,23 +15,42 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit{
   @Input() legend: boolean = true;
   @Input() legendTitle: string = "Legenda";
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
-  // X axis props 
-  @Input() xAxis: boolean = false;
-  @Input() showXAxisLabel = false;
-  @Input() xAxisLabel = "Odpowiedzi";
-  // Y axis props
-  @Input() yAxis = true;
-  @Input() showYAxisLabel = true;
-  @Input() yAxisLabel ="Liczba";
-  @Input() rotateXAxisTicks = false;
-  @Input() noBarWhenZero = false;
+  @Input() labels: boolean = true;
+  
 
   @ViewChild('chartWrapper') chartWrapper!: ElementRef<HTMLDivElement>;
 
   view: [number, number] = [700,300];
   allAnswersCount: number = 0;
 
+
+  
   constructor() {}
+
+  ngOnInit(): void {
+    // Set size of chart
+    this.view = [this.width, this.height];
+    // Count number of answers to simplify counting percent value
+    this.allAnswersCount = this.countNumberOfAnswers(this.results);    
+    
+    // Implement labelFormatting function (here because now we have data in results array)
+    this.labelFormatting = (name: string): string =>{
+
+      let answerCount = 0;    
+      
+      this.results.some((answer) => {
+        if(answer.name === name){
+          answerCount = answer.value;
+          return true; //break loop
+        }
+        return false;
+      }
+    )
+
+    return this.countPercent(answerCount);
+    }
+    
+  }
 
   ngAfterViewInit(): void {
 
@@ -39,17 +58,8 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit{
     this.chartWrapper.nativeElement.style.height = this.height.toString() + 'px';
   }
 
-  ngOnInit(): void {
-    // Set size of chart
-    this.view = [this.width, this.height];
-    // Count number of answers to simplify counting percent value
-    this.allAnswersCount = this.countNumberOfAnswers(this.results);    
-  }
 
-
-
-  // ----------------------------- Methods -----------------------------
-
+  // Methods
   countNumberOfAnswers(dataToChart : AnswerStats[]): number{
     let sum: number = 0;
 
@@ -61,15 +71,6 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit{
 
   countPercent(part : number): string{
     return ((part/this.allAnswersCount)*100).toFixed(1) + '%';
-  }
-
-  yAxisTickFormatting = (val: number) => {
-    if (val % 1 === 0) {
-      return val.toLocaleString();
-    } 
-    else {
-      return '';
-    }
   }
 
   splitLongAnswer = (answer: string, bound: number): string[] => {
@@ -105,5 +106,9 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit{
     }
     return concatStrings;
   }
+
+  labelFormatting!: Function;
+
+
 
 }

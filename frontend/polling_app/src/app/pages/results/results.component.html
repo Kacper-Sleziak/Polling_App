@@ -40,24 +40,52 @@
         <div style="opacity: 0.6;">
             <hr>
             <p style="margin-left: 5px; font-weight: 500;">
-                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
+                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart2)}}
             </p>
         </div>
 
         <!-- Chart -->
         <app-vertical-bar-chart
-            [results]="dataToChart"
-            [width]= 500
+            [results]="dataToChart2"
+            [width]= 600
             [height]= 300
             [legend]= false
             [legendTitle]="'Odpowiedzi'"
             [legendPosition] = "legendPosition"
-            [xAxisLabel]="'Odpowiedzi'"
+            [xAxisLabel]="'Odpowiedz'"
             [showXAxisLabel] = true
             [xAxis]= true
             >
             
         </app-vertical-bar-chart>
+
+    </div>
+    <!-- Card with results -->
+    <div class="result-card mat-elevation-z3">
+
+        <!-- Header -->
+        <h2>
+            Drugie pytanie
+        </h2>
+
+        <!-- Under header data -->
+        <div style="opacity: 0.6;">
+            <hr>
+            <p style="margin-left: 5px; font-weight: 500;">
+                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
+            </p>
+        </div>
+
+        <!-- Chart -->
+        <app-pie-chart
+            [results]="dataToChart"
+            [width]= 700
+            [height]= 300
+            [legend]= true
+            [legendTitle]="'Odpowiedzi'"
+            [labels]= true
+            >
+        </app-pie-chart>
 
     </div>
     

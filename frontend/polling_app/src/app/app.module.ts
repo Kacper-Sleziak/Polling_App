@@ -50,6 +50,7 @@ import { LoginPanelComponent } from './pages/login-panel/login-panel.component';
 import { RegisterPanelComponent } from './pages/register-panel/register-panel.component';
 import { ResultsComponent } from './pages/results/results.component';
 import { VerticalBarChartComponent } from './pages/results/components/vertical-bar-chart/vertical-bar-chart.component';
+import { PieChartComponent } from './pages/results/components/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { VerticalBarChartComponent } from './pages/results/components/vertical-b
     RegisterPanelComponent,
     ResultsComponent,
     VerticalBarChartComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,
