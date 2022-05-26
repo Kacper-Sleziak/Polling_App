@@ -49,6 +49,7 @@ import { CustomSnackBarComponent } from './pages/dashboard/components/dialogs/se
 import { LoginPanelComponent } from './pages/login-panel/login-panel.component';
 import { RegisterPanelComponent } from './pages/register-panel/register-panel.component';
 import { ResultsComponent } from './pages/results/results.component';
+import { VerticalBarChartComponent } from './pages/results/components/vertical-bar-chart/vertical-bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { ResultsComponent } from './pages/results/results.component';
     LoginPanelComponent,
     RegisterPanelComponent,
     ResultsComponent,
+    VerticalBarChartComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,40 +18,7 @@ export class ResultsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-  splitLongAnswer = (answer: string, bound: number): string[] => {
-
-    // If answer length is lower then setted bound - do nothing
-    if(answer.length <= bound) return [answer];
-
-    // Split answer via " "
-    let strings: string[] = []; 
-    strings = answer.split(" ");
-  
-    let concatStrings: string[] = []; 
-    let newStr = strings[0];
-
-    // Go through thw strings table and concatenate elements until length is lower then bound
-    for(let i = 1; i < strings.length; i++ ){
-
-      // If empty string -> continue
-      if(strings[i].length == 0) continue;
-
-      if(newStr.length < bound){
-        newStr += " " + strings[i];
-        
-        if(i == strings.length-1){
-          // Push no matter at length of newStr
-          concatStrings.push(newStr);
-        }
-      }
-      else{
-        concatStrings.push(newStr);
-        newStr = " " + strings[i];
-      }
-    }
-    return concatStrings;
-  }
+  legendPosition: LegendPosition = LegendPosition.Right;
 
   public dataToChart : AnswerStats[] = [
     new AnswerStats("To jest bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina tekst", 5),
@@ -80,27 +47,4 @@ export class ResultsComponent implements OnInit {
   ans: string = "Odpowiedzi";
   yLabel: string = "Liczba"
   pos: LegendPosition = LegendPosition.Right
-
-  axisYFormat = (val: number) => {
-    if (val % 1 === 0) {
-      return val.toLocaleString();
-    } else {
-      return '';
-    }
-  }
-
-  axisXFormat = (val: string) => {
-
-    val.replace(' ', "\n")
-    return val;
-  }
-
-  onPDFDownload(){
-
-    console.log(this.dataToChart);
-    
-    this.http.get(`${environment.apiUrl}/pdf/2`).subscribe(() => {
-    });
-  }
-
 }

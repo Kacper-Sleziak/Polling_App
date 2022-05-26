@@ -1,56 +1,68 @@
-<div>
-    <button  (click)="onPDFDownload()" color="primary" mat-button>Pobierz PDF</button>
+
+<!-- Cards container -->
+<div class="cards-container">
+    <!-- Card with results -->
+    <div class="result-card mat-elevation-z3">
+
+        <!-- Header -->
+        <h2>
+            Pierwsze pytanie
+        </h2>
+
+        <!-- Under header data -->
+        <div style="opacity: 0.6;">
+            <hr>
+            <p style="margin-left: 5px; font-weight: 500;">
+                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
+            </p>
+        </div>
+
+        <!-- Chart -->
+        <app-vertical-bar-chart
+            [results]="dataToChart"
+            [width]= 700
+            [height]= 300
+            [legend]= true
+            [legendTitle]="'Odpowiedzi'"
+            [legendPosition] = "legendPosition">
+        </app-vertical-bar-chart>
+
+    </div>
+    <!-- Card with results -->
+    <div class="result-card mat-elevation-z3">
+
+        <!-- Header -->
+        <h2>
+            Drugie pytanie
+        </h2>
+
+        <!-- Under header data -->
+        <div style="opacity: 0.6;">
+            <hr>
+            <p style="margin-left: 5px; font-weight: 500;">
+                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
+            </p>
+        </div>
+
+        <!-- Chart -->
+        <app-vertical-bar-chart
+            [results]="dataToChart"
+            [width]= 500
+            [height]= 300
+            [legend]= false
+            [legendTitle]="'Odpowiedzi'"
+            [legendPosition] = "legendPosition"
+            [xAxisLabel]="'Odpowiedzi'"
+            [showXAxisLabel] = true
+            [xAxis]= true
+            >
+            
+        </app-vertical-bar-chart>
+
+    </div>
+    
 </div>
 
-
-<div class="mat-elevation-z3" style="width: 900px; margin: auto; border-radius: 5px; padding: 30px;" >
-    <h1>
-        Pierwsze pytanie
-    </h1>
-    <div style="opacity: 0.6;">
-        <hr>
-        <p style="margin-left: 5px; font-weight: 500;">
-            Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
-        </p>
-    </div>
-
-    
-    <div style="width: 700px; height: 300px; margin: auto; padding: 50px; ">
-
-        <ngx-charts-bar-vertical
-        [results]="dataToChart"
-        [view]= "view"
-        [legend]="true"
-        [legendTitle]="ans"
-        [legendPosition] = "pos"
-        [yAxis]="true"
-        [xAxis]="false"
-        [xAxisLabel]="ans"
-        [yAxisTickFormatting]="axisYFormat"
-        [xAxisTickFormatting]="axisXFormat"
-        [showYAxisLabel] ="true"
-        [showXAxisLabel] ="false"
-        [yAxisLabel]="yLabel"
-        [rotateXAxisTicks]="false"
-        [noBarWhenZero]="false"
-        
-        >
-    
-            <!-- Custom tooltip -->
-            <ng-template #tooltipTemplate let-model="model">
-                <div style="padding: 5px;">
-                    <div *ngFor="let answerPart of splitLongAnswer(model.name, 20)">
-                        {{answerPart}}
-                    </div>
-                    <hr style="margin-left: -5px; margin-right: -5px;">
-                    Liczba: {{model.value}} ({{countPercent(model.value)}}%)
-                    <hr style="margin-left: -5px; margin-right: -5px;">
-                </div>
-            </ng-template>
-
-        </ngx-charts-bar-vertical>
-    </div>
-</div>
 
 
 

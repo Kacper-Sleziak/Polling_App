@@ -8,6 +8,22 @@
     width: calc(100% + 40px) !important;
 } */
 
-::ng-deep .legend-title{
+/* ::ng-deep .legend-title{
     width: 200px !important;
+} */
+
+.result-card{
+    width: 800px; 
+    border-radius: 5px; 
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+.cards-container{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #f9f9fb; */
 }
