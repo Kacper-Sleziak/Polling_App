@@ -1,14 +1,18 @@
 #form-edit-content {
+    padding-left: 4vw;
+
     margin: 40px;
   }
   
-.buttons-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 button{
   margin: 1em;
+}
+
+.buttons-container{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 8vh;
+  left: 0vw;
 }
