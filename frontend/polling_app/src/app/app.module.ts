@@ -51,6 +51,8 @@ import { RegisterPanelComponent } from './pages/register-panel/register-panel.co
 import { ResultsComponent } from './pages/results/results.component';
 import { VerticalBarChartComponent } from './pages/results/components/vertical-bar-chart/vertical-bar-chart.component';
 import { PieChartComponent } from './pages/results/components/pie-chart/pie-chart.component';
+import { ShortAnswersListComponent } from './pages/results/components/short-answers-list/short-answers-list.component';
+import { LongAnswersListComponent } from './pages/results/components/long-answers-list/long-answers-list.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +101,8 @@ import { PieChartComponent } from './pages/results/components/pie-chart/pie-char
     ResultsComponent,
     VerticalBarChartComponent,
     PieChartComponent,
+    ShortAnswersListComponent,
+    LongAnswersListComponent,
   ],
   imports: [
     BrowserModule,
