@@ -47,6 +47,7 @@ import { SendingPollsDialogComponent } from './pages/dashboard/components/dialog
 import { CustomSnackBarComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/components/custom-snack-bar/custom-snack-bar.component';
 import { LoginPanelComponent } from './pages/login-panel/login-panel.component';
 import { RegisterPanelComponent } from './pages/register-panel/register-panel.component';
+import { GreetingsComponent } from './pages/polling-form/components/greetings/greetings.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { RegisterPanelComponent } from './pages/register-panel/register-panel.co
     CustomSnackBarComponent,
     LoginPanelComponent,
     RegisterPanelComponent,
+    GreetingsComponent,
   ],
   imports: [
     BrowserModule,
