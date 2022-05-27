@@ -11,6 +11,11 @@ import { AccountService } from 'src/app/services/shared-services/account.service
 })
 export class RegisterPanelComponent implements OnInit {
   
+  errorMessage: string = '';
+  buttonDisable: boolean = false;
+
+
+
   constructor(private formBuilder: FormBuilder, 
               private accountService: AccountService,
               private router: Router) {
@@ -18,6 +23,16 @@ export class RegisterPanelComponent implements OnInit {
     // E.g. when use backword in dashboard and redirect to register panel - we want logout account
     this.accountService.logoutAccount();
   }
+
+  ngOnInit(): void {
+    // Set input validators
+    this.registerForm.controls['companyName'].addValidators([Validators.required]);
+    this.registerForm.controls['email'].addValidators([Validators.email, Validators.required]);
+    this.registerForm.controls['password'].addValidators([Validators.required, Validators.minLength(9)]);
+    this.registerForm.controls['password2'].addValidators([Validators.required, Validators.minLength(9)]);
+  }
+
+
 
   registerForm : FormGroup = this.formBuilder.group(
     {
@@ -28,18 +43,8 @@ export class RegisterPanelComponent implements OnInit {
     }
   );
 
-  errorMessage: string = '';
-  
-  ngOnInit(): void {
-    // Set input validators
-    this.registerForm.controls['companyName'].addValidators([Validators.required]);
-    this.registerForm.controls['email'].addValidators([Validators.email, Validators.required]);
-    this.registerForm.controls['password'].addValidators([Validators.required, Validators.minLength(9)]);
-    this.registerForm.controls['password2'].addValidators([Validators.required, Validators.minLength(9)]);
-  }
-
   onRegisterButtonClick(){
-
+  
     // Check that passwords are same
     if(this.registerForm.controls['password'].value !== this.registerForm.controls['password2'].value ){
 
@@ -50,6 +55,10 @@ export class RegisterPanelComponent implements OnInit {
 
     // If form is valid
     if(this.registerForm.valid){
+
+    // Disable button until response retrive
+    this.buttonDisable = true;
+    
     // Send request
     this.accountService.postRegister( this.registerForm.controls['companyName'].value, 
                                       this.registerForm.controls['email'].value, 
@@ -87,6 +96,8 @@ export class RegisterPanelComponent implements OnInit {
 
           // Print to console all errors with register form
           console.error(error);
+          // Enable button to login again
+          this.buttonDisable = false;
 
         }
       })
