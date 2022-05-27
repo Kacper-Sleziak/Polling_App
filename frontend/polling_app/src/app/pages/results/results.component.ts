@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { LegendPosition } from '@swimlane/ngx-charts';
 import { AnswerStats } from 'src/app/models/results/answer-stats';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-results',

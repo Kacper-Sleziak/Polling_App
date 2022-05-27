@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShortAnswersListComponent } from './short-answers-list.component';
+import { TextAnswersListComponent } from './text-answers-list.component';
 
-describe('ShortAnswersListComponent', () => {
-  let component: ShortAnswersListComponent;
-  let fixture: ComponentFixture<ShortAnswersListComponent>;
+describe('TextAnswersListComponent', () => {
+  let component: TextAnswersListComponent;
+  let fixture: ComponentFixture<TextAnswersListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShortAnswersListComponent ]
+      declarations: [ TextAnswersListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShortAnswersListComponent);
+    fixture = TestBed.createComponent(TextAnswersListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
