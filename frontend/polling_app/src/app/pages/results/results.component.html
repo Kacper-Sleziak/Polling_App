@@ -1,6 +1,28 @@
 
 <!-- Cards container -->
 <div class="cards-container">
+     <!-- Card with results -->
+     <div class="result-card mat-elevation-z3">
+
+        <!-- Header -->
+        <h2>
+            Drugie pytanie
+        </h2>
+
+        <!-- Under header data -->
+        <div style="opacity: 0.6;">
+            <hr>
+            <p style="margin-left: 5px; font-weight: 500;">
+                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
+            </p>
+        </div>
+
+        <!-- Chart -->
+        <app-short-answers-list
+            [results]="dataToChart"
+        ></app-short-answers-list>
+
+    </div>
     <!-- Card with results -->
     <div class="result-card mat-elevation-z3">
 
@@ -47,7 +69,7 @@
         <!-- Chart -->
         <app-vertical-bar-chart
             [results]="dataToChart2"
-            [width]= 600
+            [width]= 400
             [height]= 300
             [legend]= false
             [legendTitle]="'Odpowiedzi'"
@@ -65,29 +87,34 @@
 
         <!-- Header -->
         <h2>
-            Drugie pytanie
+            Trzecie pytanie
         </h2>
 
         <!-- Under header data -->
         <div style="opacity: 0.6;">
             <hr>
             <p style="margin-left: 5px; font-weight: 500;">
-                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
+                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart3)}}
             </p>
         </div>
 
         <!-- Chart -->
-        <app-pie-chart
-            [results]="dataToChart"
+        <app-vertical-bar-chart
+            [results]="dataToChart3"
             [width]= 700
-            [height]= 300
-            [legend]= true
+            [height]= 350
+            [legend]= false
             [legendTitle]="'Odpowiedzi'"
-            [labels]= true
+            [legendPosition] = "legendPosition"
+            [xAxisLabel]="'Odpowiedz'"
+            [showXAxisLabel] = true
+            [xAxis]= true
             >
-        </app-pie-chart>
+            
+        </app-vertical-bar-chart>
 
     </div>
+   
     
 </div>
 
