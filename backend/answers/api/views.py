@@ -12,10 +12,13 @@ from rest_framework.views import APIView
 
 from answers.api.serializers import (
     AnswerSerializer, AnswerDetailsSerializer)
+
+from questions.models import Question
 from polls.api.serializers import (PollRelatedSerializer)
 from answers.models import Answer, AnswerDetails
 from polls.models import Poll
 
+import logging
 
 # [POST] Creating AnswerDetails
 class CreateAnswerDetailsView(generics.GenericAPIView):
@@ -199,7 +202,7 @@ class GetAnswersByPoll_ID(generics.GenericAPIView):
         else:
             return 0
 
-    def get(self, request, pk, format=None):
+    def get(self, request, pk, format=None):    
         poll_obj = self.get_poll_by_id(pk)
         poll_serializer = PollRelatedSerializer(instance=poll_obj, many=True)
 
@@ -225,6 +228,8 @@ class GetAnswersByPoll_Slug(generics.GenericAPIView):
             return 0
 
     def get(self, request, slug, format=None):
+
+
         poll_obj = self.get_poll_by_slug(slug)
         poll_serializer = PollRelatedSerializer(instance=poll_obj, many=True)
 

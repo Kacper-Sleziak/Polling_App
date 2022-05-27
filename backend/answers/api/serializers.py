@@ -22,5 +22,5 @@ class AnswerRelatedSerializer(ModelSerializer):
 
     class Meta:
         model = Answer
-        fields = ('question_id', 'answerdetails')
+        fields = ['answerdetails']
         read_only_fields = ['id']

@@ -89,7 +89,8 @@
       "position": 1,
       "content": "Pytanie combobox",
       "poll": 1,
-      "question_type": 2
+      "question_type": 2,
+      "required": true
     }
   },
   {
@@ -99,7 +100,8 @@
       "position": 4,
       "content": "Pytanie Radio",
       "poll": 1,
-      "question_type": 5
+      "question_type": 5,
+      "required": false
     }
   },
   {
@@ -109,7 +111,8 @@
       "position": 0,
       "content": "Pytanie checkbox",
       "poll": 1,
-      "question_type": 1
+      "question_type": 1,
+      "required": false
     }
   },
   {
@@ -119,7 +122,8 @@
       "position": 3,
       "content": "Pytanie ShortText",
       "poll": 1,
-      "question_type": 4
+      "question_type": 4,
+      "required": false
     }
   },
   {
@@ -129,7 +133,8 @@
       "position": 2,
       "content": "Pytanie LongText",
       "poll": 1,
-      "question_type": 3
+      "question_type": 3,
+      "required": false
     }
   },
   {
@@ -139,7 +144,8 @@
       "position": 5,
       "content": "Pytanie skala 1-5",
       "poll": 1,
-      "question_type": 6
+      "question_type": 6,
+      "required": false
     }
   },
   {
@@ -149,7 +155,8 @@
       "position": 6,
       "content": "Pytanie skala 1-10",
       "poll": 1,
-      "question_type": 7
+      "question_type": 7,
+      "required": true
     }
   },
   {
@@ -271,5 +278,106 @@
       "content": "Odpowiedź",
       "question": 7
     }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 1,
+    "fields": {
+      "question_id": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 2,
+    "fields": {
+      "question_id": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 3,
+    "fields": {
+      "question_id": 2
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 3,
+    "fields": {
+      "question_id": 3
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 4,
+    "fields": {
+      "question_id": 4
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 5,
+    "fields": {
+      "question_id": 5
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 6,
+    "fields": {
+      "question_id": 6
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 7,
+    "fields": {
+      "question_id": 7
+    }
+  },
+  {
+    "model": "answers.answerdetails",
+    "pk": 1,
+    "fields": {
+      "answers_id": 1,
+      "text_answer": "Odpowiedź 1",
+      "option_id": 1
+    }
+  },
+  {
+    "model": "answers.answerdetails",
+    "pk": 2,
+    "fields": {
+      "answers_id": 1,
+      "text_answer": "Odpowiedź krótka",
+      "option_id": 5
+    }
+  },
+  {
+    "model": "answers.answerdetails",
+    "pk": 3,
+    "fields": {
+      "answers_id": 1,
+      "text_answer": "Długa odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź",
+      "option_id": 4
+    }
+  },
+  {
+    "model": "answers.answerdetails",
+    "pk": 4,
+    "fields": {
+      "answers_id": 2,
+      "text_answer": "Odpowiedź 1",
+      "option_id": 2
+    }
+  },
+  {
+    "model": "answers.answerdetails",
+    "pk": 5,
+    "fields": {
+      "answers_id": 3,
+      "text_answer": "Odpowiedź 1",
+      "option_id": 2
+    }
   }
-  ]
+]

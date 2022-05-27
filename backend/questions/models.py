@@ -16,6 +16,7 @@ class Question(models.Model):
         PollModel, on_delete=models.CASCADE, verbose_name="poll ID", related_name='question')
     question_type = models.ForeignKey(
         QuestionType, on_delete=models.CASCADE, verbose_name="question_type")
+    required = models.BooleanField(default=False)
 
     def __str__(self):
         if len(self.content) > 100:
