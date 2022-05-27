@@ -49,7 +49,7 @@
         <span id="error-message"></span>
 
         <!-- Submit button -->
-        <button class="submit-button" mat-raised-button color="primary" (click)="onLoginButtonClick()"> Zaloguj</button>
+        <button class="submit-button" [disabled]="buttonDisable" mat-raised-button color="primary" (click)="onLoginButtonClick()"> Zaloguj</button>
     </form>
 </div>
 
