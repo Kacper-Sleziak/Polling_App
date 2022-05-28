@@ -35,9 +35,7 @@ export class FormEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-    this.accountService.getAuthorId()
-    .subscribe({
+    this.accountService.getAuthorId().subscribe({
       // If success
       next: (id) => {
         this.author = id;
@@ -55,9 +53,8 @@ export class FormEditComponent implements OnInit {
       // If error (not logged)
       error: () => {
         this.router.navigate(['login']);
-      }
-    }
-    )
+      },
+    });
   }
 
   copyQuestion = (question: Question) => {
@@ -125,6 +122,10 @@ export class FormEditComponent implements OnInit {
         });
     });
     // Navigate to dashboard after save
+    this.router.navigate(['dashboard']);
+  };
+
+  navigateBack = () => {
     this.router.navigate(['dashboard']);
   };
 }

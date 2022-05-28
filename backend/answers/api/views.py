@@ -1,4 +1,4 @@
-from collections import namedtuple
+
 
 from multiprocessing import pool
 from django.forms import SlugField
@@ -12,10 +12,14 @@ from rest_framework.views import APIView
 
 from answers.api.serializers import (
     AnswerSerializer, AnswerDetailsSerializer)
+
+from questions.models import Question
 from polls.api.serializers import (PollRelatedSerializer)
 from answers.models import Answer, AnswerDetails
 from polls.models import Poll
 
+import logging
+from django.db.models import Count
 
 # [POST] Creating AnswerDetails
 class CreateAnswerDetailsView(generics.GenericAPIView):
@@ -199,12 +203,14 @@ class GetAnswersByPoll_ID(generics.GenericAPIView):
         else:
             return 0
 
-    def get(self, request, pk, format=None):
+    def get(self, request, pk, format=None):   
+        question_obj = Question.objects.values('position').annotate(count=Count('position')).order_by()
         poll_obj = self.get_poll_by_id(pk)
         poll_serializer = PollRelatedSerializer(instance=poll_obj, many=True)
 
         if self.get_poll_by_id(pk) != 0:
             ResultModel = poll_serializer.data
+            #logging.warning("Question count: " + str(question_obj))
             return Response(ResultModel, status=status.HTTP_200_OK)
         return Response({'Answer': 'there is no answers with given pool id'},
                         status=status.HTTP_204_NO_CONTENT)
