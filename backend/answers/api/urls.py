@@ -1,6 +1,7 @@
 from django.urls import path
 from answers.api.views import (
-    AnswerView, AnswerDetailsView, CreateAnswerView, CreateAnswerDetailsView, GetAnswerByQuestion, GetAnswerDetailsByAnswer, GetAnswersByPoll_ID, GetAnswersByPoll_Slug)
+    AnswerView, AnswerDetailsView, CreateAnswerView, CreateAnswerDetailsView, GetAnswerByQuestion,
+    GetAnswerDetailsByAnswer, GetAnswersByPoll_ID, GetAnswersByPoll_Slug, ExportAnswersByPoll_ID, ExportAnswersByPoll_Slug)
 
 
 urlpatterns = [
@@ -11,5 +12,7 @@ urlpatterns = [
     path('anwserdetails/<int:pk>', AnswerDetailsView.as_view()),
     path('answerdetails/answer/<int:pk>', GetAnswerDetailsByAnswer.as_view()),
     path('poll_answers_by_id/<int:pk>', GetAnswersByPoll_ID.as_view()),
-    path('poll_answers_by_slug/<slug:slug>', GetAnswersByPoll_Slug.as_view())
+    path('poll_answers_by_slug/<slug:slug>', GetAnswersByPoll_Slug.as_view()),
+    path('export_answers_by_id', ExportAnswersByPoll_ID.as_view()),
+    path('export_answers_by_slug/<slug:slug>', ExportAnswersByPoll_Slug.as_view())
 ]

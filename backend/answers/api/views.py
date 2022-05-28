@@ -1,8 +1,11 @@
+import logging
+import csv
+
 from collections import namedtuple
 
 from multiprocessing import pool
 from django.forms import SlugField
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.db import models
 
 from rest_framework import status, generics
@@ -17,8 +20,9 @@ from questions.models import Question
 from polls.api.serializers import (PollRelatedSerializer)
 from answers.models import Answer, AnswerDetails
 from polls.models import Poll
+from csv_results_exporter.csv_exporter import qs_to_local_csv
 
-import logging
+
 
 # [POST] Creating AnswerDetails
 class CreateAnswerDetailsView(generics.GenericAPIView):
@@ -205,6 +209,8 @@ class GetAnswersByPoll_ID(generics.GenericAPIView):
     def get(self, request, pk, format=None):    
         poll_obj = self.get_poll_by_id(pk)
         poll_serializer = PollRelatedSerializer(instance=poll_obj, many=True)
+        qs_to_local_csv(poll_obj)
+
 
         if self.get_poll_by_id(pk) != 0:
             ResultModel = poll_serializer.data
@@ -212,7 +218,7 @@ class GetAnswersByPoll_ID(generics.GenericAPIView):
         return Response({'Answer': 'there is no answers with given pool id'},
                         status=status.HTTP_204_NO_CONTENT)
 
-# [GET] Getting All Answers from Pool with given id
+# [GET] Getting All Answers from Pool with given slug
 
 
 class GetAnswersByPoll_Slug(generics.GenericAPIView):
@@ -238,3 +244,61 @@ class GetAnswersByPoll_Slug(generics.GenericAPIView):
             return Response(ResultModel, status=status.HTTP_200_OK)
         return Response({'Answer': 'there is no answers with given pool slug'},
                         status=status.HTTP_204_NO_CONTENT)
+
+# [GET] Export All Answers from Pool with given id
+
+
+class ExportAnswersByPoll_ID(generics.GenericAPIView):
+    serializer_class = PollRelatedSerializer
+
+
+    def export(self, request, slug, format=None):
+        response = HttpResponse(content_type='text/csv')
+
+        writer = csv.writer(response)
+        writer.writerow(['ID', 'Answer_ID', 'Text_Answer', 'Option_ID'])
+        for answerdetail in AnswerDetails.objects.all().values_list('id','answer_id','text_answer','option_id'):
+            writer.writerow(answerdetail)
+
+        response['Content-Disposition'] = 'attachment; filename="answerdetails.csv"'
+
+        return response
+
+# [GET] Getting All Answers from Pool with given slug
+
+
+class ExportAnswersByPoll_Slug(generics.GenericAPIView):
+    serializer_class = PollRelatedSerializer
+
+    def get_poll_by_slug(self, slug):
+        queryset = Poll.objects.filter(slug=slug)
+
+        if queryset.exists():
+            poll_queryset = queryset
+            return poll_queryset
+        else:
+            return 0
+
+    def get(self, request, slug, format=None):
+
+
+        poll_obj = self.get_poll_by_slug(slug)
+        poll_serializer = PollRelatedSerializer(instance=poll_obj, many=True)
+
+        if self.get_poll_by_slug(slug) != 0:
+            ResultModel = poll_serializer.data
+            return Response(ResultModel, status=status.HTTP_200_OK)
+        return Response({'Answer': 'there is no answers with given pool slug'},
+                        status=status.HTTP_204_NO_CONTENT)
+
+    def export(self, request, slug, format=None):
+        response = HttpResponse(content_type='text/csv')
+
+        writer = csv.writer(response)
+        writer.writerow(['ID', 'Answer_ID', 'Text_Answer', 'Option_ID'])
+        for answerdetail in AnswerDetails.objects.all().values_list('id','answer_id','text_answer','option_id'):
+            writer.writerow(answerdetail)
+
+        response['Content-Disposition'] = 'attachment; filename="answerdetails.csv"'
+
+        return response
