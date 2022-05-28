@@ -18,23 +18,37 @@ export class ResultsComponent implements OnInit {
   }
 
   legendPosition: LegendPosition = LegendPosition.Right;
+  sent: number = 115;
+  filled: number = 50;
+  percent: number = (this.filled/this.sent)*100;
+  pollTitle = "Prosta ankieta";
 
   public dataToChart : AnswerStats[] = [
     new AnswerStats("To jest bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina tekst", 5),
     new AnswerStats("To jest bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina teksts To jest bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina teksts", 2),
-    new AnswerStats("To nie ma sensu raczej", 5),
+    // new AnswerStats("To nie ma sensu raczej", 5),
+    // new AnswerStats("Fajnie", 99),
+    // new AnswerStats("Jeszcze jak ", 0),
+    // new AnswerStats("To jestd bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina tekst", 5),
+    // new AnswerStats("To jestd bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina tekstsssss", 2),
+    // new AnswerStats("To nied ma sensu raczej", 5),
+    // new AnswerStats("Fajnied", 10),
+    // new AnswerStats("Jeszczed jak ", 0),
+    // new AnswerStats("To jestd bardzo asddługa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina teksttt", 5),
+    // new AnswerStats("To jestd barasddzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina teksts", 2),
+    // new AnswerStats("To nied asdma sensu raczej", 5),
+    // new AnswerStats("Fajasdnied", 10),
+    // new AnswerStats("Jeszasdczed jak ", 0)
+  ]
+
+  dataToChartShort: AnswerStats[] = [
     new AnswerStats("Fajnie", 99),
-    new AnswerStats("Jeszcze jak ", 0),
-    new AnswerStats("To jestd bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina tekst", 5),
-    new AnswerStats("To jestd bardzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina tekstsssss", 2),
-    new AnswerStats("To nied ma sensu raczej", 5),
-    new AnswerStats("Fajnied", 10),
-    new AnswerStats("Jeszczed jak ", 0),
-    new AnswerStats("To jestd bardzo asddługa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina teksttt", 5),
-    new AnswerStats("To jestd barasddzo długa odpowiedź, ale jest zastosowany odpowiedni mechanizm, który odpowiednio przycina teksts", 2),
-    new AnswerStats("To nied asdma sensu raczej", 5),
-    new AnswerStats("Fajasdnied", 10),
-    new AnswerStats("Jeszasdczed jak ", 0)
+    new AnswerStats("To jest super", 11),
+    new AnswerStats("To nie ma sensu", 5),
+    new AnswerStats("Ok", 3),
+    new AnswerStats("Jeszcze jak ", 1),
+    new AnswerStats("To jestd krótka odpowiedź", 1),
+    new AnswerStats("To jestd bardzo długa", 1),
   ]
 
   public dataToChart2 : AnswerStats[] = [
@@ -69,7 +83,7 @@ export class ResultsComponent implements OnInit {
     return sum;
   }
 
-  countPercent(part : number): string{
-    return ((part/this.countNumberOfAnswers(this.dataToChart))*100).toFixed(1);
+  countPercent(): string{
+    return ((this.filled/this.sent)*100).toFixed(1) + '%';
   }
 }

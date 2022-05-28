@@ -17,6 +17,7 @@
     border-radius: 5px; 
     padding: 30px;
     margin-bottom: 20px;
+    background-color: white;
 }
 
 .cards-container{
@@ -25,5 +26,4 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background-color: #f9f9fb; */
 }

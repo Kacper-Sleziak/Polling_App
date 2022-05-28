@@ -3,7 +3,8 @@
 /* Cards container */
 .cards-wrapper{
     padding: 1rem;
-    max-height: 320px;
+    margin-top: 1.25rem;
+    max-height: 300px;
     overflow-y: auto;
 }
 

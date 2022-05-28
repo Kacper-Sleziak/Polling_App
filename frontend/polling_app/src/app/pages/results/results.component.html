@@ -1,12 +1,52 @@
 
 <!-- Cards container -->
 <div class="cards-container">
+
+    <div class="result-card poll-info mat-elevation-z3">
+        <p style="margin: 0; font-size:14px; font-weight: 500; opacity: 0.5; ">Nazwa ankiety:</p>
+        <h1 style="font-weight: 400;">
+            {{pollTitle}}
+        </h1>
+        <p style="margin: 0; font-size:14px; font-weight: 500; color: rgba(1.0, 1.0, 1.0 ,0.5);">Procent wypełnionych ankiet: {{countPercent()}} ({{filled}}/{{sent}})</p>
+        <mat-progress-bar
+          class="example-margin"
+          [color]="'primary'"
+          [mode]="'determinate'"
+          [value]= "percent"
+          >
+      </mat-progress-bar>
+    </div>
+
+
      <!-- Card with results -->
      <div class="result-card mat-elevation-z3">
 
         <!-- Header -->
-        <h2>
-            Drugie pytanie
+        <h2 style="font-weight: 400;">
+            Krótka odpowiedź tekstowa?
+        </h2>
+
+        <!-- Under header data -->
+        <div style="opacity: 0.6;">
+            <hr>
+            <p style="margin-left: 5px; font-weight: 500;">
+                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
+            </p>
+        </div>
+
+        <!-- Chart -->
+        <app-text-answers-list
+            [results]="dataToChartShort"
+            [disableBadge]= false
+        ></app-text-answers-list>
+
+    </div>
+    <!-- Card with results -->
+    <div class="result-card mat-elevation-z3">
+
+        <!-- Header -->
+        <h2 style="font-weight: 400;">
+            Długa odpowiedź tekstowa?
         </h2>
 
         <!-- Under header data -->
@@ -20,7 +60,7 @@
         <!-- Chart -->
         <app-text-answers-list
             [results]="dataToChart"
-            [disableBadge]= false
+            [disableBadge]= true
         ></app-text-answers-list>
 
     </div>
@@ -28,8 +68,8 @@
     <div class="result-card mat-elevation-z3">
 
         <!-- Header -->
-        <h2>
-            Pierwsze pytanie
+        <h2 style="font-weight: 400;">
+            Lista rozwijana, radio i checkbox (wielokrotny)?
         </h2>
 
         <!-- Under header data -->
@@ -43,7 +83,7 @@
         <!-- Chart -->
         <app-vertical-bar-chart
             [results]="dataToChart"
-            [width]= 700
+            [width]= 650
             [height]= 300
             [legend]= true
             [legendTitle]="'Odpowiedzi'"
@@ -55,8 +95,8 @@
     <div class="result-card mat-elevation-z3">
 
         <!-- Header -->
-        <h2>
-            Drugie pytanie
+        <h2 style="font-weight: 400;">
+            Skala 5?
         </h2>
 
         <!-- Under header data -->
@@ -75,7 +115,7 @@
             [legend]= false
             [legendTitle]="'Odpowiedzi'"
             [legendPosition] = "legendPosition"
-            [xAxisLabel]="'Odpowiedz'"
+            [xAxisLabel]="'Wartość na skali'"
             [showXAxisLabel] = true
             [xAxis]= true
             >
@@ -87,8 +127,8 @@
     <div class="result-card mat-elevation-z3">
 
         <!-- Header -->
-        <h2>
-            Trzecie pytanie
+        <h2 style="font-weight: 400;">
+            Skala 10?
         </h2>
 
         <!-- Under header data -->
@@ -107,12 +147,42 @@
             [legend]= false
             [legendTitle]="'Odpowiedzi'"
             [legendPosition] = "legendPosition"
-            [xAxisLabel]="'Odpowiedz'"
+            [xAxisLabel]="'Wartość na skali'"
             [showXAxisLabel] = true
             [xAxis]= true
             >
             
         </app-vertical-bar-chart>
+
+    </div>
+
+    <!-- Card with results -->
+    <div class="result-card mat-elevation-z3">
+
+        <!-- Header -->
+        <h2 style="font-weight: 400;">
+            Skala 10?
+        </h2>
+
+        <!-- Under header data -->
+        <div style="opacity: 0.6;">
+            <hr>
+            <p style="margin-left: 5px; font-weight: 500;">
+                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart3)}}
+            </p>
+        </div>
+
+        <!-- Chart -->
+        <app-pie-chart
+            [results]="dataToChart"
+            [width]= 700
+            [height]= 350
+            [legend]= true
+            [legendTitle]="'Odpowiedzi'"
+            [legendPosition] = "legendPosition"
+            >
+            
+        </app-pie-chart>
 
     </div>
    

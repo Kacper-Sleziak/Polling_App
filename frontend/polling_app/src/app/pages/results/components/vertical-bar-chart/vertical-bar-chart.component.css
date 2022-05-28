@@ -1,4 +1,9 @@
 .chart-wrapper{
     padding: 30px;
+    padding-right: 60px;
     margin: auto;
+}
+
+::ng-deep .legend-labels{
+    min-width: 150px;
 }
