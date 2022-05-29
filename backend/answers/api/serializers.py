@@ -1,9 +1,13 @@
-from answers.models import Answer, AnswerDetails
-from rest_framework.serializers import ModelSerializer
-from rest_framework.serializers import PrimaryKeyRelatedField
+
+from answers.models import Answer, AnswerDetails, Option
+from questions.models import Option,Question
+from rest_framework.serializers import ModelSerializer,SerializerMethodField,PrimaryKeyRelatedField
+from django.db.models import Count
+
 
 
 class AnswerDetailsSerializer(ModelSerializer):
+#    option_content = SerializerMethodField()
     class Meta:
         model = AnswerDetails
         fields = ('answers_id', 'text_answer', 'option_id')
@@ -19,8 +23,12 @@ class AnswerSerializer(ModelSerializer):
 
 class AnswerRelatedSerializer(ModelSerializer):
     answerdetails = AnswerDetailsSerializer(many=True)
-
+    #option_count = SerializerMethodField()
     class Meta:
         model = Answer
-        fields = ('question_id', 'answerdetails')
+        fields = ['answerdetails']
         read_only_fields = ['id']
+
+    # def get_option_count(self,obj):
+    #     counter = obj.answerdetails.values('option_id').annotate(count=Count('option_id')).order_by()
+    #     return counter

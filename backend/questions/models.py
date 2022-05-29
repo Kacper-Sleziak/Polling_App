@@ -13,9 +13,10 @@ class Question(models.Model):
     position = models.IntegerField()
     content = models.CharField(default="Content", max_length=2000)
     poll = models.ForeignKey(
-        PollModel, on_delete=models.CASCADE, verbose_name="poll ID", related_name='poll')
+        PollModel, on_delete=models.CASCADE, verbose_name="poll ID", related_name='question')
     question_type = models.ForeignKey(
         QuestionType, on_delete=models.CASCADE, verbose_name="question_type")
+    required = models.BooleanField(default=False)
 
     def __str__(self):
         if len(self.content) > 100:
@@ -27,7 +28,7 @@ class Question(models.Model):
 class Option(models.Model):
     content = models.CharField(default="Option", max_length=2000)
     question = models.ForeignKey(
-        Question, on_delete=models.CASCADE, verbose_name="question ID")
+        Question, on_delete=models.CASCADE, verbose_name="question ID",related_name='option')
 
     def __str__(self):
         if len(self.content) > 100:

@@ -65,7 +65,7 @@ export class PollingFormComponent implements OnInit {
       obs.push(this.formResultService.saveResult(result));
     }
     forkJoin(obs).subscribe((r) => {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['greetings']);
     });
   };
 }
