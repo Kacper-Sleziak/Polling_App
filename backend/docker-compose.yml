@@ -5,8 +5,7 @@ services:
     build: .
     ports:
       - 8000:8000
-    image: app:django
-    container_name: django
+    image: polling-app-backend
     command: /bin/sh /django/start-backend.sh
     depends_on:
       - db
@@ -21,9 +20,17 @@ services:
   db:
     image: postgres
     volumes:
+<<<<<<< HEAD
       - ./data/db:/var/lib/postgresql/data
     env_file:
       - backend/.env
+=======
+      - ../data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+>>>>>>> 3e077cb (Small changes to docker-compose)
     container_name: postgresql
     networks:
       - djangonetwork
