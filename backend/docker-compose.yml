@@ -6,6 +6,7 @@ services:
     ports:
       - 8000:8000
     image: polling-app-backend
+    container_name: backend
     command: /bin/sh /django/start-backend.sh
     depends_on:
       - db
