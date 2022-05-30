@@ -6,6 +6,7 @@ import { Poll } from 'src/app/models/dashboard-models/poll';
 import { Answer } from 'src/app/models/form-models/answer';
 import { Question, QuestionType } from 'src/app/models/form-models/question';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
+import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
 import { AnswerService } from 'src/app/services/form-services/answer.service';
 import { QuestionViewModelService } from 'src/app/services/form-services/question-view-model.service';
 import { QuestionsService } from 'src/app/services/form-services/questions.service';
@@ -31,7 +32,8 @@ export class FormEditComponent implements OnInit {
     private questionsService: QuestionsService,
     private answerService: AnswerService,
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private uiPollsService: UiPollsService
   ) {}
 
   ngOnInit(): void {
@@ -121,6 +123,12 @@ export class FormEditComponent implements OnInit {
             });
         });
     });
+    // Current displaying polls
+    let displayingPolls = this.uiPollsService.getDisplayingPolls();
+    // Append new one
+    displayingPolls.unshift(this.poll);
+    // Update displaying polls in Dashboard
+    this.uiPollsService.setDisplayingPolls(displayingPolls)
     // Navigate to dashboard after save
     this.router.navigate(['dashboard']);
   };
