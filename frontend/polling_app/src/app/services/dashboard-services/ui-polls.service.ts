@@ -18,6 +18,10 @@ export class UiPollsService {
     this.subject.next(this.displayingPolls);
   }
 
+  getDisplayingPolls():  Poll[]{
+    return this.displayingPolls;
+  }
+
   onStatusFilterChange(): Observable<Poll[]> {
     return this.subject.asObservable();
   }
