@@ -1,12 +1,11 @@
 #form-edit-content {
     padding-left: 4vw;
-
     margin: 40px;
   }
   
 
 button{
-  margin: 1em;
+  margin: 0.2em;
 }
 
 .buttons-container{
@@ -15,4 +14,11 @@ button{
   position: fixed;
   top: 8vh;
   left: 0vw;
+}
+
+@media only screen and (max-width: 600px) {
+  #form-edit-content {
+    padding-left: 1vw;
+    margin: 2em;
+  }
 }
