@@ -6,7 +6,6 @@
 .move-control{
     display: flex;
     flex-direction: row;
-    align-items: center;
 }
 
 .question-edit-controls{
@@ -16,3 +15,15 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.question-control{
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 600px) {
+    .question-control{
+        display: flex;
+        flex-direction: column;
+    }
+  }

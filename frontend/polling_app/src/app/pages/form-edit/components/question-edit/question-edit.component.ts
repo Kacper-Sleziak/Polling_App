@@ -45,5 +45,6 @@ export class QuestionEditComponent implements OnInit {
   handleQuestionChange = (event: Event) => {
     const target = event.target as HTMLTextAreaElement;
     this.question.question = target.value;
+    console.log('x', target.value);
   };
 }

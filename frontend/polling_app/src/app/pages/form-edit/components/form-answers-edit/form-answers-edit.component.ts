@@ -18,6 +18,7 @@ export class FormAnswersEditComponent implements OnInit {
   ngOnInit(): void {}
 
   createNewAnswer = (answer: Answer) => {
+    console.log('xd', answer);
     this.answers.push(answer);
   };
 
