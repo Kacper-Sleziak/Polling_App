@@ -340,7 +340,7 @@
     "pk": 1,
     "fields": {
       "answers_id": 1,
-      "text_answer": "Odpowiedź 1",
+      "text_answer": null,
       "option_id": 1
     }
   },
@@ -349,7 +349,7 @@
     "pk": 2,
     "fields": {
       "answers_id": 1,
-      "text_answer": "Odpowiedź krótka",
+      "text_answer": null,
       "option_id": 5
     }
   },
@@ -358,8 +358,17 @@
     "pk": 3,
     "fields": {
       "answers_id": 1,
-      "text_answer": "Długa odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź odpowiedź",
-      "option_id": 4
+      "text_answer": null,
+      "option_id": 5
+    }
+  },
+  {
+    "model": "answers.answerdetails",
+    "pk": 3,
+    "fields": {
+      "answers_id": 1,
+      "text_answer": null,
+      "option_id": 3
     }
   },
   {
@@ -367,8 +376,8 @@
     "pk": 4,
     "fields": {
       "answers_id": 2,
-      "text_answer": "Odpowiedź 1",
-      "option_id": 2
+      "text_answer": null,
+      "option_id": 7
     }
   },
   {
@@ -377,7 +386,7 @@
     "fields": {
       "answers_id": 3,
       "text_answer": "Odpowiedź 1",
-      "option_id": 2
+      "option_id": null
     }
   }
 ]

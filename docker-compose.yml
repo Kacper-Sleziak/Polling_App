@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: ./backend
-    image: pollingappregistry.azurecr.io/polling-app-backend
+    image: polling-app-backend
     command: /bin/sh /django/start-backend.sh
     ports:
       - 8000:8000
@@ -34,7 +34,7 @@ services:
   frontend:
     build:
       context: ./frontend/polling_app
-    image: pollingappregistry.azurecr.io/polling-app-frontend
+    image: polling-app-frontend
     volumes:
         - ./frontend/polling_app/:/usr/local/app
         - /usr/local/app/.angular2
@@ -42,7 +42,6 @@ services:
         - /usr/share/nginx/angular2
     depends_on:
       - backend
-    container_name: angular2
     ports:
       - 80:80
     networks:

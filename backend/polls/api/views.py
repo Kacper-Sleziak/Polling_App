@@ -1,4 +1,5 @@
-from django.http import Http404
+from django.core import serializers
+from django.http import Http404, HttpResponse
 from polls.api.serializers import PollSerializer
 from polls.models import Poll
 from rest_framework import status, generics
@@ -74,3 +75,32 @@ class CreatePoll(generics.GenericAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+class DuplicatePoll(generics.GenericAPIView):
+    serializer_class = PollSerializer
+    
+    def get_object(self, slug):
+        """
+        Helper method that return a poll by it's slug
+        """
+        try:
+            return Poll.objects.get(slug=slug)
+        except Poll.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, slug, format=None):
+        """
+        Duplicate poll
+        """
+        copied_poll = self.get_object(slug)
+        copied_poll.id = None
+        copied_poll.slug = None
+        copied_poll.create_date = None
+        copied_poll.start_date = None
+        copied_poll.end_date = None
+        copied_poll.filling = 0
+        copied_poll.sent = 0
+        copied_poll.status = 2
+        copied_poll.save()
+        return HttpResponse(status=status.HTTP_201_CREATED)
+        
