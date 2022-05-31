@@ -1,16 +1,4 @@
 
-/* ::ng-deep .chart-legend .legend-wrap{
-    width: calc(100% - 50px) !important;
-} */
-
-/* Increase legend width
-::ng-deep .legend-labels {
-    width: calc(100% + 40px) !important;
-} */
-
-/* ::ng-deep .legend-title{
-    width: 200px !important;
-} */
 
 .result-card{
     width: 800px; 
@@ -26,4 +14,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#return-button{
+    position: fixed;
+    bottom: 100px;
+    right: 200px; 
 }

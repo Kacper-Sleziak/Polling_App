@@ -15,7 +15,9 @@ const routes: Routes = [
   { path: 'form/edit/:slug', component: FormEditComponent },
   { path: 'create-form', component: FormEditComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'results', component: ResultsComponent }
+  { path: 'answers/poll_answers_by_slug/:slug', component: ResultsComponent },
+  { path: 'greetings', component: GreetingsComponent },
+
 ];
 
 @NgModule({

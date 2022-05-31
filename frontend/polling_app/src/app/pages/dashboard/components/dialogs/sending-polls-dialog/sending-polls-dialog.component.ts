@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EmailMessage } from 'src/app/models/dashboard-models/emailMessage';
+import { Poll } from 'src/app/models/dashboard-models/poll';
 import { MailService } from 'src/app/services/dashboard-services/mail.service';
+import { PollService } from 'src/app/services/dashboard-services/poll.service';
 import { CustomSnackBarComponent } from './components/custom-snack-bar/custom-snack-bar.component';
 
 @Component({
@@ -13,9 +15,10 @@ import { CustomSnackBarComponent } from './components/custom-snack-bar/custom-sn
 })
 export class SendingPollsDialogComponent implements OnInit {
 
-  constructor(  @Inject(MAT_DIALOG_DATA) public data: {pollSlug: string}, 
+  constructor(  @Inject(MAT_DIALOG_DATA) public data: {poll: Poll}, 
                 private formBuilder: FormBuilder, 
                 private mailService: MailService,
+                private pollService: PollService,
                 private snackBar: MatSnackBar) {}
 
   emails : string[] = [];
@@ -91,19 +94,24 @@ export class SendingPollsDialogComponent implements OnInit {
 
     // If message is empty set property to null
     if(message === ""){
-      emailMessage = new EmailMessage(subject, null, this.data.pollSlug, this.emails);
+      emailMessage = new EmailMessage(subject, null, this.data.poll.slug, this.emails);
     }
     else{
-      emailMessage = new EmailMessage(subject, message, this.data.pollSlug, this.emails);
+      emailMessage = new EmailMessage(subject, message, this.data.poll.slug, this.emails);
     }
     
     this.mailService.postMail(emailMessage).subscribe({
       // If success
       next: () => {
+        // Show snackbar
         this.onSnackbarOpen();
+        // Update poll (increase sent property)
+        this.data.poll.sent += this.emails.length;
+        this.pollService.putPoll(this.data.poll);
       },
       // If error
       error: (err) => {
+        // TODO - create fail snackbar
         console.log(err);
       }
     });

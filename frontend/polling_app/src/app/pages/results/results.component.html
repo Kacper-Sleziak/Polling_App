@@ -1,193 +1,114 @@
 
 <!-- Cards container -->
-<div class="cards-container">
+<div class="cards-container" *ngIf="pollResults">
 
     <div class="result-card poll-info mat-elevation-z3">
+        
+        <!-- Label -->
         <p style="margin: 0; font-size:14px; font-weight: 500; opacity: 0.5; ">Nazwa ankiety:</p>
+        <!-- Poll title -->
         <h1 style="font-weight: 400;">
-            {{pollTitle}}
+            {{this.pollResults.poll.title}}
         </h1>
-        <p style="margin: 0; font-size:14px; font-weight: 500; color: rgba(1.0, 1.0, 1.0 ,0.5);">Procent wypełnionych ankiet: {{countPercent()}} ({{filled}}/{{sent}})</p>
+
+        <!-- Response ratio -->
+        <p style="margin: 0; font-size:14px; font-weight: 500; color: rgba(1.0, 1.0, 1.0 ,0.5);">
+            Procent wypełnionych ankiet: {{responeRatio.toFixed(1)}}% ({{this.pollResults.poll.filled}}/{{this.pollResults.poll.sent}})
+        </p>
+        <!-- Progress bar -->
         <mat-progress-bar
           class="example-margin"
           [color]="'primary'"
           [mode]="'determinate'"
-          [value]= "percent"
+          [value]= "responeRatio"
           >
       </mat-progress-bar>
+
     </div>
 
 
      <!-- Card with results -->
-     <div class="result-card mat-elevation-z3">
+     <div class="result-card mat-elevation-z3" *ngFor="let questionStats of this.pollResults.questionsStats">
 
         <!-- Header -->
         <h2 style="font-weight: 400;">
-            Krótka odpowiedź tekstowa?
+            {{questionStats.questionName}}
         </h2>
 
         <!-- Under header data -->
         <div style="opacity: 0.6;">
             <hr>
             <p style="margin-left: 5px; font-weight: 500;">
-                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
+                Liczba odpowiedzi: {{questionStats.answerCount}}
             </p>
         </div>
 
-        <!-- Chart -->
+        <!-- Chart depends on questionType-->
+
+        <!-- ShortText -->
         <app-text-answers-list
-            [results]="dataToChartShort"
+            *ngIf="(questionStats.questionType === QuestionType.ShortText + 1) && (questionStats.answerCount)"
+            [results]="questionStats.answersStats"
             [disableBadge]= false
         ></app-text-answers-list>
 
-    </div>
-    <!-- Card with results -->
-    <div class="result-card mat-elevation-z3">
-
-        <!-- Header -->
-        <h2 style="font-weight: 400;">
-            Długa odpowiedź tekstowa?
-        </h2>
-
-        <!-- Under header data -->
-        <div style="opacity: 0.6;">
-            <hr>
-            <p style="margin-left: 5px; font-weight: 500;">
-                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
-            </p>
-        </div>
-
-        <!-- Chart -->
+        <!-- LongText -->
         <app-text-answers-list
-            [results]="dataToChart"
+            *ngIf="(questionStats.questionType === QuestionType.LongText + 1) && (questionStats.answerCount)"
+            [results]="questionStats.answersStats"
             [disableBadge]= true
         ></app-text-answers-list>
 
-    </div>
-    <!-- Card with results -->
-    <div class="result-card mat-elevation-z3">
-
-        <!-- Header -->
-        <h2 style="font-weight: 400;">
-            Lista rozwijana, radio i checkbox (wielokrotny)?
-        </h2>
-
-        <!-- Under header data -->
-        <div style="opacity: 0.6;">
-            <hr>
-            <p style="margin-left: 5px; font-weight: 500;">
-                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart)}}
-            </p>
-        </div>
-
-        <!-- Chart -->
+        <!-- Checkbox -->
         <app-vertical-bar-chart
-            [results]="dataToChart"
+            *ngIf="(questionStats.questionType === QuestionType.Checkbox + 1) && (questionStats.answerCount)"
+            [results]="questionStats.answersStats"
             [width]= 650
             [height]= 300
             [legend]= true
             [legendTitle]="'Odpowiedzi'"
-            [legendPosition] = "legendPosition">
-        </app-vertical-bar-chart>
+        ></app-vertical-bar-chart>
 
-    </div>
-    <!-- Card with results -->
-    <div class="result-card mat-elevation-z3">
-
-        <!-- Header -->
-        <h2 style="font-weight: 400;">
-            Skala 5?
-        </h2>
-
-        <!-- Under header data -->
-        <div style="opacity: 0.6;">
-            <hr>
-            <p style="margin-left: 5px; font-weight: 500;">
-                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart2)}}
-            </p>
-        </div>
-
-        <!-- Chart -->
-        <app-vertical-bar-chart
-            [results]="dataToChart2"
-            [width]= 400
-            [height]= 300
-            [legend]= false
-            [legendTitle]="'Odpowiedzi'"
-            [legendPosition] = "legendPosition"
-            [xAxisLabel]="'Wartość na skali'"
-            [showXAxisLabel] = true
-            [xAxis]= true
-            >
-            
-        </app-vertical-bar-chart>
-
-    </div>
-    <!-- Card with results -->
-    <div class="result-card mat-elevation-z3">
-
-        <!-- Header -->
-        <h2 style="font-weight: 400;">
-            Skala 10?
-        </h2>
-
-        <!-- Under header data -->
-        <div style="opacity: 0.6;">
-            <hr>
-            <p style="margin-left: 5px; font-weight: 500;">
-                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart3)}}
-            </p>
-        </div>
-
-        <!-- Chart -->
-        <app-vertical-bar-chart
-            [results]="dataToChart3"
-            [width]= 700
-            [height]= 350
-            [legend]= false
-            [legendTitle]="'Odpowiedzi'"
-            [legendPosition] = "legendPosition"
-            [xAxisLabel]="'Wartość na skali'"
-            [showXAxisLabel] = true
-            [xAxis]= true
-            >
-            
-        </app-vertical-bar-chart>
-
-    </div>
-
-    <!-- Card with results -->
-    <div class="result-card mat-elevation-z3">
-
-        <!-- Header -->
-        <h2 style="font-weight: 400;">
-            Skala 10?
-        </h2>
-
-        <!-- Under header data -->
-        <div style="opacity: 0.6;">
-            <hr>
-            <p style="margin-left: 5px; font-weight: 500;">
-                Liczba odpowiedzi: {{countNumberOfAnswers(dataToChart3)}}
-            </p>
-        </div>
-
-        <!-- Chart -->
+        <!-- Combobox or Radio -->
         <app-pie-chart
-            [results]="dataToChart"
+            *ngIf="((questionStats.questionType === QuestionType.Combobox + 1) || (questionStats.questionType === QuestionType.Radio + 1)) && (questionStats.answerCount)"
+            [results]="questionStats.answersStats"
             [width]= 700
             [height]= 350
             [legend]= true
             [legendTitle]="'Odpowiedzi'"
-            [legendPosition] = "legendPosition"
-            >
-            
-        </app-pie-chart>
+        ></app-pie-chart>
+
+        <!-- Scale5 -->
+        <app-vertical-bar-chart
+            *ngIf="(questionStats.questionType === QuestionType.Scale5 + 1) && (questionStats.answerCount)"
+            [results]="questionStats.answersStats"
+            [width]= 400
+            [height]= 300
+            [legend]= false
+            [legendTitle]="'Odpowiedzi'"
+            [xAxisLabel]="'Wartość na skali'"
+            [showXAxisLabel] = true
+            [xAxis]= true
+        ></app-vertical-bar-chart>
+
+        <!-- Scale10 -->
+        <app-vertical-bar-chart
+            *ngIf="(questionStats.questionType === QuestionType.Scale10 + 1) && (questionStats.answerCount)"
+            [results]="questionStats.answersStats"
+            [width]= 700
+            [height]= 350
+            [legend]= false
+            [legendTitle]="'Odpowiedzi'"
+            [xAxisLabel]="'Wartość na skali'"
+            [showXAxisLabel] = true
+            [xAxis]= true
+        ></app-vertical-bar-chart>
 
     </div>
-   
-    
 </div>
+<button id="return-button" (click)="onReturnClick()" mat-raised-button>Powrót</button>
+<!-- <button id="return-button" mat-stroked-button color="primary">Powrót</button> -->
 
 
 
