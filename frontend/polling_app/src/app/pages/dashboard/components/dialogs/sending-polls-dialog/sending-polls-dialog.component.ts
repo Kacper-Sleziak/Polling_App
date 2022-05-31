@@ -107,7 +107,12 @@ export class SendingPollsDialogComponent implements OnInit {
         this.onSnackbarOpen();
         // Update poll (increase sent property)
         this.data.poll.sent += this.emails.length;
-        this.pollService.putPoll(this.data.poll);
+        this.pollService.putPoll(this.data.poll).subscribe({
+          error: (err) =>{
+            console.log(err);
+          }
+        }
+        );
       },
       // If error
       error: (err) => {
