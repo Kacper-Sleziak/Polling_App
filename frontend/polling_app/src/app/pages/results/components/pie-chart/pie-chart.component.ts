@@ -39,8 +39,14 @@ export class PieChartComponent implements OnInit {
       let answerCount = 0;    
       
       this.results.some((answer) => {
+        
+        console.log(this.results);
+        
         if(answer.name === name){
           answerCount = answer.value;
+          // console.log("Answer", answer.name);
+          // console.log("Name", name);
+          // console.log("Value", answer.value);
           return true; //break loop
         }
         return false;

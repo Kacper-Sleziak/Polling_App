@@ -96,16 +96,15 @@ export class ResultsComponent implements OnInit {
                   (option: any) => {
                     
                     // Connect option content with number of its occurrence
-                    question.option_count.forEach(
+                    question.option_count.some(
                       (optionCount: any) =>{
                         
                         if(optionCount.answerdetails__option_id === option.id){
                           // Get number and add new answerStats
                           answersStats.push(new AnswerStats(option.content, optionCount.count));
-                          return; // In forEach loop this is equal to continue
+                          return true;
                         }
-                        // Push answerStats with 0
-                        answersStats.push(new AnswerStats(option.content, 0));                       
+                        return false;                   
                       }
                     )                    
                   }
