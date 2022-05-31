@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { Poll } from 'src/app/models/dashboard-models/poll';
 import { Question } from 'src/app/models/form-models/question';
 import { Result } from 'src/app/models/form-models/result';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
@@ -13,9 +14,9 @@ import { QuestionViewModelService } from 'src/app/services/form-services/questio
   styleUrls: ['./polling-form.component.css'],
 })
 export class PollingFormComponent implements OnInit {
+
   questions: Question[] = [];
-  title: string = 'Przykładowy tytuł';
-  description: string = 'Przykładowy opis';
+  poll!: Poll;
   questionResult: Map<Question, Result> = new Map();
 
   constructor(
@@ -29,9 +30,8 @@ export class PollingFormComponent implements OnInit {
   ngOnInit(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
     if (slug !== null) {
-      this.pollService.getPoll(slug).subscribe((poll) => {
-        this.title = poll.title;
-        this.description = poll.description;
+      this.pollService.getPoll(slug).subscribe((poll: Poll) => {
+        this.poll = poll;
         this.questionViewModelService.loadPollQuestions(poll.id);
         this.questionViewModelService
           .onUpdate()
@@ -65,6 +65,15 @@ export class PollingFormComponent implements OnInit {
       obs.push(this.formResultService.saveResult(result));
     }
     forkJoin(obs).subscribe((r) => {
+      // Update poll (increase filled number)
+      this.poll.filled += 1;
+        this.pollService.putPoll(this.poll).subscribe({
+          error: (err) =>{
+            console.log(err);
+          }
+        }
+        );
+      // Navigate to greetings
       this.router.navigate(['greetings']);
     });
   };

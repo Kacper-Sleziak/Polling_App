@@ -8,8 +8,6 @@ import { OpenEditingPollDialogComponent } from '../dialogs/open-editing-poll-dia
 import { CloseOpenedPollDialogComponent } from '../dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
 import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 import { SendingPollsDialogComponent } from '../dialogs/sending-polls-dialog/sending-polls-dialog.component';
-import { QuestionType } from 'src/app/models/form-models/question';
-import { ResultsService } from 'src/app/services/results-services/results.service';
 import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
 import { Router } from '@angular/router';
 
