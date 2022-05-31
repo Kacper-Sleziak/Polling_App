@@ -5,6 +5,7 @@ import { PollingFormComponent } from './pages/polling-form/polling-form.componen
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginPanelComponent } from './pages/login-panel/login-panel.component';
 import { RegisterPanelComponent } from './pages/register-panel/register-panel.component';
+import { ResultsComponent } from './pages/results/results.component';
 import { GreetingsComponent } from './pages/polling-form/components/greetings/greetings.component';
 
 const routes: Routes = [
@@ -15,7 +16,9 @@ const routes: Routes = [
   { path: 'form/edit/:slug', component: FormEditComponent },
   { path: 'create-form', component: FormEditComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'answers/poll_answers_by_slug/:slug', component: ResultsComponent },
   { path: 'greetings', component: GreetingsComponent },
+
 ];
 
 @NgModule({

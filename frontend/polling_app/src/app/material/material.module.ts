@@ -22,6 +22,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 const MaterialComponents = [
@@ -48,7 +50,9 @@ const MaterialComponents = [
   MatMenuModule,
   ReactiveFormsModule,
   FormsModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatBadgeModule,
+  MatProgressBarModule
   
 ];
 

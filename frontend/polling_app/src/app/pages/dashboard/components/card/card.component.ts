@@ -8,6 +8,10 @@ import { OpenEditingPollDialogComponent } from '../dialogs/open-editing-poll-dia
 import { CloseOpenedPollDialogComponent } from '../dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
 import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 import { SendingPollsDialogComponent } from '../dialogs/sending-polls-dialog/sending-polls-dialog.component';
+import { QuestionType } from 'src/app/models/form-models/question';
+import { ResultsService } from 'src/app/services/results-services/results.service';
+import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -21,7 +25,10 @@ export class CardComponent implements OnInit {
   PollStatus = Poll.Status;   // For the access to enum type from component's html
 
 
-  constructor(public dialog: MatDialog, private pollService: PollService) { }
+  constructor(public dialog: MatDialog, 
+              private pollService: PollService,
+              private router: Router,
+              private uiPollsService: UiPollsService) {}
 
   ngOnInit(): void {
   }
@@ -99,9 +106,52 @@ export class CardComponent implements OnInit {
 
   onSendButtonClick(): void{
     // Open sending polls dialog
-    const dialogRef = this.dialog.open(SendingPollsDialogComponent, {data: {pollSlug : this.poll.slug}, width: '900px', hasBackdrop: true});
-    
+    const dialogRef = this.dialog.open(SendingPollsDialogComponent, {data: {poll : this.poll}, width: '900px', hasBackdrop: true});
   }
 
+  onCopyButtonClick(): void{
+
+    this.pollService.copyPoll(this.poll.slug).subscribe({
+      next: (poll: any) =>{
+        // Current displaying polls
+        // let newPoll = new Poll(
+        //         poll.id,
+        //         poll.title,
+        //         poll.description,
+        //         poll.slug,
+        //         poll.start_date,
+        //         poll.end_date,
+        //         poll.create_date,
+        //         poll.filling,
+        //         poll.sent,
+        //         poll.status,
+        //         poll.author);
+
+                console.log(poll);
+
+        // let displayingPolls = this.uiPollsService.getDisplayingPolls();
+        // console.log(displayingPolls);
+        // // Append new one
+        // displayingPolls.push(
+        //       poll.id,
+        //       poll.title,
+        //       poll.description,
+        //       poll.slug,
+        //       poll.start_date,
+        //       poll.end_date,
+        //       poll.create_date,
+        //       poll.filling,
+        //       poll.sent,
+        //       poll.status,
+        //       poll.author
+        // );
+        // // Update displaying polls in Dashboard
+        // this.uiPollsService.setDisplayingPolls(displayingPolls);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
 
 }

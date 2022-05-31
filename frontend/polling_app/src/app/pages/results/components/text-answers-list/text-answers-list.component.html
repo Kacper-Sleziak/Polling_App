@@ -1,0 +1,17 @@
+
+
+<!-- Container with answers -->
+<div class="cards-wrapper">
+
+    <!-- Anser as card -->
+    <mat-card *ngFor="let result of results"   
+                class="card" 
+                matBadge="x{{result.value}}" 
+                matBadgeColor="accent" 
+                matBadgePosition="after"
+                [matBadgeHidden]="((result.value == 0 || result.value == 1) || disableBadge)">
+
+            {{result.name}}
+    </mat-card>
+
+</div>

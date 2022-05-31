@@ -1,0 +1,26 @@
+
+
+/* Cards container */
+.cards-wrapper{
+    padding: 1rem;
+    margin-top: 1.25rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Adjust card with answer */
+.card{
+    margin-bottom: 0.625rem;
+    box-shadow: none;
+    background-color: aliceblue;
+    border: 2px rgba(0, 0, 0, 0.05) solid;
+    padding-right: 2.5rem;
+}
+
+/* Adjust badge element in right top corner */
+::ng-deep .mat-badge-content {
+    top: 8px !important;
+    right: 8px !important;
+    font-size: 0.625rem !important;
+    font-weight: 500 !important;
+}

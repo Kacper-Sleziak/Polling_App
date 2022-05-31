@@ -67,15 +67,16 @@
       </button>
 
       <!-- Results button (instead of edit) -->
-      <button mat-icon-button 
+      <a routerLink ='/answers/poll_answers_by_slug/{{poll.slug}}'><button mat-icon-button 
               *ngIf="poll.status !== PollStatus.editing"
               matTooltip="Wyniki" 
               matTooltipClass="tooltip-adjust" 
               color="primary" 
               aria-label="Button to show results">
+              
 
         <mat-icon>poll</mat-icon>
-      </button>
+      </button></a>
 
       <!-- Edit button (instead of results) -->
       <a Link Link routerLink ='/form/edit/{{poll.slug}}'><button mat-icon-button  
@@ -102,6 +103,7 @@
               matTooltip="Skopiuj" 
               matTooltipClass="tooltip-adjust" 
               color="primary" 
+              (click)="onCopyButtonClick()"
               aria-label="Button to duplicate poll">
 
         <mat-icon>file_copy</mat-icon>

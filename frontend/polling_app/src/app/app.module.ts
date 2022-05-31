@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppComponent } from './app.component';
 import { FormAnswersComponent } from './pages/polling-form/components/form-answers/form-answers.component';
@@ -47,7 +48,12 @@ import { SendingPollsDialogComponent } from './pages/dashboard/components/dialog
 import { CustomSnackBarComponent } from './pages/dashboard/components/dialogs/sending-polls-dialog/components/custom-snack-bar/custom-snack-bar.component';
 import { LoginPanelComponent } from './pages/login-panel/login-panel.component';
 import { RegisterPanelComponent } from './pages/register-panel/register-panel.component';
+import { ResultsComponent } from './pages/results/results.component';
+import { VerticalBarChartComponent } from './pages/results/components/vertical-bar-chart/vertical-bar-chart.component';
+import { PieChartComponent } from './pages/results/components/pie-chart/pie-chart.component';
+import { TextAnswersListComponent } from './pages/results/components/text-answers-list/text-answers-list.component';
 import { GreetingsComponent } from './pages/polling-form/components/greetings/greetings.component';
+
 
 @NgModule({
   declarations: [
@@ -93,6 +99,10 @@ import { GreetingsComponent } from './pages/polling-form/components/greetings/gr
     CustomSnackBarComponent,
     LoginPanelComponent,
     RegisterPanelComponent,
+    ResultsComponent,
+    VerticalBarChartComponent,
+    PieChartComponent,
+    TextAnswersListComponent,
     GreetingsComponent,
   ],
   imports: [
@@ -101,6 +111,7 @@ import { GreetingsComponent } from './pages/polling-form/components/greetings/gr
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    NgxChartsModule
   ],
   providers: [PollService],
   bootstrap: [AppComponent],

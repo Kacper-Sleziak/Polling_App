@@ -119,4 +119,8 @@ export class PollService {
       return this.putPoll(poll);
     }
   }
+
+  copyPoll(slug: string): Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}/polls/duplicate/${slug}`);
+  }
 }

@@ -10,6 +10,11 @@ import { AccountService } from 'src/app/services/shared-services/account.service
 })
 export class LoginPanelComponent implements OnInit {
 
+  showPassword: boolean = false;
+  buttonDisable: boolean = false;
+
+
+
   constructor(private formBuilder: FormBuilder, 
               private accountService: AccountService,
               private router: Router) {
@@ -18,7 +23,13 @@ export class LoginPanelComponent implements OnInit {
     this.accountService.logoutAccount();
   }
 
-  showPassword: boolean = false;
+  ngOnInit(): void {
+    // Set input validators
+    this.loginForm.controls['email'].addValidators([Validators.email, Validators.required]);
+    this.loginForm.controls['password'].addValidators([Validators.required]);
+  }
+
+
 
   loginForm : FormGroup = this.formBuilder.group(
     {
@@ -27,20 +38,18 @@ export class LoginPanelComponent implements OnInit {
     }
   );
 
-  ngOnInit(): void {
-    // Set input validators
-    this.loginForm.controls['email'].addValidators([Validators.email, Validators.required]);
-    this.loginForm.controls['password'].addValidators([Validators.required]);
-  }
-
   onLoginButtonClick(){
+    
     // If form is valid
     if(this.loginForm.valid){
+      // Disable button until response retrive
+      this.buttonDisable = true;
       // Send request
       this.accountService.postLogin(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
       .subscribe({
           // If success
           next: (account) => {
+            
             this.accountService.setAuthorId(account.id);
             // Navigate to dashboard
             this.router.navigate(['dashboard']);
@@ -50,8 +59,9 @@ export class LoginPanelComponent implements OnInit {
             if(document.getElementById('error-message') !== null){
               document.getElementById('error-message')!.innerHTML = "Hasło lub email jest niepoprawne!";
             }
+            // Enable button to login again
+            this.buttonDisable = false;
           }
-
         }
       )
     }

@@ -1,0 +1,23 @@
+
+
+.result-card{
+    width: 800px; 
+    border-radius: 5px; 
+    padding: 30px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.cards-container{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#return-button{
+    position: fixed;
+    bottom: 100px;
+    right: 200px; 
+}
