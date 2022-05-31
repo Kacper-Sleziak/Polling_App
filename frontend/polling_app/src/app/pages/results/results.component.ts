@@ -85,8 +85,8 @@ export class ResultsComponent implements OnInit {
                 if(questionType === QuestionType.Scale5 + 1) scaleSize = 5;
                 else scaleSize = 10;
 
-                for(let i = 1; i <= scaleSize ; i++){
-                  answersStats.push(new AnswerStats( i.toString(), statisticTable[i])); 
+                for(let i = 0; i < scaleSize ; i++){
+                  answersStats.push(new AnswerStats( (i+1).toString(), statisticTable[i])); 
                 }
               }
               else{
