@@ -67,12 +67,13 @@
       </button>
 
       <!-- Results button (instead of edit) -->
-      <a routerLink ='/results'><button mat-icon-button 
+      <a routerLink ='/answers/poll_answers_by_slug/{{poll.slug}}'><button mat-icon-button 
               *ngIf="poll.status !== PollStatus.editing"
               matTooltip="Wyniki" 
               matTooltipClass="tooltip-adjust" 
               color="primary" 
               aria-label="Button to show results">
+              
 
         <mat-icon>poll</mat-icon>
       </button></a>

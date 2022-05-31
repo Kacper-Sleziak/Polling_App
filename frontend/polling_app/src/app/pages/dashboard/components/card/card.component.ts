@@ -9,6 +9,7 @@ import { CloseOpenedPollDialogComponent } from '../dialogs/close-opened-poll-dia
 import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 import { SendingPollsDialogComponent } from '../dialogs/sending-polls-dialog/sending-polls-dialog.component';
 import { QuestionType } from 'src/app/models/form-models/question';
+import { ResultsService } from 'src/app/services/results-services/results.service';
 
 @Component({
   selector: 'app-card',
@@ -22,7 +23,9 @@ export class CardComponent implements OnInit {
   PollStatus = Poll.Status;   // For the access to enum type from component's html
 
 
-  constructor(public dialog: MatDialog, private pollService: PollService) { }
+  constructor(public dialog: MatDialog, 
+              private pollService: PollService,
+              private resultsService: ResultsService) {}
 
   ngOnInit(): void {
   }
@@ -100,8 +103,7 @@ export class CardComponent implements OnInit {
 
   onSendButtonClick(): void{
     // Open sending polls dialog
-    const dialogRef = this.dialog.open(SendingPollsDialogComponent, {data: {pollSlug : this.poll.slug}, width: '900px', hasBackdrop: true});
+    const dialogRef = this.dialog.open(SendingPollsDialogComponent, {data: {poll : this.poll}, width: '900px', hasBackdrop: true});
   }
-
 
 }
