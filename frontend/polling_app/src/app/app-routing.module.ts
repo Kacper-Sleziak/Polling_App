@@ -6,6 +6,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginPanelComponent } from './pages/login-panel/login-panel.component';
 import { RegisterPanelComponent } from './pages/register-panel/register-panel.component';
 import { ResultsComponent } from './pages/results/results.component';
+import { GreetingsComponent } from './pages/polling-form/components/greetings/greetings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
