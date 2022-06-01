@@ -28,29 +28,33 @@ export class QuestionViewModelService {
   }
 
   loadPollQuestions(pollId: number) {
-    this.subject.next(this.questions);
+    // this.subject.next(this.questions);
     this.questionsService.getQuestions(pollId).subscribe((questions) => {
-      this.questions.push(...questions.sort((a, b) => a.position - b.position));
+
+      this.questions = [...questions.sort((a, b) => a.position - b.position)];
+      // Load possible answers and triggers
       this.loadQuestionsData(this.questions);
+      this.questionsViewModel = this.questions;
+
+      // Inform that data have been changed
+      this.subject.next(this.questionsViewModel);
     });
-    this.questionsViewModel = this.questionsViewModel.sort(
-      (a, b) => a.position - b.position
-    );
-    this.subject.next(this.questionsViewModel);
   }
 
   loadQuestionsData = (questions: Question[]) => {
     for (const question of questions) {
       this.loadAnswers(question);
-      this.loadTriggers(question);
+      // this.loadTriggers(question);
     }
   };
 
   loadAnswers = (question: Question) => {
+    // Get possible answers for question 
     this.answerService
       .getAnswers(question.id)
       .subscribe((answers) => (question.answers = answers));
   };
+
 
   loadTriggers = (question: Question) => {
     this.triggerService.getTriggers(question.id).subscribe((triggers) => {

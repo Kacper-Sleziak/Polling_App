@@ -16,7 +16,7 @@ export class AnswerService {
       .get(`${environment.apiUrl}/questions/option/question/${id}`)
       .pipe(
         map((result: any) => {
-          console.log('result', result);
+          console.log('Possible answers', result);
           const answers: Answer[] = [];
           for (let answer of result) {
             answers.push(new Answer(answer.id, answer.content));
