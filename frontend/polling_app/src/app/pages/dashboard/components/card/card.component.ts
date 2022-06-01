@@ -31,8 +31,6 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-
   onToggleChange(matSildeToggle : MatSlideToggle) : void {
 
     let dialogRef : MatDialogRef<any>;
@@ -98,6 +96,7 @@ export class CardComponent implements OnInit {
       if(result === true){
         this.pollService.deletePoll(this.poll.slug);
         this.onDeletePoll.emit(this.poll.id);
+        // this.uiPollsService.deletePoll(this.poll.id);
       }
     });
   }
@@ -110,41 +109,22 @@ export class CardComponent implements OnInit {
   onCopyButtonClick(): void{
 
     this.pollService.copyPoll(this.poll.slug).subscribe({
+      // If success
       next: (poll: any) =>{
-        // Current displaying polls
-        // let newPoll = new Poll(
-        //         poll.id,
-        //         poll.title,
-        //         poll.description,
-        //         poll.slug,
-        //         poll.start_date,
-        //         poll.end_date,
-        //         poll.create_date,
-        //         poll.filling,
-        //         poll.sent,
-        //         poll.status,
-        //         poll.author);
-
-                console.log(poll);
-
-        // let displayingPolls = this.uiPollsService.getDisplayingPolls();
-        // console.log(displayingPolls);
-        // // Append new one
-        // displayingPolls.push(
-        //       poll.id,
-        //       poll.title,
-        //       poll.description,
-        //       poll.slug,
-        //       poll.start_date,
-        //       poll.end_date,
-        //       poll.create_date,
-        //       poll.filling,
-        //       poll.sent,
-        //       poll.status,
-        //       poll.author
-        // );
-        // // Update displaying polls in Dashboard
-        // this.uiPollsService.setDisplayingPolls(displayingPolls);
+        // Update displaying polls in Dashboard
+        this.uiPollsService.addPoll(new Poll(
+                poll.id,
+                poll.title,
+                poll.description,
+                poll.slug,
+                poll.start_date,
+                poll.end_date,
+                poll.create_date,
+                poll.filling,
+                poll.sent,
+                poll.status,
+                poll.author)
+        );
       },
       error: (err) => {
         console.log(err);
