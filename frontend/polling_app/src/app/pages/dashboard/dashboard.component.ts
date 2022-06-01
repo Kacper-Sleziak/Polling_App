@@ -87,6 +87,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           .subscribe((polls) => {
             this.polls = polls;
             this.displayingPolls = polls;
+            this.uiPollsService.setDisplayingPolls(polls);
           });
         },
         // If error - no one is logged in  -> redirect to login

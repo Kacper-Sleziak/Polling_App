@@ -12,6 +12,7 @@ export class LoginPanelComponent implements OnInit {
 
   showPassword: boolean = false;
   buttonDisable: boolean = false;
+  buttonContent: string = "Zaloguj";
 
 
 
@@ -44,6 +45,8 @@ export class LoginPanelComponent implements OnInit {
     if(this.loginForm.valid){
       // Disable button until response retrive
       this.buttonDisable = true;
+      // Change content
+      this.buttonContent = "Logowanie..."
       // Send request
       this.accountService.postLogin(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
       .subscribe({
@@ -61,6 +64,7 @@ export class LoginPanelComponent implements OnInit {
             }
             // Enable button to login again
             this.buttonDisable = false;
+            this.buttonContent = "Zaloguj"
           }
         }
       )

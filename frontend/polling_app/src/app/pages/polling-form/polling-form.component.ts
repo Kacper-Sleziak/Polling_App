@@ -25,18 +25,29 @@ export class PollingFormComponent implements OnInit {
     private formResultService: FormResultService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+
+    // Init subscription
+    this.questionViewModelService
+        .onUpdate()
+        .subscribe((q: Question[]) => {
+          console.warn("Subscription");
+          this.questions = q
+        });
+  }
 
   ngOnInit(): void {
+    // Retrive slug from path
     const slug = this.route.snapshot.paramMap.get('slug');
+
     if (slug !== null) {
+      // Fetch poll date
       this.pollService.getPoll(slug).subscribe((poll: Poll) => {
-        this.poll = poll;
-        this.questionViewModelService.loadPollQuestions(poll.id);
-        this.questionViewModelService
-          .onUpdate()
-          .subscribe((q: Question[]) => (this.questions = q));
-      });
+          // Asign poll property
+          this.poll = poll;
+          // Retrive poll's questions
+          this.questionViewModelService.loadPollQuestions(poll.id);
+        });
     }
   }
 
@@ -65,6 +76,7 @@ export class PollingFormComponent implements OnInit {
       obs.push(this.formResultService.saveResult(result));
     }
     forkJoin(obs).subscribe((r) => {
+      
       // Update poll (increase filled number)
       this.poll.filled += 1;
         this.pollService.putPoll(this.poll).subscribe({

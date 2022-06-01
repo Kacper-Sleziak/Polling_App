@@ -19,7 +19,24 @@ export class UiPollsService {
   }
 
   getDisplayingPolls():  Poll[]{
-    return this.displayingPolls;
+    return [...this.displayingPolls];
+  }
+
+  addPoll(poll : Poll){
+    this.displayingPolls.unshift(poll);
+    this.subject.next(this.displayingPolls);
+  }
+
+  deletePoll(pollId: number){
+    
+    this.displayingPolls = this.displayingPolls.filter((poll) =>{
+      if(poll.id === pollId) return false;
+      else{
+        return true;
+      }
+    })
+    this.subject.next(this.displayingPolls);
+
   }
 
   onStatusFilterChange(): Observable<Poll[]> {
