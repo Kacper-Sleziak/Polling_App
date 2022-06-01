@@ -13,6 +13,7 @@ export class RegisterPanelComponent implements OnInit {
   
   errorMessage: string = '';
   buttonDisable: boolean = false;
+  buttonContent: string = "Rejestracja";
 
 
 
@@ -58,6 +59,8 @@ export class RegisterPanelComponent implements OnInit {
 
     // Disable button until response retrive
     this.buttonDisable = true;
+    // Change content
+    this.buttonContent = "Rejestracja..."
     
     // Send request
     this.accountService.postRegister( this.registerForm.controls['companyName'].value, 
@@ -98,6 +101,7 @@ export class RegisterPanelComponent implements OnInit {
           console.error(error);
           // Enable button to login again
           this.buttonDisable = false;
+          this.buttonContent = "Zarejestruj";
 
         }
       })
