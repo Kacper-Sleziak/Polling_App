@@ -104,6 +104,4 @@ class DuplicatePoll(generics.GenericAPIView):
         copied_poll.save()
         serializer = self.serializer_class(copied_poll)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # copied_poll.save()
-        # return HttpResponse(status=status.HTTP_201_CREATED)
         
