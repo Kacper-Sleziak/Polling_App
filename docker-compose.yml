@@ -23,10 +23,8 @@ services:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - backend/.env
     container_name: postgres-db
     networks:
       - djangonetwork
