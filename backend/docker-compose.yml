@@ -23,7 +23,7 @@ services:
     volumes:
       - ../data/db:/var/lib/postgresql/data
     env_file:
-      - backend/.env
+      - .env
     container_name: postgresql
     networks:
       - djangonetwork
