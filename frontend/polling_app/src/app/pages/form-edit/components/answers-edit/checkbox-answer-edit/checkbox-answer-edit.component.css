@@ -9,7 +9,7 @@
 }
 
 ::ng-deep mat-checkbox{
-    width: 60%;
+    width: 45%;
 }
 
 ::ng-deep .mat-checkbox-layout{
@@ -20,7 +20,9 @@
     width: 100%;
 }
 
-textarea{
-    margin-left: 1em;
-    width: 100%;
+::ng-deep .input{
+    margin-left: 7px;
+    text-decoration: none;
+    border: 0px;
 }
+

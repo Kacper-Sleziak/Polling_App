@@ -2,11 +2,18 @@
     <mat-card>
         <mat-card-content>
             <div class="question-edit-top-bar">
-                <textarea matInput placeholder="Wprowadź tytuł..."  maxlength="2000" cdkTextareaAutosize value="{{question.question}}" (change)="handleQuestionChange($event)">
+                <textarea matInput placeholder="Wprowadź tytuł..." 
+                 maxlength="2000" 
+                 cdkTextareaAutosize value="{{question.question}}" 
+                 (change)="handleQuestionChange($event)">
                 </textarea>
                 <div class="question-type-select">
-                    <mat-select value="question.type" value={{question.type}} (valueChange)="handleTypeSelectChange($event)">
-                        <mat-option *ngFor="let type of questionTypes | keyvalue" [value]="type.key">
+                    <mat-select 
+                    value="question.type" 
+                    value={{question.type}} 
+                    (valueChange)="handleTypeSelectChange($event)">
+                        <mat-option 
+                        *ngFor="let type of questionTypes | keyvalue" [value]="type.key">
                             {{type.value}}
                         </mat-option>
                     </mat-select>

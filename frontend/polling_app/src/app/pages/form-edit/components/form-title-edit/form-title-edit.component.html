@@ -1,12 +1,19 @@
 <div id = "form-title">
     <mat-card>
-        <mat-card-title>
-            <textarea matInput placeholder="Wprowadź tytuł..."  maxlength="2000" cdkTextareaAutosize value="{{title}}" (change)="handleTitleChange($event)">
-            </textarea>
-        </mat-card-title>
+
         <mat-card-content>
-            <textarea matInput placeholder="Wprowadź opis..." maxlength="2000" cdkTextareaAutosize value="{{description}}" (change)="handleDescriptionChange($event)">
-            </textarea>
-        </mat-card-content>  
+            <!-- Title -->
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Nazwa ankiety</mat-label>
+                <input maxlength="50" placeholder="Wprowadź tytuł..." value="{{title}}" (change)="handleTitleChange($event)" matInput>
+            </mat-form-field>
+
+            <!-- Description -->
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Opis</mat-label>
+                <textarea maxlength="2000"  style="resize: none;" type="text" rows="3" placeholder="Wprowadź opis..." value="{{description}}" (change)="handleDescriptionChange($event)" matInput></textarea>
+            </mat-form-field>
+        </mat-card-content>
+
     </mat-card>
 </div>

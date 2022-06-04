@@ -7,9 +7,12 @@
     <button mat-icon-button color="primary"><div class="material-icons" (click)="handleAnswerRemove(answer)">close</div></button>
 </div>
 <div class="checkbox-new-answer">
-    <mat-checkbox disabled="true">
-        <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">
-        </textarea>
-    </mat-checkbox>
+    <div>
+        <mat-checkbox disabled="true">
+        </mat-checkbox>
+    </div>
+    <div>
+        <input class="input" placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">
+    </div>
 </div>
 </div>
