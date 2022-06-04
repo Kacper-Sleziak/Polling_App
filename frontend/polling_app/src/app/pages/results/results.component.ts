@@ -19,6 +19,7 @@ export class ResultsComponent implements OnInit {
   pollResults!: PollResults;
   responeRatio: number = 0;
   QuestionType = QuestionType;   // For the access to enum type from component's html
+  loading: boolean = false;
 
   constructor(
               private route: ActivatedRoute,
@@ -29,6 +30,8 @@ export class ResultsComponent implements OnInit {
     
     // Gets poll's slug from path
     const slug = this.route.snapshot.paramMap.get('slug');    
+    // Loading 
+    this.loading = true;
 
     if(slug != null){
       // Fetch poll results
@@ -57,7 +60,7 @@ export class ResultsComponent implements OnInit {
               let answersStats: AnswerStats[] = [];
               let questionType: number = question.question_type;
 
-              // When it will be long or short text answer we should use another parsing
+              // Short/LongText parsing
               if(questionType === QuestionType.ShortText + 1 || questionType === QuestionType.LongText + 1){
 
                 // Iterate after array with answers
@@ -68,7 +71,7 @@ export class ResultsComponent implements OnInit {
                   }
                 )
               }
-              // When scale5 or scale10 also another parsing
+              // Scale5/Scale10 parsing
               else if(questionType === QuestionType.Scale5 + 1 || questionType === QuestionType.Scale10 + 1){
 
                 // Prepare table to count answers
@@ -95,18 +98,24 @@ export class ResultsComponent implements OnInit {
                 question.option.forEach(
                   (option: any) => {
                     
-                    // Connect option content with number of its occurrence
+                    // Init stats for each option
+                    let answerStats = new AnswerStats(option.content, 0);
+
+                    // Connect option name with number of its occurrence (only when bigger than 0)
                     question.option_count.some(
                       (optionCount: any) =>{
                         
                         if(optionCount.answerdetails__option_id === option.id){
-                          // Get number and add new answerStats
-                          answersStats.push(new AnswerStats(option.content, optionCount.count));
+                          // Update number of occurance
+                          answerStats.value = optionCount.count;
+                          // Break loop
                           return true;
                         }
                         return false;                   
                       }
-                    )                    
+                    )
+                    // Add answer stats
+                    answersStats.push(answerStats);                    
                   }
                 )
               }
@@ -116,11 +125,17 @@ export class ResultsComponent implements OnInit {
           )
           // Assign value to pollResults property 
           this.pollResults = new PollResults(poll, questionsStats);
+          console.log(this.pollResults);
+          
           // Calculate response ratio
           if(this.pollResults.poll.sent !== 0) this.responeRatio = (this.pollResults.poll.filled/this.pollResults.poll.sent)*100;
+          // Loading false
+          this.loading = false;
         },
         error: (err: any) => {
           console.log(err);
+          // Loading false
+          this.loading = false;
         }
       })
       

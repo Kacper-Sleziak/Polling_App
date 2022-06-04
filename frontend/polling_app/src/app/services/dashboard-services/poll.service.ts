@@ -19,7 +19,6 @@ export class PollService {
       .get<any[]>(`${environment.apiUrl}/polls/author/${author}`)
       .subscribe((result: any[]) => {
         if(result !== null){
-          
           result.forEach((jsonPoll: any) => {
             polls.push(
               new Poll(
@@ -46,7 +45,11 @@ export class PollService {
     // console.log(`${environment.apiUrl}/polls/${slug}/`));
     this.http
       .delete(`${environment.apiUrl}/polls/${slug}/`)
-      .subscribe((response) => {});
+      .subscribe({
+        error: (err) =>{
+          console.log(err);
+        }
+      });
   }
 
   statusChange(poll: Poll): void {
