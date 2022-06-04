@@ -34,21 +34,30 @@ export class FormEditComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private uiPollsService: UiPollsService
-  ) {}
+  ) {
 
-  ngOnInit(): void {
     this.accountService.getAuthorId().subscribe({
       // If success
       next: (id) => {
         this.author = id;
         const slug = this.route.snapshot.paramMap.get('slug');
+
         if (slug !== null) {
+          // Get basic information about poll
           this.pollService.getPoll(slug).subscribe((poll) => {
             this.poll = poll;
             this.title = poll.title;
             this.description = poll.description;
-            this.questionViewModelService.loadPollQuestions(poll.id);
-            this.questions = this.questionViewModelService.getAllQuestions();
+
+            // Load questions to service
+            this.questionViewModelService.loadPollQuestions(poll.id).subscribe({
+              next: (questions) =>{
+                this.questions = questions;
+              },
+              error: (err)  => {
+                console.log(err);
+              }
+            });
           });
         }
       },
@@ -57,6 +66,9 @@ export class FormEditComponent implements OnInit {
         this.router.navigate(['login']);
       },
     });
+  }
+
+  ngOnInit(): void {
   }
 
   copyQuestion = (question: Question) => {
@@ -123,6 +135,7 @@ export class FormEditComponent implements OnInit {
             });
         });
     });
+
     // Current displaying polls
     let displayingPolls = this.uiPollsService.getDisplayingPolls();
     // Append new one

@@ -13,7 +13,7 @@ export class AnswerService {
 
   getAnswers(id: number): Observable<Answer[]> {
     return this.http
-      .get(`${environment.apiUrl}/questions/option/question/${id}`)
+      .get(`${environment.apiUrl}/questions/option/question/${id}/`)
       .pipe(
         map((result: any) => {
           console.log('Possible answers', result);

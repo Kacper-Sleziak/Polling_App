@@ -16,7 +16,7 @@ export class PollService {
     let polls: Poll[] = [];
 
     this.http
-      .get<any[]>(`${environment.apiUrl}/polls/author/${author}`)
+      .get<any[]>(`${environment.apiUrl}/polls/author/${author}/`)
       .subscribe((result: any[]) => {
         if(result !== null){
           result.forEach((jsonPoll: any) => {
@@ -124,6 +124,6 @@ export class PollService {
   }
 
   copyPoll(slug: string): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/polls/duplicate/${slug}`);
+    return this.http.get<any>(`${environment.apiUrl}/polls/duplicate/${slug}/`);
   }
 }
