@@ -96,7 +96,7 @@ export class PollService {
   }
 
   getPoll(slug: string): Observable<Poll> {
-    return this.http.get(`${environment.apiUrl}/polls/${slug}`).pipe(
+    return this.http.get(`${environment.apiUrl}/polls/${slug}/`).pipe(
       map((result: any) => {
         return new Poll(
           result.id,

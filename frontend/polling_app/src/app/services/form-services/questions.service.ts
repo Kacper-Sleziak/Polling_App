@@ -19,7 +19,7 @@ export class QuestionsService {
 
   getQuestions(id: number): Observable<Question[]> {
     return this.http
-      .get(`${environment.apiUrl}/questions/question/poll/${id}`)
+      .get(`${environment.apiUrl}/questions/question/poll/${id}/`)
       .pipe(
         map((result: any) => {
           const questions: Question[] = [];
