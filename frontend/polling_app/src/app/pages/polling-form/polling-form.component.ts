@@ -45,8 +45,15 @@ export class PollingFormComponent implements OnInit {
       this.pollService.getPoll(slug).subscribe((poll: Poll) => {
           // Asign poll property
           this.poll = poll;
-          // Retrive poll's questions
-          this.questionViewModelService.loadPollQuestions(poll.id);
+          // Load questions to service
+          this.questionViewModelService.loadPollQuestions(poll.id).subscribe({
+            next: (questions) =>{              
+              this.questions = questions;
+            },
+            error: (err)  => {
+              console.log(err);
+            }
+          });
         });
     }
   }

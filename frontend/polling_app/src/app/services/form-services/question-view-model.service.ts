@@ -35,6 +35,7 @@ export class QuestionViewModelService {
           next: (questions) => {
             // Sort and assign questions
             this.questions = [...questions.sort((a, b) => a.position - b.position)];
+            this.loadQuestionsData(this.questions);
             this.questionsViewModel = this.questions;
             // Inform that data have been changed
             this.subject.next(this.questions);
