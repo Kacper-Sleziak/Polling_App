@@ -15,7 +15,7 @@
 </mat-toolbar>
 
 <!-- Toolbar when logged -->
-<mat-toolbar *ngIf='!(hasRoute("/login") || hasRoute("/register") || hasRoute("/form"))' id="mat-toolbar" color="primary">
+<mat-toolbar *ngIf='!(hasRoute("/login") || hasRoute("/register") || hasRoute("/form") || hasRoute("/greetings"))' id="mat-toolbar" color="primary">
 
     <!-- Logo with link-->
     <a class="logo-link" routerLink="/dashboard"><div id="logo"> @nkietka.pl </div></a>
@@ -29,9 +29,9 @@
 </mat-toolbar>
 
 <!-- Toolbar when filling out the poll / preview -->
-<mat-toolbar *ngIf="hasRoute('/form')"  id="mat-toolbar" color="primary">
+<mat-toolbar *ngIf="hasRoute('/form') || hasRoute('/greetings')"  id="mat-toolbar" color="primary">
 
     <!-- Logo with link to dashboard-->
-    <a class="logo-link" routerLink="/dashboard"><div id="logo">@nkietka.pl</div></a>
+    <div id="logo">@nkietka.pl</div>
 
 </mat-toolbar>
