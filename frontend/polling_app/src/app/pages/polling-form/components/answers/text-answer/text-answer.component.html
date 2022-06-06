@@ -1,6 +1,7 @@
 <div *ngFor="let answer of answers">
     <mat-form-field class="example-full-width" appearance="fill">
+        
         <mat-label>{{answer.answer}}</mat-label>
-        <textarea matInput placeholder="Wprowadź odpowiedź..." (change)="updateResult($event, answer)" maxlength="2000" cdkTextareaAutosize></textarea>
+        <textarea matInput style="resize: none;" placeholder="Wprowadź odpowiedź..." (change)="updateResult($event, answer)" rows="4" maxlength="2000"></textarea>
     </mat-form-field>
 </div>

@@ -1,17 +1,19 @@
 .question{
-    padding: 4px;
-    width: 45%;
-    margin-left:auto;
-    margin-right: auto;
+    margin-bottom: 1rem;
 }
+
+
 .mat-card{
-    border-left: 4px solid #3f51b5;
+    border-left: 4px solid #6279f9;
+    /* border-left: 4px solid rgba(72, 151, 220, 0.852); */
 }
+
 textarea{
     width: 44%;
     padding: 1em;
     margin: 1em;
     margin-left: 0;
+    margin-bottom: 0.25rem;
 }
 
 .question-edit-top-bar{

@@ -1,8 +1,13 @@
 <div id="form-content" *ngIf="poll">
-    <!-- Header -->
-    <app-form-title [form_title]="poll.title" [description]="poll.description"></app-form-title>
-    <!-- Questions -->
-    <app-question *ngFor="let question of questions" [question]="question" (onAnswer)="updateAnswer(question, $event)"></app-question>
-    <!-- Send button -->
-    <button mat-raised-button color="primary" (click)="handleSendAnswer()">Wyślij</button>
+
+    <div id="form-question-wrapper">
+        <!-- Header -->
+        <app-form-title [form_title]="poll.title" [description]="poll.description"></app-form-title>
+        <!-- Questions -->
+        <app-question *ngFor="let question of questions" [question]="question" (onAnswer)="updateAnswer(question, $event)"></app-question>
+        <!-- Send button -->
+        <div id="button-wrapper">
+            <button id="submit-form-button" mat-raised-button color="primary" (click)="handleSendAnswer()">Wyślij</button>
+        </div>
+    </div>
 </div>

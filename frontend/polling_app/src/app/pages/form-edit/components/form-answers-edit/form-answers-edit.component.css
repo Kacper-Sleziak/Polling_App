@@ -1,0 +1,14 @@
+
+.answers-edit{
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+
+::ng-deep .checkbox-new-answer {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+}

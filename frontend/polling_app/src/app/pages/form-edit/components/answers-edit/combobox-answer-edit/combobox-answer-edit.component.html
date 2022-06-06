@@ -5,7 +5,11 @@
         <button mat-icon-button color="primary"><div class="material-icons" (click)="handleAnswerRemove(answer)">close</div></button>
     </div>
     <div class="combobox-add-answer">
-        <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">
-        </textarea>
+        <mat-form-field floatLabel="never" [style.margin-left.px]=5 [style.width.%]=47 >
+            <mat-label>Wprowadź nową odpowiedź...</mat-label>
+            <input maxlength="2000" value="{{newAnswer}}" (change)="handleNewAnswerInput($event)" matInput>
+        </mat-form-field>
+        <!-- <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">
+        </textarea> -->
     </div>
 </div>

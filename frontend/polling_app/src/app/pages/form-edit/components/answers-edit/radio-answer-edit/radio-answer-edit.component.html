@@ -7,7 +7,11 @@
         <button mat-icon-button color="primary"><div class="material-icons" (click)="handleAnswerRemove(answer)">close</div></button>
     </div> 
     <mat-radio-button disabled="true">
-        <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">
-        </textarea>
+        <mat-form-field floatLabel="never" [style.width.%]=100 >
+            <mat-label>Wprowadź nową odpowiedź...</mat-label>
+            <input maxlength="2000" value="{{newAnswer}}" (change)="handleNewAnswerInput($event)" matInput>
+        </mat-form-field>
+        <!-- <textarea matInput placeholder="Wprowadź nową odpowiedź..."  maxlength="2000" cdkTextareaAutosize value="{{newAnswer}}" (change)="handleNewAnswerInput($event)">
+        </textarea> -->
     </mat-radio-button>
 </mat-radio-group>

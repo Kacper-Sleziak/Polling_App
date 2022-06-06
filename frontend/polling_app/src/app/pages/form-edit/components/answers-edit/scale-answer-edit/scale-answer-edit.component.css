@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;  
+    padding: 1rem 0;
 }
 .scale-label{
     margin: 0.4em;

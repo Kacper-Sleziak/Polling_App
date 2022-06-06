@@ -1,6 +1,12 @@
-<div id="form-edit-content">
-    <app-form-title-edit [(title)]="title" [(description)]="description"></app-form-title-edit>
-    <app-question-edit *ngFor="let question of questions" [question]="question" (onQuestionCopy)="copyQuestion($event)" (onQuestionRemove)="removeQuestion($event)" (onQuestionMove)="moveQuestion($event)" (onAnswerRemove)="removeAnswer($event)"></app-question-edit>
+<div id="content-container">
+
+    <!-- Cards -->
+    <div id="questions-cards-wrapper">
+        <app-form-title-edit [(title)]="title" [(description)]="description"></app-form-title-edit>
+        <app-question-edit *ngFor="let question of questions" [question]="question" (onQuestionCopy)="copyQuestion($event)" (onQuestionRemove)="removeQuestion($event)" (onQuestionMove)="moveQuestion($event)" (onAnswerRemove)="removeAnswer($event)"></app-question-edit>
+    </div>
+
+    <!-- Buttons -->
     <div class="buttons-container">
         <button mat-raised-button color="primary" (click)="navigateBack()">Wycofaj</button>
         <button mat-raised-button color="primary" (click)="addNewQuestion()">Dodaj</button>
