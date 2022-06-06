@@ -41,19 +41,13 @@ export class PollService {
     return of(polls);
   }
 
-  deletePoll(slug: string): void {
-    // console.log(`${environment.apiUrl}/polls/${slug}/`));
-    this.http
-      .delete(`${environment.apiUrl}/polls/${slug}/`)
-      .subscribe({
-        error: (err) =>{
-          console.log(err);
-        }
-      });
+  deletePoll(slug: string): Observable<any> {
+
+    return this.http.delete(`${environment.apiUrl}/polls/${slug}/`);
   }
 
-  statusChange(poll: Poll): void {
-    // Update status and dates
+  statusChange(poll: Poll): Observable<any> {
+    // Prepare poll with new status and dates
     let date = new Date().toJSON();
 
     if (poll.status === Poll.Status.open) {
@@ -66,7 +60,7 @@ export class PollService {
       poll.startDate = date;
       poll.endDate = null;
     }
-    this.putPoll(poll).subscribe();
+    return this.putPoll(poll);
   }
 
   putPoll(poll: Poll): Observable<Poll> {
