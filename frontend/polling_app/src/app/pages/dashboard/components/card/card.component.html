@@ -1,4 +1,5 @@
-<mat-card class="card mat-elevation-z3">
+<!-- <mat-card [style.border-bottom]="isMarked? '0.1875em solid lightgrey' : ''" class="card mat-elevation-z3"> -->
+<mat-card id="cardi" #card class="card mat-elevation-z3">
 
     <!-- Header -->
     <mat-card-header>
@@ -40,7 +41,7 @@
         <mat-divider></mat-divider>
 
         <!-- End date -->
-        <div id="endDate">
+        <div #div id="endDate">
           <!-- Note: showDots element is above - in startDate-->
             <span *ngIf="poll.status === PollStatus.close && poll.endDate !== null; else showDots">
               <span style="font-weight: 500;">Zamknięto :</span> {{convertDate(poll.endDate)}}
@@ -100,7 +101,7 @@
 
       <!-- Copy button -->
       <button mat-icon-button 
-              matTooltip="Skopiuj" 
+              matTooltip="Kopiuj" 
               matTooltipClass="tooltip-adjust" 
               color="primary" 
               (click)="onCopyButtonClick()"
