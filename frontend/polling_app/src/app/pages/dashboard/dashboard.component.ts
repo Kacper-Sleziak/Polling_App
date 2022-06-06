@@ -2,7 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import * as _ from "lodash";
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
 import { UiDashboardService } from 'src/app/services/dashboard-services/ui-dashboard.service';
 import { AccountService } from 'src/app/services/shared-services/account.service';
