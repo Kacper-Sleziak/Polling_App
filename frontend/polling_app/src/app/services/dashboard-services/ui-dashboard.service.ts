@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Poll } from 'src/app/models/dashboard-models/poll';
 import { AccountService } from '../shared-services/account.service';
 import { PollService } from './poll.service';
-import {cloneDeep} from 'lodash';
+
 
 @Injectable({
   providedIn: 'root'
