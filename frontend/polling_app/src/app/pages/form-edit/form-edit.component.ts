@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { defaultIfEmpty } from 'rxjs';
@@ -6,7 +6,7 @@ import { Poll } from 'src/app/models/dashboard-models/poll';
 import { Answer } from 'src/app/models/form-models/answer';
 import { Question, QuestionType } from 'src/app/models/form-models/question';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
-import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
+import { UiDashboardService } from 'src/app/services/dashboard-services/ui-dashboard.service';
 import { AnswerService } from 'src/app/services/form-services/answer.service';
 import { QuestionViewModelService } from 'src/app/services/form-services/question-view-model.service';
 import { QuestionsService } from 'src/app/services/form-services/questions.service';
@@ -25,6 +25,7 @@ export class FormEditComponent implements OnInit {
   title: string = 'Przykładowy tytuł';
   description: string = 'Przykładowy opis';
   poll?: Poll;
+  
   constructor(
     private pollService: PollService,
     private route: ActivatedRoute,
@@ -33,22 +34,31 @@ export class FormEditComponent implements OnInit {
     private answerService: AnswerService,
     private router: Router,
     private accountService: AccountService,
-    private uiPollsService: UiPollsService
-  ) {}
+    private uiDashboardService: UiDashboardService
+  ) {
 
-  ngOnInit(): void {
     this.accountService.getAuthorId().subscribe({
       // If success
       next: (id) => {
         this.author = id;
         const slug = this.route.snapshot.paramMap.get('slug');
+
         if (slug !== null) {
+          // Get basic information about poll
           this.pollService.getPoll(slug).subscribe((poll) => {
             this.poll = poll;
             this.title = poll.title;
             this.description = poll.description;
-            this.questionViewModelService.loadPollQuestions(poll.id);
-            this.questions = this.questionViewModelService.getAllQuestions();
+
+            // Load questions to service
+            this.questionViewModelService.loadPollQuestions(poll.id).subscribe({
+              next: (questions) =>{
+                this.questions = questions;
+              },
+              error: (err)  => {
+                console.log(err);
+              }
+            });
           });
         }
       },
@@ -57,6 +67,9 @@ export class FormEditComponent implements OnInit {
         this.router.navigate(['login']);
       },
     });
+  }
+
+  ngOnInit(): void {
   }
 
   copyQuestion = (question: Question) => {
@@ -123,13 +136,7 @@ export class FormEditComponent implements OnInit {
             });
         });
     });
-    // Current displaying polls
-    let displayingPolls = this.uiPollsService.getDisplayingPolls();
-    // Append new one
-    displayingPolls.unshift(this.poll);
-    // Update displaying polls in Dashboard
-    this.uiPollsService.setDisplayingPolls(displayingPolls)
-    // Navigate to dashboard after save
+    // Navigate dashboard
     this.router.navigate(['dashboard']);
   };
 

@@ -1,4 +1,4 @@
-import { Component, Output ,Input, OnInit, EventEmitter} from '@angular/core';
+import { Component, Output ,Input, OnInit, EventEmitter, ViewChild, AfterViewInit, Renderer2, ElementRef, TemplateRef} from '@angular/core';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { Poll } from 'src/app/models/dashboard-models/poll';
@@ -8,27 +8,40 @@ import { OpenEditingPollDialogComponent } from '../dialogs/open-editing-poll-dia
 import { CloseOpenedPollDialogComponent } from '../dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
 import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
 import { SendingPollsDialogComponent } from '../dialogs/sending-polls-dialog/sending-polls-dialog.component';
-import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
-import { Router } from '@angular/router';
+import { UiDashboardService } from 'src/app/services/dashboard-services/ui-dashboard.service';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, AfterViewInit {
 
   @Input() poll !: Poll;
-  @Output() onDeletePoll = new EventEmitter<number>();
+  @Input() isMarked: boolean = false;
+  @ViewChild('card', {read: ElementRef}) card!: ElementRef<HTMLElement>;
+
+
+  // @ViewChild('span') span!: ElementRef;
   PollStatus = Poll.Status;   // For the access to enum type from component's html
 
 
   constructor(public dialog: MatDialog, 
               private pollService: PollService,
-              private router: Router,
-              private uiPollsService: UiPollsService) {}
+              private renderer: Renderer2,
+              private uiDashboardService: UiDashboardService) {}
+              
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+
+    if(this.isMarked){     
+      // Print grey bottom border
+      this.renderer.setStyle(this.card.nativeElement, 'margin-bottom', '0.5625em'); 
+      this.renderer.setStyle(this.card.nativeElement, 'border-bottom', '0.1875em solid lightgrey'); 
+    }
+    
   }
 
   onToggleChange(matSildeToggle : MatSlideToggle) : void {
@@ -45,7 +58,11 @@ export class CardComponent implements OnInit {
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
-            this.pollService.statusChange(this.poll);
+            this.pollService.statusChange(this.poll).subscribe({
+              error: (err) =>{
+                console.log(err);
+              }
+            });
           }
         });
         break;
@@ -58,7 +75,11 @@ export class CardComponent implements OnInit {
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
-            this.pollService.statusChange(this.poll);
+            this.pollService.statusChange(this.poll).subscribe({
+              error: (err) =>{
+                console.log(err);
+              }
+            });
           }
         });
         break;
@@ -71,7 +92,11 @@ export class CardComponent implements OnInit {
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
-            this.pollService.statusChange(this.poll);
+            this.pollService.statusChange(this.poll).subscribe({
+              error: (err) =>{
+                console.log(err);
+              }
+            });
           }
         });
         break;
@@ -93,10 +118,19 @@ export class CardComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {data: {pollId : this.poll.id}});
 
     dialogRef.afterClosed().subscribe((result : boolean) => {
+
+      // If dialog result is true
       if(result === true){
-        this.pollService.deletePoll(this.poll.slug);
-        this.onDeletePoll.emit(this.poll.id);
-        // this.uiPollsService.deletePoll(this.poll.id);
+        this.pollService.deletePoll(this.poll.slug).subscribe({
+          // If success
+          next: () => {
+            this.uiDashboardService.deletePoll(this.poll);
+          },
+          error: (err) => {
+            console.log(err);
+            // TODO - snackbar
+          }
+        });
       }
     });
   }
@@ -112,7 +146,7 @@ export class CardComponent implements OnInit {
       // If success
       next: (poll: any) =>{
         // Update displaying polls in Dashboard
-        this.uiPollsService.addPoll(new Poll(
+        this.uiDashboardService.copyPoll(new Poll(
                 poll.id,
                 poll.title,
                 poll.description,

@@ -17,12 +17,22 @@
         </p>
         <!-- Progress bar -->
         <mat-progress-bar
-          class="example-margin"
-          [color]="'primary'"
-          [mode]="'determinate'"
-          [value]= "responeRatio"
-          >
-      </mat-progress-bar>
+            *ngIf="!loading"
+            color="primary"
+            mode="determinate"
+            [value]= "responeRatio"
+            >
+        </mat-progress-bar>
+        
+        <!-- When loading data -->
+        <mat-progress-bar 
+            *ngIf="loading"
+            mode="indeterminate"
+            color="primary"
+            >
+        </mat-progress-bar>
+
+
 
     </div>
 
@@ -108,7 +118,6 @@
     </div>
 </div>
 <button id="return-button" (click)="onReturnClick()" mat-raised-button>Powrót</button>
-<!-- <button id="return-button" mat-stroked-button color="primary">Powrót</button> -->
 
 
 

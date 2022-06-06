@@ -16,10 +16,9 @@ export class PollService {
     let polls: Poll[] = [];
 
     this.http
-      .get<any[]>(`${environment.apiUrl}/polls/author/${author}`)
+      .get<any[]>(`${environment.apiUrl}/polls/author/${author}/`)
       .subscribe((result: any[]) => {
         if(result !== null){
-          
           result.forEach((jsonPoll: any) => {
             polls.push(
               new Poll(
@@ -42,15 +41,13 @@ export class PollService {
     return of(polls);
   }
 
-  deletePoll(slug: string): void {
-    // console.log(`${environment.apiUrl}/polls/${slug}/`));
-    this.http
-      .delete(`${environment.apiUrl}/polls/${slug}/`)
-      .subscribe((response) => {});
+  deletePoll(slug: string): Observable<any> {
+
+    return this.http.delete(`${environment.apiUrl}/polls/${slug}/`);
   }
 
-  statusChange(poll: Poll): void {
-    // Update status and dates
+  statusChange(poll: Poll): Observable<any> {
+    // Prepare poll with new status and dates
     let date = new Date().toJSON();
 
     if (poll.status === Poll.Status.open) {
@@ -63,7 +60,7 @@ export class PollService {
       poll.startDate = date;
       poll.endDate = null;
     }
-    this.putPoll(poll).subscribe();
+    return this.putPoll(poll);
   }
 
   putPoll(poll: Poll): Observable<Poll> {
@@ -93,7 +90,7 @@ export class PollService {
   }
 
   getPoll(slug: string): Observable<Poll> {
-    return this.http.get(`${environment.apiUrl}/polls/${slug}`).pipe(
+    return this.http.get(`${environment.apiUrl}/polls/${slug}/`).pipe(
       map((result: any) => {
         return new Poll(
           result.id,
@@ -121,6 +118,6 @@ export class PollService {
   }
 
   copyPoll(slug: string): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/polls/duplicate/${slug}`);
+    return this.http.get<any>(`${environment.apiUrl}/polls/duplicate/${slug}/`);
   }
 }

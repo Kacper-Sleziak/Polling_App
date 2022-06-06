@@ -103,25 +103,25 @@
             </button>
 
             <!-- Results -->
-            <button *ngIf="row.status !== PollStatus.editing" mat-menu-item>
+            <a style="text-decoration: none;" routerLink="/answers/poll_answers_by_slug/{{row.slug}}"><button *ngIf="row.status !== PollStatus.editing" mat-menu-item>
               <mat-icon>poll</mat-icon>
               <span>Wyniki</span>
-            </button>
+            </button></a>
 
             <!-- Edit instead Results for editing poll-->
-            <a style="text-decoration: none;" routerLink ='form/edit/{{row.slug}}'><button *ngIf="row.status === PollStatus.editing" mat-menu-item>
+            <a style="text-decoration: none;" routerLink ='/form/edit/{{row.slug}}'><button *ngIf="row.status === PollStatus.editing" mat-menu-item>
               <mat-icon>edit</mat-icon>
               <span>Edytuj</span>
             </button></a>
 
             <!-- Preview -->
-            <a style="text-decoration: none;" routerLink ='form/{{row.slug}}'><button mat-menu-item>
+            <a style="text-decoration: none;" routerLink ='/form/{{row.slug}}'><button mat-menu-item>
               <mat-icon>pageview</mat-icon>
               <span>Podgląd</span>
             </button></a>
 
             <!-- Copy -->
-            <button mat-menu-item>
+            <button (click)="onCopyButtonClick(row)" mat-menu-item>
               <mat-icon>file_copy</mat-icon>
               <span>Kopiuj</span>
             </button>

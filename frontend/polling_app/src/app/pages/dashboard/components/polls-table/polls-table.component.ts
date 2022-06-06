@@ -4,10 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription } from 'rxjs';
 import { Poll } from 'src/app/models/dashboard-models/poll';
 import { PollService } from 'src/app/services/dashboard-services/poll.service';
-import { UiPollsService } from 'src/app/services/dashboard-services/ui-polls.service';
+import { UiDashboardService } from 'src/app/services/dashboard-services/ui-dashboard.service';
 import { CloseOpenedPollDialogComponent } from '../dialogs/close-opened-poll-dialog/close-opened-poll-dialog.component';
 import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
 import { OpenClosedPollDialogComponent } from '../dialogs/open-closed-poll-dialog/open-closed-poll-dialog.component';
@@ -19,45 +18,21 @@ import { SendingPollsDialogComponent } from '../dialogs/sending-polls-dialog/sen
   templateUrl: './polls-table.component.html',
   styleUrls: ['./polls-table.component.css']
 })
-export class PollsTableComponent implements OnInit, AfterViewInit{
 
-  @Input() displayingPolls: Poll[] = [];
-  @Output() onDeletePoll = new EventEmitter<number>();
+export class PollsTableComponent implements OnInit, AfterViewInit{
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  subscription: Subscription;
-  displayingData : MatTableDataSource<Poll>;   //Table expects this object to view data
+  @Input() displayingData = new MatTableDataSource<Poll>(); //Table expects this object to view data
   displayedColumns: string[] = ['id', 'title', 'startDate', 'endDate', 'filled', 'sent', 'status','toggle', 'more'];
-  PollStatus = Poll.Status;   // For the access to enum type from component's html
-  
+  PollStatus = Poll.Status; // For the access to enum type from component's html  
 
-  constructor(public dialog: MatDialog, private pollService: PollService, private uiPollsService : UiPollsService) { 
-    this.displayingData = new MatTableDataSource<Poll>();
-    // Subscribe the displayingPolls change caused by status filter
-    this.subscription = uiPollsService.onStatusFilterChange().subscribe( (displayingPolls: Poll[]) => { 
-      this.displayingPolls = displayingPolls;
-      this.displayingData.data = displayingPolls;
-    });
-  }
-  
-  onDeleteButtonClick(poll : Poll) : void {
-
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {data: {pollId : poll.id}});
-
-    dialogRef.afterClosed().subscribe((result : boolean) => {
-      if(result === true){
-        this.pollService.deletePoll(poll.slug);
-        this.onDeletePoll.emit(poll.id);
-      }
-    });
-
-  }
+  constructor(  public dialog: MatDialog, 
+                private pollService: PollService, 
+                private uiDashboardService : UiDashboardService) {}
 
   ngOnInit(): void {
-    // It have to by initiate in this block instead of constructor to properly show data in table
-    this.displayingData.data = this.displayingPolls;
-    // Modify the labels of paginator
+    // Modify labels of paginator
     this.paginator._intl.itemsPerPageLabel = "Liczba ankiet na stronę: ";
     this.paginator._intl.getRangeLabel = this.customGetRangeLabel;
     this.paginator._intl.previousPageLabel = 'Poprzednia strona';
@@ -68,6 +43,57 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
     // Add paginator and sort - works properly only in this block
     this.displayingData.paginator = this.paginator;
     this.displayingData.sort = this.sort;
+  }
+  
+
+  // -------------------------------------------------------- methods --------------------------------------------------------
+
+  onDeleteButtonClick(poll : Poll) : void {
+    // Open dialog
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {data: {pollId : poll.id}});
+
+    // Subscribe close
+    dialogRef.afterClosed().subscribe((result : boolean) => {
+      // If dialog result is true
+      if(result === true){
+        this.pollService.deletePoll(poll.slug).subscribe({
+          // If success
+          next: () =>{
+            this.uiDashboardService.deletePoll(poll);
+          },
+          error: (err) => {
+            console.log(err);
+            // TODO - snackbar
+          }
+        })
+      }
+    });
+  }
+
+  onCopyButtonClick(poll : Poll): void{
+
+    this.pollService.copyPoll(poll.slug).subscribe({
+      // If success
+      next: (poll: any) =>{
+        // Update displaying polls in Dashboard
+        this.uiDashboardService.copyPoll(new Poll(
+                poll.id,
+                poll.title,
+                poll.description,
+                poll.slug,
+                poll.start_date,
+                poll.end_date,
+                poll.create_date,
+                poll.filling,
+                poll.sent,
+                poll.status,
+                poll.author)
+        );
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
   // Handle the event emitted by slideButton 
@@ -85,7 +111,11 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
-            this.pollService.statusChange(poll);
+            this.pollService.statusChange(poll).subscribe({
+              error: (err) =>{
+                console.log(err);
+              }
+            });
           }
         });
         break;
@@ -98,7 +128,11 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
-            this.pollService.statusChange(poll);
+            this.pollService.statusChange(poll).subscribe({
+              error: (err) =>{
+                console.log(err);
+              }
+            });
           }
         });
         break;
@@ -111,7 +145,11 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
         dialogRef.afterClosed().subscribe((result : boolean) => {
           if(result === true){
             // Note: The slideToggle will change position when update poll data
-            this.pollService.statusChange(poll);
+            this.pollService.statusChange(poll).subscribe({
+              error: (err) =>{
+                console.log(err);
+              }
+            });
           }
         });
         break;
@@ -148,6 +186,6 @@ export class PollsTableComponent implements OnInit, AfterViewInit{
   onSendButtonClick(slug: string): void{
     // Open sending polls dialog
     const dialogRef = this.dialog.open(SendingPollsDialogComponent, {data: {pollSlug : slug}, width: '900px', hasBackdrop: true});
-    
   }
+
 }

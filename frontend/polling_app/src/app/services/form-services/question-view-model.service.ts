@@ -27,18 +27,28 @@ export class QuestionViewModelService {
     return this.subject.asObservable();
   }
 
-  loadPollQuestions(pollId: number) {
-    // this.subject.next(this.questions);
-    this.questionsService.getQuestions(pollId).subscribe((questions) => {
+  loadPollQuestions(pollId: number): Observable<Question[]> {
 
-      this.questions = [...questions.sort((a, b) => a.position - b.position)];
-      // Load possible answers and triggers
-      this.loadQuestionsData(this.questions);
-      this.questionsViewModel = this.questions;
-
-      // Inform that data have been changed
-      this.subject.next(this.questionsViewModel);
-    });
+      return new Observable<Question[]>( subscriber => {
+        this.questionsService.getQuestions(pollId).subscribe({
+          // If success
+          next: (questions) => {
+            // Sort and assign questions
+            this.questions = [...questions.sort((a, b) => a.position - b.position)];
+            this.loadQuestionsData(this.questions);
+            this.questionsViewModel = this.questions;
+            // Inform that data have been changed
+            this.subject.next(this.questions);
+            // Notify that data are ready
+            subscriber.next(this.questions);
+          },
+          // If error
+          error: (err) => {
+            // Transfer errors
+            subscriber.error(err);
+          }
+        })
+      });
   }
 
   loadQuestionsData = (questions: Question[]) => {
@@ -166,6 +176,6 @@ export class QuestionViewModelService {
   };
 
   getAllQuestions = () => {
-    return this.questions.sort((a, b) => a.position - b.position);
+    return this.questions;
   };
 }

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UiPollsService } from './ui-polls.service';
+import { UiDashboardService } from './ui-dashboard.service';
 
-describe('UiPollsService', () => {
-  let service: UiPollsService;
+describe('UiDashboardService', () => {
+  let service: UiDashboardService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UiPollsService);
+    service = TestBed.inject(UiDashboardService);
   });
 
   it('should be created', () => {
