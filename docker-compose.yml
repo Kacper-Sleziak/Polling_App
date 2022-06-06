@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: ./backend
-    image: polling-app-backend
+    image: pastos/pollingapp-backend
     command: /bin/sh /django/start-backend.sh
     ports:
       - 8000:8000
@@ -23,10 +23,8 @@ services:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - backend/.env
     container_name: postgres-db
     networks:
       - djangonetwork
@@ -34,7 +32,7 @@ services:
   frontend:
     build:
       context: ./frontend/polling_app
-    image: polling-app-frontend
+    image: pastos/pollingapp-frontend
     volumes:
         - ./frontend/polling_app/:/usr/local/app
         - /usr/local/app/.angular2

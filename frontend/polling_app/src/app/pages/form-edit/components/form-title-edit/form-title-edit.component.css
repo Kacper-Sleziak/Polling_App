@@ -1,5 +1,16 @@
 #form-title{
     margin-bottom: 20px;
+    width: 55%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+::ng-deep .checkbox-new-answer {
+    height: 70px;
+    display: flex ;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .mat-card{
@@ -9,3 +20,11 @@
 ::ng-deep #title-card{
     padding: 1.34375em 0.5em 0em 0.5em !important;
 }
+
+::ng-deep textarea{
+    width: auto;
+    height: 20px;
+    font-size: large;
+    padding: 1em;
+}
+
