@@ -3,17 +3,9 @@
 }
 
 .mat-card{
-    background-color: #3f51b5;
-    color: white;
+    border-left: 4px solid #3f51b5;
 }
 
-mat-card-title textarea{
-    width: 60%;
-    font-size: large;
-}
-
-textarea{
-    width: 80%;
-    font-size: large;
-    padding: 1em;
+::ng-deep #title-card{
+    padding: 1.34375em 0.5em 0em 0.5em !important;
 }
