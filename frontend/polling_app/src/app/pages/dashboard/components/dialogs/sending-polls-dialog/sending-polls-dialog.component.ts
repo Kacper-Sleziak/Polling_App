@@ -99,7 +99,17 @@ export class SendingPollsDialogComponent implements OnInit {
     else{
       emailMessage = new EmailMessage(subject, message, this.data.poll.slug, this.emails);
     }
-    
+
+
+    // To delete when sending will work 
+    this.data.poll.sent += this.emails.length;
+    this.pollService.putPoll(this.data.poll).subscribe({
+      error: (err) =>{
+        console.log(err);
+      }
+    }
+    );
+
     this.mailService.postMail(emailMessage).subscribe({
       // If success
       next: () => {

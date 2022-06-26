@@ -86,6 +86,7 @@ export class PollingFormComponent implements OnInit {
       
       // Update poll (increase filled number)
       this.poll.filled += 1;
+      this.poll.sent += 1;
         this.pollService.putPoll(this.poll).subscribe({
           error: (err) =>{
             console.log(err);
