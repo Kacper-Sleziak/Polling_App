@@ -30,9 +30,48 @@
   bottom: 50vh;
 }
 
-@media only screen and (max-width: 600px) {
-  #form-edit-content {
-    padding-left: 1vw;
-    margin: 2em;
+@media only screen and (max-width: 992px) {
+  #questions-cards-wrapper{
+    width: 80%;
+    padding-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #content-container{
+    padding: 20px;
+  }
+
+  .buttons-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: fixed;
+    right: 0;
+    bottom: 72px;
+    padding: 6px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #questions-cards-wrapper{
+    width: 100%;
+    padding-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #content-container{
+    padding: 20px;
+  }
+
+  .buttons-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: fixed;
+    right: 0;
+    bottom: 72px;
+    padding: 6px;
+    width: 100%;
   }
 }
